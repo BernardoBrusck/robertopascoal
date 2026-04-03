@@ -420,10 +420,10 @@ const HorizontalScrollSection = () => {
   return (
     <section ref={sectionRef} className="relative h-screen overflow-hidden bg-background">
       {/* Timeline progress line */}
-      <div className="absolute bottom-16 left-0 right-0 h-px bg-border z-20">
+      <div className="absolute bottom-8 left-0 right-0 h-px z-20" style={{ background: 'hsl(var(--foreground) / 0.12)' }}>
         <div
-          className="timeline-progress absolute inset-0 bg-foreground origin-left"
-          style={{ transformOrigin: 'left center' }}
+          className="timeline-progress absolute inset-0 origin-left"
+          style={{ transformOrigin: 'left center', background: 'hsl(var(--foreground) / 0.2)' }}
         />
       </div>
 
@@ -443,7 +443,7 @@ const HorizontalScrollSection = () => {
 
               {/* Timeline dot */}
               <div
-                className="absolute bottom-14 z-30"
+                className="absolute bottom-6 z-30"
                 style={{ left: '50%', transform: 'translateX(-50%)' }}
               >
                 <div className="w-3 h-3 rounded-full bg-foreground" />

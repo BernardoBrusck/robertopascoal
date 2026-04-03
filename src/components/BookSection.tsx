@@ -23,23 +23,26 @@ const BookSection = () => {
 
       if (!coverEl || !textEl) return;
 
-      // Simple reveal — no pin to avoid conflicts with ZoomParallax sticky
+      // Reveal animation — no pin to avoid conflicts with ZoomParallax sticky
+      gsap.set(coverEl, { opacity: 0, x: isMobile ? 0 : '-60%', y: isMobile ? 50 : 0 });
+      gsap.set(textEl, { opacity: 0, x: isMobile ? 0 : '60%', y: isMobile ? 50 : 0 });
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          start: 'top 75%',
-          end: 'top 20%',
-          scrub: 0.6,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
         },
       });
 
-      if (isMobile) {
-        tl.from(coverEl, { y: 60, opacity: 0, duration: 1, ease: 'power2.out' }, 0);
-        tl.from(textEl, { y: 60, opacity: 0, duration: 1, ease: 'power2.out' }, 0.15);
-      } else {
-        tl.from(coverEl, { x: '-80%', opacity: 0, duration: 1, ease: 'power2.out' }, 0);
-        tl.from(textEl, { x: '80%', opacity: 0, duration: 1, ease: 'power2.out' }, 0);
-      }
+      tl.to(coverEl, {
+        x: 0, y: 0, opacity: 1,
+        duration: 1.2, ease: 'power3.out',
+      }, 0);
+      tl.to(textEl, {
+        x: 0, y: 0, opacity: 1,
+        duration: 1.2, ease: 'power3.out',
+      }, 0.15);
     };
 
     const timeout = setTimeout(() => clearInterval(waitForGsap), 15000);

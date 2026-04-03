@@ -3,29 +3,46 @@ import { cn } from '@/lib/utils';
 import { useInView } from 'framer-motion';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
+const galleryImages = [
+  // Column 1
+  { col: 0, ratio: 9 / 16, id: 'photo-1488521787991-ed7bbaae773c' },
+  { col: 0, ratio: 16 / 9, id: 'photo-1497375638960-ca368c7231e4' },
+  { col: 0, ratio: 9 / 16, id: 'photo-1509099836639-18ba1795216d' },
+  { col: 0, ratio: 16 / 9, id: 'photo-1524069290683-0457abfe42c3' },
+  { col: 0, ratio: 9 / 16, id: 'photo-1503676260728-1c00da094a0b' },
+  // Column 2
+  { col: 1, ratio: 16 / 9, id: 'photo-1544717305-2782549b5136' },
+  { col: 1, ratio: 9 / 16, id: 'photo-1491841550275-ad7854e35ca6' },
+  { col: 1, ratio: 16 / 9, id: 'photo-1523050854058-8df90110c9f1' },
+  { col: 1, ratio: 9 / 16, id: 'photo-1516627145497-ae6968895b74' },
+  { col: 1, ratio: 16 / 9, id: 'photo-1532629345422-7515f3d16bb6' },
+  // Column 3
+  { col: 2, ratio: 9 / 16, id: 'photo-1509062522246-3755977927d7' },
+  { col: 2, ratio: 16 / 9, id: 'photo-1427504494785-3a9ca7044f45' },
+  { col: 2, ratio: 9 / 16, id: 'photo-1522202176988-66273c2fd55f' },
+  { col: 2, ratio: 16 / 9, id: 'photo-1577896851231-70ef18881571' },
+  { col: 2, ratio: 9 / 16, id: 'photo-1471286174890-9c112ffca5b4' },
+];
+
 export function ImageGallery() {
+  const columns = [0, 1, 2].map((col) =>
+    galleryImages.filter((img) => img.col === col)
+  );
+
   return (
     <section className="w-full bg-background py-20">
       <div className="mx-auto max-w-[1400px] px-4">
-        <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
-          {Array.from({ length: 3 }).map((_, col) => (
-            <div key={col} className="break-inside-avoid space-y-4 mb-4">
-              {Array.from({ length: 10 }).map((_, index) => {
-                const isPortrait = (col + index) % 2 === 0;
-                const width = isPortrait ? 1080 : 1920;
-                const height = isPortrait ? 1920 : 1080;
-                const ratio = isPortrait ? 9 / 16 : 16 / 9;
-
-                return (
-                  <AnimatedImage
-                    key={`${col}-${index}`}
-                    alt={`Gallery image ${col * 10 + index + 1}`}
-                    src={`https://images.unsplash.com/photo-${1500000000000 + col * 100 + index}?w=${width}&h=${height}&fit=crop&auto=format&q=75`}
-                    placeholder={`https://images.unsplash.com/photo-${1500000000000 + col * 100 + index}?w=20&h=20&fit=crop&auto=format&q=10`}
-                    ratio={ratio}
-                  />
-                );
-              })}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {columns.map((colImages, colIdx) => (
+            <div key={colIdx} className="flex flex-col gap-4">
+              {colImages.map((img, index) => (
+                <AnimatedImage
+                  key={`${colIdx}-${index}`}
+                  alt={`Gallery image ${colIdx * 5 + index + 1}`}
+                  src={`https://images.unsplash.com/${img.id}?w=800&auto=format&q=75&fit=crop`}
+                  ratio={img.ratio}
+                />
+              ))}
             </div>
           ))}
         </div>
@@ -37,38 +54,39 @@ export function ImageGallery() {
 interface AnimatedImageProps {
   alt: string;
   src: string;
-  className?: string;
-  placeholder?: string;
   ratio: number;
 }
 
-function AnimatedImage({ alt, src, ratio, placeholder }: AnimatedImageProps) {
+function AnimatedImage({ alt, src, ratio }: AnimatedImageProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: true, margin: '0px 0px -100px 0px' });
   const [isLoading, setIsLoading] = useState(true);
-  const [imgSrc, setImgSrc] = useState(src);
-
-  const handleError = () => {
-    if (placeholder) {
-      setImgSrc(placeholder);
-    }
-  };
+  const [hasError, setHasError] = useState(false);
 
   return (
-    <div ref={ref} className="mb-4 overflow-hidden rounded-sm">
+    <div ref={ref} className="overflow-hidden rounded-sm">
       <AspectRatio ratio={ratio}>
-        <img
-          src={isInView ? imgSrc : undefined}
-          alt={alt}
-          className={cn(
-            'h-full w-full object-cover transition-all duration-700',
-            isInView ? 'scale-100 opacity-100 blur-0' : 'scale-110 opacity-0 blur-md',
-            isLoading && 'scale-110 opacity-0 blur-md'
-          )}
-          onLoad={() => setIsLoading(false)}
-          loading="lazy"
-          onError={handleError}
-        />
+        {hasError ? (
+          <div className="h-full w-full flex items-center justify-center" style={{ backgroundColor: '#f0eeeb' }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-muted-foreground/30">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+            </svg>
+          </div>
+        ) : (
+          <img
+            src={isInView ? src : undefined}
+            alt={alt}
+            className={cn(
+              'h-full w-full object-cover transition-all duration-700',
+              isInView && !isLoading ? 'scale-100 opacity-100 blur-0' : 'scale-110 opacity-0 blur-md'
+            )}
+            onLoad={() => setIsLoading(false)}
+            onError={() => setHasError(true)}
+            loading="lazy"
+          />
+        )}
       </AspectRatio>
     </div>
   );

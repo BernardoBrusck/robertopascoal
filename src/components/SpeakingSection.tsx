@@ -1,4 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
 
 declare const gsap: any;
 
@@ -19,6 +27,8 @@ const quoteAuthor = 'Nelson Mandela';
 
 const SpeakingSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const [open, setOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const waitForGsap = setInterval(() => {
@@ -31,84 +41,20 @@ const SpeakingSection = () => {
     const initAnimation = () => {
       if (!sectionRef.current) return;
       const section = sectionRef.current;
+      const elements = section.querySelectorAll('.speak-reveal');
 
-      // Counter animation
-      const counterEls = section.querySelectorAll('.stat-number');
-      counterEls.forEach((el: Element) => {
-        const target = parseInt(el.getAttribute('data-target') || '0', 10);
-        const prefix = el.getAttribute('data-prefix') || '';
-        const obj = { val: 0 };
-
-        gsap.to(obj, {
-          val: target,
-          duration: 2,
-          ease: 'power2.out',
-          snap: { val: 1 },
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-          onUpdate: () => {
-            (el as HTMLElement).textContent =
-              prefix + Math.floor(obj.val).toLocaleString('pt-BR');
-          },
-        });
-      });
-
-      // Quote word-by-word reveal
-      const quoteEl = section.querySelector('.quote-text');
-      if (quoteEl) {
-        const text = quoteEl.textContent || '';
-        quoteEl.innerHTML = text
-          .split(' ')
-          .map((w: string) => `<span class="quote-word" style="color: hsl(220, 10%, 85%)">${w}</span>`)
-          .join(' ');
-
-        const words = quoteEl.querySelectorAll('.quote-word');
-        gsap.to(words, {
-          color: 'hsl(var(--foreground))',
-          stagger: 0.06,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: quoteEl,
-            start: 'top 80%',
-            end: 'bottom 50%',
-            scrub: 1,
-          },
-        });
-      }
-
-      // Theme items stagger
-      const themeItems = section.querySelectorAll('.theme-item');
-      gsap.from(themeItems, {
-        y: 30,
+      gsap.from(elements, {
+        y: 40,
         opacity: 0,
         stagger: 0.15,
-        duration: 0.7,
-        ease: 'power2.out',
+        duration: 1,
+        ease: 'power3.out',
         scrollTrigger: {
-          trigger: section.querySelector('.themes-list'),
-          start: 'top 80%',
+          trigger: section,
+          start: 'top 75%',
           toggleActions: 'play none none none',
         },
       });
-
-      // CTA fade
-      const cta = section.querySelector('.speaking-cta');
-      if (cta) {
-        gsap.from(cta, {
-          y: 20,
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: cta,
-            start: 'top 90%',
-            toggleActions: 'play none none none',
-          },
-        });
-      }
     };
 
     const timeout = setTimeout(() => clearInterval(waitForGsap), 15000);
@@ -118,109 +64,204 @@ const SpeakingSection = () => {
     };
   }, []);
 
-  return (
-    <section
-      ref={sectionRef}
-      className="relative w-full py-28 md:py-40 px-6 md:px-16 lg:px-24 bg-background"
-    >
-      <div className="max-w-6xl mx-auto">
-        {/* Label */}
-        <span className="block text-xs uppercase tracking-[0.3em] mb-16 text-muted-foreground">
-          Palestras
-        </span>
+  // Counter animation inside modal
+  useEffect(() => {
+    if (!open) return;
 
-        {/* Stats */}
-        <div className="flex flex-col sm:flex-row gap-12 sm:gap-24 mb-20">
-          {stats.map((stat, i) => (
-            <div key={i} className="flex flex-col gap-2">
-              <span
-                className="stat-number font-light text-foreground"
-                data-target={stat.value}
-                data-prefix={stat.prefix}
+    const timer = setTimeout(() => {
+      if (typeof gsap === 'undefined') return;
+      const counterEls = document.querySelectorAll('.modal-stat-number');
+      counterEls.forEach((el: Element) => {
+        const target = parseInt(el.getAttribute('data-target') || '0', 10);
+        const prefix = el.getAttribute('data-prefix') || '';
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: target,
+          duration: 2,
+          ease: 'power2.out',
+          snap: { val: 1 },
+          onUpdate: () => {
+            (el as HTMLElement).textContent =
+              prefix + Math.floor(obj.val).toLocaleString('pt-BR');
+          },
+        });
+      });
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [open]);
+
+  return (
+    <>
+      {/* Banner outdoor */}
+      <section
+        ref={sectionRef}
+        className="relative w-full flex items-center justify-center overflow-hidden"
+        style={{ minHeight: '80vh' }}
+      >
+        {/* Background placeholder */}
+        <div className="absolute inset-0 bg-muted flex items-center justify-center">
+          <span className="text-muted-foreground text-xs uppercase tracking-[0.3em] select-none">
+            Foto palestrando
+          </span>
+        </div>
+
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-black/30" />
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center text-center px-6 gap-8">
+          <span className="speak-reveal text-xs uppercase tracking-[0.3em] text-white/70">
+            Roberto Pascoal
+          </span>
+
+          <h2
+            className="speak-reveal h-panel-title text-white"
+            style={{ margin: 0 }}
+          >
+            Palestras que
+            <br />
+            transformam
+          </h2>
+
+          <button
+            onClick={() => setOpen(true)}
+            className="speak-reveal inline-flex items-center justify-center px-10 py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium border border-white text-white bg-transparent transition-all duration-300 hover:bg-white hover:text-black cursor-pointer"
+          >
+            Saiba mais
+          </button>
+        </div>
+      </section>
+
+      {/* Modal */}
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent
+          className={`${
+            isMobile
+              ? 'w-full h-full max-w-full max-h-full rounded-none'
+              : 'max-w-4xl max-h-[90vh]'
+          } overflow-y-auto bg-background p-0 gap-0`}
+        >
+          <div className="p-8 md:p-12 flex flex-col gap-12">
+            <DialogHeader>
+              <DialogTitle className="h-panel-title text-foreground" style={{ margin: 0 }}>
+                Palestras
+              </DialogTitle>
+              <DialogDescription className="sr-only">
+                Informações sobre palestras de Roberto Pascoal
+              </DialogDescription>
+            </DialogHeader>
+
+            {/* Stats */}
+            <div className="flex flex-col sm:flex-row gap-10 sm:gap-20">
+              {stats.map((stat, i) => (
+                <div key={i} className="flex flex-col gap-1">
+                  <span
+                    className="modal-stat-number font-bold text-foreground"
+                    data-target={stat.value}
+                    data-prefix={stat.prefix}
+                    style={{
+                      fontSize: 'clamp(40px, 7vw, 80px)',
+                      letterSpacing: '-0.05em',
+                      lineHeight: 1,
+                    }}
+                  >
+                    0
+                  </span>
+                  <span className="text-sm text-muted-foreground tracking-wide">
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="w-full h-px bg-border" />
+
+            {/* Gallery placeholders */}
+            <div>
+              <span className="block text-xs uppercase tracking-[0.3em] mb-6 text-muted-foreground">
+                Galeria
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Video placeholder */}
+                <div className="aspect-video bg-muted rounded-sm flex items-center justify-center text-muted-foreground text-xs uppercase tracking-[0.2em]">
+                  Vídeo da palestra
+                </div>
+                <div className="aspect-video bg-muted rounded-sm flex items-center justify-center text-muted-foreground text-xs uppercase tracking-[0.2em]">
+                  Vídeo da palestra
+                </div>
+                {/* Photo placeholders */}
+                <div className="aspect-video bg-muted rounded-sm flex items-center justify-center text-muted-foreground text-xs uppercase tracking-[0.2em]">
+                  Foto do evento
+                </div>
+                <div className="aspect-video bg-muted rounded-sm flex items-center justify-center text-muted-foreground text-xs uppercase tracking-[0.2em]">
+                  Foto do evento
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full h-px bg-border" />
+
+            {/* Quote */}
+            <div>
+              <p
+                className="font-light italic text-foreground max-w-3xl"
                 style={{
-                  fontSize: 'clamp(48px, 8vw, 120px)',
-                  letterSpacing: '-0.05em',
-                  lineHeight: 1,
+                  fontSize: 'clamp(20px, 3vw, 36px)',
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.3,
                 }}
               >
-                0
-              </span>
-              <span className="text-sm md:text-base font-light text-muted-foreground tracking-wide">
-                {stat.label}
+                {quote}
+              </p>
+              <span className="block mt-3 text-sm text-muted-foreground tracking-wide">
+                — {quoteAuthor}
               </span>
             </div>
-          ))}
-        </div>
 
-        {/* Separator */}
-        <div className="w-full h-px bg-border mb-16" />
+            <div className="w-full h-px bg-border" />
 
-        {/* Quote */}
-        <div className="mb-16">
-          <p
-            className="quote-text font-light italic text-foreground max-w-4xl"
-            style={{
-              fontSize: 'clamp(24px, 3.5vw, 48px)',
-              letterSpacing: '-0.03em',
-              lineHeight: 1.3,
-            }}
-          >
-            {quote}
-          </p>
-          <span className="block mt-4 text-sm text-muted-foreground tracking-wide">
-            — {quoteAuthor}
-          </span>
-        </div>
-
-        {/* Separator */}
-        <div className="w-full h-px bg-border mb-16" />
-
-        {/* Themes */}
-        <div className="themes-list mb-20">
-          <span className="block text-xs uppercase tracking-[0.3em] mb-10 text-muted-foreground">
-            Temas
-          </span>
-          <div className="flex flex-col gap-6">
-            {themes.map((theme, i) => (
-              <div
-                key={i}
-                className="theme-item flex items-baseline gap-6 py-4 border-b border-border last:border-b-0"
-              >
-                <span
-                  className="text-muted-foreground font-light"
-                  style={{
-                    fontSize: 'clamp(14px, 1.5vw, 20px)',
-                    letterSpacing: '-0.02em',
-                    minWidth: '2.5rem',
-                  }}
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span
-                  className="font-light text-foreground"
-                  style={{
-                    fontSize: 'clamp(18px, 2vw, 28px)',
-                    letterSpacing: '-0.02em',
-                  }}
-                >
-                  {theme}
-                </span>
+            {/* Themes */}
+            <div>
+              <span className="block text-xs uppercase tracking-[0.3em] mb-8 text-muted-foreground">
+                Temas
+              </span>
+              <div className="flex flex-col gap-4">
+                {themes.map((theme, i) => (
+                  <div
+                    key={i}
+                    className="flex items-baseline gap-5 py-3 border-b border-border last:border-b-0"
+                  >
+                    <span className="text-muted-foreground font-light text-sm min-w-[2rem]">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span
+                      className="font-medium text-foreground"
+                      style={{
+                        fontSize: 'clamp(16px, 1.8vw, 24px)',
+                        letterSpacing: '-0.02em',
+                      }}
+                    >
+                      {theme}
+                    </span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
 
-        {/* CTA */}
-        <div className="speaking-cta text-center">
-          <a
-            href="#"
-            className="inline-flex items-center justify-center px-10 py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium border border-foreground text-foreground bg-transparent transition-all duration-300 hover:bg-foreground hover:text-background"
-          >
-            Contratar palestra
-          </a>
-        </div>
-      </div>
-    </section>
+            {/* CTA */}
+            <div className="text-center pt-4 pb-4">
+              <a
+                href="#"
+                className="inline-flex items-center justify-center px-10 py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium bg-foreground text-background transition-all duration-300 hover:opacity-80"
+              >
+                Contratar palestra
+              </a>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 

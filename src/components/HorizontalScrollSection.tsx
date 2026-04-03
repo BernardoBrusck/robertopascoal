@@ -28,11 +28,64 @@ const PhotoPlaceholder = ({
   </div>
 );
 
+/* ─── Floating icon component ─── */
+const FloatingIcon = ({
+  emoji,
+  className = '',
+  style = {},
+}: {
+  emoji: string;
+  className?: string;
+  style?: React.CSSProperties;
+}) => (
+  <span
+    className={`absolute text-2xl lg:text-3xl opacity-[0.12] select-none pointer-events-none anim-float ${className}`}
+    style={style}
+  >
+    {emoji}
+  </span>
+);
+
+/* ─── Icons per phase ─── */
+const infanciaIcons = [
+  { emoji: '✈️', style: { top: '12%', right: '18%' } },
+  { emoji: '🧸', style: { top: '25%', right: '8%' } },
+  { emoji: '⚽', style: { bottom: '30%', right: '22%' } },
+  { emoji: '🪁', style: { top: '18%', right: '32%' } },
+  { emoji: '🎨', style: { bottom: '35%', right: '12%' } },
+];
+
+const formacaoIcons = [
+  { emoji: '📖', style: { top: '10%', left: '8%' } },
+  { emoji: '🎭', style: { top: '15%', right: '8%' } },
+  { emoji: '✏️', style: { bottom: '28%', left: '5%' } },
+  { emoji: '🎓', style: { top: '22%', left: '20%' } },
+  { emoji: '📚', style: { bottom: '32%', right: '6%' } },
+];
+
+const omungaIcons = [
+  { emoji: '🌍', style: { top: '8%', right: '10%' } },
+  { emoji: '📚', style: { top: '12%', left: '6%' } },
+  { emoji: '🛶', style: { bottom: '28%', right: '8%' } },
+  { emoji: '🌿', style: { top: '20%', right: '25%' } },
+  { emoji: '👧', style: { bottom: '30%', left: '4%' } },
+];
+
+const hojeIcons = [
+  { emoji: '🎤', style: { top: '6%', left: '30%' } },
+  { emoji: '📕', style: { top: '8%', right: '30%' } },
+  { emoji: '💡', style: { bottom: '28%', left: '25%' } },
+  { emoji: '🌟', style: { bottom: '26%', right: '28%' } },
+  { emoji: '✊', style: { top: '14%', left: '48%' } },
+];
+
+const phaseIcons = [infanciaIcons, formacaoIcons, omungaIcons, hojeIcons];
+
 /* ─────────────────────────────────────────────────────
    PANEL 1 — INFÂNCIA (Editorial Assimétrico / Polaroid)
    ───────────────────────────────────────────────────── */
 const PanelInfancia = () => (
-  <div className="panel-inner flex items-center h-full w-full px-16 lg:px-24 gap-16">
+  <div className="panel-inner flex items-center justify-center h-full w-full px-16 lg:px-24 gap-16">
     {/* Fotos lado esquerdo */}
     <div className="relative flex-shrink-0 w-[340px] h-[460px]">
       <div
@@ -71,7 +124,7 @@ const PanelInfancia = () => (
    PANEL 2 — FORMAÇÃO (Split Vertical)
    ───────────────────────────────────────────────────── */
 const PanelFormacao = () => (
-  <div className="panel-inner flex items-center h-full w-full px-16 lg:px-24 gap-16">
+  <div className="panel-inner flex items-center justify-center h-full w-full px-16 lg:px-24 gap-16">
     {/* Texto à esquerda */}
     <div className="flex flex-col justify-center max-w-md anim-text">
       <span className="h-panel-label text-muted-foreground">FORMAÇÃO</span>
@@ -155,30 +208,42 @@ const PanelOmunga = () => (
 );
 
 /* ─────────────────────────────────────────────────────
-   PANEL 4 — HOJE (Statement Central)
+   PANEL 4 — HOJE (Statement Central) — 3 fotos cada lado
    ───────────────────────────────────────────────────── */
 const PanelHoje = () => (
   <div className="panel-inner relative flex flex-col items-center justify-center h-full w-full px-16 lg:px-24">
-    {/* Fotos dispersas */}
+    {/* 3 fotos à esquerda */}
     <PhotoPlaceholder
       label="Foto palestra"
-      className="absolute top-[15%] left-[12%] w-[180px] h-[220px] rounded-lg anim-scatter"
+      className="absolute top-[12%] left-[6%] w-[160px] h-[200px] rounded-lg anim-scatter"
       style={{ transform: 'rotate(-4deg)' }}
     />
     <PhotoPlaceholder
-      label="Foto livro"
-      className="absolute top-[10%] right-[15%] w-[160px] h-[200px] rounded-lg anim-scatter"
-      style={{ transform: 'rotate(3deg)' }}
-    />
-    <PhotoPlaceholder
       label="Foto ação social"
-      className="absolute bottom-[22%] left-[8%] w-[140px] h-[160px] rounded anim-scatter"
+      className="absolute top-[40%] left-[4%] w-[140px] h-[160px] rounded anim-scatter"
       style={{ transform: 'rotate(2deg)' }}
     />
     <PhotoPlaceholder
-      label="Foto atual"
-      className="absolute bottom-[20%] right-[10%] w-[150px] h-[180px] rounded anim-scatter"
+      label="Foto comunidade"
+      className="absolute bottom-[16%] left-[10%] w-[150px] h-[170px] rounded-lg anim-scatter"
+      style={{ transform: 'rotate(-1deg)' }}
+    />
+
+    {/* 3 fotos à direita */}
+    <PhotoPlaceholder
+      label="Foto livro"
+      className="absolute top-[10%] right-[8%] w-[150px] h-[190px] rounded-lg anim-scatter"
+      style={{ transform: 'rotate(3deg)' }}
+    />
+    <PhotoPlaceholder
+      label="Foto palco"
+      className="absolute top-[38%] right-[5%] w-[160px] h-[180px] rounded anim-scatter"
       style={{ transform: 'rotate(-2deg)' }}
+    />
+    <PhotoPlaceholder
+      label="Foto atual"
+      className="absolute bottom-[14%] right-[9%] w-[140px] h-[170px] rounded-lg anim-scatter"
+      style={{ transform: 'rotate(1.5deg)' }}
     />
 
     {/* Conteúdo central */}
@@ -237,7 +302,6 @@ const HorizontalScrollSection = () => {
     const initAnimation = () => {
       if (!sectionRef.current || !containerRef.current) return;
       const container = containerRef.current;
-      const ST = (window as any).ScrollTrigger;
 
       // Main horizontal scroll tween
       const scrollTween = gsap.to(container, {
@@ -274,7 +338,7 @@ const HorizontalScrollSection = () => {
       /* ── Per-panel animations ── */
       const panelEls = container.querySelectorAll('.h-panel');
 
-      panelEls.forEach((panel: Element, i: number) => {
+      panelEls.forEach((panel: Element) => {
         const stBase = {
           trigger: panel,
           containerAnimation: scrollTween,
@@ -282,6 +346,19 @@ const HorizontalScrollSection = () => {
           end: 'left 20%',
           toggleActions: 'play none none reverse',
         };
+
+        // Floating icons
+        const floats = panel.querySelectorAll('.anim-float');
+        if (floats.length) {
+          gsap.from(floats, {
+            scale: 0,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: 'back.out(1.7)',
+            scrollTrigger: stBase,
+          });
+        }
 
         // Photos
         const photos = panel.querySelectorAll('.anim-photo');
@@ -330,6 +407,8 @@ const HorizontalScrollSection = () => {
               { x: 60, y: -50 },
               { x: -40, y: -60 },
               { x: 70, y: 50 },
+              { x: -60, y: -30 },
+              { x: 50, y: 60 },
             ];
             const dir = directions[j % directions.length];
             gsap.from(el, {
@@ -337,7 +416,7 @@ const HorizontalScrollSection = () => {
               y: dir.y,
               opacity: 0,
               duration: 0.8,
-              delay: j * 0.15,
+              delay: j * 0.12,
               ease: 'power3.out',
               scrollTrigger: stBase,
             });
@@ -434,22 +513,28 @@ const HorizontalScrollSection = () => {
       >
         {timelineSteps.map((step, i) => {
           const Panel = panels[i];
+          const icons = phaseIcons[i];
           return (
             <div
               key={step.id}
               className="h-panel relative w-screen h-screen flex items-center bg-background"
             >
+              {/* Floating icons */}
+              {icons.map((icon, j) => (
+                <FloatingIcon key={j} emoji={icon.emoji} style={icon.style} />
+              ))}
+
               <Panel />
 
-              {/* Timeline dot */}
+              {/* Timeline dot — label ABOVE */}
               <div
-                className="absolute bottom-6 z-30"
+                className="absolute bottom-6 z-30 flex flex-col items-center"
                 style={{ left: '50%', transform: 'translateX(-50%)' }}
               >
-                <div className="w-3 h-3 rounded-full bg-foreground" />
-                <span className="absolute top-5 left-1/2 -translate-x-1/2 text-xs text-muted-foreground uppercase tracking-widest whitespace-nowrap">
+                <span className="text-xs text-muted-foreground uppercase tracking-widest whitespace-nowrap mb-2">
                   {step.label}
                 </span>
+                <div className="w-3 h-3 rounded-full bg-foreground" />
               </div>
             </div>
           );

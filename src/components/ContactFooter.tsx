@@ -144,7 +144,7 @@ const ContactFooter = () => {
           </ContactBlock>
         </div>
 
-        <div className="border-t border-neutral-100" />
+        <div className="border-t border-border" />
 
         {/* Socials + Bottom */}
         <div className="pt-12 flex flex-col md:flex-row md:items-center md:justify-between gap-8">

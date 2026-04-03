@@ -23,55 +23,22 @@ const BookSection = () => {
 
       if (!coverEl || !textEl) return;
 
-      if (isMobile) {
-        // Mobile: simple fade in, no pin
-        gsap.from(coverEl, {
-          y: 60,
-          opacity: 0,
-          duration: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-        });
-        gsap.from(textEl, {
-          y: 60,
-          opacity: 0,
-          duration: 1,
-          delay: 0.2,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-        });
-      } else {
-        // Desktop: split reveal with pin
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: 'top top',
-            end: '+=100%',
-            pin: true,
-            scrub: 0.8,
-          },
-        });
+      // Simple reveal — no pin to avoid conflicts with ZoomParallax sticky
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 75%',
+          end: 'top 20%',
+          scrub: 0.6,
+        },
+      });
 
-        tl.fromTo(
-          coverEl,
-          { x: '-100%', opacity: 0 },
-          { x: '0%', opacity: 1, duration: 1, ease: 'power2.out' },
-          0
-        );
-        tl.fromTo(
-          textEl,
-          { x: '100%', opacity: 0 },
-          { x: '0%', opacity: 1, duration: 1, ease: 'power2.out' },
-          0
-        );
+      if (isMobile) {
+        tl.from(coverEl, { y: 60, opacity: 0, duration: 1, ease: 'power2.out' }, 0);
+        tl.from(textEl, { y: 60, opacity: 0, duration: 1, ease: 'power2.out' }, 0.15);
+      } else {
+        tl.from(coverEl, { x: '-80%', opacity: 0, duration: 1, ease: 'power2.out' }, 0);
+        tl.from(textEl, { x: '80%', opacity: 0, duration: 1, ease: 'power2.out' }, 0);
       }
     };
 

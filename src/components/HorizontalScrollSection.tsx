@@ -295,19 +295,6 @@ const HorizontalScrollSection = () => {
           toggleActions: 'play none none reverse',
         };
 
-        // Floating icons
-        const floats = panel.querySelectorAll('.anim-float');
-        if (floats.length) {
-          gsap.from(floats, {
-            scale: 0,
-            opacity: 0,
-            duration: 0.6,
-            stagger: 0.08,
-            ease: 'back.out(1.7)',
-            scrollTrigger: stBase,
-          });
-        }
-
         // Photos
         const photos = panel.querySelectorAll('.anim-photo');
         if (photos.length) {

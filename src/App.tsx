@@ -1,6 +1,6 @@
 import { useState, useCallback, lazy, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,7 +13,6 @@ import BlogPost from "./pages/BlogPost";
 import Login from "./pages/admin/Login";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 
-// Lazy load admin pages (they use heavy deps like BlockNote)
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const Posts = lazy(() => import("./pages/admin/Posts"));
@@ -30,20 +29,28 @@ const AdminFallback = () => (
   </div>
 );
 
-const App = () => {
+const HomeWithLoading = () => {
   const [loading, setLoading] = useState(true);
   const handleComplete = useCallback(() => setLoading(false), []);
 
+  return (
+    <>
+      {loading && <LoadingScreen onComplete={handleComplete} />}
+      <Index />
+    </>
+  );
+};
+
+const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          {loading && <LoadingScreen onComplete={handleComplete} />}
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Index />} />
+              <Route path="/" element={<HomeWithLoading />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/admin/login" element={<Login />} />

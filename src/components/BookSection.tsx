@@ -72,13 +72,10 @@ const BookSection = () => {
 
         {/* Text + CTA */}
         <div className="book-text flex flex-col gap-6 max-w-lg">
-          <span
-            className="text-xs uppercase tracking-[0.3em]"
-            style={{ color: 'hsl(38, 70%, 55%)' }}
-          >
+          <span className="text-xs uppercase tracking-[0.3em] text-accent">
             Livro
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light leading-tight text-foreground">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light leading-tight tracking-[-0.04em] text-foreground">
             O Caminho depois<br />da Pressa
           </h2>
           <p className="text-base md:text-lg text-muted-foreground font-light leading-relaxed">
@@ -88,17 +85,7 @@ const BookSection = () => {
           </p>
           <a
             href="#"
-            className="inline-flex items-center justify-center w-fit px-8 py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium transition-all duration-300"
-            style={{
-              background: 'hsl(38, 70%, 55%)',
-              color: 'hsl(0, 0%, 100%)',
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = 'hsl(38, 70%, 45%)';
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = 'hsl(38, 70%, 55%)';
-            }}
+            className="inline-flex items-center justify-center w-fit px-8 py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium transition-all duration-300 bg-accent text-primary-foreground hover:bg-accent/85"
           >
             Comprar agora
           </a>

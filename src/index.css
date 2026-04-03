@@ -218,3 +218,16 @@
     right: 1.5rem;
   }
 }
+
+/* Text Reveal Section */
+.text-reveal-text {
+  font-size: clamp(28px, 5vw, 72px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: hsl(220, 10%, 85%);
+}
+
+.text-reveal-word {
+  display: inline-block;
+  transition: color 0.1s ease;
+}

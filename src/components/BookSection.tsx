@@ -55,7 +55,7 @@ const BookSection = () => {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
         {/* Book cover placeholder */}
         <div
-          className="book-cover flex-shrink-0 w-[240px] md:w-[300px] h-[360px] md:h-[440px] rounded-sm flex items-center justify-center text-muted-foreground text-xs uppercase tracking-widest select-none"
+          className="book-cover flex-shrink-0 w-[240px] md:w-[300px] h-[360px] md:h-[440px] rounded-sm flex items-center justify-center text-muted-foreground text-xs uppercase tracking-widest select-none bg-muted"
           style={{
             background: 'hsl(220, 10%, 85%)',
             boxShadow: '12px 12px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05)',

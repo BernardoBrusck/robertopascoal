@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 declare const gsap: any;
 
 const BookSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const waitForGsap = setInterval(() => {
@@ -15,77 +17,126 @@ const BookSection = () => {
 
     const initAnimation = () => {
       if (!sectionRef.current) return;
+      const section = sectionRef.current;
+      const coverEl = section.querySelector('.book-cover');
+      const textEl = section.querySelector('.book-text');
 
-      gsap.from(sectionRef.current.querySelector('.book-cover'), {
-        x: -80,
-        opacity: 0,
-        duration: 1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none none',
-        },
-      });
+      if (!coverEl || !textEl) return;
 
-      gsap.from(sectionRef.current.querySelector('.book-text'), {
-        x: 80,
-        opacity: 0,
-        duration: 1,
-        delay: 0.2,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none none',
-        },
-      });
+      if (isMobile) {
+        // Mobile: simple fade in, no pin
+        gsap.from(coverEl, {
+          y: 60,
+          opacity: 0,
+          duration: 1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        });
+        gsap.from(textEl, {
+          y: 60,
+          opacity: 0,
+          duration: 1,
+          delay: 0.2,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        });
+      } else {
+        // Desktop: split reveal with pin
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: '+=100%',
+            pin: true,
+            scrub: 0.8,
+          },
+        });
+
+        tl.fromTo(
+          coverEl,
+          { x: '-100%', opacity: 0 },
+          { x: '0%', opacity: 1, duration: 1, ease: 'power2.out' },
+          0
+        );
+        tl.fromTo(
+          textEl,
+          { x: '100%', opacity: 0 },
+          { x: '0%', opacity: 1, duration: 1, ease: 'power2.out' },
+          0
+        );
+      }
     };
 
     const timeout = setTimeout(() => clearInterval(waitForGsap), 15000);
-    return () => { clearInterval(waitForGsap); clearTimeout(timeout); };
-  }, []);
+    return () => {
+      clearInterval(waitForGsap);
+      clearTimeout(timeout);
+    };
+  }, [isMobile]);
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-28 md:py-40 px-6 md:px-16 lg:px-24 bg-background"
+      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
-        {/* Book cover placeholder */}
+      <div className={`w-full max-w-7xl mx-auto px-6 md:px-16 lg:px-24 flex ${isMobile ? 'flex-col gap-12 py-24' : 'flex-row items-center gap-16'}`}>
+        {/* Book cover */}
         <div
-          className="book-cover flex-shrink-0 w-[240px] md:w-[300px] h-[360px] md:h-[440px] rounded-sm flex items-center justify-center text-muted-foreground text-xs uppercase tracking-widest select-none bg-muted"
-          style={{
-            boxShadow: '12px 12px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05)',
-            transition: 'transform 0.5s ease',
-            perspective: '800px',
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.transform = 'rotateY(-5deg) scale(1.02)';
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.transform = 'rotateY(0deg) scale(1)';
-          }}
+          className="book-cover flex-shrink-0 flex items-center justify-center"
+          style={{ width: isMobile ? '100%' : '45%' }}
         >
-          Capa do Livro
+          <div
+            className="relative w-[260px] md:w-[320px] lg:w-[360px] aspect-[3/4.3] rounded-sm bg-muted flex items-center justify-center text-muted-foreground text-xs uppercase tracking-[0.2em] select-none"
+            style={{
+              boxShadow: '20px 20px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04)',
+            }}
+          >
+            Capa do Livro
+          </div>
         </div>
 
         {/* Text + CTA */}
-        <div className="book-text flex flex-col gap-6 max-w-lg">
-          <span className="text-xs uppercase tracking-[0.3em] text-accent">
+        <div
+          className="book-text flex flex-col gap-8"
+          style={{ width: isMobile ? '100%' : '55%' }}
+        >
+          <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
             Livro
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light leading-tight tracking-[-0.04em] text-foreground">
-            O Caminho depois<br />da Pressa
+
+          <h2
+            className="font-light text-foreground"
+            style={{
+              fontSize: 'clamp(40px, 6vw, 96px)',
+              letterSpacing: '-0.05em',
+              lineHeight: 0.95,
+            }}
+          >
+            O Caminho
+            <br />
+            depois da
+            <br />
+            Pressa
           </h2>
-          <p className="text-base md:text-lg text-muted-foreground font-light leading-relaxed">
-            Um convite para desacelerar e enxergar o que realmente importa. Neste livro,
-            Roberto compartilha as histórias e aprendizados que moldaram sua jornada pela
-            educação, provando que o caminho mais lento pode ser o mais transformador.
+
+          <p className="text-base md:text-lg font-light text-muted-foreground leading-relaxed max-w-md">
+            Um convite para desacelerar e enxergar o que realmente importa.
+            Roberto compartilha as histórias e aprendizados que moldaram sua
+            jornada pela educação, provando que o caminho mais lento pode ser
+            o mais transformador.
           </p>
+
           <a
             href="#"
-            className="inline-flex items-center justify-center w-fit px-8 py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium transition-all duration-300 bg-accent text-primary-foreground hover:bg-accent/85"
+            className="inline-flex items-center justify-center w-fit px-10 py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium border border-foreground text-foreground bg-transparent transition-all duration-300 hover:bg-foreground hover:text-background"
           >
             Comprar agora
           </a>

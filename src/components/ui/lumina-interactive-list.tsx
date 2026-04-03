@@ -53,7 +53,7 @@ export function LuminaSlider() {
     const initApplication = () => {
       const SLIDER_CONFIG: any = {
         settings: {
-          transitionDuration: 2.5, autoSlideSpeed: 5000, currentEffect: "glass", currentEffectPreset: "Default",
+          transitionDuration: 1.8, autoSlideSpeed: 3500, currentEffect: "glass", currentEffectPreset: "Default",
           globalIntensity: 1.0, speedMultiplier: 1.0, distortionStrength: 1.0, colorEnhancement: 1.0,
           glassRefractionStrength: 1.0, glassChromaticAberration: 1.0, glassBubbleClarity: 1.0, glassEdgeGlow: 1.0, glassLiquidFlow: 1.0,
         }
@@ -226,11 +226,11 @@ export function LuminaSlider() {
         if (!nav) return;
         nav.innerHTML = "";
         slides.forEach((slide, i) => {
-          const item = document.createElement("div");
-          item.className = `slide-nav-item${i === 0 ? " active" : ""}`;
-          item.dataset.slideIndex = String(i);
-          item.innerHTML = `<div class="slide-progress"><div class="slide-progress-fill"></div></div><span class="slide-nav-title">${slide.title}</span>`;
-          item.addEventListener("click", (e) => {
+          const dot = document.createElement("button");
+          dot.className = `slider-dot${i === 0 ? " active" : ""}`;
+          dot.dataset.slideIndex = String(i);
+          dot.setAttribute("aria-label", `Slide ${i + 1}`);
+          dot.addEventListener("click", (e) => {
             e.stopPropagation();
             if (!isTransitioning && i !== currentSlideIndex) {
               stopAutoSlideTimer();
@@ -238,23 +238,14 @@ export function LuminaSlider() {
               navigateToSlide(i);
             }
           });
-          nav.appendChild(item);
+          nav.appendChild(dot);
         });
       };
 
-      const updateNavigationState = (idx: number) => document.querySelectorAll(".slide-nav-item").forEach((el, i) => el.classList.toggle("active", i === idx));
-      const updateSlideProgress = (idx: number, prog: number) => {
-        const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill") as HTMLElement;
-        if (el) { el.style.width = `${prog}%`; el.style.opacity = '1'; }
-      };
-      const fadeSlideProgress = (idx: number) => {
-        const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill") as HTMLElement;
-        if (el) { el.style.opacity = '0'; setTimeout(() => el.style.width = "0%", 300); }
-      };
-      const quickResetProgress = (idx: number) => {
-        const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill") as HTMLElement;
-        if (el) { el.style.transition = "width 0.2s ease-out"; el.style.width = "0%"; setTimeout(() => el.style.transition = "width 0.1s ease, opacity 0.3s ease", 200); }
-      };
+      const updateNavigationState = (idx: number) => document.querySelectorAll(".slider-dot").forEach((el, i) => el.classList.toggle("active", i === idx));
+      const updateSlideProgress = (idx: number, prog: number) => {};
+      const fadeSlideProgress = (idx: number) => {};
+      const quickResetProgress = (idx: number) => {};
       const updateCounter = (idx: number) => {
         const sn = document.getElementById("slideNumber");
         if (sn) sn.textContent = String(idx + 1).padStart(2, "0");
@@ -382,16 +373,21 @@ export function LuminaSlider() {
     <div ref={containerRef} className="slider-wrapper">
       <canvas className="webgl-canvas" />
       <div className="slider-overlay">
-        <div className="slider-counter">
+        {/* Dots navigation — right side */}
+        <div id="slidesNav" className="slider-dots-nav"></div>
+
+        {/* Content — center-bottom */}
+        <div className="slider-content-editorial">
+          <p id="mainDesc" className="slider-subtitle"></p>
+          <h1 id="mainTitle" className="slider-title-editorial font-heading"></h1>
+        </div>
+
+        {/* Counter — bottom left */}
+        <div className="slider-counter-editorial">
           <span id="slideNumber" className="slider-counter-current">01</span>
-          <span className="slider-counter-separator">/</span>
+          <span className="slider-counter-line"></span>
           <span id="slideTotal" className="slider-counter-total">06</span>
         </div>
-        <div className="slider-content">
-          <h1 id="mainTitle" className="slider-title font-heading"></h1>
-          <p id="mainDesc" className="slider-desc"></p>
-        </div>
-        <div id="slidesNav" className="slides-nav"></div>
       </div>
     </div>
   );

@@ -373,16 +373,21 @@ export function LuminaSlider() {
     <div ref={containerRef} className="slider-wrapper">
       <canvas className="webgl-canvas" />
       <div className="slider-overlay">
-        <div className="slider-counter">
+        {/* Dots navigation — right side */}
+        <div id="slidesNav" className="slider-dots-nav"></div>
+
+        {/* Content — center-bottom */}
+        <div className="slider-content-editorial">
+          <p id="mainDesc" className="slider-subtitle"></p>
+          <h1 id="mainTitle" className="slider-title-editorial font-heading"></h1>
+        </div>
+
+        {/* Counter — bottom left */}
+        <div className="slider-counter-editorial">
           <span id="slideNumber" className="slider-counter-current">01</span>
-          <span className="slider-counter-separator">/</span>
+          <span className="slider-counter-line"></span>
           <span id="slideTotal" className="slider-counter-total">06</span>
         </div>
-        <div className="slider-content">
-          <h1 id="mainTitle" className="slider-title font-heading"></h1>
-          <p id="mainDesc" className="slider-desc"></p>
-        </div>
-        <div id="slidesNav" className="slides-nav"></div>
       </div>
     </div>
   );

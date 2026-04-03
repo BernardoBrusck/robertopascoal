@@ -1,80 +1,41 @@
 
 
-# Plano: Fotos parallax flutuantes, correções na ServicesSection e remoção das seções finais
+# Plano: Tela de Loading com barra de progresso minimalista
 
-## Resumo
+## O que será feito
 
-1. Remover TestimonialsSection, BookSection e SpeakingSection (não seguem a identidade visual)
-2. Criar fotos flutuantes em parallax nas laterais do TextRevealBlock (estilo fotos reveladas/polaroid, levemente inclinadas, com sombra)
-3. Corrigir o hover modal da ServicesSection (imagem não aparece)
-4. Alinhar padding dos itens da lista com o titulo "O que fazemos"
-5. Redesenhar o DetailModal com layout horizontal, galeria clicavel com lightbox fullscreen
+Adicionar uma tela de loading que aparece ao abrir o site, com fundo branco, o nome "Roberto Pascoal" centralizado acima de uma barra de progresso fina e elegante. A barra preenche progressivamente e, ao completar, a tela faz um fade-out revelando o site.
 
----
-
-## 1. Remover seções que quebram a identidade
-
-Remover os imports e componentes `TestimonialsSection`, `BookSection` e `SpeakingSection` do `Index.tsx`. Os arquivos podem ser mantidos mas não serão renderizados.
-
-## 2. Fotos flutuantes em parallax no TextRevealBlock
-
-Criar um novo componente `FloatingPhotos` que envolve o TextRevealBlock. Nas laterais esquerda e direita da seção, posicionar 4-6 fotos (placeholder) com:
+## Layout
 
 ```text
-┌─────────────────────────────────────────────────────────┐
-│                                                         │
-│   📷 -3°        "Minha missão é simples:          📷 5° │
-│                  provar que a educação                   │
-│        📷 4°     transforma qualquer         📷 -2°     │
-│                  realidade..."                          │
-│   📷 -5°                                      📷 3°    │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────┐
+│                                          │
+│                                          │
+│                                          │
+│           Roberto Pascoal                │
+│          ━━━━━━━━━━━░░░░░░░              │
+│                                          │
+│                                          │
+│                                          │
+└──────────────────────────────────────────┘
 ```
 
-- Cada foto: borda branca grossa (estilo polaroid), `box-shadow` suave, `rotate` entre -6deg e 6deg
-- Parallax via GSAP ScrollTrigger: cada foto move em Y a velocidades diferentes conforme o scroll
-- Posicionamento absoluto nas laterais (left: 2-8%, right: 2-8%), distribuidas verticalmente
-- Em mobile: escondidas ou menores para não interferir com o texto
-- Imagens placeholder (wireframe cinza) por enquanto
+- Fundo branco puro, centralizado vertical e horizontal
+- "Roberto Pascoal" em font-weight 500, tracking negativo, fonte Apple (SF Pro / system-ui)
+- Barra de progresso fina (~2-3px de altura), cor escura (#1a1a1a), largura ~200px
+- Progresso simulado: 0→100% em ~2.5s com easing suave
+- Ao completar: fade-out da tela inteira (~0.5s), depois remove do DOM
 
-## 3. Corrigir hover modal na ServicesSection
+## Detalhes técnicos
 
-O problema e que o `HoverModal` usa `position: fixed` e o `mousemove` listener esta vinculado a `pageX/pageY`. Possivel causa: o listener nao esta sendo inicializado porque o GSAP check falha. Vou garantir que o `init()` funcione corretamente verificando o pattern de espera do GSAP (igual as outras secoes do projeto).
-
-## 4. Alinhar padding dos itens com o titulo
-
-Os itens da lista tem `px-4 md:px-8` adicional ao padding da secao. Remover esse padding dos itens para que fiquem alinhados com o titulo "O que fazemos" que esta no container `max-w-6xl`.
-
-## 5. Redesenhar DetailModal - layout horizontal com lightbox
-
-Novo layout do modal:
-
-```text
-┌──────────────────────────────────────────────────────────┐
-│                                                     [X]  │
-│                                                          │
-│   EDUCAÇÃO SOCIAL                                        │
-│   Bibliotecas                    ┌─────┐ ┌─────┐        │
-│   Comunitárias                   │foto1│ │foto2│        │
-│                                  └─────┘ └─────┘        │
-│   Descrição do serviço           ┌─────┐ ┌─────┐        │
-│   em texto corrido...            │foto3│ │foto4│        │
-│                                  └─────┘ └─────┘        │
-│                                                          │
-└──────────────────────────────────────────────────────────┘
-```
-
-- Layout split: texto a esquerda (40%), galeria a direita (60%)
-- Max-width maior (~5xl) para aproveitar a horizontalidade
-- Ao clicar numa foto da galeria: abre lightbox fullscreen (fundo escuro, imagem grande, click/ESC para fechar)
-- Animacoes Framer Motion para entrada/saida do lightbox
-
-## Arquivos
-
-| Arquivo | Acao |
+| Arquivo | Ação |
 |---|---|
-| `src/components/FloatingPhotosSection.tsx` | Criar - wrapper com TextRevealBlock + fotos parallax nas laterais |
-| `src/components/ServicesSection.tsx` | Editar - remover px dos itens, redesenhar DetailModal horizontal com lightbox |
-| `src/pages/Index.tsx` | Editar - substituir TextRevealBlock por FloatingPhotosSection, remover 3 secoes finais |
+| `src/components/LoadingScreen.tsx` | Criar — componente com estado de progresso animado (useEffect + requestAnimationFrame), fade-out ao completar via estado + transition CSS |
+| `src/App.tsx` | Envolver o conteúdo com `LoadingScreen` — renderiza o loading por cima, depois some |
+
+- Progresso via `requestAnimationFrame` com incremento suave (não depende de GSAP/Framer Motion para manter o loading leve)
+- A barra usa um `div` simples com `width` em % e `transition: width`
+- Após 100%, espera 300ms, faz opacity 0 no container, depois `display: none`
+- Tipografia: `font-family` system-ui (já global), `font-size: clamp(20px, 2.5vw, 32px)`, `font-weight: 500`, `letter-spacing: -0.02em`
 

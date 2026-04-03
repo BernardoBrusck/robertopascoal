@@ -28,58 +28,6 @@ const PhotoPlaceholder = ({
   </div>
 );
 
-/* ─── Floating icon component ─── */
-const FloatingIcon = ({
-  emoji,
-  className = '',
-  style = {},
-}: {
-  emoji: string;
-  className?: string;
-  style?: React.CSSProperties;
-}) => (
-  <span
-    className={`absolute text-2xl lg:text-3xl opacity-[0.12] select-none pointer-events-none anim-float ${className}`}
-    style={style}
-  >
-    {emoji}
-  </span>
-);
-
-/* ─── Icons per phase ─── */
-const infanciaIcons = [
-  { emoji: '✈️', style: { top: '12%', right: '18%' } },
-  { emoji: '🧸', style: { top: '25%', right: '8%' } },
-  { emoji: '⚽', style: { bottom: '30%', right: '22%' } },
-  { emoji: '🪁', style: { top: '18%', right: '32%' } },
-  { emoji: '🎨', style: { bottom: '35%', right: '12%' } },
-];
-
-const formacaoIcons = [
-  { emoji: '📖', style: { top: '10%', left: '8%' } },
-  { emoji: '🎭', style: { top: '15%', right: '8%' } },
-  { emoji: '✏️', style: { bottom: '28%', left: '5%' } },
-  { emoji: '🎓', style: { top: '22%', left: '20%' } },
-  { emoji: '📚', style: { bottom: '32%', right: '6%' } },
-];
-
-const omungaIcons = [
-  { emoji: '🌍', style: { top: '8%', right: '10%' } },
-  { emoji: '📚', style: { top: '12%', left: '6%' } },
-  { emoji: '🛶', style: { bottom: '28%', right: '8%' } },
-  { emoji: '🌿', style: { top: '20%', right: '25%' } },
-  { emoji: '👧', style: { bottom: '30%', left: '4%' } },
-];
-
-const hojeIcons = [
-  { emoji: '🎤', style: { top: '6%', left: '30%' } },
-  { emoji: '📕', style: { top: '8%', right: '30%' } },
-  { emoji: '💡', style: { bottom: '28%', left: '25%' } },
-  { emoji: '🌟', style: { bottom: '26%', right: '28%' } },
-  { emoji: '✊', style: { top: '14%', left: '48%' } },
-];
-
-const phaseIcons = [infanciaIcons, formacaoIcons, omungaIcons, hojeIcons];
 
 /* ─────────────────────────────────────────────────────
    PANEL 1 — INFÂNCIA (Editorial Assimétrico / Polaroid)

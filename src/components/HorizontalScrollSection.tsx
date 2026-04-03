@@ -1,4 +1,6 @@
 import { useEffect, useRef } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { motion, useInView } from 'framer-motion';
 
 declare const gsap: any;
 
@@ -28,13 +30,12 @@ const PhotoPlaceholder = ({
   </div>
 );
 
+/* ═══════════════════════════════════════════════════════
+   DESKTOP PANELS (GSAP horizontal scroll)
+   ═══════════════════════════════════════════════════════ */
 
-/* ─────────────────────────────────────────────────────
-   PANEL 1 — INFÂNCIA (Editorial Assimétrico / Polaroid)
-   ───────────────────────────────────────────────────── */
 const PanelInfancia = () => (
   <div className="panel-inner flex items-center justify-center h-full w-full px-16 lg:px-24 gap-16">
-    {/* Fotos lado esquerdo */}
     <div className="relative flex-shrink-0 w-[340px] h-[460px]">
       <div
         className="polaroid-frame absolute top-0 left-0 w-[280px] h-[340px] anim-photo"
@@ -52,10 +53,7 @@ const PanelInfancia = () => (
         <PhotoPlaceholder label="Foto infância 2" className="w-full h-full rounded" />
       </div>
     </div>
-
-    {/* Texto lado direito */}
     <div className="flex flex-col justify-center max-w-lg anim-text">
-      <span className="h-panel-label text-muted-foreground">INFÂNCIA</span>
       <h2 className="h-panel-title whitespace-pre-line text-foreground">
         {'Onde tudo\ncomeçou'}
       </h2>
@@ -68,14 +66,9 @@ const PanelInfancia = () => (
   </div>
 );
 
-/* ─────────────────────────────────────────────────────
-   PANEL 2 — FORMAÇÃO (Split Vertical)
-   ───────────────────────────────────────────────────── */
 const PanelFormacao = () => (
   <div className="panel-inner flex items-center justify-center h-full w-full px-16 lg:px-24 gap-16">
-    {/* Texto à esquerda */}
     <div className="flex flex-col justify-center max-w-md anim-text">
-      <span className="h-panel-label text-muted-foreground">FORMAÇÃO</span>
       <h2 className="h-panel-title whitespace-pre-line text-foreground">
         {'O poder\nda palavra'}
       </h2>
@@ -83,7 +76,6 @@ const PanelFormacao = () => (
         Escritor e comunicador por natureza. Encontrou nos livros e nas palestras a
         ferramenta para amplificar sua voz e levar sua mensagem a milhares de pessoas.
       </p>
-      {/* Duas fotos menores */}
       <div className="flex gap-4">
         <PhotoPlaceholder
           label="Foto formação 1"
@@ -95,8 +87,6 @@ const PanelFormacao = () => (
         />
       </div>
     </div>
-
-    {/* Foto grande à direita */}
     <div className="flex-shrink-0 anim-photo-main">
       <PhotoPlaceholder
         label="Foto teatro / palco"
@@ -106,16 +96,11 @@ const PanelFormacao = () => (
   </div>
 );
 
-/* ─────────────────────────────────────────────────────
-   PANEL 3 — OMUNGA (Grid de Impacto)
-   ───────────────────────────────────────────────────── */
 const PanelOmunga = () => (
   <div className="panel-inner flex flex-col justify-center h-full w-full px-16 lg:px-24">
     <div className="flex items-start gap-16">
-      {/* Coluna esquerda: título + foto grande */}
       <div className="flex flex-col gap-6 anim-text">
         <div>
-          <span className="h-panel-label text-muted-foreground">OMUNGA</span>
           <h2 className="h-panel-title whitespace-pre-line text-foreground">
             {'Criar para\ntransformar'}
           </h2>
@@ -125,8 +110,6 @@ const PanelOmunga = () => (
           className="w-[400px] h-[280px] rounded-lg anim-photo"
         />
       </div>
-
-      {/* Coluna direita: 2 fotos + counter + texto */}
       <div className="flex flex-col gap-6 pt-12">
         <div className="flex gap-4">
           <PhotoPlaceholder
@@ -155,12 +138,8 @@ const PanelOmunga = () => (
   </div>
 );
 
-/* ─────────────────────────────────────────────────────
-   PANEL 4 — HOJE (Statement Central) — 3 fotos cada lado
-   ───────────────────────────────────────────────────── */
 const PanelHoje = () => (
   <div className="panel-inner relative flex flex-col items-center justify-center h-full w-full px-16 lg:px-24">
-    {/* 3 fotos à esquerda — bem espaçadas, mix vertical/horizontal */}
     <PhotoPlaceholder
       label="Foto palestra"
       className="absolute top-[8%] left-[3%] w-[200px] h-[140px] rounded-lg anim-scatter"
@@ -176,8 +155,6 @@ const PanelHoje = () => (
       className="absolute bottom-[10%] left-[12%] w-[190px] h-[130px] rounded-lg anim-scatter"
       style={{ transform: 'rotate(-1.5deg)' }}
     />
-
-    {/* 3 fotos à direita — bem espaçadas, mix vertical/horizontal */}
     <PhotoPlaceholder
       label="Foto livro"
       className="absolute top-[6%] right-[4%] w-[180px] h-[130px] rounded-lg anim-scatter"
@@ -193,10 +170,7 @@ const PanelHoje = () => (
       className="absolute bottom-[8%] right-[14%] w-[200px] h-[140px] rounded-lg anim-scatter"
       style={{ transform: 'rotate(1deg)' }}
     />
-
-    {/* Conteúdo central */}
     <div className="relative z-10 text-center max-w-2xl anim-center">
-      <span className="h-panel-label text-muted-foreground">HOJE</span>
       <h2 className="h-panel-title text-foreground">Inspirar para agir</h2>
       <p className="h-panel-text text-muted-foreground mx-auto mt-4">
         Empreendedor social, palestrante e aspirante a escritor. Roberto continua
@@ -206,8 +180,145 @@ const PanelHoje = () => (
   </div>
 );
 
-/* ─── Panels array ─── */
 const panels = [PanelInfancia, PanelFormacao, PanelOmunga, PanelHoje];
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE PANELS (vertical scroll, framer-motion)
+   ═══════════════════════════════════════════════════════ */
+
+const MobilePanel = ({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-60px' });
+
+  return (
+    <motion.div
+      ref={ref}
+      className="w-full px-6 py-16 border-b border-border"
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+    >
+      <span className="text-xs text-muted-foreground uppercase tracking-[0.2em] mb-4 block">
+        {label}
+      </span>
+      {children}
+    </motion.div>
+  );
+};
+
+const MobilePanelInfancia = () => (
+  <MobilePanel label="INFÂNCIA">
+    <div className="flex flex-col gap-6">
+      <div className="flex gap-3">
+        <div className="flex-1" style={{ transform: 'rotate(-2deg)' }}>
+          <PhotoPlaceholder label="Foto infância 1" className="w-full aspect-[4/5] rounded" />
+          <span className="block text-center text-[10px] text-muted-foreground mt-1 tracking-wide">
+            Joinville, anos 80
+          </span>
+        </div>
+        <div className="w-2/5 self-end" style={{ transform: 'rotate(1.5deg)' }}>
+          <PhotoPlaceholder label="Foto infância 2" className="w-full aspect-square rounded" />
+        </div>
+      </div>
+      <div>
+        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">
+          Onde tudo começou
+        </h2>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          Nascido no interior do Brasil, Roberto cresceu cercado por histórias e pela
+          vontade de transformar o mundo ao seu redor. Desde cedo, a educação foi seu
+          maior aliado.
+        </p>
+      </div>
+    </div>
+  </MobilePanel>
+);
+
+const MobilePanelFormacao = () => (
+  <MobilePanel label="FORMAÇÃO">
+    <div className="flex flex-col gap-6">
+      <PhotoPlaceholder
+        label="Foto teatro / palco"
+        className="w-full aspect-[3/4] rounded-lg"
+      />
+      <div>
+        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">
+          O poder da palavra
+        </h2>
+        <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+          Escritor e comunicador por natureza. Encontrou nos livros e nas palestras a
+          ferramenta para amplificar sua voz e levar sua mensagem a milhares de pessoas.
+        </p>
+      </div>
+      <div className="flex gap-3">
+        <PhotoPlaceholder label="Foto formação 1" className="flex-1 aspect-[4/3] rounded" />
+        <PhotoPlaceholder label="Foto formação 2" className="flex-1 aspect-[4/3] rounded" />
+      </div>
+    </div>
+  </MobilePanel>
+);
+
+const MobilePanelOmunga = () => (
+  <MobilePanel label="OMUNGA">
+    <div className="flex flex-col gap-6">
+      <PhotoPlaceholder
+        label="Foto Amazônia"
+        className="w-full aspect-[16/10] rounded-lg"
+      />
+      <div className="flex gap-3">
+        <PhotoPlaceholder label="Foto comunidade 1" className="flex-1 aspect-[4/3] rounded" />
+        <PhotoPlaceholder label="Foto comunidade 2" className="flex-1 aspect-[4/3] rounded" />
+      </div>
+      <div>
+        <span className="text-foreground font-bold text-4xl tracking-tight">+50</span>
+        <span className="block text-muted-foreground text-xs uppercase tracking-widest mt-1">
+          bibliotecas construídas
+        </span>
+      </div>
+      <div>
+        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">
+          Criar para transformar
+        </h2>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          Fundou o Projeto Omunga com uma missão clara: levar bibliotecas e educação
+          para as comunidades mais isoladas da Amazônia.
+        </p>
+      </div>
+    </div>
+  </MobilePanel>
+);
+
+const MobilePanelHoje = () => (
+  <MobilePanel label="HOJE">
+    <div className="flex flex-col gap-6">
+      <div className="flex gap-3">
+        <PhotoPlaceholder label="Foto palestra" className="flex-1 aspect-[4/3] rounded-lg" />
+        <PhotoPlaceholder label="Foto livro" className="flex-1 aspect-[3/4] rounded-lg" />
+      </div>
+      <div className="text-center">
+        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">
+          Inspirar para agir
+        </h2>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          Empreendedor social, palestrante e aspirante a escritor. Roberto continua
+          dedicando cada dia a provar que a educação é o caminho.
+        </p>
+      </div>
+      <div className="flex gap-3">
+        <PhotoPlaceholder label="Foto ação social" className="flex-1 aspect-square rounded" />
+        <PhotoPlaceholder label="Foto atual" className="flex-1 aspect-[4/3] rounded-lg" />
+      </div>
+    </div>
+  </MobilePanel>
+);
+
+const mobilePanels = [MobilePanelInfancia, MobilePanelFormacao, MobilePanelOmunga, MobilePanelHoje];
 
 /* ═══════════════════════════════════════════════════════
    MAIN COMPONENT
@@ -215,7 +326,7 @@ const panels = [PanelInfancia, PanelFormacao, PanelOmunga, PanelHoje];
 const HorizontalScrollSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (isMobile) return;
@@ -251,7 +362,6 @@ const HorizontalScrollSection = () => {
       if (!sectionRef.current || !containerRef.current) return;
       const container = containerRef.current;
 
-      // Main horizontal scroll tween
       const scrollTween = gsap.to(container, {
         x: () => -(container.scrollWidth - window.innerWidth),
         ease: 'none',
@@ -264,7 +374,6 @@ const HorizontalScrollSection = () => {
         },
       });
 
-      // Timeline progress line
       const line = container.querySelector('.timeline-progress');
       if (line) {
         gsap.fromTo(
@@ -283,7 +392,6 @@ const HorizontalScrollSection = () => {
         );
       }
 
-      /* ── Per-panel animations ── */
       const panelEls = container.querySelectorAll('.h-panel');
 
       panelEls.forEach((panel: Element) => {
@@ -295,113 +403,73 @@ const HorizontalScrollSection = () => {
           toggleActions: 'play none none reverse',
         };
 
-        // Photos
         const photos = panel.querySelectorAll('.anim-photo');
         if (photos.length) {
           gsap.from(photos, {
-            y: 60,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: 'power3.out',
+            y: 60, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out',
             scrollTrigger: stBase,
           });
         }
 
-        // Small photos
         const photosSm = panel.querySelectorAll('.anim-photo-sm');
         if (photosSm.length) {
           gsap.from(photosSm, {
-            y: 40,
-            opacity: 0,
-            duration: 0.6,
-            stagger: 0.12,
-            ease: 'power2.out',
+            y: 40, opacity: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out',
             scrollTrigger: { ...stBase, start: 'left 60%' },
           });
         }
 
-        // Main photo (scale)
         const photoMain = panel.querySelector('.anim-photo-main');
         if (photoMain) {
           gsap.from(photoMain, {
-            scale: 0.8,
-            opacity: 0,
-            duration: 1,
-            ease: 'power3.out',
+            scale: 0.8, opacity: 0, duration: 1, ease: 'power3.out',
             scrollTrigger: stBase,
           });
         }
 
-        // Scattered photos
         const scatterPhotos = panel.querySelectorAll('.anim-scatter');
         if (scatterPhotos.length) {
           scatterPhotos.forEach((el: Element, j: number) => {
             const directions = [
-              { x: -80, y: 40 },
-              { x: 60, y: -50 },
-              { x: -40, y: -60 },
-              { x: 70, y: 50 },
-              { x: -60, y: -30 },
-              { x: 50, y: 60 },
+              { x: -80, y: 40 }, { x: 60, y: -50 }, { x: -40, y: -60 },
+              { x: 70, y: 50 }, { x: -60, y: -30 }, { x: 50, y: 60 },
             ];
             const dir = directions[j % directions.length];
             gsap.from(el, {
-              x: dir.x,
-              y: dir.y,
-              opacity: 0,
-              duration: 0.8,
-              delay: j * 0.12,
-              ease: 'power3.out',
-              scrollTrigger: stBase,
+              x: dir.x, y: dir.y, opacity: 0, duration: 0.8, delay: j * 0.12,
+              ease: 'power3.out', scrollTrigger: stBase,
             });
           });
         }
 
-        // Text elements
         const texts = panel.querySelectorAll('.anim-text');
         if (texts.length) {
           gsap.from(texts, {
-            x: -40,
-            opacity: 0,
-            duration: 0.8,
-            ease: 'power2.out',
+            x: -40, opacity: 0, duration: 0.8, ease: 'power2.out',
             scrollTrigger: stBase,
           });
         }
 
-        // Center content
         const center = panel.querySelector('.anim-center');
         if (center) {
           gsap.from(center, {
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            ease: 'power2.out',
+            y: 30, opacity: 0, duration: 0.8, ease: 'power2.out',
             scrollTrigger: stBase,
           });
         }
 
-        // Counter
         const counter = panel.querySelector('.anim-counter');
         if (counter) {
           gsap.from(counter, {
-            scale: 0.6,
-            opacity: 0,
-            duration: 0.8,
-            ease: 'back.out(1.4)',
+            scale: 0.6, opacity: 0, duration: 0.8, ease: 'back.out(1.4)',
             scrollTrigger: { ...stBase, start: 'left 50%' },
           });
         }
 
-        // Delayed text
         const delayedText = panel.querySelector('.anim-text-delay');
         if (delayedText) {
           gsap.from(delayedText, {
-            y: 20,
-            opacity: 0,
-            duration: 0.6,
-            ease: 'power2.out',
+            y: 20, opacity: 0, duration: 0.6, ease: 'power2.out',
             scrollTrigger: { ...stBase, start: 'left 40%' },
           });
         }
@@ -415,25 +483,20 @@ const HorizontalScrollSection = () => {
     };
   }, [isMobile]);
 
-  // Mobile: vertical stack
+  /* ── Mobile: vertical stack ── */
   if (isMobile) {
     return (
       <section className="w-full bg-background">
-        {timelineSteps.map((step, i) => {
-          const Panel = panels[i];
-          return (
-            <div key={step.id} className="relative w-full py-20 border-b border-border">
-              <Panel />
-            </div>
-          );
-        })}
+        {mobilePanels.map((Panel, i) => (
+          <Panel key={timelineSteps[i].id} />
+        ))}
       </section>
     );
   }
 
+  /* ── Desktop: horizontal GSAP scroll ── */
   return (
     <section ref={sectionRef} className="relative h-screen overflow-hidden bg-background">
-      {/* Timeline progress line */}
       <div className="absolute bottom-8 left-0 right-0 h-px z-20" style={{ background: 'hsl(var(--foreground) / 0.12)' }}>
         <div
           className="timeline-progress absolute inset-0 origin-left"
@@ -454,8 +517,6 @@ const HorizontalScrollSection = () => {
               className="h-panel relative w-screen h-screen flex items-center bg-background"
             >
               <Panel />
-
-              {/* Timeline dot — label ABOVE */}
               <div
                 className="absolute bottom-6 z-30 flex flex-col items-center"
                 style={{ left: '50%', transform: 'translateX(-50%)' }}

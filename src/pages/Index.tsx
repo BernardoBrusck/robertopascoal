@@ -1,3 +1,4 @@
+import { Navbar } from "@/components/ui/navbar";
 import HeroSection from "@/components/HeroSection";
 import TextRevealSection from "@/components/TextRevealSection";
 import HorizontalScrollSection from "@/components/HorizontalScrollSection";
@@ -12,6 +13,7 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Navbar />
       <HeroSection />
       <TextRevealSection />
       <HorizontalScrollSection />

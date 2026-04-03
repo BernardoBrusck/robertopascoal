@@ -1,69 +1,67 @@
 
 
-# Plano: Tipografia Apple (SF Pro) + Redesign do Layout do Hero
+# Bloco 3: Horizontal Scroll Section (GSAP ScrollTrigger)
 
-## Resumo
+## Conceito
 
-Duas mudanças principais: (1) trocar a tipografia global para a stack da Apple (SF Pro Display / system-ui) e (2) redesenhar o overlay do Hero para um layout mais premium e limpo, mantendo o efeito WebGL de transição glass intacto. Também reduzir o tempo entre slides.
+Uma seção "pinned" onde o scroll vertical do usuário move o conteúdo horizontalmente. Técnica clássica do GSAP ScrollTrigger com `pin: true` e `scrub`. Perfeita para apresentar a trajetória/pilares do Roberto de forma cinematográfica.
 
-## O que muda
+## Estrutura Visual
 
-### 1. Tipografia Apple em todo o site
+```text
+Scroll vertical ↓ controla movimento horizontal →
 
-Substituir Inter/Pretendard pela stack de fontes da Apple. Não precisa carregar fontes externas -- usa a system font stack que inclui SF Pro em dispositivos Apple e cai graciosamente para system-ui em outros.
-
-**Arquivos afetados:**
-- `tailwind.config.ts` -- atualizar `fontFamily.sans` e `fontFamily.heading`
-- `src/index.css` -- remover imports de Google Fonts/Pretendard, atualizar todas as `font-family` hardcoded no slider CSS
-- `src/components/TextRevealSection.tsx` -- herda automaticamente
-
-**Font stack:**
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│  [Painel 1]         [Painel 2]         [Painel 3]         [Painel 4]   │
+│                                                                         │
+│  SOBRE              O LIVRO            PALESTRAS           A CAUSA      │
+│  Foto grande +      Capa do livro +    Foto palco +        Foto campo + │
+│  bio editorial      sinopse curta      temas/impacto       missão social│
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
 ```
-"SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, sans-serif
-```
 
-### 2. Redesign do overlay do Hero
+Cada painel ocupa 100vw. O container total tem `width: 400vw`. O ScrollTrigger pinea a seção e traduz o eixo X conforme o scroll.
 
-O layout atual tem título grande + descrição + barra de navegação na base. Vamos torná-lo mais editorial/premium:
+## Conteúdo dos 4 Painéis
 
-- **Counter**: mover para canto inferior esquerdo, formato vertical com linha separadora
-- **Título**: manter grande com tracking negativo, mas posicionar mais centralizado verticalmente (centro-baixo), não colado na base
-- **Descrição**: tipografia menor, mais sutil, uppercase com letter-spacing largo (estilo editorial)
-- **Navegação**: simplificar para apenas dots/indicadores minimalistas no canto direito, sem títulos de slide (mais limpo)
-- **Gradiente**: suavizar -- menos opaco, mais elegante
-
-**Arquivo afetado:** `src/components/ui/lumina-interactive-list.tsx` (JSX do return) e `src/index.css` (estilos)
-
-### 3. Acelerar timer dos slides
-
-Reduzir `autoSlideSpeed` de 5000ms para 3500ms e `transitionDuration` de 2.5s para 1.8s.
-
-**Arquivo:** `src/components/ui/lumina-interactive-list.tsx` (SLIDER_CONFIG)
+1. **Sobre Roberto** -- Foto grande à esquerda, texto editorial à direita (quem ele é, de onde vem, formação)
+2. **O Livro** -- Visual do e-book/livro com título e frase de impacto
+3. **Palestras** -- Foto em palco + lista de temas ou depoimento
+4. **A Causa** -- Foto na Amazônia/comunidade + texto sobre a missão social
 
 ## Detalhes Técnicos
 
-### Nova estrutura do overlay (JSX):
-```text
-+------------------------------------------+
-|                                          |
-|                                          |
-|                                          |
-|                                     ●    |
-|    ESCRITOR. PALESTRANTE.           ●    |
-|    Roberto                          ○    |
-|    Pascoal                          ○    |
-|                                     ○    |
-|  01 ── 06                           ○    |
-+------------------------------------------+
-```
+### Novo componente: `src/components/HorizontalScrollSection.tsx`
 
-- Título no centro-baixo com peso bold e escala massiva
-- Subtítulo acima do título em uppercase, font-size pequeno, letter-spacing amplo
-- Counter discreto no canto inferior esquerdo com linha horizontal
-- Dots de navegação no canto direito, verticais, minimalistas
+- Container wrapper com `height` suficiente para o pin (ex: `300vh` para dar espaço de scroll)
+- Inner container com `display: flex`, `width: 400vw`, cada painel `w-screen h-screen`
+- GSAP ScrollTrigger: `pin: true`, `scrub: 1`, anima `x` do inner container de `0` até `-300vw`
+- Cada painel tem animações de entrada (fade + slide) com stagger conforme entra no viewport
+- Reutiliza o mesmo padrão de carregamento de GSAP/ScrollTrigger do `TextRevealSection`
 
-### Arquivos modificados:
-1. `tailwind.config.ts` -- font families
-2. `src/index.css` -- remover font imports, atualizar todos os font-family do slider, novo layout do overlay
-3. `src/components/ui/lumina-interactive-list.tsx` -- novo JSX do overlay, timing config, navegação simplificada
+### Estilos em `src/index.css`
+
+- `.horizontal-panel` -- layout flexbox, tipografia editorial (SF Pro stack)
+- Textos com o mesmo tracking negativo e escala do hero
+- Fundo alternando entre escuro (dark panels) e claro para variar ritmo visual
+
+### `src/pages/Index.tsx`
+
+- Adicionar `<HorizontalScrollSection />` logo após `<TextRevealSection />`
+
+## Arquivos
+
+| Arquivo | Ação |
+|---------|------|
+| `src/components/HorizontalScrollSection.tsx` | Criar |
+| `src/index.css` | Adicionar estilos dos painéis |
+| `src/pages/Index.tsx` | Importar e posicionar o componente |
+
+## Considerações
+
+- As imagens dos painéis usam os assets já existentes em `src/assets/hero/` + novas se necessário
+- Mobile: em telas < 768px, os painéis empilham verticalmente (scroll normal) em vez de horizontal, para melhor UX touch
+- O pin do ScrollTrigger requer `overflow: hidden` no container, não no body
 

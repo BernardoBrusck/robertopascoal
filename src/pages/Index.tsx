@@ -12,7 +12,7 @@ const Index = () => {
       <HorizontalScrollSection />
       <ZoomParallaxSection />
       <TextRevealBlock
-        text="Nascido no interior do Brasil, Roberto Pascoal transformou a inquietude em propósito. Do teatro à comunicação, do Caminho de Santiago às comunidades mais isoladas da Amazônia, cada passo foi guiado por uma certeza: a educação transforma vidas. Fundador da OMUNGA, empreendedor social, palestrante e escritor, ele dedica cada dia a provar que nunca estamos prontos — mas sempre somos suficientes."
+        text="Minha missão é simples: provar que a educação transforma qualquer realidade — e que nunca é tarde para começar."
       />
     </div>
   );

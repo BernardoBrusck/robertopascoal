@@ -13,8 +13,8 @@ export default {
       },
     },
     fontFamily: {
-      sans: ["Inter", "sans-serif"],
-      serif: ["Playfair Display", "serif"],
+      sans: ["Pretendard", "Inter", "sans-serif"],
+      heading: ["Inter", "sans-serif"],
     },
     extend: {
       colors: {

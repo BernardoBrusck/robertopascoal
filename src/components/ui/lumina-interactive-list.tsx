@@ -226,11 +226,11 @@ export function LuminaSlider() {
         if (!nav) return;
         nav.innerHTML = "";
         slides.forEach((slide, i) => {
-          const item = document.createElement("div");
-          item.className = `slide-nav-item${i === 0 ? " active" : ""}`;
-          item.dataset.slideIndex = String(i);
-          item.innerHTML = `<div class="slide-progress"><div class="slide-progress-fill"></div></div><span class="slide-nav-title">${slide.title}</span>`;
-          item.addEventListener("click", (e) => {
+          const dot = document.createElement("button");
+          dot.className = `slider-dot${i === 0 ? " active" : ""}`;
+          dot.dataset.slideIndex = String(i);
+          dot.setAttribute("aria-label", `Slide ${i + 1}`);
+          dot.addEventListener("click", (e) => {
             e.stopPropagation();
             if (!isTransitioning && i !== currentSlideIndex) {
               stopAutoSlideTimer();
@@ -238,7 +238,7 @@ export function LuminaSlider() {
               navigateToSlide(i);
             }
           });
-          nav.appendChild(item);
+          nav.appendChild(dot);
         });
       };
 

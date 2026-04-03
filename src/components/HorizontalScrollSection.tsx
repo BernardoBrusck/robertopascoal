@@ -160,38 +160,38 @@ const PanelOmunga = () => (
    ───────────────────────────────────────────────────── */
 const PanelHoje = () => (
   <div className="panel-inner relative flex flex-col items-center justify-center h-full w-full px-16 lg:px-24">
-    {/* 3 fotos à esquerda */}
+    {/* 3 fotos à esquerda — bem espaçadas, mix vertical/horizontal */}
     <PhotoPlaceholder
       label="Foto palestra"
-      className="absolute top-[12%] left-[6%] w-[160px] h-[200px] rounded-lg anim-scatter"
-      style={{ transform: 'rotate(-4deg)' }}
+      className="absolute top-[8%] left-[3%] w-[200px] h-[140px] rounded-lg anim-scatter"
+      style={{ transform: 'rotate(-3deg)' }}
     />
     <PhotoPlaceholder
       label="Foto ação social"
-      className="absolute top-[40%] left-[4%] w-[140px] h-[160px] rounded anim-scatter"
+      className="absolute top-[42%] left-[2%] w-[150px] h-[190px] rounded anim-scatter"
       style={{ transform: 'rotate(2deg)' }}
     />
     <PhotoPlaceholder
       label="Foto comunidade"
-      className="absolute bottom-[16%] left-[10%] w-[150px] h-[170px] rounded-lg anim-scatter"
-      style={{ transform: 'rotate(-1deg)' }}
+      className="absolute bottom-[10%] left-[12%] w-[190px] h-[130px] rounded-lg anim-scatter"
+      style={{ transform: 'rotate(-1.5deg)' }}
     />
 
-    {/* 3 fotos à direita */}
+    {/* 3 fotos à direita — bem espaçadas, mix vertical/horizontal */}
     <PhotoPlaceholder
       label="Foto livro"
-      className="absolute top-[10%] right-[8%] w-[150px] h-[190px] rounded-lg anim-scatter"
-      style={{ transform: 'rotate(3deg)' }}
+      className="absolute top-[6%] right-[4%] w-[180px] h-[130px] rounded-lg anim-scatter"
+      style={{ transform: 'rotate(2.5deg)' }}
     />
     <PhotoPlaceholder
       label="Foto palco"
-      className="absolute top-[38%] right-[5%] w-[160px] h-[180px] rounded anim-scatter"
+      className="absolute top-[40%] right-[3%] w-[160px] h-[200px] rounded anim-scatter"
       style={{ transform: 'rotate(-2deg)' }}
     />
     <PhotoPlaceholder
       label="Foto atual"
-      className="absolute bottom-[14%] right-[9%] w-[140px] h-[170px] rounded-lg anim-scatter"
-      style={{ transform: 'rotate(1.5deg)' }}
+      className="absolute bottom-[8%] right-[14%] w-[200px] h-[140px] rounded-lg anim-scatter"
+      style={{ transform: 'rotate(1deg)' }}
     />
 
     {/* Conteúdo central */}

@@ -1,67 +1,130 @@
 
 
-# Bloco 3: Horizontal Scroll Section (GSAP ScrollTrigger)
+# Plano: Layouts únicos por fase na Timeline + Texto de transição + Próximas seções
 
-## Conceito
+## Parte 1: Timeline Horizontal — 4 layouts distintos
 
-Uma seção "pinned" onde o scroll vertical do usuário move o conteúdo horizontalmente. Técnica clássica do GSAP ScrollTrigger com `pin: true` e `scrub`. Perfeita para apresentar a trajetória/pilares do Roberto de forma cinematográfica.
+Cada painel (100vw) terá fundo branco, a timeline/progress bar na parte inferior, mas um layout interno completamente diferente. Todos os elementos terão animações de entrada (GSAP `from` com `scrollTrigger` containerAnimation).
 
-## Estrutura Visual
-
+### Painel 1 — INFÂNCIA (layout "Editorial Assimétrico")
 ```text
-Scroll vertical ↓ controla movimento horizontal →
-
-┌─────────────────────────────────────────────────────────────────────────┐
-│                                                                         │
-│  [Painel 1]         [Painel 2]         [Painel 3]         [Painel 4]   │
-│                                                                         │
-│  SOBRE              O LIVRO            PALESTRAS           A CAUSA      │
-│  Foto grande +      Capa do livro +    Foto palco +        Foto campo + │
-│  bio editorial      sinopse curta      temas/impacto       missão social│
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────┐
+│                                             │
+│   ┌─────────┐                               │
+│   │ FOTO    │    Onde tudo                  │
+│   │ polaroid│    começou                    │
+│   │ rotação │                               │
+│   └─────────┘    Texto curto sobre          │
+│          ┌──────┐ Joinville, anos 80...     │
+│          │ FOTO │                           │
+│          │ menor│                           │
+│          └──────┘                           │
+│ ●────────────────────────────────────────── │
+│  INFÂNCIA                                   │
+└─────────────────────────────────────────────┘
 ```
+- Fotos estilo polaroid com rotação leve (-3° e 2°), sombra suave
+- Título grande à direita, texto abaixo
+- Animação: fotos deslizam de baixo com fade; texto aparece letra a letra
 
-Cada painel ocupa 100vw. O container total tem `width: 400vw`. O ScrollTrigger pinea a seção e traduz o eixo X conforme o scroll.
+### Painel 2 — FORMAÇÃO (layout "Split Vertical")
+```text
+┌─────────────────────────────────────────────┐
+│                                             │
+│        O poder           ┌────────────────┐ │
+│        da palavra        │                │ │
+│                          │  FOTO GRANDE   │ │
+│   Texto sobre teatro,    │  (teatro/palco)│ │
+│   descoberta da voz...   │                │ │
+│                          └────────────────┘ │
+│   ┌─────┐  ┌─────┐                         │
+│   │foto │  │foto │                         │
+│   └─────┘  └─────┘                         │
+│ ────────────●──────────────────────────── │
+│             FORMAÇÃO                        │
+└─────────────────────────────────────────────┘
+```
+- Texto à esquerda, foto principal grande à direita
+- Duas fotos menores embaixo do texto
+- Animação: foto grande escala de 0.8→1; texto slide-in da esquerda; fotos menores stagger fade-up
 
-## Conteúdo dos 4 Painéis
+### Painel 3 — OMUNGA (layout "Grid de Impacto")
+```text
+┌─────────────────────────────────────────────┐
+│                                             │
+│   Criar para        ┌──────┐  ┌──────┐     │
+│   transformar        │ FOTO │  │ FOTO │     │
+│                      └──────┘  └──────┘     │
+│   ┌──────────────┐                          │
+│   │  FOTO GRANDE │   +50 bibliotecas        │
+│   │  (amazônia)  │   Texto sobre a missão   │
+│   └──────────────┘                          │
+│                                             │
+│ ──────────────────────●──────────────────── │
+│                       OMUNGA                │
+└─────────────────────────────────────────────┘
+```
+- Título top-left, grid de 3 fotos (1 grande + 2 menores)
+- Número de destaque "+50 bibliotecas" com counter animation
+- Animação: fotos entram com stagger e scale; número faz count-up; texto fade-in
 
-1. **Sobre Roberto** -- Foto grande à esquerda, texto editorial à direita (quem ele é, de onde vem, formação)
-2. **O Livro** -- Visual do e-book/livro com título e frase de impacto
-3. **Palestras** -- Foto em palco + lista de temas ou depoimento
-4. **A Causa** -- Foto na Amazônia/comunidade + texto sobre a missão social
+### Painel 4 — HOJE (layout "Statement Central")
+```text
+┌─────────────────────────────────────────────┐
+│                                             │
+│            ┌──────┐                         │
+│            │ FOTO │   ┌──────┐              │
+│            │centro│   │ FOTO │              │
+│            └──────┘   │ palco│              │
+│                       └──────┘              │
+│          Inspirar para agir                 │
+│                                             │
+│   ┌─────┐   Empreendedor social,    ┌─────┐│
+│   │foto │   palestrante, escritor   │foto ││
+│   └─────┘                           └─────┘│
+│ ──────────────────────────────────────●──── │
+│                                    HOJE     │
+└─────────────────────────────────────────────┘
+```
+- Composição centralizada com fotos dispersas ao redor
+- Título grande centralizado, texto curto abaixo
+- Animação: fotos aparecem uma a uma de posições diferentes; título typewriter effect
 
-## Detalhes Técnicos
+### Implementação técnica
+- Cada painel renderizado por um sub-componente dedicado (`PanelInfancia`, `PanelFormacao`, `PanelOmunga`, `PanelHoje`)
+- Placeholders de imagem por enquanto (boxes cinza com label) — o usuário vai enviar as fotos depois
+- Animações via GSAP `scrollTrigger` com `containerAnimation` vinculado ao tween horizontal principal
+- Fundo branco em todos os painéis (já está assim)
 
-### Novo componente: `src/components/HorizontalScrollSection.tsx`
+---
 
-- Container wrapper com `height` suficiente para o pin (ex: `300vh` para dar espaço de scroll)
-- Inner container com `display: flex`, `width: 400vw`, cada painel `w-screen h-screen`
-- GSAP ScrollTrigger: `pin: true`, `scrub: 1`, anima `x` do inner container de `0` até `-300vw`
-- Cada painel tem animações de entrada (fade + slide) com stagger conforme entra no viewport
-- Reutiliza o mesmo padrão de carregamento de GSAP/ScrollTrigger do `TextRevealSection`
+## Parte 2: Texto pós-Zoom Parallax
 
-### Estilos em `src/index.css`
+Trocar o parágrafo longo atual por uma frase curta e de transição, sobre o propósito/missão de vida:
 
-- `.horizontal-panel` -- layout flexbox, tipografia editorial (SF Pro stack)
-- Textos com o mesmo tracking negativo e escala do hero
-- Fundo alternando entre escuro (dark panels) e claro para variar ritmo visual
+> "Minha missão é simples: provar que a educação transforma qualquer realidade — e que nunca é tarde para começar."
 
-### `src/pages/Index.tsx`
+Mantém o efeito text-reveal word-by-word, mas com texto mais curto e fonte um pouco maior (volta ao `--sm` mas com menos palavras fica mais impactante).
 
-- Adicionar `<HorizontalScrollSection />` logo após `<TextRevealSection />`
+---
 
-## Arquivos
+## Parte 3: O que vem depois (próximas seções)
+
+Após o text-reveal de propósito, a narrativa muda de "quem ele é" para "o que ele faz". Estrutura sugerida:
+
+1. **Seção do Livro** — "O Caminho depois da pressa" — hero visual do livro com CTA de compra
+2. **Seção de Palestras** — vídeos/fotos de palco + temas + CTA para contratar
+3. **Footer/CTA final** — contato, redes sociais
+
+Essas seções serão implementadas em iterações futuras.
+
+---
+
+## Arquivos modificados
 
 | Arquivo | Ação |
-|---------|------|
-| `src/components/HorizontalScrollSection.tsx` | Criar |
-| `src/index.css` | Adicionar estilos dos painéis |
-| `src/pages/Index.tsx` | Importar e posicionar o componente |
-
-## Considerações
-
-- As imagens dos painéis usam os assets já existentes em `src/assets/hero/` + novas se necessário
-- Mobile: em telas < 768px, os painéis empilham verticalmente (scroll normal) em vez de horizontal, para melhor UX touch
-- O pin do ScrollTrigger requer `overflow: hidden` no container, não no body
+|---|---|
+| `src/components/HorizontalScrollSection.tsx` | Reescrever — 4 layouts distintos com placeholders de foto e animações GSAP por painel |
+| `src/index.css` | Adicionar estilos para polaroid, grid de fotos, counter |
+| `src/pages/Index.tsx` | Atualizar texto do TextRevealBlock |
 

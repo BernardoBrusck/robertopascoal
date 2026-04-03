@@ -24,7 +24,6 @@ const ImpactNumbersSection = () => {
 
     const initAnimation = () => {
       if (!sectionRef.current) return;
-      const ST = (window as any).ScrollTrigger;
 
       stats.forEach((stat, i) => {
         const el = numberRefs.current[i];
@@ -50,7 +49,6 @@ const ImpactNumbersSection = () => {
         });
       });
 
-      // Fade in cards
       gsap.from(sectionRef.current.querySelectorAll('.impact-card'), {
         y: 40,
         opacity: 0,
@@ -72,13 +70,9 @@ const ImpactNumbersSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-32 md:py-40 px-6 md:px-16 lg:px-24"
-      style={{ background: 'hsl(220, 20%, 8%)' }}
+      className="relative w-full py-32 md:py-40 px-6 md:px-16 lg:px-24 bg-background"
     >
-      <h2
-        className="text-center text-sm md:text-base uppercase tracking-[0.3em] mb-20"
-        style={{ color: 'hsl(38, 70%, 55%)' }}
-      >
+      <h2 className="text-center text-sm md:text-base uppercase tracking-[0.3em] mb-20 text-accent">
         Educação que transforma
       </h2>
 
@@ -87,18 +81,14 @@ const ImpactNumbersSection = () => {
           const Icon = stat.icon;
           return (
             <div key={stat.label} className="impact-card flex flex-col items-center text-center gap-4">
-              <Icon size={28} strokeWidth={1.5} style={{ color: 'hsl(38, 70%, 55%)' }} />
+              <Icon size={28} strokeWidth={1.5} className="text-accent" />
               <span
                 ref={(el) => { numberRefs.current[i] = el; }}
-                className="text-4xl md:text-5xl lg:text-6xl font-light"
-                style={{ color: 'hsl(0, 0%, 95%)' }}
+                className="text-4xl md:text-5xl lg:text-6xl font-light tracking-[-0.04em] text-foreground"
               >
                 0
               </span>
-              <span
-                className="text-xs md:text-sm uppercase tracking-[0.15em]"
-                style={{ color: 'hsl(220, 10%, 55%)' }}
-              >
+              <span className="text-xs md:text-sm uppercase tracking-[0.15em] text-muted-foreground">
                 {stat.label}
               </span>
             </div>
@@ -108,8 +98,7 @@ const ImpactNumbersSection = () => {
 
       {/* Linha decorativa */}
       <div
-        className="mx-auto mt-20 h-px w-24"
-        style={{ background: 'hsl(38, 70%, 55%, 0.4)' }}
+        className="mx-auto mt-20 h-px w-24 bg-accent/40"
       />
     </section>
   );

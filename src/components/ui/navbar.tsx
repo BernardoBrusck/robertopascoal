@@ -156,6 +156,7 @@ const Navbar = () => {
         className="fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ease-out"
         style={{
           padding: scrolled ? "8px 16px" : "0",
+          transform: (visible || hoverShow || isOpen) ? "translateY(0)" : "translateY(-100%)",
         }}
       >
         <header

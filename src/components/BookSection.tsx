@@ -49,18 +49,14 @@ const BookSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-28 md:py-40 px-6 md:px-16 lg:px-24"
-      style={{
-        background: 'linear-gradient(135deg, hsl(38, 20%, 96%), hsl(38, 30%, 92%))',
-      }}
+      className="relative w-full py-28 md:py-40 px-6 md:px-16 lg:px-24 bg-background"
     >
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
         {/* Book cover placeholder */}
         <div
-          className="book-cover flex-shrink-0 w-[240px] md:w-[300px] h-[360px] md:h-[440px] rounded-sm flex items-center justify-center text-muted-foreground text-xs uppercase tracking-widest select-none"
+          className="book-cover flex-shrink-0 w-[240px] md:w-[300px] h-[360px] md:h-[440px] rounded-sm flex items-center justify-center text-muted-foreground text-xs uppercase tracking-widest select-none bg-muted"
           style={{
-            background: 'hsl(220, 10%, 85%)',
-            boxShadow: '12px 12px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05)',
+            boxShadow: '12px 12px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05)',
             transition: 'transform 0.5s ease',
             perspective: '800px',
           }}
@@ -76,13 +72,10 @@ const BookSection = () => {
 
         {/* Text + CTA */}
         <div className="book-text flex flex-col gap-6 max-w-lg">
-          <span
-            className="text-xs uppercase tracking-[0.3em]"
-            style={{ color: 'hsl(38, 70%, 55%)' }}
-          >
+          <span className="text-xs uppercase tracking-[0.3em] text-accent">
             Livro
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light leading-tight text-foreground">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light leading-tight tracking-[-0.04em] text-foreground">
             O Caminho depois<br />da Pressa
           </h2>
           <p className="text-base md:text-lg text-muted-foreground font-light leading-relaxed">
@@ -92,17 +85,7 @@ const BookSection = () => {
           </p>
           <a
             href="#"
-            className="inline-flex items-center justify-center w-fit px-8 py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium transition-all duration-300"
-            style={{
-              background: 'hsl(38, 70%, 55%)',
-              color: 'hsl(0, 0%, 100%)',
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = 'hsl(38, 70%, 45%)';
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = 'hsl(38, 70%, 55%)';
-            }}
+            className="inline-flex items-center justify-center w-fit px-8 py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium transition-all duration-300 bg-accent text-primary-foreground hover:bg-accent/85"
           >
             Comprar agora
           </a>

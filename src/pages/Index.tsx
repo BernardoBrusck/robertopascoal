@@ -18,7 +18,7 @@ const Index = () => {
       <TextRevealBlock
         text="Minha missão é simples: provar que a educação transforma qualquer realidade e que nunca é tarde para começar."
       />
-      <ImpactNumbersSection />
+      <ServicesSection />
       <TestimonialsSection />
       <BookSection />
       <SpeakingSection />

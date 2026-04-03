@@ -86,117 +86,108 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 2rem;
+  padding: 3rem;
   pointer-events: none;
   z-index: 10;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 0.4) 30%,
-    rgba(0, 0, 0, 0.1) 55%,
-    transparent 75%
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.3) 25%,
+    rgba(0, 0, 0, 0.05) 50%,
+    transparent 70%
   );
 }
 
-.slider-counter {
+/* Editorial content — center-bottom */
+.slider-content-editorial {
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  bottom: 5rem;
+  left: 3rem;
+  right: 6rem;
+}
+
+.slider-subtitle {
   font-family: inherit;
-  font-size: clamp(10px, 1.2vw, 12px);
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.15em;
+  font-size: clamp(10px, 1.1vw, 13px);
+  color: rgba(255, 255, 255, 0.55);
   text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
 }
 
-.slider-counter-current {
-  color: #ffffff;
-  font-weight: 600;
-}
-
-.slider-counter-separator {
-  margin: 0 0.25rem;
-}
-
-.slider-content {
-  margin-bottom: 2rem;
-}
-
-.slider-title {
+.slider-title-editorial {
   font-family: inherit;
-  font-size: clamp(32px, 7vw, 112px);
-  font-weight: 600;
+  font-size: clamp(36px, 8vw, 120px);
+  font-weight: 700;
   color: #ffffff;
-  line-height: 1.0;
-  letter-spacing: -0.05em;
+  line-height: 0.95;
+  letter-spacing: -0.06em;
   margin: 0;
   perspective: 600px;
 }
 
-.slider-title span {
+.slider-title-editorial span {
   display: inline-block;
 }
 
-.slider-desc {
+/* Counter — bottom left */
+.slider-counter-editorial {
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   font-family: inherit;
-  font-size: clamp(14px, 1.6vw, 20px);
-  color: rgba(255, 255, 255, 0.6);
-  margin-top: 1rem;
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-size: clamp(11px, 1vw, 13px);
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.1em;
+  font-weight: 500;
 }
 
-.slides-nav {
+.slider-counter-editorial .slider-counter-current {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.slider-counter-line {
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Dots navigation — right side vertical */
+.slider-dots-nav {
+  position: absolute;
+  right: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.75rem;
   pointer-events: all;
 }
 
-.slide-nav-item {
-  flex: 1;
+.slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  padding: 0;
   cursor: pointer;
-  padding: 0.5rem 0;
-  transition: opacity 0.3s ease;
-  opacity: 0.4;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.slide-nav-item.active {
-  opacity: 1;
-}
-
-.slide-nav-item:hover {
-  opacity: 0.8;
-}
-
-.slide-progress {
-  height: 2px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 1px;
-  overflow: hidden;
-  margin-bottom: 0.5rem;
-}
-
-.slide-progress-fill {
-  height: 100%;
-  width: 0%;
+.slider-dot.active {
   background: #ffffff;
-  border-radius: 1px;
-  transition: width 0.1s ease, opacity 0.3s ease;
+  transform: scale(1.4);
 }
 
-.slide-nav-title {
-  font-family: inherit;
-  font-size: clamp(9px, 1vw, 11px);
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block;
-}
-
-.slide-nav-item.active .slide-nav-title {
-  color: rgba(255, 255, 255, 0.9);
+.slider-dot:hover {
+  background: rgba(255, 255, 255, 0.6);
 }
 
 @media (max-width: 768px) {
@@ -204,16 +195,18 @@
     padding: 1.5rem;
   }
 
-  .slides-nav {
-    gap: 0.25rem;
+  .slider-content-editorial {
+    bottom: 4rem;
+    left: 1.5rem;
+    right: 4rem;
   }
 
-  .slide-nav-title {
-    display: none;
+  .slider-counter-editorial {
+    bottom: 1.5rem;
+    left: 1.5rem;
   }
 
-  .slider-counter {
-    top: 1.5rem;
+  .slider-dots-nav {
     right: 1.5rem;
   }
 }

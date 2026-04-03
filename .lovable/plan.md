@@ -1,41 +1,45 @@
 
 
-# Plano: Tela de Loading com barra de progresso minimalista
+# Plano: Otimização de Performance do Site
 
-## O que será feito
+## Problema identificado
 
-Adicionar uma tela de loading que aparece ao abrir o site, com fundo branco, o nome "Roberto Pascoal" centralizado acima de uma barra de progresso fina e elegante. A barra preenche progressivamente e, ao completar, a tela faz um fade-out revelando o site.
+1. **Imagens do hero: 13MB total** — 5 das 6 imagens pesam entre 2.2MB e 2.9MB cada. São carregadas TODAS de uma vez via Three.js TextureLoader antes do site aparecer
+2. **7 imagens Unsplash no ZoomParallax** — carregadas imediatamente mesmo estando abaixo da dobra
+3. **3 scripts CDN carregados sequencialmente** — GSAP, Three.js e ScrollTrigger, cada um aguardando o anterior
 
-## Layout
+## Solução
 
-```text
-┌──────────────────────────────────────────┐
-│                                          │
-│                                          │
-│                                          │
-│           Roberto Pascoal                │
-│          ━━━━━━━━━━━░░░░░░░              │
-│                                          │
-│                                          │
-│                                          │
-└──────────────────────────────────────────┘
-```
+### 1. Comprimir imagens do hero para WebP (~80-90% menor)
+- Converter as 6 imagens para WebP com qualidade 80, resolução max 1920px
+- De ~13MB para ~1-2MB total estimado
+- Atualizar imports no `lumina-interactive-list.tsx`
 
-- Fundo branco puro, centralizado vertical e horizontal
-- "Roberto Pascoal" em font-weight 500, tracking negativo, fonte Apple (SF Pro / system-ui)
-- Barra de progresso fina (~2-3px de altura), cor escura (#1a1a1a), largura ~200px
-- Progresso simulado: 0→100% em ~2.5s com easing suave
-- Ao completar: fade-out da tela inteira (~0.5s), depois remove do DOM
+### 2. Lazy loading inteligente de imagens
+- Criar um componente utilitário `LazyImage` que usa `IntersectionObserver` para carregar imagens apenas quando estão próximas do viewport
+- Aplicar no `ZoomParallaxSection` — as 7 imagens Unsplash só carregam quando o usuário se aproxima da seção
+- Adicionar parâmetros de tamanho menores nas URLs do Unsplash (reduzir `w=1280` para `w=960`)
 
-## Detalhes técnicos
+### 3. Carregar scripts CDN em paralelo e com prioridade
+- No `index.html`, adicionar `<link rel="preload">` para GSAP e Three.js
+- Carregar GSAP e Three.js em paralelo (não sequencial) no `lumina-interactive-list.tsx`
+- ScrollTrigger pode continuar carregando sob demanda (só é usado mais abaixo)
+
+### 4. Preload da primeira imagem do hero
+- A primeira imagem do slider (slide-06-omunga) recebe `<link rel="preload">` no HTML para começar a carregar imediatamente
+
+## Arquivos
 
 | Arquivo | Ação |
 |---|---|
-| `src/components/LoadingScreen.tsx` | Criar — componente com estado de progresso animado (useEffect + requestAnimationFrame), fade-out ao completar via estado + transition CSS |
-| `src/App.tsx` | Envolver o conteúdo com `LoadingScreen` — renderiza o loading por cima, depois some |
+| `src/assets/hero/*.jpg/png/jpeg` | Comprimir para WebP via script |
+| `src/components/ui/lumina-interactive-list.tsx` | Atualizar imports para .webp, carregar scripts em paralelo |
+| `src/components/ui/zoom-parallax.tsx` | Adicionar lazy loading nas imagens |
+| `src/components/ZoomParallaxSection.tsx` | Reduzir tamanho das URLs Unsplash |
+| `index.html` | Adicionar preload para scripts CDN e primeira imagem |
+| `src/lib/LazyImage.tsx` | Criar componente de lazy loading com IntersectionObserver |
 
-- Progresso via `requestAnimationFrame` com incremento suave (não depende de GSAP/Framer Motion para manter o loading leve)
-- A barra usa um `div` simples com `width` em % e `transition: width`
-- Após 100%, espera 300ms, faz opacity 0 no container, depois `display: none`
-- Tipografia: `font-family` system-ui (já global), `font-size: clamp(20px, 2.5vw, 32px)`, `font-weight: 500`, `letter-spacing: -0.02em`
+## Impacto esperado
+- Tempo de carregamento inicial: de ~15s para ~3-4s
+- Payload inicial: de ~16MB para ~2-3MB
 

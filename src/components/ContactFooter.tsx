@@ -124,7 +124,7 @@ const ContactFooter = () => {
                 href={`https://wa.me/${CONTACT.whatsapp.replace(/\D/g, '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-foreground border border-neutral-200 rounded-full px-4 py-2 hover:bg-neutral-50 transition-colors"
+                className="inline-flex items-center gap-2 text-sm text-foreground border border-border rounded-full px-4 py-2 hover:bg-muted transition-colors"
               >
                 <MessageCircle className="h-4 w-4" />
                 {CONTACT.whatsappDisplay}

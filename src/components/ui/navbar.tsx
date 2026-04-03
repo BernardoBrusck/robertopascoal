@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -13,54 +13,177 @@ const navItems = [
   { label: "Palestras", href: "#palestras" },
 ];
 
+/**
+ * Samples the pixel color behind the header center to determine
+ * if the background is dark (needs white text) or light (needs dark text).
+ */
+const useHeaderContrast = (scrolled: boolean) => {
+  const [isDarkBg, setIsDarkBg] = useState(true); // hero is dark by default
+
+  const sampleBackground = useCallback(() => {
+    if (scrolled) {
+      // When scrolled, the bar has white bg → always dark text
+      setIsDarkBg(false);
+      return;
+    }
+
+    // Sample the element at the center-top of the viewport
+    const x = window.innerWidth / 2;
+    const y = 40;
+    const els = document.elementsFromPoint(x, y);
+
+    // Skip the header itself and its children
+    const headerEl = document.querySelector("[data-navbar]");
+    const target = els.find(
+      (el) => el !== headerEl && !headerEl?.contains(el)
+    );
+
+    if (!target) {
+      setIsDarkBg(true);
+      return;
+    }
+
+    const style = window.getComputedStyle(target);
+    const bg = style.backgroundColor;
+
+    // Parse rgb/rgba
+    const match = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+      const r = parseInt(match[1]);
+      const g = parseInt(match[2]);
+      const b = parseInt(match[3]);
+      // Luminance check
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      setIsDarkBg(luminance < 0.5);
+    } else {
+      // If bg is transparent, check for background images (hero slider)
+      // Assume dark since hero has images
+      setIsDarkBg(true);
+    }
+  }, [scrolled]);
+
+  useEffect(() => {
+    sampleBackground();
+    const interval = setInterval(sampleBackground, 500);
+    return () => clearInterval(interval);
+  }, [sampleBackground]);
+
+  return isDarkBg;
+};
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const isDarkBg = useHeaderContrast(scrolled);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 80);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Dynamic text color based on contrast
+  const textColor = scrolled
+    ? "text-foreground"
+    : isDarkBg
+      ? "text-white"
+      : "text-foreground";
+
+  const mutedColor = scrolled
+    ? "text-foreground/70"
+    : isDarkBg
+      ? "text-white/70"
+      : "text-foreground/70";
+
+  const borderColor = scrolled
+    ? "border-foreground"
+    : isDarkBg
+      ? "border-white"
+      : "border-foreground";
+
+  const hoverBg = scrolled
+    ? "hover:bg-foreground hover:text-background"
+    : isDarkBg
+      ? "hover:bg-white hover:text-black"
+      : "hover:bg-foreground hover:text-background";
+
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[100]">
-        <div className="mx-auto px-6 md:px-16 lg:px-24">
-          <div className="flex items-center justify-between h-20">
-            <a
-              href="#"
-              className="relative z-[110] text-sm uppercase tracking-[0.25em] font-bold text-foreground"
-            >
-              Roberto Pascoal
-            </a>
-
-            <nav className="hidden md:flex items-center gap-10">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-xs uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-
-            <div className="hidden md:block">
+      <div
+        data-navbar
+        className="fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ease-out"
+        style={{
+          padding: scrolled ? "8px 16px" : "0",
+        }}
+      >
+        <header
+          className="mx-auto transition-all duration-500 ease-out"
+          style={{
+            maxWidth: scrolled ? "1100px" : "100%",
+            backgroundColor: scrolled
+              ? "rgba(255, 255, 255, 0.85)"
+              : "transparent",
+            backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
+            WebkitBackdropFilter: scrolled
+              ? "blur(20px) saturate(180%)"
+              : "none",
+            borderRadius: scrolled ? "16px" : "0",
+            boxShadow: scrolled
+              ? "0 4px 30px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04)"
+              : "none",
+            border: scrolled ? "1px solid rgba(0, 0, 0, 0.06)" : "none",
+          }}
+        >
+          <div className="px-6 md:px-10">
+            <div className="flex items-center justify-between h-16">
+              {/* Logo */}
               <a
-                href="#contato"
-                className="inline-flex items-center justify-center px-6 py-2.5 rounded-sm text-xs uppercase tracking-[0.2em] font-medium border border-foreground text-foreground bg-transparent transition-all duration-300 hover:bg-foreground hover:text-background"
+                href="#"
+                className={`relative z-[110] text-sm uppercase tracking-[0.25em] font-bold transition-colors duration-300 ${textColor}`}
               >
-                Contato
+                Roberto Pascoal
               </a>
-            </div>
 
-            <button
-              onClick={toggleMenu}
-              className="relative z-[110] md:hidden p-2 text-foreground"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+              {/* Desktop Navigation */}
+              <nav className="hidden md:flex items-center gap-10">
+                {navItems.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className={`text-xs uppercase tracking-[0.2em] transition-colors duration-300 ${mutedColor} hover:opacity-100`}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+
+              {/* Desktop CTA */}
+              <div className="hidden md:block">
+                <a
+                  href="#contato"
+                  className={`inline-flex items-center justify-center px-6 py-2.5 rounded-sm text-xs uppercase tracking-[0.2em] font-medium border bg-transparent transition-all duration-300 ${textColor} ${borderColor} ${hoverBg}`}
+                >
+                  Contato
+                </a>
+              </div>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={toggleMenu}
+                className={`relative z-[110] md:hidden p-2 transition-colors duration-300 ${textColor}`}
+                aria-label="Toggle menu"
+              >
+                <Menu size={24} />
+              </button>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      </div>
 
       {/* Mobile overlay via portal to avoid GSAP DOM conflicts */}
       {createPortal(
@@ -75,7 +198,7 @@ const Navbar = () => {
             >
               <button
                 onClick={toggleMenu}
-                className="absolute top-6 right-6 z-[110] p-2 text-foreground"
+                className="absolute top-5 right-6 z-[110] p-2 text-foreground"
                 aria-label="Close menu"
               >
                 <X size={24} />
@@ -100,7 +223,10 @@ const Navbar = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: navItems.length * 0.08, duration: 0.4 }}
+                  transition={{
+                    delay: navItems.length * 0.08,
+                    duration: 0.4,
+                  }}
                   className="mt-4"
                 >
                   <a

@@ -118,13 +118,14 @@
 
 .slider-title-editorial {
   font-family: inherit;
-  font-size: clamp(36px, 8vw, 120px);
+  font-size: clamp(32px, 5.5vw, 88px);
   font-weight: 700;
   color: #ffffff;
   line-height: 0.95;
   letter-spacing: -0.06em;
   margin: 0;
   perspective: 600px;
+  max-width: 85%;
 }
 
 .slider-title-editorial span {

@@ -67,10 +67,11 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
                     : 'absolute top-[22.5vh] left-[25vw] h-[15vh] w-[15vw]'
                 }`}
               >
-                <img
+                <LazyImage
                   src={src}
                   alt={alt || ''}
                   className="w-full h-full object-cover rounded-sm"
+                  rootMargin="400px"
                 />
               </div>
             </motion.div>

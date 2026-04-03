@@ -90,6 +90,13 @@
   padding: 2rem;
   pointer-events: none;
   z-index: 10;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 30%,
+    rgba(0, 0, 0, 0.1) 55%,
+    transparent 75%
+  );
 }
 
 .slider-counter {

@@ -1,58 +1,31 @@
 
 
-# Plano: Substituir contadores por seção de Serviços/Ações com hover modal animado
+# Plano: ServicesSection minimalista com hover modal e detail modal
 
-## O que muda
+## Mudancas
 
-Remover a `ImpactNumbersSection` (contadores animados) e substituir por uma seção de serviços/ações do Roberto, usando o template fornecido (lista interativa com modal que segue o cursor no hover). O conteúdo será baseado no livro e na atuação dele.
+### 1. Reduzir tipografia e alinhar a esquerda
+- Titulo dos itens: `clamp(20px, 2.5vw, 36px)`, font-weight 500, tracking -0.03em (mesma escala do text-reveal-text--sm)
+- Categorias: text-xs uppercase, tracking wide
+- Header "O que fazemos.": `clamp(24px, 3.5vw, 48px)`, font-weight 500
+- Tudo alinhado a esquerda, sem justify-between no header
+- Padding vertical dos itens reduzido (py-8 em vez de py-12)
 
-## Layout
+### 2. Manter hover com imagem flutuante (GSAP + Framer Motion)
+- Cursor "Ver" continua seguindo o mouse no hover
+- Modal flutuante com imagem placeholder (wireframe cinza com icone) em vez de fotos reais
+- Tamanho reduzido (300x200)
 
-```text
-┌──────────────────────────────────────────────────────┐
-│                                                      │
-│   O QUE FAZEMOS              Texto curto sobre       │
-│                               a atuação do Roberto   │
-│                                                      │
-│   ─────────────────────────────────────────────────   │
-│   Bibliotecas Comunitárias          Educação Social  │
-│   ─────────────────────────────────────────────────   │
-│   Doação de Livros                  Educação Social  │
-│   ─────────────────────────────────────────────────   │
-│   Palestras Transformadoras         Inspiração       │
-│   ─────────────────────────────────────────────────   │
-│   Expedições Educacionais           Ação Social      │
-│   ─────────────────────────────────────────────────   │
-│                                                      │
-│   [ Modal com imagem segue o cursor no hover ]       │
-│   [ Cursor personalizado "Ver" ]                     │
-│                                                      │
-└──────────────────────────────────────────────────────┘
-```
+### 3. Adicionar detail modal ao clicar
+- Ao clicar em um item, abre um modal fullscreen/overlay minimalista (Framer Motion AnimatePresence)
+- Layout do modal: fundo branco, botao X no canto, titulo do servico, descricao curta, galeria de fotos placeholder (grid 2x2 com wireframes cinza)
+- Tipografia do modal segue a mesma stack SF Pro, font-weight 500, tracking negativo
+- Scroll interno se necessario
+- Fecha com click no X ou click fora
 
-Cada item da lista, ao receber hover, exibe um modal flutuante com uma imagem placeholder (300x200) que acompanha o mouse, mais um cursor circular com "Ver".
+## Arquivos
 
-## Conteúdo (placeholder, baseado no livro)
-
-1. **Bibliotecas Comunitárias** - categoria: Educação Social
-2. **Doação de Livros** - categoria: Acesso ao Conhecimento
-3. **Palestras Transformadoras** - categoria: Inspiração
-4. **Expedições Educacionais** - categoria: Ação Social
-
-## Detalhes técnicos
-
-| Arquivo | Ação |
+| Arquivo | Acao |
 |---|---|
-| `src/components/ServicesSection.tsx` | Criar - adaptar o template demo.tsx (sem Next.js Image, usando `<img>` com placeholders; GSAP via `declare const gsap` como nas demais seções; framer-motion para animação do modal) |
-| `src/components/ImpactNumbersSection.tsx` | Deletar |
-| `src/pages/Index.tsx` | Trocar `ImpactNumbersSection` por `ServicesSection` |
-
-### Adaptações do template para o projeto
-- Remover `Image` do Next.js, usar `<img>` ou div placeholder
-- Remover `"use client"` (Vite, não Next)
-- GSAP via `declare const gsap` + `gsap.quickTo` (já no CDN do projeto)
-- Framer-motion `motion` importado de `framer-motion` (já instalado)
-- Fonte Apple (font-family já definida globalmente no CSS)
-- Fundo branco (`bg-background`), cores do design system existente
-- Texto do header e descrição em português
+| `src/components/ServicesSection.tsx` | Reescrever: fontes menores, alinhamento esquerda, hover image mantido, adicionar onClick que abre detail modal com galeria placeholder |
 

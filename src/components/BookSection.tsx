@@ -57,8 +57,7 @@ const BookSection = () => {
         <div
           className="book-cover flex-shrink-0 w-[240px] md:w-[300px] h-[360px] md:h-[440px] rounded-sm flex items-center justify-center text-muted-foreground text-xs uppercase tracking-widest select-none bg-muted"
           style={{
-            background: 'hsl(220, 10%, 85%)',
-            boxShadow: '12px 12px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05)',
+            boxShadow: '12px 12px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05)',
             transition: 'transform 0.5s ease',
             perspective: '800px',
           }}

@@ -12,7 +12,7 @@ const Index = () => {
       <HorizontalScrollSection />
       <ZoomParallaxSection />
       <TextRevealBlock
-        text="Minha missão é simples: provar que a educação transforma qualquer realidade — e que nunca é tarde para começar."
+        text="Minha missão é simples: provar que a educação transforma qualquer realidade e que nunca é tarde para começar."
       />
     </div>
   );

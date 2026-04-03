@@ -1,95 +1,68 @@
 
 
-# Plano: Seções do Livro e Palestras — layout editorial premium
+# Plano: Redesign do Livro + Palestras como banner editorial com modal
 
-## Conceito criativo
+## Resumo
 
-Em vez de cards genéricos ou layouts de e-commerce, a ideia é tratar cada seção como uma **composição editorial** — como uma página de revista de luxo — usando a tipografia agressiva do site, fundo branco, e animações GSAP que revelam o conteúdo de forma cinematográfica.
+1. **BookSection** — Aplicar a tipografia `h-panel-title` (font-weight 700, clamp 36-96px, tracking -0.05em, line-height 0.95) no titulo "O Caminho depois da Pressa"
+2. **SpeakingSection** — Transformar numa seção tipo "outdoor/banner" com imagem de fundo (placeholder dele palestrando), tipografia bold editorial, e botão "Saiba mais" que abre um **modal** com galeria de vídeos/fotos e informações detalhadas
+3. **TestimonialsSection** — Mover para depois da SpeakingSection no Index.tsx (depoimentos logo após palestras)
 
-## Seção 1: O Livro — "Split reveal"
+## Alterações detalhadas
 
-Layout horizontal dividido ao meio. GSAP anima uma cortina que se abre ao scrollar, revelando a capa do livro de um lado e o texto do outro.
+### 1. BookSection — Tipografia editorial
 
-```text
-Estado inicial (antes do scroll):
-┌──────────────────────────────────────────┐
-│                                          │
-│          (tela em branco)                │
-│                                          │
-└──────────────────────────────────────────┘
+- Trocar o `font-light` + inline styles do h2 pela classe `h-panel-title` que já existe no CSS global
+- Manter o layout split e animações GSAP atuais (sem pin)
+- Resultado: o título fica bold, grande, com o mesmo estilo de "Onde tudo começou"
 
-Conforme scrolla, duas metades se abrem como cortina:
-┌──────────────────────────────────────────┐
-│                    │                     │
-│   IMAGEM/CAPA      │    O CAMINHO       │
-│   DO LIVRO         │    DEPOIS DA       │
-│   (foto real,      │    PRESSA          │
-│    grande,         │                     │
-│    com sombra)     │    Parágrafo desc.  │
-│                    │    com texto fino   │
-│                    │                     │
-│                    │    [ Comprar ]      │
-│                    │    botão sutil      │
-└──────────────────────────────────────────┘
-```
+### 2. SpeakingSection — Banner outdoor + Modal
 
-- A capa entra da esquerda com `x: -100%` → `x: 0` via ScrollTrigger scrub
-- O texto entra da direita com `x: 100%` → `x: 0` sincronizado
-- Título do livro: tipografia gigante (clamp ~60-100px), tracking -0.05em, weight 300
-- Subtítulo/descrição: weight 300, text-muted-foreground, leading relaxed
-- Botão CTA: borda fina preta, texto preto, hover preenche preto com texto branco — transição suave
-- A seção é pinned durante o efeito (ScrollTrigger pin)
+Redesign completo. Em vez da seção editorial com stats/temas/citação, criar:
 
-## Seção 2: Palestras — "Texto cinematográfico com counter"
-
-Uma seção full-width onde o scroll revela números/estatísticas animados e depois o conteúdo. Sem cards, sem ícones genéricos — puro texto editorial.
-
+**Banner (seção principal):**
 ```text
 ┌──────────────────────────────────────────┐
 │                                          │
-│   PALESTRAS                              │  ← label xs, tracking 0.3em
+│   (imagem placeholder de fundo,          │
+│    escurecida com overlay gradiente)     │
 │                                          │
-│   +200              +15.000              │  ← números grandes animados
-│   palestras         vidas impactadas     │    (counter GSAP, 80-120px)
-│   realizadas                             │
+│         ROBERTO PASCOAL                  │  ← label pequeno
 │                                          │
-│   ─────────────────────────────────────  │  ← linha fina separadora
+│         Palestras que                    │  ← h-panel-title style
+│         transformam                      │    bold, grande
 │                                          │
-│   "Educação é a arma mais poderosa       │  ← citação grande, itálico
-│    que você pode usar para mudar         │    weight 300, 32-48px
-│    o mundo." — Nelson Mandela            │
-│                                          │
-│   ─────────────────────────────────────  │
-│                                          │
-│   Temas:                                 │
-│                                          │
-│   01  Educação como transformação social │  ← lista numerada editorial
-│   02  Empatia e liderança                │    sem ícones, só tipografia
-│   03  Propósito e desaceleração          │    cada item revela com stagger
-│   04  Empreendedorismo social            │
-│                                          │
-│          [ Contratar palestra ]           │  ← mesmo estilo botão do livro
+│         [ Saiba mais ]                   │  ← botão branco/borda
 │                                          │
 └──────────────────────────────────────────┘
 ```
 
-- Os números fazem **counter animation** GSAP (0 → 200, 0 → 15000) com ScrollTrigger
-- Cada tema revela com `y: 30, opacity: 0` stagger 0.15s
-- A citação faz um efeito parecido com o TextRevealBlock (palavras revelando uma a uma)
-- Tudo fundo branco, sem cores de fundo, sem cards com borda — editorial puro
+- Imagem de fundo: placeholder cinza com texto "Foto palestrando" (substituível depois)
+- Overlay: gradiente preto 40-60% de opacidade sobre a imagem
+- Texto branco sobre fundo escuro
+- Animação GSAP: fade-in simples ao entrar no viewport
+- Altura: `min-h-[80vh]`
 
-## Animações GSAP (ambas seções)
+**Modal (ao clicar "Saiba mais"):**
+- Usar o componente `Dialog` do shadcn já existente
+- Conteúdo do modal:
+  - Stats animados (+200 palestras, +15.000 vidas) — reutilizar lógica dos counters
+  - Galeria de vídeos/fotos: grid de placeholders (iframes para YouTube + fotos)
+  - Lista de temas de palestra
+  - Citação do Nelson Mandela
+  - Botão "Contratar palestra" no final
+- Modal fullscreen no mobile, `max-w-4xl` no desktop
 
-- ScrollTrigger com `start: 'top 70%'` para as animações de entrada
-- Seção do livro: `pin: true` durante o split reveal (scrub)
-- Counter: `snap` nos números finais
-- Mobile: desabilitar pin, empilhar verticalmente, manter animações de fade simples
+### 3. TestimonialsSection — Reposicionar
+
+- Adicionar `TestimonialsSection` no Index.tsx logo após `SpeakingSection`
+- Já existe e funciona — só precisa importar e posicionar
 
 ## Arquivos
 
 | Arquivo | Ação |
 |---|---|
-| `src/components/BookSection.tsx` | Reescrever — layout split reveal com GSAP ScrollTrigger pin + cortina |
-| `src/components/SpeakingSection.tsx` | Reescrever — layout editorial com counters animados, citação reveal, lista numerada |
-| `src/pages/Index.tsx` | Adicionar BookSection e SpeakingSection após ImageGallery |
+| `src/components/BookSection.tsx` | Trocar tipografia do título para `h-panel-title` |
+| `src/components/SpeakingSection.tsx` | Reescrever — banner outdoor com imagem + modal com galeria |
+| `src/pages/Index.tsx` | Adicionar TestimonialsSection após SpeakingSection |
 

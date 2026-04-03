@@ -443,7 +443,7 @@ const HorizontalScrollSection = () => {
 
               {/* Timeline dot */}
               <div
-                className="absolute bottom-14 z-30"
+                className="absolute bottom-6 z-30"
                 style={{ left: '50%', transform: 'translateX(-50%)' }}
               >
                 <div className="w-3 h-3 rounded-full bg-foreground" />

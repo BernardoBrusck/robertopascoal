@@ -82,14 +82,7 @@ const BookSection = () => {
             Livro
           </span>
 
-          <h2
-            className="font-light text-foreground"
-            style={{
-              fontSize: 'clamp(40px, 6vw, 96px)',
-              letterSpacing: '-0.05em',
-              lineHeight: 0.95,
-            }}
-          >
+          <h2 className="h-panel-title text-foreground">
             O Caminho
             <br />
             depois da

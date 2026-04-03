@@ -7,6 +7,7 @@ import ServicesSection from "@/components/ServicesSection";
 import { ImageGallery } from "@/components/ui/image-gallery";
 import BookSection from "@/components/BookSection";
 import SpeakingSection from "@/components/SpeakingSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 
 const Index = () => {
   return (
@@ -22,6 +23,7 @@ const Index = () => {
       <ImageGallery />
       <BookSection />
       <SpeakingSection />
+      <TestimonialsSection />
     </div>
   );
 };

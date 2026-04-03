@@ -1,64 +1,69 @@
 
 
-# Plano: Bloco 1 - Hero com Carrossel WebGL (Lumina Slider)
+# Plano: Tipografia Apple (SF Pro) + Redesign do Layout do Hero
 
 ## Resumo
 
-Adaptar o componente "Lumina Interactive List" (carrossel WebGL com transições glass/shader via GSAP + Three.js) para o contexto do Roberto Pascoal. O hero ocupará 100vh com fotos de impacto em tela cheia, texto minimalista branco sobre as imagens, e navegação lateral.
+Duas mudanças principais: (1) trocar a tipografia global para a stack da Apple (SF Pro Display / system-ui) e (2) redesenhar o overlay do Hero para um layout mais premium e limpo, mantendo o efeito WebGL de transição glass intacto. Também reduzir o tempo entre slides.
 
-## Adaptações necessárias ao contexto do Roberto
+## O que muda
 
-O componente original usa fundo escuro (#0a0a0a) com estética dark. Para o Roberto:
+### 1. Tipografia Apple em todo o site
 
-- **Textos do slider**: Substituir os títulos genéricos ("Ethereal Glow", etc.) por frases da narrativa do Roberto -- "Não é sobre se sentir pronto", "É sobre ser suficiente para continuar caminhando", "O caminho é o propósito", etc.
-- **Imagens placeholder**: Manter as imagens do CodePen por enquanto (laranja/retratos) como placeholder até Roberto enviar as 50+ fotos. Serão facilmente substituíveis.
-- **Tipografia**: Manter Inter (heading) e Pretendard (body) já configurados -- não usar as fontes do prompt original (PP Neue Montreal, Cormorant Garamond).
-- **Cores do overlay**: Texto branco sobre as fotos (as fotos de expedição são naturalmente escuras/contrastantes). Não alterar o design system branco do site -- o hero é a exceção visual (fullscreen com foto).
-- **NÃO aplicar as variáveis CSS do prompt** (--color-bg: #0a0a0a, etc.) ao site global. Essas cores ficam isoladas apenas no componente hero.
+Substituir Inter/Pretendard pela stack de fontes da Apple. Não precisa carregar fontes externas -- usa a system font stack que inclui SF Pro em dispositivos Apple e cai graciosamente para system-ui em outros.
 
-## Arquivos a criar/modificar
+**Arquivos afetados:**
+- `tailwind.config.ts` -- atualizar `fontFamily.sans` e `fontFamily.heading`
+- `src/index.css` -- remover imports de Google Fonts/Pretendard, atualizar todas as `font-family` hardcoded no slider CSS
+- `src/components/TextRevealSection.tsx` -- herda automaticamente
 
-### 1. `src/components/ui/lumina-interactive-list.tsx` (novo)
-- Componente adaptado do prompt
-- Slides com conteúdo do Roberto (frases, descrições)
-- Carrega GSAP e Three.js via CDN dinamicamente
-- Shaders WebGL para transição glass entre slides
-- Navegação lateral com progress bars
+**Font stack:**
+```
+"SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, sans-serif
+```
 
-### 2. `src/components/HeroSection.tsx` (novo)
-- Wrapper que importa o Lumina component
-- Seção fullscreen (100vh) como Bloco 1 da Home
+### 2. Redesign do overlay do Hero
 
-### 3. `src/pages/Index.tsx` (modificar)
-- Importar e renderizar HeroSection como primeiro bloco
-- Remover o conteúdo placeholder atual (nome centralizado)
+O layout atual tem título grande + descrição + barra de navegação na base. Vamos torná-lo mais editorial/premium:
 
-### 4. `src/index.css` (modificar)
-- Adicionar os estilos CSS específicos do slider (`.slider-wrapper`, `.slide-nav-item`, `.webgl-canvas`, etc.)
-- **Não alterar** as variáveis globais do site (permanecem brancas)
+- **Counter**: mover para canto inferior esquerdo, formato vertical com linha separadora
+- **Título**: manter grande com tracking negativo, mas posicionar mais centralizado verticalmente (centro-baixo), não colado na base
+- **Descrição**: tipografia menor, mais sutil, uppercase com letter-spacing largo (estilo editorial)
+- **Navegação**: simplificar para apenas dots/indicadores minimalistas no canto direito, sem títulos de slide (mais limpo)
+- **Gradiente**: suavizar -- menos opaco, mais elegante
 
-## Conteúdo dos slides (6 slides narrativos)
+**Arquivo afetado:** `src/components/ui/lumina-interactive-list.tsx` (JSX do return) e `src/index.css` (estilos)
 
-| # | Título | Descrição |
-|---|--------|-----------|
-| 1 | Não é sobre se sentir pronto | É sobre ser suficiente para continuar caminhando. |
-| 2 | O Caminho | Sentido, propósito e a jornada que nos transforma. |
-| 3 | Multiculturalidade | Quando todas as culturas coexistem, a humanidade se revela. |
-| 4 | Nunca prontos | Mas sempre suficientes para o próximo passo. |
-| 5 | A Jornada | Da Amazônia ao Sertão, da África ao Monte Roraima. |
-| 6 | Roberto Pascoal | Escritor. Palestrante. Fundador da Omunga. |
+### 3. Acelerar timer dos slides
 
-## Detalhes técnicos
+Reduzir `autoSlideSpeed` de 5000ms para 3500ms e `transitionDuration` de 2.5s para 1.8s.
 
-- **GSAP** (v3.12.2) e **Three.js** (r128) carregados via CDN -- sem instalar pacotes npm
-- Projeto usa **Tailwind CSS v3** -- os estilos do slider vão em `@layer components` no `index.css`
-- Efeito glass (refração, aberração cromática) como transição padrão entre slides
-- Auto-slide com barra de progresso na navegação lateral
-- Responsivo: textos com `clamp()` para adaptar a diferentes viewports
+**Arquivo:** `src/components/ui/lumina-interactive-list.tsx` (SLIDER_CONFIG)
 
-## O que NÃO fazer
+## Detalhes Técnicos
 
-- Não instalar fontes novas (PP Neue Montreal, Cormorant Garamond, PPSupplyMono)
-- Não alterar as variáveis CSS globais do site
-- Não criar rotas novas -- tudo fica na Index por enquanto
+### Nova estrutura do overlay (JSX):
+```text
++------------------------------------------+
+|                                          |
+|                                          |
+|                                          |
+|                                     ●    |
+|    ESCRITOR. PALESTRANTE.           ●    |
+|    Roberto                          ○    |
+|    Pascoal                          ○    |
+|                                     ○    |
+|  01 ── 06                           ○    |
++------------------------------------------+
+```
+
+- Título no centro-baixo com peso bold e escala massiva
+- Subtítulo acima do título em uppercase, font-size pequeno, letter-spacing amplo
+- Counter discreto no canto inferior esquerdo com linha horizontal
+- Dots de navegação no canto direito, verticais, minimalistas
+
+### Arquivos modificados:
+1. `tailwind.config.ts` -- font families
+2. `src/index.css` -- remover font imports, atualizar todos os font-family do slider, novo layout do overlay
+3. `src/components/ui/lumina-interactive-list.tsx` -- novo JSX do overlay, timing config, navegação simplificada
 

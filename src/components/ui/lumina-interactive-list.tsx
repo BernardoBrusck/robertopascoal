@@ -1,15 +1,22 @@
 import React, { useEffect, useRef } from 'react';
 
+import slide01 from '@/assets/hero/slide-01-caminho.jpg';
+import slide02 from '@/assets/hero/slide-02-concha.png';
+import slide03 from '@/assets/hero/slide-03-amazonia.jpg';
+import slide04 from '@/assets/hero/slide-04-roraima.png';
+import slide05 from '@/assets/hero/slide-05-indigena.jpeg';
+import slide06 from '@/assets/hero/slide-06-omunga.jpeg';
+
 declare const gsap: any;
 declare const THREE: any;
 
 const slides = [
-  { title: "Não é sobre se sentir pronto", description: "É sobre ser suficiente para continuar caminhando.", media: "https://assets.codepen.io/7558/orange-portrait-001.jpg" },
-  { title: "O Caminho", description: "Sentido, propósito e a jornada que nos transforma.", media: "https://assets.codepen.io/7558/orange-portrait-002.jpg" },
-  { title: "Multiculturalidade", description: "Quando todas as culturas coexistem, a humanidade se revela.", media: "https://assets.codepen.io/7558/orange-portrait-003.jpg" },
-  { title: "Nunca prontos", description: "Mas sempre suficientes para o próximo passo.", media: "https://assets.codepen.io/7558/orange-portrait-004.jpg" },
-  { title: "A Jornada", description: "Da Amazônia ao Sertão, da África ao Monte Roraima.", media: "https://assets.codepen.io/7558/orange-portrait-005.jpg" },
-  { title: "Roberto Pascoal", description: "Escritor. Palestrante. Fundador da Omunga.", media: "https://assets.codepen.io/7558/orange-portrait-006.jpg" }
+  { title: "Não é sobre se sentir pronto", description: "É sobre ser suficiente para continuar caminhando.", media: slide01 },
+  { title: "O Caminho", description: "Sentido, propósito e a jornada que nos transforma.", media: slide02 },
+  { title: "Multiculturalidade", description: "Quando todas as culturas coexistem, a humanidade se revela.", media: slide03 },
+  { title: "Nunca prontos", description: "Mas sempre suficientes para o próximo passo.", media: slide04 },
+  { title: "A Jornada", description: "Da Amazônia ao Sertão, da África ao Monte Roraima.", media: slide05 },
+  { title: "Roberto Pascoal", description: "Escritor. Palestrante. Fundador da Omunga.", media: slide06 }
 ];
 
 export function LuminaSlider() {

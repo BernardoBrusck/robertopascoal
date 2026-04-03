@@ -79,7 +79,7 @@ const TextRevealBlock = ({ text, className = '' }: TextRevealBlockProps) => {
     >
       <p
         ref={textRef}
-        className="text-reveal-text font-sans max-w-5xl text-center leading-[1.15]"
+        className="text-reveal-text text-reveal-text--sm font-sans max-w-5xl text-center leading-[1.3]"
       >
         {text}
       </p>

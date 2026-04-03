@@ -220,6 +220,12 @@
   color: hsl(220, 10%, 85%);
 }
 
+.text-reveal-text--sm {
+  font-size: clamp(18px, 2.8vw, 36px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
 .text-reveal-word {
   display: inline-block;
   transition: color 0.1s ease;

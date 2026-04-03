@@ -242,19 +242,10 @@ export function LuminaSlider() {
         });
       };
 
-      const updateNavigationState = (idx: number) => document.querySelectorAll(".slide-nav-item").forEach((el, i) => el.classList.toggle("active", i === idx));
-      const updateSlideProgress = (idx: number, prog: number) => {
-        const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill") as HTMLElement;
-        if (el) { el.style.width = `${prog}%`; el.style.opacity = '1'; }
-      };
-      const fadeSlideProgress = (idx: number) => {
-        const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill") as HTMLElement;
-        if (el) { el.style.opacity = '0'; setTimeout(() => el.style.width = "0%", 300); }
-      };
-      const quickResetProgress = (idx: number) => {
-        const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill") as HTMLElement;
-        if (el) { el.style.transition = "width 0.2s ease-out"; el.style.width = "0%"; setTimeout(() => el.style.transition = "width 0.1s ease, opacity 0.3s ease", 200); }
-      };
+      const updateNavigationState = (idx: number) => document.querySelectorAll(".slider-dot").forEach((el, i) => el.classList.toggle("active", i === idx));
+      const updateSlideProgress = (idx: number, prog: number) => {};
+      const fadeSlideProgress = (idx: number) => {};
+      const quickResetProgress = (idx: number) => {};
       const updateCounter = (idx: number) => {
         const sn = document.getElementById("slideNumber");
         if (sn) sn.textContent = String(idx + 1).padStart(2, "0");

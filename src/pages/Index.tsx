@@ -9,6 +9,7 @@ import { ImageGallery } from "@/components/ui/image-gallery";
 import BookSection from "@/components/BookSection";
 import SpeakingSection from "@/components/SpeakingSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import ContactFooter from "@/components/ContactFooter";
 
 const Index = () => {
   return (

@@ -461,17 +461,11 @@ const HorizontalScrollSection = () => {
       >
         {timelineSteps.map((step, i) => {
           const Panel = panels[i];
-          const icons = phaseIcons[i];
           return (
             <div
               key={step.id}
               className="h-panel relative w-screen h-screen flex items-center bg-background"
             >
-              {/* Floating icons */}
-              {icons.map((icon, j) => (
-                <FloatingIcon key={j} emoji={icon.emoji} style={icon.style} />
-              ))}
-
               <Panel />
 
               {/* Timeline dot — label ABOVE */}

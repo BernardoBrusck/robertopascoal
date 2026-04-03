@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { cn } from '@/lib/utils';
 import { useInView } from 'framer-motion';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
@@ -23,9 +23,16 @@ const galleryImages = [
 
 export function ImageGallery() {
   const [expanded, setExpanded] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const columns = [0, 1, 2].map((col) =>
     galleryImages.filter((img) => img.col === col)
   );
+
+  const handleToggle = () => {
+    setIsAnimating(true);
+    setExpanded(!expanded);
+    setTimeout(() => setIsAnimating(false), 700);
+  };
 
   return (
     <section className="w-full bg-background py-20">
@@ -53,24 +60,88 @@ export function ImageGallery() {
             </div>
           </div>
 
-          {/* Gradient overlay when collapsed */}
+          {/* Strong gradient overlay when collapsed */}
           {!expanded && (
-            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent" />
+            <div
+              className="pointer-events-none absolute bottom-0 left-0 right-0"
+              style={{
+                height: '70%',
+                background: 'linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background) / 0.95) 20%, hsl(var(--background) / 0.7) 50%, hsl(var(--background) / 0.3) 75%, transparent 100%)',
+              }}
+            />
+          )}
+
+          {/* Circular interactive button */}
+          {!expanded && (
+            <div className="absolute bottom-8 left-0 right-0 flex justify-center">
+              <MagneticButton onClick={handleToggle} label="Veja mais" />
+            </div>
           )}
         </div>
 
-        {/* Toggle button */}
-        <div className="mt-6 flex justify-center">
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="rounded-full bg-foreground px-8 py-3 text-sm font-medium text-background transition-opacity hover:opacity-80"
-            style={{ fontFamily: 'system-ui' }}
-          >
-            {expanded ? 'Ver menos' : 'Veja mais'}
-          </button>
-        </div>
+        {expanded && (
+          <div className="mt-8 flex justify-center">
+            <MagneticButton onClick={handleToggle} label="Ver menos" />
+          </div>
+        )}
       </div>
     </section>
+  );
+}
+
+function MagneticButton({ onClick, label }: { onClick: () => void; label: string }) {
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!btnRef.current) return;
+    const rect = btnRef.current.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (e.clientX - cx) * 0.3;
+    const dy = (e.clientY - cy) * 0.3;
+    setOffset({ x: dx, y: dy });
+  }, []);
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setOffset({ x: 0, y: 0 });
+  };
+
+  const handleClick = () => {
+    setIsPressed(true);
+    setTimeout(() => {
+      setIsPressed(false);
+      onClick();
+    }, 300);
+  };
+
+  return (
+    <button
+      ref={btnRef}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
+      className="relative z-10 flex h-28 w-28 items-center justify-center rounded-full bg-foreground text-background text-xs font-medium tracking-wider uppercase"
+      style={{
+        transform: isPressed
+          ? `translate(${offset.x}px, ${offset.y}px) scale(3)`
+          : isHovered
+            ? `translate(${offset.x}px, ${offset.y}px) scale(1.1)`
+            : 'translate(0, 0) scale(1)',
+        opacity: isPressed ? 0 : 1,
+        transition: isPressed
+          ? 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease'
+          : 'transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease',
+        fontFamily: 'system-ui',
+        cursor: 'pointer',
+      }}
+    >
+      {label}
+    </button>
   );
 }
 

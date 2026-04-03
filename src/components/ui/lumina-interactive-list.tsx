@@ -53,7 +53,7 @@ export function LuminaSlider() {
     const initApplication = () => {
       const SLIDER_CONFIG: any = {
         settings: {
-          transitionDuration: 2.5, autoSlideSpeed: 5000, currentEffect: "glass", currentEffectPreset: "Default",
+          transitionDuration: 1.8, autoSlideSpeed: 3500, currentEffect: "glass", currentEffectPreset: "Default",
           globalIntensity: 1.0, speedMultiplier: 1.0, distortionStrength: 1.0, colorEnhancement: 1.0,
           glassRefractionStrength: 1.0, glassChromaticAberration: 1.0, glassBubbleClarity: 1.0, glassEdgeGlow: 1.0, glassLiquidFlow: 1.0,
         }

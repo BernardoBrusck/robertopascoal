@@ -27,6 +27,7 @@ const Index = () => {
       <BookSection />
       <SpeakingSection />
       <TestimonialsSection />
+      <ContactFooter />
     </div>
   );
 };

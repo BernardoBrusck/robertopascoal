@@ -41,8 +41,10 @@ export function LuminaSlider() {
       });
 
       try {
-        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', 'gsap');
-        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', 'THREE');
+        await Promise.all([
+          loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', 'gsap'),
+          loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', 'THREE'),
+        ]);
       } catch (e) {
         console.error('Failed to load scripts:', e);
       }

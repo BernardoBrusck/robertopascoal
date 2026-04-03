@@ -74,17 +74,54 @@ const useHeaderContrast = (scrolled: boolean) => {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [hoverShow, setHoverShow] = useState(false);
   const isDarkBg = useHeaderContrast(scrolled);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const currentY = window.scrollY;
+        setScrolled(currentY > 80);
+
+        if (currentY <= 80) {
+          setVisible(true);
+        } else if (currentY < lastScrollY) {
+          // scrolling up
+          setVisible(true);
+        } else if (currentY > lastScrollY + 5) {
+          // scrolling down (with threshold)
+          setVisible(false);
+        }
+
+        lastScrollY = currentY;
+        ticking = false;
+      });
     };
+
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Show on mouse near top of screen
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (e.clientY < 60) {
+        setHoverShow(true);
+      } else if (e.clientY > 120) {
+        setHoverShow(false);
+      }
+    };
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   // Dynamic text color based on contrast

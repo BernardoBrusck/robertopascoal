@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
-import slide01 from '@/assets/hero/slide-01-caminho.jpg';
-import slide02 from '@/assets/hero/slide-02-concha.png';
-import slide03 from '@/assets/hero/slide-03-amazonia.jpg';
-import slide04 from '@/assets/hero/slide-04-roraima.png';
-import slide05 from '@/assets/hero/slide-05-indigena.jpeg';
-import slide06 from '@/assets/hero/slide-06-omunga.jpeg';
+import slide01 from '@/assets/hero/slide-01-caminho.webp';
+import slide02 from '@/assets/hero/slide-02-concha.webp';
+import slide03 from '@/assets/hero/slide-03-amazonia.webp';
+import slide04 from '@/assets/hero/slide-04-roraima.webp';
+import slide05 from '@/assets/hero/slide-05-indigena.webp';
+import slide06 from '@/assets/hero/slide-06-omunga.webp';
 
 declare const gsap: any;
 declare const THREE: any;

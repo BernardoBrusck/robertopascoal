@@ -3,7 +3,7 @@ import TextRevealSection from "@/components/TextRevealSection";
 import HorizontalScrollSection from "@/components/HorizontalScrollSection";
 import ZoomParallaxSection from "@/components/ZoomParallaxSection";
 import TextRevealBlock from "@/components/TextRevealBlock";
-import ImpactNumbersSection from "@/components/ImpactNumbersSection";
+import ServicesSection from "@/components/ServicesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import BookSection from "@/components/BookSection";
 import SpeakingSection from "@/components/SpeakingSection";
@@ -18,7 +18,7 @@ const Index = () => {
       <TextRevealBlock
         text="Minha missão é simples: provar que a educação transforma qualquer realidade e que nunca é tarde para começar."
       />
-      <ImpactNumbersSection />
+      <ServicesSection />
       <TestimonialsSection />
       <BookSection />
       <SpeakingSection />

@@ -4,6 +4,7 @@ import HorizontalScrollSection from "@/components/HorizontalScrollSection";
 import ZoomParallaxSection from "@/components/ZoomParallaxSection";
 import FloatingPhotosSection from "@/components/FloatingPhotosSection";
 import ServicesSection from "@/components/ServicesSection";
+import { ImageGallery } from "@/components/ui/image-gallery";
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
         text="Minha missão é simples: provar que a educação transforma qualquer realidade e que nunca é tarde para começar."
       />
       <ServicesSection />
+      <ImageGallery />
     </div>
   );
 };

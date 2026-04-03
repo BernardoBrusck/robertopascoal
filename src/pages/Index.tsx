@@ -1,6 +1,7 @@
 import HeroSection from "@/components/HeroSection";
 import TextRevealSection from "@/components/TextRevealSection";
 import HorizontalScrollSection from "@/components/HorizontalScrollSection";
+import ZoomParallaxSection from "@/components/ZoomParallaxSection";
 
 const Index = () => {
   return (
@@ -8,6 +9,7 @@ const Index = () => {
       <HeroSection />
       <TextRevealSection />
       <HorizontalScrollSection />
+      <ZoomParallaxSection />
     </div>
   );
 };

@@ -224,3 +224,28 @@
   display: inline-block;
   transition: color 0.1s ease;
 }
+
+/* Horizontal Scroll Panels */
+.h-panel-label {
+  font-size: clamp(10px, 1.1vw, 13px);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.h-panel-title {
+  font-size: clamp(36px, 6vw, 96px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  margin: 0 0 2rem;
+}
+
+.h-panel-text {
+  font-size: clamp(14px, 1.2vw, 18px);
+  line-height: 1.7;
+  max-width: 480px;
+  font-weight: 400;
+}

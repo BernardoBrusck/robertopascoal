@@ -1,53 +1,43 @@
 
 
-# Plano: Corrigir seção timeline — remover labels duplicados + versão mobile vertical
+# Plano: Galeria colapsável com altura máxima e botão "Veja mais"
 
-## Problemas
+## O que será feito
 
-1. **Labels duplicados no desktop**: cada painel tem o label (INFÂNCIA, FORMAÇÃO, etc.) tanto dentro do conteúdo do painel (`h-panel-label`) quanto na bolinha do timeline na parte inferior. Manter apenas o da bolinha, remover o de dentro do painel.
+Adicionar um estado colapsado/expandido à `ImageGallery`. Por padrão, a galeria terá uma altura máxima (~600px) com `overflow: hidden`, um gradiente branco de baixo para cima cobrindo as imagens cortadas, e um botão "Veja mais" centralizado. Ao clicar, a galeria expande suavemente para mostrar tudo, e o botão muda para "Ver menos".
 
-2. **Mobile totalmente bugado**: os painéis usam larguras fixas (w-[340px], w-[400px], w-[500px]) que estouram a tela do celular. O fallback mobile atual simplesmente empilha os mesmos painéis sem adaptá-los.
-
-## Solução
-
-### Desktop (>768px) — manter como está, só remover labels duplicados
-- Remover as 4 `<span className="h-panel-label">` de dentro de cada painel (PanelInfancia, PanelFormacao, PanelOmunga, PanelHoje)
-- O label na bolinha do timeline continua funcionando normalmente
-- GSAP horizontal scroll inalterado
-
-### Mobile (<768px) — nova versão vertical dedicada
-- Criar componentes de painel mobile separados dentro do mesmo arquivo, com layout totalmente responsivo:
-  - Fotos empilhadas verticalmente com tamanhos relativos (w-full, max-w-[280px], etc.)
-  - Texto ocupa largura total com padding lateral
-  - Sem larguras fixas em pixels grandes
-- Cada seção mobile terá: foto(s) + título + texto, empilhados verticalmente
-- Separadores visuais simples entre seções (linha fina ou espaçamento)
-- Label de cada etapa aparece como subtítulo discreto acima do título
-- Animações simples com CSS (fade-in ao scroll via IntersectionObserver ou framer-motion `useInView`), sem GSAP
-- Hook `useIsMobile` já existente usado para alternar entre as duas versões
-
-## Layout mobile (cada seção)
+## Layout
 
 ```text
-┌──────────────────────┐
-│     INFÂNCIA         │  ← label discreto
-│                      │
-│  ┌────────────────┐  │
-│  │   foto(s)      │  │  ← largura responsiva
-│  └────────────────┘  │
-│                      │
-│  Onde tudo começou   │  ← título
-│  Texto descritivo... │  ← parágrafo
-│                      │
-├──────────────────────┤  ← separador
-│     FORMAÇÃO         │
-│  ...                 │
-└──────────────────────┘
+Estado colapsado (padrão):
+┌──────────────────────────────┐
+│  foto  │  foto  │  foto      │
+│  foto  │  foto  │  foto      │
+│  ░░░░░░░░░░░░░░░░░░░░░░░░░  │ ← fade branco (gradient)
+│        [ Veja mais ]         │ ← botão preto
+└──────────────────────────────┘
+
+Estado expandido:
+┌──────────────────────────────┐
+│  foto  │  foto  │  foto      │
+│  foto  │  foto  │  foto      │
+│  foto  │  foto  │  foto      │
+│  foto  │  foto  │  foto      │
+│        [ Ver menos ]         │
+└──────────────────────────────┘
 ```
+
+## Implementação
+
+- `useState(false)` para `expanded`
+- Container do grid: `max-h-[600px] overflow-hidden` quando colapsado, `max-h-none` quando expandido, com `transition: max-height 0.6s ease`
+- Overlay gradient: `absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white to-transparent`, visível apenas quando colapsado
+- Botão: fundo preto, texto branco, centralizado abaixo do gradient, tipografia system-ui weight 500
+- Ao expandir: animação suave via CSS transition no `max-height` (usar valor alto como `max-h-[5000px]` para transição fluida)
 
 ## Arquivo
 
 | Arquivo | Ação |
 |---|---|
-| `src/components/HorizontalScrollSection.tsx` | Remover `h-panel-label` dos 4 painéis desktop; adicionar painéis mobile responsivos com layout vertical e animações CSS/framer-motion; usar `useIsMobile` para alternar |
+| `src/components/ui/image-gallery.tsx` | Adicionar estado expanded, gradient overlay e botão toggle |
 

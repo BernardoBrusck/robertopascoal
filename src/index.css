@@ -185,7 +185,7 @@
 }
 
 .slide-nav-title {
-  font-family: 'Pretendard', sans-serif;
+  font-family: inherit;
   font-size: clamp(9px, 1vw, 11px);
   color: rgba(255, 255, 255, 0.5);
   letter-spacing: 0.05em;

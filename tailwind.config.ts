@@ -13,8 +13,8 @@ export default {
       },
     },
     fontFamily: {
-      sans: ["Pretendard", "Inter", "sans-serif"],
-      heading: ["Inter", "sans-serif"],
+      sans: ["SF Pro Display", "SF Pro Text", "-apple-system", "BlinkMacSystemFont", "system-ui", "Segoe UI", "Roboto", "sans-serif"],
+      heading: ["SF Pro Display", "SF Pro Text", "-apple-system", "BlinkMacSystemFont", "system-ui", "Segoe UI", "Roboto", "sans-serif"],
     },
     extend: {
       colors: {

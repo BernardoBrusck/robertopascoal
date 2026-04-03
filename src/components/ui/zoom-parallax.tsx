@@ -2,6 +2,7 @@
 
 import { useScroll, useTransform, motion } from 'framer-motion';
 import { useRef } from 'react';
+import LazyImage from '@/lib/LazyImage';
 
 interface Image {
   src: string;

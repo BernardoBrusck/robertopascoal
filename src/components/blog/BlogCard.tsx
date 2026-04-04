@@ -2,6 +2,11 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
+interface Tag {
+  name: string;
+  slug: string;
+}
+
 interface BlogCardProps {
   title: string;
   slug: string;
@@ -9,9 +14,10 @@ interface BlogCardProps {
   coverImage: string | null;
   categoryName: string | null;
   publishedAt: string | null;
+  tags?: Tag[];
 }
 
-const BlogCard = ({ title, slug, excerpt, coverImage, categoryName, publishedAt }: BlogCardProps) => {
+const BlogCard = ({ title, slug, excerpt, coverImage, categoryName, publishedAt, tags }: BlogCardProps) => {
   return (
     <Link to={`/blog/${slug}`} className="group block">
       <article className="bg-background border border-border rounded-lg overflow-hidden transition-shadow hover:shadow-lg">
@@ -42,6 +48,18 @@ const BlogCard = ({ title, slug, excerpt, coverImage, categoryName, publishedAt 
           </h3>
           {excerpt && (
             <p className="text-sm text-muted-foreground line-clamp-2">{excerpt}</p>
+          )}
+          {tags && tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-3">
+              {tags.map((tag) => (
+                <span
+                  key={tag.slug}
+                  className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground"
+                >
+                  {tag.name}
+                </span>
+              ))}
+            </div>
           )}
         </div>
       </article>

@@ -17,6 +17,11 @@ import { supabase } from "@/integrations/supabase/client";
 
 const POSTS_PER_PAGE = 9;
 
+interface Tag {
+  name: string;
+  slug: string;
+}
+
 interface PostWithCategory {
   id: string;
   title: string;
@@ -25,6 +30,7 @@ interface PostWithCategory {
   cover_image: string | null;
   published_at: string | null;
   categories: { name: string; slug: string } | null;
+  post_tags?: { tags: Tag | null }[];
 }
 
 interface Category {
@@ -36,10 +42,12 @@ interface Category {
 const Blog = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const categoriaSlug = searchParams.get("categoria");
+  const tagSlug = searchParams.get("tag");
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<PostWithCategory[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [allTags, setAllTags] = useState<(Tag & { id: string })[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -54,15 +62,18 @@ const Blog = () => {
     }, 300);
   }, []);
 
-  // Reset page when category changes
+  // Reset page when filters change
   useEffect(() => {
     setPage(0);
-  }, [categoriaSlug]);
+  }, [categoriaSlug, tagSlug]);
 
-  // Fetch categories
+  // Fetch categories and tags
   useEffect(() => {
     supabase.from("categories").select("id, name, slug").order("name").then(({ data }) => {
       if (data) setCategories(data);
+    });
+    supabase.from("tags").select("id, name, slug").order("name").then(({ data }) => {
+      if (data) setAllTags(data);
     });
   }, []);
 
@@ -73,19 +84,44 @@ const Blog = () => {
       const from = page * POSTS_PER_PAGE;
       const to = from + POSTS_PER_PAGE - 1;
 
+      // If filtering by tag, first get matching post IDs
+      let tagPostIds: string[] | null = null;
+      if (tagSlug) {
+        const tag = allTags.find((t) => t.slug === tagSlug);
+        const tagId = tag?.id;
+        if (tagId) {
+          const { data: ptData } = await supabase
+            .from("post_tags")
+            .select("post_id")
+            .eq("tag_id", tagId);
+          tagPostIds = ptData?.map((pt) => pt.post_id) || [];
+        } else {
+          // Tag not found — empty results
+          tagPostIds = [];
+        }
+        if (tagPostIds.length === 0) {
+          setPosts([]);
+          setTotalCount(0);
+          setLoading(false);
+          return;
+        }
+      }
+
       let query = supabase
         .from("posts")
-        .select("id, title, slug, excerpt, cover_image, published_at, category_id, categories(name, slug)", { count: "exact" })
+        .select("id, title, slug, excerpt, cover_image, published_at, category_id, categories(name, slug), post_tags(tags(name, slug))", { count: "exact" })
         .eq("status", "published")
         .order("published_at", { ascending: false });
 
+      if (tagPostIds) {
+        query = query.in("id", tagPostIds);
+      }
+
       if (categoriaSlug) {
-        // Find category id from slug
         const cat = categories.find((c) => c.slug === categoriaSlug);
         if (cat) {
           query = query.eq("category_id", cat.id);
         } else {
-          // Category not found, try fetching it
           const { data: catData } = await supabase
             .from("categories")
             .select("id")
@@ -109,16 +145,32 @@ const Blog = () => {
     };
 
     fetchPosts();
-  }, [page, categoriaSlug, categories, searchQuery]);
+  }, [page, categoriaSlug, tagSlug, categories, allTags, searchQuery]);
 
   const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
 
+  const updateFilters = (params: Record<string, string | null>) => {
+    const current: Record<string, string> = {};
+    searchParams.forEach((v, k) => { current[k] = v; });
+    Object.entries(params).forEach(([k, v]) => {
+      if (v) current[k] = v;
+      else delete current[k];
+    });
+    setSearchParams(current);
+  };
+
   const handleCategoryClick = (slug: string | null) => {
-    if (slug) {
-      setSearchParams({ categoria: slug });
-    } else {
-      setSearchParams({});
-    }
+    updateFilters({ categoria: slug });
+  };
+
+  const handleTagClick = (slug: string | null) => {
+    updateFilters({ tag: slug });
+  };
+
+  const getPostTags = (post: PostWithCategory): Tag[] => {
+    return (post.post_tags || [])
+      .map((pt) => pt.tags)
+      .filter((t): t is Tag => t !== null);
   };
 
   const renderPaginationItems = () => {
@@ -186,7 +238,7 @@ const Blog = () => {
 
         {/* Category filters */}
         {categories.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-10">
+          <div className="flex flex-wrap gap-2 mb-4">
             <button
               onClick={() => handleCategoryClick(null)}
               className={`text-xs uppercase tracking-[0.15em] px-4 py-2 rounded-full border transition-colors ${
@@ -213,6 +265,25 @@ const Blog = () => {
           </div>
         )}
 
+        {/* Tag filters */}
+        {allTags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-10">
+            {allTags.map((tag) => (
+              <button
+                key={tag.id}
+                onClick={() => handleTagClick(tagSlug === tag.slug ? null : tag.slug)}
+                className={`text-[11px] px-3 py-1.5 rounded-full border transition-colors ${
+                  tagSlug === tag.slug
+                    ? "bg-foreground text-background border-foreground"
+                    : "bg-transparent text-muted-foreground border-border hover:border-foreground hover:text-foreground"
+                }`}
+              >
+                # {tag.name}
+              </button>
+            ))}
+          </div>
+        )}
+
         {/* Posts grid */}
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -228,12 +299,12 @@ const Blog = () => {
         ) : posts.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-muted-foreground">Nenhum post encontrado.</p>
-            {categoriaSlug && (
+            {(categoriaSlug || tagSlug) && (
               <button
-                onClick={() => handleCategoryClick(null)}
+                onClick={() => setSearchParams({})}
                 className="mt-4 text-sm uppercase tracking-[0.15em] text-muted-foreground hover:text-foreground transition-colors"
               >
-                ← Ver todos os posts
+                ← Limpar filtros
               </button>
             )}
           </div>
@@ -248,6 +319,7 @@ const Blog = () => {
                 coverImage={post.cover_image}
                 categoryName={post.categories?.name || null}
                 publishedAt={post.published_at}
+                tags={getPostTags(post)}
               />
             ))}
           </div>

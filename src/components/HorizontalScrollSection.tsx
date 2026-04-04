@@ -53,7 +53,7 @@ const PanelInfancia = () => (
         className="polaroid-frame absolute bottom-0 right-0 w-[200px] h-[240px] anim-photo"
         style={{ transform: 'rotate(2deg)' }}
       >
-        <Photo src="/image/IMG_3580 (1).JPG" alt="Infância 2" className="w-full h-full rounded" />
+        <Photo src="/image/roberto-infancia-crianca.png" alt="Infância 2" className="w-full h-full rounded" />
       </div>
     </div>
     <div className="flex flex-col justify-center max-w-lg anim-text">

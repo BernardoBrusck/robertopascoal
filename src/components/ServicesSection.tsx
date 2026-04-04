@@ -52,7 +52,7 @@ function Project({ index, title, category, setModal, onClick }: { index: number;
       onClick={onClick}
       className="group flex w-full items-center justify-between border-t border-border/40 py-6 md:py-8 cursor-pointer transition-all duration-300 hover:opacity-50"
     >
-      <h3 className="font-medium text-foreground transition-all duration-400 group-hover:translate-x-[-8px]" style={{ fontSize: 'clamp(20px, 2.5vw, 36px)', letterSpacing: '-0.03em', lineHeight: 1.1 }}>{title}</h3>
+      <h3 className="font-medium text-foreground transition-[opacity,transform] duration-400 group-hover:translate-x-[-8px]" style={{ fontSize: 'clamp(20px, 2.5vw, 36px)', letterSpacing: '-0.03em', lineHeight: 1.1 }}>{title}</h3>
       <p className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-light">{category}</p>
     </div>
   );

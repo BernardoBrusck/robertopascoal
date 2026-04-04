@@ -56,6 +56,8 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
                 <LazyImage
                   src={src}
                   alt={alt || ''}
+                  width={images[index]?.width || 800}
+                  height={images[index]?.height || 600}
                   className="w-full h-full object-cover rounded-sm"
                   rootMargin="400px"
                 />

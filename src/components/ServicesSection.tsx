@@ -149,7 +149,7 @@ function DetailModal({ project, onClose }: { project: (typeof projects)[0] | nul
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-sm" onClick={onClose}>
       <motion.div initial={{ opacity: 0, y: 20, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 20, scale: 0.98 }} transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }} className="relative w-[92vw] max-w-5xl max-h-[85vh] overflow-y-auto bg-background border border-border/20 rounded-lg" onClick={(e) => e.stopPropagation()}>
-        <button onClick={onClose} className="absolute top-5 right-5 z-10 text-muted-foreground hover:text-foreground transition-colors"><X size={18} strokeWidth={1.5} /></button>
+        <button onClick={onClose} className="absolute top-5 right-5 z-10 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors" aria-label="Fechar"><X size={18} strokeWidth={1.5} /></button>
         <div className="flex flex-col md:flex-row">
           <div className="flex-shrink-0 md:w-[40%] p-8 md:p-10 flex flex-col justify-center">
             <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground font-light mb-4">{project.category}</p>

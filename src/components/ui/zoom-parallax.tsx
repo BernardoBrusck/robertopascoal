@@ -3,7 +3,6 @@
 import { useScroll, useTransform, motion } from 'framer-motion';
 import { useRef } from 'react';
 import LazyImage from '@/lib/LazyImage';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 interface Image {
   src: string;
@@ -16,7 +15,6 @@ interface ZoomParallaxProps {
 
 export function ZoomParallax({ images }: ZoomParallaxProps) {
   const container = useRef(null);
-  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ['start start', 'end end'],
@@ -30,21 +28,15 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 
   const scales = [scale4, scale5, scale6, scale5, scale6, scale8, scale9];
 
-  if (isMobile) {
-    return (
-      <div className="px-4 py-8 flex flex-col gap-4">
-        {images.map(({ src, alt }, index) => (
-          <LazyImage
-            key={index}
-            src={src}
-            alt={alt || ''}
-            className="w-full aspect-[4/3] object-cover rounded-lg"
-            rootMargin="200px"
-          />
-        ))}
-      </div>
-    );
-  }
+  const positions = [
+    'h-[25vh] w-[25vw] md:h-[25vh] md:w-[25vw]',
+    'absolute -top-[30vh] left-[5vw] h-[30vh] w-[35vw] md:h-[30vh] md:w-[35vw]',
+    'absolute -top-[10vh] -left-[25vw] h-[45vh] w-[20vw] md:h-[45vh] md:w-[20vw]',
+    'absolute left-[27.5vw] h-[25vh] w-[25vw] md:h-[25vh] md:w-[25vw]',
+    'absolute top-[27.5vh] left-[5vw] h-[25vh] w-[20vw] md:h-[25vh] md:w-[20vw]',
+    'absolute top-[27.5vh] -left-[22.5vw] h-[25vh] w-[30vw] md:h-[25vh] md:w-[30vw]',
+    'absolute top-[22.5vh] left-[25vw] h-[15vh] w-[15vw] md:h-[15vh] md:w-[15vw]',
+  ];
 
   return (
     <div ref={container} className="relative h-[300vh]">
@@ -58,23 +50,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
               style={{ scale }}
               className="absolute top-0 left-0 w-full h-full flex items-center justify-center"
             >
-              <div
-                className={`relative ${
-                  index === 0
-                    ? 'h-[25vh] w-[25vw]'
-                    : index === 1
-                    ? 'absolute -top-[30vh] left-[5vw] h-[30vh] w-[35vw]'
-                    : index === 2
-                    ? 'absolute -top-[10vh] -left-[25vw] h-[45vh] w-[20vw]'
-                    : index === 3
-                    ? 'absolute left-[27.5vw] h-[25vh] w-[25vw]'
-                    : index === 4
-                    ? 'absolute top-[27.5vh] left-[5vw] h-[25vh] w-[20vw]'
-                    : index === 5
-                    ? 'absolute top-[27.5vh] -left-[22.5vw] h-[25vh] w-[30vw]'
-                    : 'absolute top-[22.5vh] left-[25vw] h-[15vh] w-[15vw]'
-                }`}
-              >
+              <div className={`relative ${positions[index] || positions[0]}`}>
                 <LazyImage
                   src={src}
                   alt={alt || ''}

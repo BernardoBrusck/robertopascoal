@@ -41,31 +41,64 @@ const BookSection = () => {
     >
       <div className={`w-full max-w-7xl mx-auto px-6 md:px-16 lg:px-24 flex ${isMobile ? 'flex-col gap-12 py-24' : 'flex-row items-center gap-16'}`}>
         <div className="book-cover flex-shrink-0 flex items-center justify-center" style={{ width: isMobile ? '100%' : '45%' }}>
-          <div className="relative" style={{ perspective: '1200px' }}>
-            {/* Book spine shadow */}
-            <div className="absolute inset-0 rounded-sm" style={{
-              boxShadow: '6px 6px 20px rgba(0,0,0,0.25), 20px 20px 60px rgba(0,0,0,0.12)',
-              transform: 'translateZ(-2px)',
+          <div className="relative group" style={{ perspective: '1800px' }}>
+            {/* Realistic book wrapper with 3D transform */}
+            <div
+              className="relative transition-transform duration-700 ease-out group-hover:[transform:rotateY(-8deg)]"
+              style={{ transformStyle: 'preserve-3d' }}
+            >
+              {/* Page edges — right side (visible pages) */}
+              <div className="absolute top-[3px] -right-[10px] bottom-[3px] w-[10px]" style={{
+                background: 'linear-gradient(to right, #e8e4e0 0%, #f5f0eb 20%, #e8e4e0 40%, #f5f0eb 60%, #e8e4e0 80%, #ddd8d3 100%)',
+                transform: 'rotateY(90deg) translateZ(5px)',
+                transformOrigin: 'left center',
+                boxShadow: 'inset 0 0 3px rgba(0,0,0,0.08)',
+              }} />
+
+              {/* Page edges — bottom */}
+              <div className="absolute -bottom-[8px] left-[8px] right-[2px] h-[8px]" style={{
+                background: 'linear-gradient(to bottom, #e8e4e0, #ddd8d3)',
+                borderRadius: '0 0 2px 2px',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.08)',
+              }} />
+
+              {/* Spine — thick left edge with realistic gradient */}
+              <div className="absolute top-0 -left-[14px] bottom-0 w-[14px] rounded-l-[3px]" style={{
+                background: 'linear-gradient(to right, #2a2520 0%, #3d3530 30%, #4a4035 50%, #3d3530 70%, #2a2520 100%)',
+                boxShadow: '-3px 0 12px rgba(0,0,0,0.3), inset 1px 0 0 rgba(255,255,255,0.05)',
+                transformOrigin: 'right center',
+              }}>
+                {/* Spine ridge lines */}
+                <div className="absolute inset-0 rounded-l-[3px]" style={{
+                  background: 'repeating-linear-gradient(to bottom, transparent 0px, transparent 18px, rgba(255,255,255,0.04) 18px, rgba(255,255,255,0.04) 19px)',
+                }} />
+              </div>
+
+              {/* Main cover image */}
+              <img
+                src="/image/capa-do-livro.webp"
+                alt="Capa do livro O Caminho depois da Pressa"
+                className="relative w-[260px] md:w-[320px] lg:w-[360px] rounded-r-[3px] rounded-l-[1px]"
+                width={360}
+                height={540}
+                style={{
+                  boxShadow: '0 0 0 1px rgba(0,0,0,0.08)',
+                  filter: 'brightness(0.98)',
+                }}
+                loading="lazy"
+              />
+
+              {/* Cover surface gloss/reflection */}
+              <div className="absolute inset-0 rounded-r-[3px] rounded-l-[1px] pointer-events-none" style={{
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.04) 100%)',
+              }} />
+            </div>
+
+            {/* Ground shadow */}
+            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[85%] h-[20px] rounded-[50%]" style={{
+              background: 'radial-gradient(ellipse, rgba(0,0,0,0.18) 0%, transparent 70%)',
+              filter: 'blur(6px)',
             }} />
-            {/* Book edge (spine effect) */}
-            <div className="absolute top-1 -left-[6px] bottom-1 w-[6px] rounded-l-[2px]" style={{
-              background: 'linear-gradient(to right, hsl(var(--muted)), hsl(var(--border)))',
-              boxShadow: '-2px 0 6px rgba(0,0,0,0.15)',
-            }} />
-            {/* Bottom edge */}
-            <div className="absolute -bottom-[4px] left-0 right-1 h-[4px] rounded-b-[2px]" style={{
-              background: 'linear-gradient(to bottom, hsl(var(--muted)), hsl(var(--border)))',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-            }} />
-            <img
-              src="/image/capa-do-livro.webp"
-              alt="Capa do livro O Caminho depois da Pressa"
-              className="relative w-[260px] md:w-[320px] lg:w-[360px] rounded-r-sm rounded-l-[1px]"
-              width={360}
-              height={540}
-              style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.06)' }}
-              loading="lazy"
-            />
           </div>
         </div>
         <div className="book-text flex flex-col gap-8" style={{ width: isMobile ? '100%' : '55%' }}>

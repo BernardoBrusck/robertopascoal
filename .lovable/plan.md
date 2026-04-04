@@ -1,63 +1,63 @@
 
 
-# Plano: Substituir todos os placeholders por fotos reais do Roberto
+# Plano: Atualizações de imagens, serviços, galeria, links e contatos
 
-## Mapeamento de locais com fotos
+## 1. Copiar imagem de infância enviada para o projeto
+- Copiar `file_00000000eec0622f9132ad300581c9cb.png` (foto criança) para substituir a segunda foto no PanelInfancia (onde está `IMG_3580 (1).JPG`)
+- Nota: a foto já existe em `/public/image/file_00000000eec0622f9132ad300581c9cb.png` (verifiquei no ls)
 
-Há **6 locais** no site usando placeholders ou imagens genéricas do Unsplash:
+## 2. Copiar logo Omunga para o projeto
+- Copiar `image-14.png` (logo Omunga) para `/public/image/omunga-logo.png`
 
-### 1. HorizontalScrollSection (Timeline de Jornada)
-~20 placeholders cinza com labels como "Foto infância 1", "Foto Amazônia", etc. — tanto desktop quanto mobile.
+## 3. HorizontalScrollSection — PanelInfancia
+- Trocar `IMG_3580 (1).JPG` por `file_00000000eec0622f9132ad300581c9cb.png` na segunda polaroid (desktop e mobile)
 
-**Mapeamento de imagens:**
-- "Foto infância 1/2" → `foto_infancia_upscale_4x.jpg`, `IMG_3580 (1).JPG`
-- "Foto formação 1/2" → `FOTO ROBERTO 04.jpg`, `FOTO ROBERTO 05.jpg`
-- "Foto teatro / palco" → `FOTO ROBERTO 07.jpg`
-- "Foto Amazônia" → `roberto-pascoal-comunidade-isolada.jpg`
-- "Foto comunidade 1/2" → `roberto-pascoal-criancas-indigenas.png`, `roberto-pascoal-leitura-indigena.png`
-- "Foto palestra" → `B0119027.JPG`
-- "Foto ação social" → `200229_OMG_4225.jpg`
-- "Foto comunidade (painel hoje)" → `roberto-pascoal-projetos-africa.jpg`
-- "Foto livro" → `capa do livro.png`
-- "Foto palco" → `FOTO ROBERTO 08 (2).jpg`
-- "Foto atual" → `FOTO ROBERTO 09.jpg`
+## 4. HorizontalScrollSection — PanelOmunga
+- Adicionar a logo da Omunga acima ou ao lado do título "Criar para transformar" (desktop e mobile)
 
-### 2. ZoomParallaxSection (7 imagens Unsplash)
-Substituir pelas fotos reais do Roberto:
-- `roberto-pascoal-hero-montanha.png`, `roberto-pascoal-explorador.jpg`, `01 - África 07 por Max Schwoelk.JPG`, `roberto-pascoal-caminhada-brasil.png`, `roberto-pascoal-indigena-interacao.png`, `200229_OMG_4225.jpg`, `roberto-pascoal-professor-africa.jpg`
+## 5. FloatingPhotosSection — fotos da direita
+- Trocar as 3 fotos da direita por outras imagens de `/public/image/` diferentes das atuais:
+  - `roberto-pascoal-caminhada-brasil.png`
+  - `roberto-pascoal-indigena-interacao.png`
+  - `FOTO ROBERTO 08 (2).jpg`
 
-### 3. FloatingPhotosSection (6 fotos laterais — apenas placeholders cinza)
-Substituir os placeholders SVG por fotos reais recortadas:
-- Left: `Foto de Roberto Pascoal.jpg`, `Foto de Roberto Pascoal (1).jpg`, `Foto de Roberto Pascoal (2).jpg`
-- Right: `Foto de Roberto Pascoal (3).jpg`, `03- Post Documentário.jpg`, `roberto-pascoal-professor-africa.jpg`
+## 6. ServicesSection — imagens nos serviços
+Adicionar campo `images` a cada projeto com fotos contextuais:
+- **Bibliotecas Comunitárias**: hover → `roberto-pascoal-comunidade-isolada.jpg`, galeria modal → fotos de comunidades
+- **Doação de Livros**: hover → `roberto-pascoal-leitura-indigena.png`, galeria → fotos de leitura/livros
+- **Palestras Transformadoras**: hover → `B0119027.JPG`, galeria → fotos de palco/eventos
+- **Expedições Educacionais**: hover → `roberto-pascoal-caminhada-brasil.png`, galeria → fotos de viagens/África
 
-### 4. BookSection (placeholder "Capa do Livro")
-Substituir o `<div>` cinza pela imagem real: `capa do livro.png`
+Substituir os placeholders SVG no HoverModal e no DetailModal por `<img>` reais.
 
-### 5. SpeakingSection (placeholder "Foto palestrando")
-Substituir fundo cinza pela imagem: `B0119027.JPG`
+## 7. ImageGallery — adicionar imagem central
+- Adicionar uma 16a imagem na coluna 1 (centro): `roberto-pascoal-indigena-interacao.png`
 
-### 6. ImageGallery (15 imagens Unsplash)
-Substituir pelas fotos reais do Roberto, distribuídas nas 3 colunas com proporções variadas.
+## 8. BookSection — link Hotmart
+- Trocar `href="#"` por `https://hotmart.com/pt-br/marketplace/produtos/o-caminho-depois-da-pressa/E102970771D`
+- Adicionar `target="_blank" rel="noopener noreferrer"`
 
-## Implementação técnica
+## 9. ContactFooter — contatos reais
+- E-mail: `roberto.pascoal@omunga.com`
+- Remover bloco de Telefone, manter apenas WhatsApp: `+55 47 8905-4401`
+- WhatsApp link: `https://wa.me/554789054401`
+- Instagram Roberto: `https://www.instagram.com/roberto_pascoal/`
+- Instagram Omunga: `https://www.instagram.com/omunga_oficial/`
+- LinkedIn: `https://www.linkedin.com/company/omunga/`
+- Remover link do site omunga.com.br dos socials (ou manter se fizer sentido)
 
-- Todas as imagens ficam em `/public/image/` — referenciar como `/image/nome.jpg`
-- Remover o componente `PhotoPlaceholder` do `HorizontalScrollSection` e usar `<img>` com `object-cover`
-- No `FloatingPhotosSection`, substituir o bloco SVG/placeholder por `<img>`
-- No `BookSection`, trocar o `<div>` por `<img src="/image/capa do livro.png">`
-- No `SpeakingSection`, trocar o `<div>` por `<img>` absoluto
-- No `ZoomParallaxSection`, trocar URLs Unsplash por paths locais
-- No `ImageGallery`, trocar IDs Unsplash por paths locais
+## 10. SpeakingSection — WhatsApp real
+- Trocar `5500000000000` por `554789054401` nos links de WhatsApp
 
 ## Arquivos modificados
 
 | Arquivo | Mudança |
 |---|---|
-| `src/components/HorizontalScrollSection.tsx` | Substituir ~20 PhotoPlaceholders por `<img>` reais |
-| `src/components/ZoomParallaxSection.tsx` | 7 URLs Unsplash → paths locais |
-| `src/components/FloatingPhotosSection.tsx` | 6 placeholders SVG → `<img>` reais |
-| `src/components/BookSection.tsx` | Placeholder → imagem da capa |
-| `src/components/SpeakingSection.tsx` | Fundo placeholder → foto real |
-| `src/components/ui/image-gallery.tsx` | 15 URLs Unsplash → fotos locais |
+| `src/components/HorizontalScrollSection.tsx` | Trocar foto infância + logo Omunga |
+| `src/components/FloatingPhotosSection.tsx` | 3 fotos da direita |
+| `src/components/ServicesSection.tsx` | Imagens reais no hover e modal |
+| `src/components/ui/image-gallery.tsx` | +1 imagem central |
+| `src/components/BookSection.tsx` | Link Hotmart |
+| `src/components/ContactFooter.tsx` | Contatos reais, remover telefone |
+| `src/components/SpeakingSection.tsx` | WhatsApp real |
 

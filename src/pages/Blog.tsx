@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Search } from "lucide-react";
 import { Navbar } from "@/components/ui/navbar";
+import SeoHead from "@/components/SeoHead";
 import BlogCard from "@/components/blog/BlogCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -216,6 +217,11 @@ const Blog = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      <SeoHead
+        title="Blog — Roberto Pascoal"
+        description="Artigos sobre educação, impacto social e transformação por Roberto Pascoal, fundador do Projeto Omunga."
+        url="https://robertopascoal.lovable.app/blog"
+      />
       <div className="pt-28 pb-20 px-6 md:px-10 max-w-6xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-bold tracking-[-0.04em] text-foreground mb-4">
           Blog

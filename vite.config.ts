@@ -19,4 +19,15 @@ export default defineConfig(({ mode }) => ({
     },
     dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime", "@tanstack/react-query", "@tanstack/query-core"],
   },
+  build: {
+    modulePreload: { polyfill: true },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-gsap': ['gsap'],
+          'vendor-motion': ['framer-motion'],
+        },
+      },
+    },
+  },
 }));

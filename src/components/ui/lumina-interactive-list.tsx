@@ -62,8 +62,8 @@ function UnifiedSlider() {
             key={i}
             src={slide.media}
             alt={slide.title}
-            width={1200}
-            height={800}
+            width={1920}
+            height={1080}
             className="absolute inset-0 w-full h-full object-cover"
             style={{
               opacity: i === current ? 1 : 0,

@@ -2,17 +2,17 @@ import { lazy, Suspense } from 'react';
 import { Navbar } from "@/components/ui/navbar";
 import HeroSection from "@/components/HeroSection";
 import TextRevealSection from "@/components/TextRevealSection";
-import HorizontalScrollSection from "@/components/HorizontalScrollSection";
-import ZoomParallaxSection from "@/components/ZoomParallaxSection";
-import TextRevealBlock from "@/components/TextRevealBlock";
-import { ImageGallery } from "@/components/ui/image-gallery";
-import ContactFooter from "@/components/ContactFooter";
 
-// Lazy load below-fold heavy sections
+// Lazy load all below-fold sections
+const HorizontalScrollSection = lazy(() => import("@/components/HorizontalScrollSection"));
+const ZoomParallaxSection = lazy(() => import("@/components/ZoomParallaxSection"));
+const TextRevealBlock = lazy(() => import("@/components/TextRevealBlock"));
 const ServicesSection = lazy(() => import("@/components/ServicesSection"));
+const ImageGallery = lazy(() => import("@/components/ui/image-gallery").then(m => ({ default: m.ImageGallery })));
 const BookSection = lazy(() => import("@/components/BookSection"));
 const SpeakingSection = lazy(() => import("@/components/SpeakingSection"));
 const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
+const ContactFooter = lazy(() => import("@/components/ContactFooter"));
 
 const SectionFallback = () => <div className="min-h-[50vh]" />;
 
@@ -23,18 +23,26 @@ const Index = () => {
       <HeroSection />
       <TextRevealSection />
       <div id="historia">
-        <HorizontalScrollSection />
+        <Suspense fallback={<SectionFallback />}>
+          <HorizontalScrollSection />
+        </Suspense>
       </div>
-      <ZoomParallaxSection />
-      <TextRevealBlock
-        text="Minha missão é simples: provar que a educação transforma qualquer realidade e que nunca é tarde para começar."
-      />
+      <Suspense fallback={<SectionFallback />}>
+        <ZoomParallaxSection />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <TextRevealBlock
+          text="Minha missão é simples: provar que a educação transforma qualquer realidade e que nunca é tarde para começar."
+        />
+      </Suspense>
       <div id="servicos">
         <Suspense fallback={<SectionFallback />}>
           <ServicesSection />
         </Suspense>
       </div>
-      <ImageGallery />
+      <Suspense fallback={<SectionFallback />}>
+        <ImageGallery />
+      </Suspense>
       <div id="livro">
         <Suspense fallback={<SectionFallback />}>
           <BookSection />
@@ -49,7 +57,9 @@ const Index = () => {
         <TestimonialsSection />
       </Suspense>
       <div id="contato">
-        <ContactFooter />
+        <Suspense fallback={<SectionFallback />}>
+          <ContactFooter />
+        </Suspense>
       </div>
     </div>
   );

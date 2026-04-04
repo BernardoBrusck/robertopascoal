@@ -50,9 +50,9 @@ function Project({ index, title, category, setModal, onClick }: { index: number;
       onMouseEnter={() => setModal({ active: true, index })}
       onMouseLeave={() => setModal({ active: false, index })}
       onClick={onClick}
-      className="group flex w-full items-center justify-between border-t border-border/40 py-6 md:py-8 cursor-pointer transition-all duration-300 hover:opacity-50"
+      className="group flex w-full items-center justify-between border-t border-border/40 py-6 md:py-8 cursor-pointer transition-[opacity,transform] duration-300 hover:opacity-50"
     >
-      <h3 className="font-medium text-foreground transition-all duration-400 group-hover:translate-x-[-8px]" style={{ fontSize: 'clamp(20px, 2.5vw, 36px)', letterSpacing: '-0.03em', lineHeight: 1.1 }}>{title}</h3>
+      <h3 className="font-medium text-foreground transition-[opacity,transform] duration-400 group-hover:translate-x-[-8px]" style={{ fontSize: 'clamp(20px, 2.5vw, 36px)', letterSpacing: '-0.03em', lineHeight: 1.1 }}>{title}</h3>
       <p className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-light">{category}</p>
     </div>
   );
@@ -102,7 +102,7 @@ function HoverModal({ modal, projects: items }: { modal: { active: boolean; inde
         className="fixed top-0 left-0 z-[3] pointer-events-none overflow-hidden rounded-md"
         style={{ width: 300, height: 200, willChange: 'transform' }}
       >
-        <div className="w-full h-full absolute transition-[top] duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" style={{ top: `${index * -100}%` }}>
+        <div className="w-full h-full absolute transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" style={{ transform: `translateY(${index * -100}%)` }}>
           {items.map((project) => (
             <div key={project.title} className="w-full h-full">
               <img src={project.hoverImage} alt={project.title} className="w-full h-full object-cover" width={300} height={200} loading="lazy" />
@@ -149,7 +149,7 @@ function DetailModal({ project, onClose }: { project: (typeof projects)[0] | nul
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-sm" onClick={onClose}>
       <motion.div initial={{ opacity: 0, y: 20, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 20, scale: 0.98 }} transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }} className="relative w-[92vw] max-w-5xl max-h-[85vh] overflow-y-auto bg-background border border-border/20 rounded-lg" onClick={(e) => e.stopPropagation()}>
-        <button onClick={onClose} className="absolute top-5 right-5 z-10 text-muted-foreground hover:text-foreground transition-colors"><X size={18} strokeWidth={1.5} /></button>
+        <button onClick={onClose} className="absolute top-5 right-5 z-10 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors" aria-label="Fechar"><X size={18} strokeWidth={1.5} /></button>
         <div className="flex flex-col md:flex-row">
           <div className="flex-shrink-0 md:w-[40%] p-8 md:p-10 flex flex-col justify-center">
             <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground font-light mb-4">{project.category}</p>

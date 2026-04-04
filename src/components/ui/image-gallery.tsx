@@ -173,6 +173,8 @@ function AnimatedImage({ alt, src, ratio }: AnimatedImageProps) {
           <img
             src={isInView ? src : undefined}
             alt={alt}
+            width={ratio > 1 ? 800 : 600}
+            height={ratio > 1 ? Math.round(800 / ratio) : Math.round(600 / ratio)}
             className={cn(
               'h-full w-full object-cover transition-all duration-700',
               isInView && !isLoading ? 'scale-100 opacity-100 blur-0' : 'scale-110 opacity-0 blur-md'

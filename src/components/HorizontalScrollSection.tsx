@@ -44,7 +44,7 @@ const PanelInfancia = () => (
         className="polaroid-frame absolute top-0 left-0 w-[280px] h-[340px] anim-photo"
         style={{ transform: 'rotate(-3deg)' }}
       >
-        <Photo src="/image/foto_infancia_upscale_4x.webp" alt="Infância de Roberto" className="w-full h-full rounded" />
+        <Photo src="/image/infancia-upscale.webp" alt="Infância de Roberto" className="w-full h-full rounded" />
         <span className="block text-center text-[11px] text-muted-foreground mt-2 font-medium tracking-wide">
           Joinville, anos 80
         </span>
@@ -80,12 +80,12 @@ const PanelFormacao = () => (
         ferramenta para amplificar sua voz e levar sua mensagem a milhares de pessoas.
       </p>
       <div className="flex gap-4">
-        <Photo src="/image/Foto de Roberto Pascoal (1).webp" alt="Formação 1" className="w-[160px] h-[120px] rounded anim-photo-sm" />
-        <Photo src="/image/FOTO ROBERTO 05.webp" alt="Formação 2" className="w-[160px] h-[120px] rounded anim-photo-sm" />
+        <Photo src="/image/roberto-pascoal-retrato-1.webp" alt="Formação 1" className="w-[160px] h-[120px] rounded anim-photo-sm" />
+        <Photo src="/image/foto-roberto-05.webp" alt="Formação 2" className="w-[160px] h-[120px] rounded anim-photo-sm" />
       </div>
     </div>
     <div className="flex-shrink-0 anim-photo-main">
-      <Photo src="/image/FOTO ROBERTO 07.webp" alt="Roberto no palco" className="w-[400px] h-[500px] rounded-lg" />
+      <Photo src="/image/foto-roberto-07.webp" alt="Roberto no palco" className="w-[400px] h-[500px] rounded-lg" />
     </div>
   </div>
 );
@@ -126,12 +126,12 @@ const PanelOmunga = () => (
 
 const PanelHoje = () => (
   <div className="panel-inner relative flex flex-col items-center justify-center h-full w-full px-16 lg:px-24">
-    <Photo src="/image/Foto de Roberto Pascoal (3).webp" alt="Roberto Pascoal" className="absolute top-[8%] left-[3%] w-[200px] h-[140px] rounded-lg anim-scatter" style={{ transform: 'rotate(-3deg)' }} />
-    <Photo src="/image/200229_OMG_4225.webp" alt="Ação social" className="absolute top-[42%] left-[2%] w-[150px] h-[190px] rounded anim-scatter" style={{ transform: 'rotate(2deg)' }} />
+    <Photo src="/image/roberto-pascoal-retrato-3.webp" alt="Roberto Pascoal" className="absolute top-[8%] left-[3%] w-[200px] h-[140px] rounded-lg anim-scatter" style={{ transform: 'rotate(-3deg)' }} />
+    <Photo src="/image/omg-4225.webp" alt="Ação social" className="absolute top-[42%] left-[2%] w-[150px] h-[190px] rounded anim-scatter" style={{ transform: 'rotate(2deg)' }} />
     <Photo src="/image/roberto-pascoal-projetos-africa.webp" alt="Projetos África" className="absolute bottom-[10%] left-[12%] w-[190px] h-[130px] rounded-lg anim-scatter" style={{ transform: 'rotate(-1.5deg)' }} />
-    <Photo src="/image/03- Post Documentário.webp" alt="Documentário" className="absolute top-[6%] right-[4%] w-[180px] h-[130px] rounded-lg anim-scatter" style={{ transform: 'rotate(2.5deg)' }} />
-    <Photo src="/image/Cópia de INSTA 3.webp" alt="Roberto" className="absolute top-[40%] right-[3%] w-[160px] h-[200px] rounded anim-scatter" style={{ transform: 'rotate(-2deg)' }} />
-    <Photo src="/image/FOTO ROBERTO 09.webp" alt="Roberto atual" className="absolute bottom-[8%] right-[14%] w-[200px] h-[140px] rounded-lg anim-scatter" style={{ transform: 'rotate(1deg)' }} />
+    <Photo src="/image/post-documentario.webp" alt="Documentário" className="absolute top-[6%] right-[4%] w-[180px] h-[130px] rounded-lg anim-scatter" style={{ transform: 'rotate(2.5deg)' }} />
+    <Photo src="/image/insta-3.webp" alt="Roberto" className="absolute top-[40%] right-[3%] w-[160px] h-[200px] rounded anim-scatter" style={{ transform: 'rotate(-2deg)' }} />
+    <Photo src="/image/foto-roberto-09.webp" alt="Roberto atual" className="absolute bottom-[8%] right-[14%] w-[200px] h-[140px] rounded-lg anim-scatter" style={{ transform: 'rotate(1deg)' }} />
     <div className="relative z-10 text-center max-w-2xl anim-center">
       <h2 className="h-panel-title text-foreground">Inspirar para agir</h2>
       <p className="h-panel-text text-muted-foreground mx-auto mt-4">
@@ -179,7 +179,7 @@ const MobilePanelInfancia = () => (
     <div className="flex flex-col gap-6">
       <div className="flex gap-3">
         <div className="flex-1" style={{ transform: 'rotate(-2deg)' }}>
-          <Photo src="/image/foto_infancia_upscale_4x.webp" alt="Infância" className="w-full aspect-[4/5] rounded" />
+          <Photo src="/image/infancia-upscale.webp" alt="Infância" className="w-full aspect-[4/5] rounded" />
           <span className="block text-center text-[10px] text-muted-foreground mt-1 tracking-wide">
             Joinville, anos 80
           </span>
@@ -203,7 +203,7 @@ const MobilePanelInfancia = () => (
 const MobilePanelFormacao = () => (
   <MobilePanel label="FORMAÇÃO">
     <div className="flex flex-col gap-6">
-      <Photo src="/image/FOTO ROBERTO 07.webp" alt="Roberto no palco" className="w-full aspect-[3/4] rounded-lg" />
+      <Photo src="/image/foto-roberto-07.webp" alt="Roberto no palco" className="w-full aspect-[3/4] rounded-lg" />
       <div>
         <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">O poder da palavra</h2>
         <p className="text-sm text-muted-foreground leading-relaxed mb-5">
@@ -212,8 +212,8 @@ const MobilePanelFormacao = () => (
         </p>
       </div>
       <div className="flex gap-3">
-        <Photo src="/image/FOTO ROBERTO 04.webp" alt="Formação 1" className="flex-1 aspect-[4/3] rounded" />
-        <Photo src="/image/FOTO ROBERTO 05.webp" alt="Formação 2" className="flex-1 aspect-[4/3] rounded" />
+        <Photo src="/image/foto-roberto-04.webp" alt="Formação 1" className="flex-1 aspect-[4/3] rounded" />
+        <Photo src="/image/foto-roberto-05.webp" alt="Formação 2" className="flex-1 aspect-[4/3] rounded" />
       </div>
     </div>
   </MobilePanel>
@@ -250,8 +250,8 @@ const MobilePanelHoje = () => (
   <MobilePanel label="HOJE">
     <div className="flex flex-col gap-6">
       <div className="flex gap-3">
-        <Photo src="/image/B0119027.webp" alt="Palestra" className="flex-1 aspect-[4/3] rounded-lg" />
-        <Photo src="/image/capa do livro.webp" alt="Livro" className="flex-1 aspect-[3/4] rounded-lg" />
+        <Photo src="/image/palestra-roberto.webp" alt="Palestra" className="flex-1 aspect-[4/3] rounded-lg" />
+        <Photo src="/image/capa-do-livro.webp" alt="Livro" className="flex-1 aspect-[3/4] rounded-lg" />
       </div>
       <div className="text-center">
         <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">Inspirar para agir</h2>
@@ -261,8 +261,8 @@ const MobilePanelHoje = () => (
         </p>
       </div>
       <div className="flex gap-3">
-        <Photo src="/image/200229_OMG_4225.webp" alt="Ação social" className="flex-1 aspect-square rounded" />
-        <Photo src="/image/FOTO ROBERTO 09.webp" alt="Roberto atual" className="flex-1 aspect-[4/3] rounded-lg" />
+        <Photo src="/image/omg-4225.webp" alt="Ação social" className="flex-1 aspect-square rounded" />
+        <Photo src="/image/foto-roberto-09.webp" alt="Roberto atual" className="flex-1 aspect-[4/3] rounded-lg" />
       </div>
     </div>
   </MobilePanel>

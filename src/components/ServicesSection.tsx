@@ -28,9 +28,9 @@ const projects = [
     hoverImage: '/image/roberto-pascoal-leitura-indigena.webp',
     galleryImages: [
       '/image/roberto-pascoal-leitura-indigena.webp',
-      '/image/capa do livro.webp',
+      '/image/capa-do-livro.webp',
       '/image/roberto-pascoal-criancas-indigenas.webp',
-      '/image/200229_OMG_4225.webp',
+      '/image/omg-4225.webp',
     ],
   },
   {
@@ -39,12 +39,12 @@ const projects = [
     color: '#E4DDE2',
     description:
       'Palestras motivacionais em escolas, empresas e eventos, compartilhando histórias reais de superação através da educação.',
-    hoverImage: '/image/B0119027.webp',
+    hoverImage: '/image/palestra-roberto.webp',
     galleryImages: [
-      '/image/B0119027.webp',
-      '/image/FOTO ROBERTO 07.webp',
-      '/image/FOTO ROBERTO 08 (2).webp',
-      '/image/FOTO ROBERTO 09.webp',
+      '/image/palestra-roberto.webp',
+      '/image/foto-roberto-07.webp',
+      '/image/foto-roberto-08.webp',
+      '/image/foto-roberto-09.webp',
     ],
   },
   {
@@ -56,7 +56,7 @@ const projects = [
     hoverImage: '/image/roberto-pascoal-caminhada-brasil.webp',
     galleryImages: [
       '/image/roberto-pascoal-caminhada-brasil.webp',
-      '/image/01 - África 07 por Max Schwoelk.webp',
+      '/image/africa-max-schwoelk.webp',
       '/image/roberto-pascoal-professor-africa.webp',
       '/image/roberto-pascoal-indigena-interacao.webp',
     ],

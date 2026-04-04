@@ -9,12 +9,12 @@ import slide05 from '@/assets/hero/slide-05-indigena.webp';
 import slide06 from '@/assets/hero/slide-06-omunga.webp';
 
 const slides = [
-  { title: "Roberto Pascoal", description: "Escritor. Palestrante. Fundador da Omunga.", media: slide06 },
-  { title: "Não é sobre se sentir pronto", description: "É sobre ser suficiente para continuar caminhando.", media: slide01 },
-  { title: "O Caminho", description: "Sentido, propósito e a jornada que nos transforma.", media: slide02 },
-  { title: "Multiculturalidade", description: "Quando todas as culturas coexistem, a humanidade se revela.", media: slide03 },
-  { title: "Nunca prontos", description: "Mas sempre suficientes para o próximo passo.", media: slide04 },
-  { title: "A Jornada", description: "Da Amazônia ao Sertão, da África ao Monte Roraima.", media: slide05 },
+  { title: "Roberto Pascoal", description: "Escritor. Palestrante. Fundador da Omunga.", media: slide06, mobilePosition: "30% center" },
+  { title: "Não é sobre se sentir pronto", description: "É sobre ser suficiente para continuar caminhando.", media: slide01, mobilePosition: "center center" },
+  { title: "O Caminho", description: "Sentido, propósito e a jornada que nos transforma.", media: slide02, mobilePosition: "center center" },
+  { title: "Multiculturalidade", description: "Quando todas as culturas coexistem, a humanidade se revela.", media: slide03, mobilePosition: "25% center" },
+  { title: "Nunca prontos", description: "Mas sempre suficientes para o próximo passo.", media: slide04, mobilePosition: "center center" },
+  { title: "A Jornada", description: "Da Amazônia ao Sertão, da África ao Monte Roraima.", media: slide05, mobilePosition: "20% center" },
 ];
 
 /* ═══════════════════════════════════════════════════════

@@ -264,7 +264,10 @@ const Navbar = () => {
                   >
                     <a
                       href={item.href}
-                      onClick={() => setIsOpen(false)}
+                      onClick={(e) => {
+                        handleAnchorClick(e, item.href);
+                        setIsOpen(false);
+                      }}
                       className="text-2xl font-bold uppercase tracking-[0.15em] text-foreground transition-opacity hover:opacity-60"
                     >
                       {item.label}

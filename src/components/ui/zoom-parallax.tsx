@@ -3,6 +3,7 @@
 import { useScroll, useTransform, motion } from 'framer-motion';
 import { useRef } from 'react';
 import LazyImage from '@/lib/LazyImage';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface Image {
   src: string;
@@ -15,6 +16,7 @@ interface ZoomParallaxProps {
 
 export function ZoomParallax({ images }: ZoomParallaxProps) {
   const container = useRef(null);
+  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ['start start', 'end end'],
@@ -28,15 +30,21 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 
   const scales = [scale4, scale5, scale6, scale5, scale6, scale8, scale9];
 
-  const positions = [
-    '', // index 0: center, large
-    '-top-[30vh] left-[5vw] h-[30vh] w-[35vw]',
-    '-top-[10vh] -left-[25vw] h-[45vh] w-[20vw]',
-    'left-[27.5vw] h-[25vh] w-[25vw]',
-    'top-[27.5vh] left-[5vw] h-[25vh] w-[20vw]',
-    'top-[27.5vh] -left-[22.5vw] h-[25vh] w-[30vw]',
-    'top-[22.5vh] left-[25vw] h-[15vh] w-[15vw]',
-  ];
+  if (isMobile) {
+    return (
+      <div className="px-4 py-8 flex flex-col gap-4">
+        {images.map(({ src, alt }, index) => (
+          <LazyImage
+            key={index}
+            src={src}
+            alt={alt || ''}
+            className="w-full aspect-[4/3] object-cover rounded-lg"
+            rootMargin="200px"
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div ref={container} className="relative h-[300vh]">

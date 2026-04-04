@@ -11,6 +11,13 @@ const projects = [
     color: '#E8E4DF',
     description:
       'Criação e manutenção de bibliotecas em comunidades carentes, proporcionando acesso ao conhecimento e incentivando o hábito da leitura desde a infância.',
+    hoverImage: '/image/roberto-pascoal-comunidade-isolada.jpg',
+    galleryImages: [
+      '/image/roberto-pascoal-comunidade-isolada.jpg',
+      '/image/roberto-pascoal-criancas-indigenas.png',
+      '/image/roberto-pascoal-leitura-indigena.png',
+      '/image/roberto-pascoal-projetos-africa.jpg',
+    ],
   },
   {
     title: 'Doação de Livros',
@@ -18,6 +25,13 @@ const projects = [
     color: '#E2E6DE',
     description:
       'Campanhas de arrecadação e distribuição de livros para escolas, presídios e comunidades sem acesso a materiais educativos.',
+    hoverImage: '/image/roberto-pascoal-leitura-indigena.png',
+    galleryImages: [
+      '/image/roberto-pascoal-leitura-indigena.png',
+      '/image/capa do livro.png',
+      '/image/roberto-pascoal-criancas-indigenas.png',
+      '/image/200229_OMG_4225.jpg',
+    ],
   },
   {
     title: 'Palestras Transformadoras',
@@ -25,6 +39,13 @@ const projects = [
     color: '#E4DDE2',
     description:
       'Palestras motivacionais em escolas, empresas e eventos, compartilhando histórias reais de superação através da educação.',
+    hoverImage: '/image/B0119027.JPG',
+    galleryImages: [
+      '/image/B0119027.JPG',
+      '/image/FOTO ROBERTO 07.jpg',
+      '/image/FOTO ROBERTO 08 (2).jpg',
+      '/image/FOTO ROBERTO 09.jpg',
+    ],
   },
   {
     title: 'Expedições Educacionais',
@@ -32,6 +53,13 @@ const projects = [
     color: '#DDDEE4',
     description:
       'Viagens para regiões remotas do Brasil levando materiais escolares, livros e oficinas de capacitação para educadores locais.',
+    hoverImage: '/image/roberto-pascoal-caminhada-brasil.png',
+    galleryImages: [
+      '/image/roberto-pascoal-caminhada-brasil.png',
+      '/image/01 - África 07 por Max Schwoelk.JPG',
+      '/image/roberto-pascoal-professor-africa.jpg',
+      '/image/roberto-pascoal-indigena-interacao.png',
+    ],
   },
 ];
 
@@ -165,17 +193,14 @@ function HoverModal({
           {items.map((project) => (
             <div
               key={project.title}
-              className="w-full h-full flex items-center justify-center"
-              style={{ backgroundColor: project.color }}
+              className="w-full h-full"
             >
-              <div className="flex flex-col items-center gap-2 text-muted-foreground/60">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-                </svg>
-                <span className="text-xs font-light">Foto</span>
-              </div>
+              <img
+                src={project.hoverImage}
+                alt={project.title}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
           ))}
         </div>
@@ -204,10 +229,12 @@ function HoverModal({
 
 /* ── Lightbox ── */
 function Lightbox({
-  color,
+  src,
+  alt,
   onClose,
 }: {
-  color: string;
+  src: string;
+  alt: string;
   onClose: () => void;
 }) {
   useEffect(() => {
@@ -232,18 +259,10 @@ function Lightbox({
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
-        className="w-[80vw] max-w-3xl aspect-[4/3] rounded-lg flex items-center justify-center"
-        style={{ backgroundColor: color }}
+        className="w-[80vw] max-w-3xl aspect-[4/3] rounded-lg overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex flex-col items-center gap-2 text-muted-foreground/50">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-          </svg>
-          <span className="text-sm font-light">Foto em alta resolução</span>
-        </div>
+        <img src={src} alt={alt} className="w-full h-full object-cover" />
       </motion.div>
     </motion.div>
   );
@@ -330,21 +349,18 @@ function DetailModal({
           {/* Right: gallery */}
           <div className="flex-1 p-6 md:p-8 md:pl-0">
             <div className="grid grid-cols-2 gap-2.5">
-              {[0, 1, 2, 3].map((i) => (
+              {project.galleryImages.map((src, i) => (
                 <div
                   key={i}
-                  className="aspect-[4/3] rounded-md flex items-center justify-center cursor-pointer transition-opacity duration-200 hover:opacity-75"
-                  style={{ backgroundColor: project.color }}
+                  className="aspect-[4/3] rounded-md overflow-hidden cursor-pointer transition-opacity duration-200 hover:opacity-75"
                   onClick={() => setLightboxIndex(i)}
                 >
-                  <div className="flex flex-col items-center gap-1 text-muted-foreground/40">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <rect x="3" y="3" width="18" height="18" rx="2" />
-                      <circle cx="8.5" cy="8.5" r="1.5" />
-                      <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-                    </svg>
-                    <span className="text-[9px] font-light">Foto {i + 1}</span>
-                  </div>
+                  <img
+                    src={src}
+                    alt={`${project.title} ${i + 1}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
               ))}
             </div>
@@ -355,7 +371,11 @@ function DetailModal({
       {/* Lightbox */}
       <AnimatePresence>
         {lightboxIndex !== null && (
-          <Lightbox color={project.color} onClose={closeLightbox} />
+          <Lightbox
+            src={project.galleryImages[lightboxIndex]}
+            alt={`${project.title} ${lightboxIndex + 1}`}
+            onClose={closeLightbox}
+          />
         )}
       </AnimatePresence>
     </motion.div>

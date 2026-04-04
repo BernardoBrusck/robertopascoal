@@ -20,9 +20,9 @@ const leftPhotos: FloatingPhoto[] = [
 ];
 
 const rightPhotos: FloatingPhoto[] = [
-  { top: '12%', right: '4%', rotate: 5, speed: -55, src: '/image/Foto de Roberto Pascoal (3).jpg', alt: 'Roberto Pascoal' },
-  { top: '45%', right: '2%', rotate: -3, speed: -80, src: '/image/03- Post Documentário.jpg', alt: 'Documentário' },
-  { top: '75%', right: '6%', rotate: 4, speed: -25, src: '/image/roberto-pascoal-professor-africa.jpg', alt: 'Professor na África' },
+  { top: '12%', right: '4%', rotate: 5, speed: -55, src: '/image/roberto-pascoal-caminhada-brasil.png', alt: 'Caminhada Brasil' },
+  { top: '45%', right: '2%', rotate: -3, speed: -80, src: '/image/roberto-pascoal-indigena-interacao.png', alt: 'Interação indígena' },
+  { top: '75%', right: '6%', rotate: 4, speed: -25, src: '/image/FOTO ROBERTO 08 (2).jpg', alt: 'Roberto no palco' },
 ];
 
 const PhotoCard = ({

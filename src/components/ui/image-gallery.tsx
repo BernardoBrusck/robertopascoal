@@ -9,6 +9,7 @@ const galleryImages = [
   { col: 0, ratio: 9 / 16, src: '/image/FOTO ROBERTO 04.jpg' },
   { col: 0, ratio: 16 / 9, src: '/image/roberto-pascoal-criancas-indigenas.png' },
   { col: 0, ratio: 9 / 16, src: '/image/01 - África 07 por Max Schwoelk.JPG' },
+  { col: 0, ratio: 16 / 9, src: '/image/roberto-pascoal-indigena-interacao.png' },
   { col: 1, ratio: 16 / 9, src: '/image/roberto-pascoal-explorador.jpg' },
   { col: 1, ratio: 9 / 16, src: '/image/FOTO ROBERTO 07.jpg' },
   { col: 1, ratio: 16 / 9, src: '/image/200229_OMG_4225.jpg' },

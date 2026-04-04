@@ -115,7 +115,7 @@ const SpeakingSection = () => {
 
             {/* WhatsApp link */}
             <a
-              href="https://wa.me/5500000000000"
+              href="https://wa.me/554789054401"
               target="_blank"
               rel="noopener noreferrer"
               className="speak-reveal inline-flex items-center gap-2 text-white/50 hover:text-white/80 text-xs uppercase tracking-[0.2em] transition-colors w-fit"

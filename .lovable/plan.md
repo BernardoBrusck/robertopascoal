@@ -1,63 +1,43 @@
 
 
-# Plano: Atualizações de imagens, serviços, galeria, links e contatos
+# Plano: Otimização de imagens para carregamento rápido
 
-## 1. Copiar imagem de infância enviada para o projeto
-- Copiar `file_00000000eec0622f9132ad300581c9cb.png` (foto criança) para substituir a segunda foto no PanelInfancia (onde está `IMG_3580 (1).JPG`)
-- Nota: a foto já existe em `/public/image/file_00000000eec0622f9132ad300581c9cb.png` (verifiquei no ls)
+## Problema
 
-## 2. Copiar logo Omunga para o projeto
-- Copiar `image-14.png` (logo Omunga) para `/public/image/omunga-logo.png`
+A pasta `/public/image/` tem **99MB** de imagens, com arquivos individuais de até **7.2MB**. Isso causa carregamento extremamente lento — o navegador precisa baixar dezenas de megabytes antes de exibir o conteúdo.
 
-## 3. HorizontalScrollSection — PanelInfancia
-- Trocar `IMG_3580 (1).JPG` por `file_00000000eec0622f9132ad300581c9cb.png` na segunda polaroid (desktop e mobile)
+## Solução
 
-## 4. HorizontalScrollSection — PanelOmunga
-- Adicionar a logo da Omunga acima ou ao lado do título "Criar para transformar" (desktop e mobile)
+Converter todas as imagens para **WebP** com redimensionamento para resolução máxima adequada (1920px de largura), reduzindo o peso total de ~99MB para ~5-10MB.
 
-## 5. FloatingPhotosSection — fotos da direita
-- Trocar as 3 fotos da direita por outras imagens de `/public/image/` diferentes das atuais:
-  - `roberto-pascoal-caminhada-brasil.png`
-  - `roberto-pascoal-indigena-interacao.png`
-  - `FOTO ROBERTO 08 (2).jpg`
+## Etapas
 
-## 6. ServicesSection — imagens nos serviços
-Adicionar campo `images` a cada projeto com fotos contextuais:
-- **Bibliotecas Comunitárias**: hover → `roberto-pascoal-comunidade-isolada.jpg`, galeria modal → fotos de comunidades
-- **Doação de Livros**: hover → `roberto-pascoal-leitura-indigena.png`, galeria → fotos de leitura/livros
-- **Palestras Transformadoras**: hover → `B0119027.JPG`, galeria → fotos de palco/eventos
-- **Expedições Educacionais**: hover → `roberto-pascoal-caminhada-brasil.png`, galeria → fotos de viagens/África
+### 1. Converter todas as imagens para WebP otimizado
+- Usar `cwebp` (via nix) para converter cada PNG/JPG/JPEG para WebP
+- Qualidade: 80 (ótimo equilíbrio entre peso e visual)
+- Largura máxima: 1920px (suficiente para telas grandes)
+- Manter os originais temporariamente, depois remover
 
-Substituir os placeholders SVG no HoverModal e no DetailModal por `<img>` reais.
+### 2. Atualizar referências em todos os componentes
+Trocar todas as extensões `.png`, `.jpg`, `.JPG`, `.JPEG` por `.webp` nos arquivos:
 
-## 7. ImageGallery — adicionar imagem central
-- Adicionar uma 16a imagem na coluna 1 (centro): `roberto-pascoal-indigena-interacao.png`
-
-## 8. BookSection — link Hotmart
-- Trocar `href="#"` por `https://hotmart.com/pt-br/marketplace/produtos/o-caminho-depois-da-pressa/E102970771D`
-- Adicionar `target="_blank" rel="noopener noreferrer"`
-
-## 9. ContactFooter — contatos reais
-- E-mail: `roberto.pascoal@omunga.com`
-- Remover bloco de Telefone, manter apenas WhatsApp: `+55 47 8905-4401`
-- WhatsApp link: `https://wa.me/554789054401`
-- Instagram Roberto: `https://www.instagram.com/roberto_pascoal/`
-- Instagram Omunga: `https://www.instagram.com/omunga_oficial/`
-- LinkedIn: `https://www.linkedin.com/company/omunga/`
-- Remover link do site omunga.com.br dos socials (ou manter se fizer sentido)
-
-## 10. SpeakingSection — WhatsApp real
-- Trocar `5500000000000` por `554789054401` nos links de WhatsApp
-
-## Arquivos modificados
-
-| Arquivo | Mudança |
+| Arquivo | Qtd referências |
 |---|---|
-| `src/components/HorizontalScrollSection.tsx` | Trocar foto infância + logo Omunga |
-| `src/components/FloatingPhotosSection.tsx` | 3 fotos da direita |
-| `src/components/ServicesSection.tsx` | Imagens reais no hover e modal |
-| `src/components/ui/image-gallery.tsx` | +1 imagem central |
-| `src/components/BookSection.tsx` | Link Hotmart |
-| `src/components/ContactFooter.tsx` | Contatos reais, remover telefone |
-| `src/components/SpeakingSection.tsx` | WhatsApp real |
+| `HorizontalScrollSection.tsx` | ~15 |
+| `ZoomParallaxSection.tsx` | 7 |
+| `FloatingPhotosSection.tsx` | 6 |
+| `ServicesSection.tsx` | ~12 |
+| `BookSection.tsx` | 1 |
+| `SpeakingSection.tsx` | 1 |
+| `ContactFooter.tsx` | logo |
+| `image-gallery.tsx` | 16 |
+
+### 3. Adicionar preload para imagem crítica (above the fold)
+- O hero já usa WebP otimizado em `src/assets/hero/` — ok
+- Adicionar `fetchpriority="high"` nas imagens visíveis sem scroll
+
+## Resultado esperado
+- Redução de ~99MB → ~5-10MB (90%+ menor)
+- Carregamento visivelmente mais rápido em todas as seções
+- Qualidade visual mantida
 

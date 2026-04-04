@@ -129,13 +129,6 @@ const ContactFooter = () => {
             </div>
           </ContactBlock>
 
-          <ContactBlock icon={Phone} label="Telefone">
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-foreground">{CONTACT.phoneDisplay}</span>
-              <CopyButton text={CONTACT.phone} />
-            </div>
-          </ContactBlock>
-
           <ContactBlock icon={MapPin} label="Localização">
             <span className="text-sm text-foreground">{CONTACT.location}</span>
           </ContactBlock>

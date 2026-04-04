@@ -50,7 +50,7 @@ const SpeakingSection = () => {
       const message = encodeURIComponent(
         `Olá! Tenho interesse em contratar uma palestra. Meu e-mail: ${email}`
       );
-      window.open(`https://wa.me/5500000000000?text=${message}`, '_blank');
+      window.open(`https://wa.me/554789054401?text=${message}`, '_blank');
     }
   };
 

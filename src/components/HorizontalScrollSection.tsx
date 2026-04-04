@@ -126,7 +126,7 @@ const PanelOmunga = () => (
 
 const PanelHoje = () => (
   <div className="panel-inner relative flex flex-col items-center justify-center h-full w-full px-16 lg:px-24">
-    <Photo src="/image/B0119027.webp" alt="Palestra" className="absolute top-[8%] left-[3%] w-[200px] h-[140px] rounded-lg anim-scatter" style={{ transform: 'rotate(-3deg)' }} />
+    <Photo src="/image/Foto de Roberto Pascoal (3).webp" alt="Roberto Pascoal" className="absolute top-[8%] left-[3%] w-[200px] h-[140px] rounded-lg anim-scatter" style={{ transform: 'rotate(-3deg)' }} />
     <Photo src="/image/200229_OMG_4225.webp" alt="Ação social" className="absolute top-[42%] left-[2%] w-[150px] h-[190px] rounded anim-scatter" style={{ transform: 'rotate(2deg)' }} />
     <Photo src="/image/roberto-pascoal-projetos-africa.webp" alt="Projetos África" className="absolute bottom-[10%] left-[12%] w-[190px] h-[130px] rounded-lg anim-scatter" style={{ transform: 'rotate(-1.5deg)' }} />
     <Photo src="/image/capa do livro.webp" alt="Livro" className="absolute top-[6%] right-[4%] w-[180px] h-[130px] rounded-lg anim-scatter" style={{ transform: 'rotate(2.5deg)' }} />

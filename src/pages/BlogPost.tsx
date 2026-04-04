@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/ui/navbar";
 import BlockRenderer from "@/components/blog/BlockRenderer";
 import ShareButtons from "@/components/blog/ShareButtons";
+import SeoHead from "@/components/SeoHead";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { ArrowLeft } from "lucide-react";
@@ -21,6 +22,7 @@ interface Post {
   content: any;
   cover_image: string | null;
   published_at: string | null;
+  updated_at: string;
   categories: { name: string; slug: string } | null;
   post_tags?: { tags: Tag | null }[];
 }
@@ -34,7 +36,7 @@ const BlogPost = () => {
     const fetchPost = async () => {
       const { data } = await supabase
         .from("posts")
-        .select("id, title, slug, excerpt, content, cover_image, published_at, categories(name, slug), post_tags(tags(name, slug))")
+        .select("id, title, slug, excerpt, content, cover_image, published_at, updated_at, categories(name, slug), post_tags(tags(name, slug))")
         .eq("slug", slug)
         .eq("status", "published")
         .single();
@@ -43,6 +45,32 @@ const BlogPost = () => {
     };
     fetchPost();
   }, [slug]);
+
+  const jsonLd = useMemo(() => {
+    if (!post) return undefined;
+    return {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": post.title,
+      "description": post.excerpt || "",
+      "image": post.cover_image || undefined,
+      "datePublished": post.published_at || undefined,
+      "dateModified": post.updated_at,
+      "author": {
+        "@type": "Person",
+        "name": "Roberto Pascoal",
+        "url": "https://robertopascoal.lovable.app"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Roberto Pascoal"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `https://robertopascoal.lovable.app/blog/${post.slug}`
+      }
+    };
+  }, [post]);
 
   if (loading) {
     return (
@@ -59,6 +87,7 @@ const BlogPost = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
+        <SeoHead title="Artigo não encontrado — Roberto Pascoal" description="O artigo que você procura não foi encontrado." />
         <div className="pt-28 px-6 text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">Artigo não encontrado</h1>
           <Link to="/blog" className="text-muted-foreground hover:text-foreground transition-colors">
@@ -77,6 +106,14 @@ const BlogPost = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      <SeoHead
+        title={`${post.title} — Roberto Pascoal`}
+        description={post.excerpt || `Leia "${post.title}" no blog de Roberto Pascoal.`}
+        url={`https://robertopascoal.lovable.app/blog/${post.slug}`}
+        image={post.cover_image}
+        type="article"
+        jsonLd={jsonLd}
+      />
       <article className="pt-28 pb-20 px-6 md:px-10 max-w-3xl mx-auto">
         {/* Back link */}
         <Link

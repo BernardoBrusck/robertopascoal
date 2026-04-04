@@ -216,6 +216,7 @@ const Navbar = () => {
               <div className="hidden md:block">
                 <a
                   href="#contato"
+                  onClick={(e) => handleAnchorClick(e, "#contato")}
                   className={`inline-flex items-center justify-center px-6 py-2.5 rounded-sm text-xs uppercase tracking-[0.2em] font-medium border bg-transparent transition-all duration-300 ${textColor} ${borderColor} ${hoverBg}`}
                 >
                   Contato

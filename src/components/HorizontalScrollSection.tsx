@@ -428,7 +428,7 @@ const HorizontalScrollSection = () => {
   /* ── Mobile: vertical stack ── */
   if (isMobile) {
     return (
-      <section className="w-full bg-background pb-8">
+      <section className="relative z-10 w-full bg-background pb-8">
         {mobilePanels.map((Panel, i) => (
           <Panel key={timelineSteps[i].id} />
         ))}

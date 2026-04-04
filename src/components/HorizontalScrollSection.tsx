@@ -44,7 +44,7 @@ const PanelInfancia = () => (
         className="polaroid-frame absolute top-0 left-0 w-[280px] h-[340px] anim-photo"
         style={{ transform: 'rotate(-3deg)' }}
       >
-        <PhotoPlaceholder label="Foto infância 1" className="w-full h-full rounded" />
+        <Photo src="/image/foto_infancia_upscale_4x.jpg" alt="Infância de Roberto" className="w-full h-full rounded" />
         <span className="block text-center text-[11px] text-muted-foreground mt-2 font-medium tracking-wide">
           Joinville, anos 80
         </span>
@@ -53,7 +53,7 @@ const PanelInfancia = () => (
         className="polaroid-frame absolute bottom-0 right-0 w-[200px] h-[240px] anim-photo"
         style={{ transform: 'rotate(2deg)' }}
       >
-        <PhotoPlaceholder label="Foto infância 2" className="w-full h-full rounded" />
+        <Photo src="/image/IMG_3580 (1).JPG" alt="Infância 2" className="w-full h-full rounded" />
       </div>
     </div>
     <div className="flex flex-col justify-center max-w-lg anim-text">

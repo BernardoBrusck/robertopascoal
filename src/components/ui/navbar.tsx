@@ -14,6 +14,16 @@ const navItems = [
   { label: "Blog", href: "/blog" },
 ];
 
+const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  if (href.startsWith("#")) {
+    e.preventDefault();
+    const el = document.querySelector(href);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+};
+
 /**
  * Samples the pixel color behind the header center to determine
  * if the background is dark (needs white text) or light (needs dark text).

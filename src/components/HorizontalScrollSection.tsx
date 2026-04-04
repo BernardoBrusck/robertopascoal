@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { motion, useInView } from 'framer-motion';
-
-declare const gsap: any;
+import { loadGsapWithScrollTrigger } from '@/lib/loadGsap';
 
 /* ─── Panel Data ─── */
 const timelineSteps = [
@@ -273,34 +272,14 @@ const HorizontalScrollSection = () => {
   useEffect(() => {
     if (isMobile) return;
 
-    const waitForGsap = setInterval(() => {
-      if (typeof gsap !== 'undefined' && gsap.registerPlugin) {
-        clearInterval(waitForGsap);
+    let cancelled = false;
 
-        const loadScrollTrigger = (): Promise<void> =>
-          new Promise((res, rej) => {
-            if ((window as any).ScrollTrigger) {
-              gsap.registerPlugin((window as any).ScrollTrigger);
-              res();
-              return;
-            }
-            const s = document.createElement('script');
-            s.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-            s.onload = () => {
-              setTimeout(() => {
-                gsap.registerPlugin((window as any).ScrollTrigger);
-                res();
-              }, 100);
-            };
-            s.onerror = () => rej();
-            document.head.appendChild(s);
-          });
+    loadGsapWithScrollTrigger().then(({ gsap }) => {
+      if (cancelled) return;
+      initAnimation(gsap);
+    });
 
-        loadScrollTrigger().then(() => initAnimation());
-      }
-    }, 100);
-
-    const initAnimation = () => {
+    const initAnimation = (gsap: any) => {
       if (!sectionRef.current || !containerRef.current) return;
       const container = containerRef.current;
 
@@ -418,11 +397,7 @@ const HorizontalScrollSection = () => {
       });
     };
 
-    const timeout = setTimeout(() => clearInterval(waitForGsap), 15000);
-    return () => {
-      clearInterval(waitForGsap);
-      clearTimeout(timeout);
-    };
+    return () => { cancelled = true; };
   }, [isMobile]);
 
   /* ── Mobile: vertical stack ── */

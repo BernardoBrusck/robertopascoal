@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 import slide01 from '@/assets/hero/slide-01-caminho.webp';
 import slide02 from '@/assets/hero/slide-02-concha.webp';
@@ -6,9 +7,6 @@ import slide03 from '@/assets/hero/slide-03-amazonia.webp';
 import slide04 from '@/assets/hero/slide-04-roraima.webp';
 import slide05 from '@/assets/hero/slide-05-indigena.webp';
 import slide06 from '@/assets/hero/slide-06-omunga.webp';
-
-declare const gsap: any;
-declare const THREE: any;
 
 const slides = [
   { title: "Roberto Pascoal", description: "Escritor. Palestrante. Fundador da Omunga.", media: slide06 },
@@ -19,7 +17,77 @@ const slides = [
   { title: "A Jornada", description: "Da Amazônia ao Sertão, da África ao Monte Roraima.", media: slide05 },
 ];
 
-export function LuminaSlider() {
+/* ═══════════════════════════════════════════════════════
+   MOBILE SLIDER — Pure CSS transitions (no Three.js)
+   ═══════════════════════════════════════════════════════ */
+function MobileSlider() {
+  const [current, setCurrent] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const goTo = useCallback((idx: number) => {
+    setCurrent(idx);
+  }, []);
+
+  // Auto-slide
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      setCurrent(prev => (prev + 1) % slides.length);
+    }, 3500);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, []);
+
+  // Reset timer on manual navigation
+  const handleDotClick = (idx: number) => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    goTo(idx);
+    timerRef.current = setInterval(() => {
+      setCurrent(prev => (prev + 1) % slides.length);
+    }, 3500);
+  };
+
+  return (
+    <div className="slider-wrapper loaded">
+      <div className="relative w-full h-full overflow-hidden">
+        {slides.map((slide, i) => (
+          <img
+            key={i}
+            src={slide.media}
+            alt={slide.title}
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+            style={{ opacity: i === current ? 1 : 0 }}
+            {...(i === 0 ? { fetchPriority: 'high' as any } : { loading: 'lazy' as any })}
+          />
+        ))}
+      </div>
+      <div className="slider-overlay">
+        <div id="slidesNav" className="slider-dots-nav">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              className={`slider-dot${i === current ? ' active' : ''}`}
+              onClick={() => handleDotClick(i)}
+              aria-label={`Ir para slide ${i + 1}: ${slides[i].title}`}
+            />
+          ))}
+        </div>
+        <div className="slider-content-editorial">
+          <p className="slider-subtitle">{slides[current].description}</p>
+          <h1 className="slider-title-editorial font-heading">{slides[current].title}</h1>
+        </div>
+        <div className="slider-counter-editorial">
+          <span className="slider-counter-current">{String(current + 1).padStart(2, '0')}</span>
+          <span className="slider-counter-line"></span>
+          <span className="slider-counter-total">{String(slides.length).padStart(2, '0')}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════
+   DESKTOP SLIDER — Three.js + GSAP (original)
+   ═══════════════════════════════════════════════════════ */
+function DesktopSlider() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -53,13 +121,9 @@ export function LuminaSlider() {
     };
 
     const initApplication = () => {
-      const SLIDER_CONFIG: any = {
-        settings: {
-          transitionDuration: 1.8, autoSlideSpeed: 3500, currentEffect: "glass", currentEffectPreset: "Default",
-          globalIntensity: 1.0, speedMultiplier: 1.0, distortionStrength: 1.0, colorEnhancement: 1.0,
-          glassRefractionStrength: 1.0, glassChromaticAberration: 1.0, glassBubbleClarity: 1.0, glassEdgeGlow: 1.0, glassLiquidFlow: 1.0,
-        }
-      };
+      const gsap = (window as any).gsap;
+      const THREE = (window as any).THREE;
+      if (!gsap || !THREE) return;
 
       let currentSlideIndex = 0;
       let isTransitioning = false;
@@ -70,11 +134,11 @@ export function LuminaSlider() {
       let progressAnimation: any = null;
       let sliderEnabled = false;
 
-      const SLIDE_DURATION = () => SLIDER_CONFIG.settings.autoSlideSpeed;
+      const SLIDE_DURATION = () => 3500;
       const PROGRESS_UPDATE_INTERVAL = 50;
-      const TRANSITION_DURATION = () => SLIDER_CONFIG.settings.transitionDuration;
+      const TRANSITION_DURATION = () => 1.8;
 
-      const vertexShader = `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewInstance * vec4(position, 1.0); }`.replace('modelViewInstance', 'modelViewMatrix');
+      const vertexShader = `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
       const fragmentShader = `
         uniform sampler2D uTexture1, uTexture2;
         uniform float uProgress;
@@ -82,7 +146,6 @@ export function LuminaSlider() {
         uniform float uGlobalIntensity, uSpeedMultiplier, uDistortionStrength;
         uniform float uGlassRefractionStrength, uGlassChromaticAberration, uGlassBubbleClarity, uGlassEdgeGlow, uGlassLiquidFlow;
         varying vec2 vUv;
-
         vec2 getCoverUV(vec2 uv, vec2 textureSize) {
           vec2 s = uResolution / textureSize;
           float scale = max(s.x, s.y);
@@ -90,7 +153,6 @@ export function LuminaSlider() {
           vec2 offset = (uResolution - scaledSize) * 0.5;
           return (uv * uResolution - offset) / scaledSize;
         }
-
         void main() {
           float progress = uProgress;
           float time = progress * 5.0 * uSpeedMultiplier;
@@ -129,8 +191,6 @@ export function LuminaSlider() {
         }
       `;
 
-      const getEffectIndex = () => 0;
-
       const splitText = (text: string) => {
         return text.split('').map(char => `<span style="display:inline-block">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
       };
@@ -139,43 +199,21 @@ export function LuminaSlider() {
         const titleEl = document.getElementById('mainTitle');
         const descEl = document.getElementById('mainDesc');
         if (!titleEl || !descEl) return;
-
         gsap.to(titleEl.children, { y: -20, opacity: 0, duration: 0.5, stagger: 0.02, ease: "power2.in" });
         gsap.to(descEl, { y: -10, opacity: 0, duration: 0.4, ease: "power2.in" });
-
         setTimeout(() => {
           titleEl.innerHTML = splitText(slides[idx].title);
           descEl.textContent = slides[idx].description;
-
           gsap.set(titleEl.children, { opacity: 0 });
           gsap.set(descEl, { y: 20, opacity: 0 });
-
           const children = titleEl.children;
           switch (idx % 6) {
-            case 0:
-              gsap.set(children, { y: 20 });
-              gsap.to(children, { y: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "power3.out" });
-              break;
-            case 1:
-              gsap.set(children, { y: -20 });
-              gsap.to(children, { y: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "back.out(1.7)" });
-              break;
-            case 2:
-              gsap.set(children, { filter: "blur(10px)", scale: 1.5, y: 0 });
-              gsap.to(children, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 1, stagger: { amount: 0.5, from: "random" }, ease: "power2.out" });
-              break;
-            case 3:
-              gsap.set(children, { scale: 0, y: 0 });
-              gsap.to(children, { scale: 1, opacity: 1, duration: 0.6, stagger: 0.05, ease: "back.out(1.5)" });
-              break;
-            case 4:
-              gsap.set(children, { rotationX: 90, y: 0, transformOrigin: "50% 50%" });
-              gsap.to(children, { rotationX: 0, opacity: 1, duration: 0.8, stagger: 0.04, ease: "power2.out" });
-              break;
-            case 5:
-              gsap.set(children, { x: 30, y: 0 });
-              gsap.to(children, { x: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "power3.out" });
-              break;
+            case 0: gsap.set(children, { y: 20 }); gsap.to(children, { y: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "power3.out" }); break;
+            case 1: gsap.set(children, { y: -20 }); gsap.to(children, { y: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "back.out(1.7)" }); break;
+            case 2: gsap.set(children, { filter: "blur(10px)", scale: 1.5, y: 0 }); gsap.to(children, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 1, stagger: { amount: 0.5, from: "random" }, ease: "power2.out" }); break;
+            case 3: gsap.set(children, { scale: 0, y: 0 }); gsap.to(children, { scale: 1, opacity: 1, duration: 0.6, stagger: 0.05, ease: "back.out(1.5)" }); break;
+            case 4: gsap.set(children, { rotationX: 90, y: 0, transformOrigin: "50% 50%" }); gsap.to(children, { rotationX: 0, opacity: 1, duration: 0.8, stagger: 0.04, ease: "power2.out" }); break;
+            case 5: gsap.set(children, { x: 30, y: 0 }); gsap.to(children, { x: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "power3.out" }); break;
           }
           gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" });
         }, 500);
@@ -184,29 +222,22 @@ export function LuminaSlider() {
       const navigateToSlide = (targetIndex: number) => {
         if (isTransitioning || targetIndex === currentSlideIndex) return;
         stopAutoSlideTimer();
-        quickResetProgress(currentSlideIndex);
-
         const currentTexture = slideTextures[currentSlideIndex];
         const targetTexture = slideTextures[targetIndex];
         if (!currentTexture || !targetTexture) return;
-
         isTransitioning = true;
         shaderMaterial.uniforms.uTexture1.value = currentTexture;
         shaderMaterial.uniforms.uTexture2.value = targetTexture;
         shaderMaterial.uniforms.uTexture1Size.value = currentTexture.userData.size;
         shaderMaterial.uniforms.uTexture2Size.value = targetTexture.userData.size;
-
         updateContent(targetIndex);
         currentSlideIndex = targetIndex;
         updateCounter(currentSlideIndex);
         updateNavigationState(currentSlideIndex);
-
         gsap.fromTo(shaderMaterial.uniforms.uProgress,
           { value: 0 },
           {
-            value: 1,
-            duration: TRANSITION_DURATION(),
-            ease: "power2.inOut",
+            value: 1, duration: TRANSITION_DURATION(), ease: "power2.inOut",
             onComplete: () => {
               shaderMaterial.uniforms.uProgress.value = 0;
               shaderMaterial.uniforms.uTexture1.value = targetTexture;
@@ -231,12 +262,11 @@ export function LuminaSlider() {
           const dot = document.createElement("button");
           dot.className = `slider-dot${i === 0 ? " active" : ""}`;
           dot.dataset.slideIndex = String(i);
-          dot.setAttribute("aria-label", `Slide ${i + 1}`);
+          dot.setAttribute("aria-label", `Ir para slide ${i + 1}: ${slide.title}`);
           dot.addEventListener("click", (e) => {
             e.stopPropagation();
             if (!isTransitioning && i !== currentSlideIndex) {
               stopAutoSlideTimer();
-              quickResetProgress(currentSlideIndex);
               navigateToSlide(i);
             }
           });
@@ -245,9 +275,6 @@ export function LuminaSlider() {
       };
 
       const updateNavigationState = (idx: number) => document.querySelectorAll(".slider-dot").forEach((el, i) => el.classList.toggle("active", i === idx));
-      const updateSlideProgress = (idx: number, prog: number) => {};
-      const fadeSlideProgress = (idx: number) => {};
-      const quickResetProgress = (idx: number) => {};
       const updateCounter = (idx: number) => {
         const sn = document.getElementById("slideNumber");
         if (sn) sn.textContent = String(idx + 1).padStart(2, "0");
@@ -263,10 +290,8 @@ export function LuminaSlider() {
         progressAnimation = setInterval(() => {
           if (!sliderEnabled) { stopAutoSlideTimer(); return; }
           progress += increment;
-          updateSlideProgress(currentSlideIndex, progress);
           if (progress >= 100) {
             clearInterval(progressAnimation); progressAnimation = null;
-            fadeSlideProgress(currentSlideIndex);
             if (!isTransitioning) handleSlideChange();
           }
         }, PROGRESS_UPDATE_INTERVAL);
@@ -375,16 +400,11 @@ export function LuminaSlider() {
     <div ref={containerRef} className="slider-wrapper">
       <canvas className="webgl-canvas" />
       <div className="slider-overlay">
-        {/* Dots navigation — right side */}
         <div id="slidesNav" className="slider-dots-nav"></div>
-
-        {/* Content — center-bottom */}
         <div className="slider-content-editorial">
           <p id="mainDesc" className="slider-subtitle"></p>
           <h1 id="mainTitle" className="slider-title-editorial font-heading"></h1>
         </div>
-
-        {/* Counter — bottom left */}
         <div className="slider-counter-editorial">
           <span id="slideNumber" className="slider-counter-current">01</span>
           <span className="slider-counter-line"></span>
@@ -393,4 +413,16 @@ export function LuminaSlider() {
       </div>
     </div>
   );
+}
+
+/* ═══════════════════════════════════════════════════════
+   EXPORTED COMPONENT
+   ═══════════════════════════════════════════════════════ */
+export function LuminaSlider() {
+  const isMobile = useIsMobile();
+
+  // Avoid rendering anything until we know the device type
+  if (isMobile === undefined) return null;
+
+  return isMobile ? <MobileSlider /> : <DesktopSlider />;
 }

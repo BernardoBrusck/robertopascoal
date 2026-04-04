@@ -109,7 +109,7 @@ const ContactFooter = () => {
               >
                 {CONTACT.email}
               </a>
-              <CopyButton text={CONTACT.email} />
+              <CopyButton text={CONTACT.email} aria-label="Copiar e-mail" />
             </div>
           </ContactBlock>
 

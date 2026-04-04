@@ -11,12 +11,12 @@ const projects = [
     color: '#E8E4DF',
     description:
       'Criação e manutenção de bibliotecas em comunidades carentes, proporcionando acesso ao conhecimento e incentivando o hábito da leitura desde a infância.',
-    hoverImage: '/image/roberto-pascoal-comunidade-isolada.jpg',
+    hoverImage: '/image/roberto-pascoal-comunidade-isolada.webp',
     galleryImages: [
-      '/image/roberto-pascoal-comunidade-isolada.jpg',
-      '/image/roberto-pascoal-criancas-indigenas.png',
-      '/image/roberto-pascoal-leitura-indigena.png',
-      '/image/roberto-pascoal-projetos-africa.jpg',
+      '/image/roberto-pascoal-comunidade-isolada.webp',
+      '/image/roberto-pascoal-criancas-indigenas.webp',
+      '/image/roberto-pascoal-leitura-indigena.webp',
+      '/image/roberto-pascoal-projetos-africa.webp',
     ],
   },
   {
@@ -25,12 +25,12 @@ const projects = [
     color: '#E2E6DE',
     description:
       'Campanhas de arrecadação e distribuição de livros para escolas, presídios e comunidades sem acesso a materiais educativos.',
-    hoverImage: '/image/roberto-pascoal-leitura-indigena.png',
+    hoverImage: '/image/roberto-pascoal-leitura-indigena.webp',
     galleryImages: [
-      '/image/roberto-pascoal-leitura-indigena.png',
-      '/image/capa do livro.png',
-      '/image/roberto-pascoal-criancas-indigenas.png',
-      '/image/200229_OMG_4225.jpg',
+      '/image/roberto-pascoal-leitura-indigena.webp',
+      '/image/capa do livro.webp',
+      '/image/roberto-pascoal-criancas-indigenas.webp',
+      '/image/200229_OMG_4225.webp',
     ],
   },
   {
@@ -39,12 +39,12 @@ const projects = [
     color: '#E4DDE2',
     description:
       'Palestras motivacionais em escolas, empresas e eventos, compartilhando histórias reais de superação através da educação.',
-    hoverImage: '/image/B0119027.JPG',
+    hoverImage: '/image/B0119027.webp',
     galleryImages: [
-      '/image/B0119027.JPG',
-      '/image/FOTO ROBERTO 07.jpg',
-      '/image/FOTO ROBERTO 08 (2).jpg',
-      '/image/FOTO ROBERTO 09.jpg',
+      '/image/B0119027.webp',
+      '/image/FOTO ROBERTO 07.webp',
+      '/image/FOTO ROBERTO 08 (2).webp',
+      '/image/FOTO ROBERTO 09.webp',
     ],
   },
   {
@@ -53,12 +53,12 @@ const projects = [
     color: '#DDDEE4',
     description:
       'Viagens para regiões remotas do Brasil levando materiais escolares, livros e oficinas de capacitação para educadores locais.',
-    hoverImage: '/image/roberto-pascoal-caminhada-brasil.png',
+    hoverImage: '/image/roberto-pascoal-caminhada-brasil.webp',
     galleryImages: [
-      '/image/roberto-pascoal-caminhada-brasil.png',
-      '/image/01 - África 07 por Max Schwoelk.JPG',
-      '/image/roberto-pascoal-professor-africa.jpg',
-      '/image/roberto-pascoal-indigena-interacao.png',
+      '/image/roberto-pascoal-caminhada-brasil.webp',
+      '/image/01 - África 07 por Max Schwoelk.webp',
+      '/image/roberto-pascoal-professor-africa.webp',
+      '/image/roberto-pascoal-indigena-interacao.webp',
     ],
   },
 ];

@@ -285,7 +285,10 @@ const Navbar = () => {
                 >
                   <a
                     href="#contato"
-                    onClick={() => setIsOpen(false)}
+                    onClick={(e) => {
+                      handleAnchorClick(e, "#contato");
+                      setIsOpen(false);
+                    }}
                     className="inline-flex items-center justify-center px-10 py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium border border-foreground text-foreground bg-transparent transition-all duration-300 hover:bg-foreground hover:text-background"
                   >
                     Contato

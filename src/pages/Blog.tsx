@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
+import { Search } from "lucide-react";
 import { Navbar } from "@/components/ui/navbar";
 import BlogCard from "@/components/blog/BlogCard";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -40,6 +41,18 @@ const Blog = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchInput, setSearchInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleSearchChange = useCallback((value: string) => {
+    setSearchInput(value);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      setSearchQuery(value);
+      setPage(0);
+    }, 300);
+  }, []);
 
   // Reset page when category changes
   useEffect(() => {
@@ -84,6 +97,11 @@ const Blog = () => {
         }
       }
 
+      if (searchQuery.trim()) {
+        const term = `%${searchQuery.trim()}%`;
+        query = query.or(`title.ilike.${term},excerpt.ilike.${term}`);
+      }
+
       const { data, count } = await query.range(from, to);
       setPosts((data as unknown as PostWithCategory[]) || []);
       setTotalCount(count || 0);
@@ -91,7 +109,7 @@ const Blog = () => {
     };
 
     fetchPosts();
-  }, [page, categoriaSlug, categories]);
+  }, [page, categoriaSlug, categories, searchQuery]);
 
   const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
 
@@ -150,9 +168,21 @@ const Blog = () => {
         <h1 className="text-3xl md:text-4xl font-bold tracking-[-0.04em] text-foreground mb-4">
           Blog
         </h1>
-        <p className="text-muted-foreground mb-8 max-w-xl">
+        <p className="text-muted-foreground mb-6 max-w-xl">
           Conteúdos sobre educação, impacto social e transformação.
         </p>
+
+        {/* Search */}
+        <div className="relative mb-8 max-w-md">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <input
+            type="text"
+            placeholder="Buscar posts..."
+            value={searchInput}
+            onChange={(e) => handleSearchChange(e.target.value)}
+            className="w-full pl-10 pr-4 py-2.5 rounded-full border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-shadow"
+          />
+        </div>
 
         {/* Category filters */}
         {categories.length > 0 && (

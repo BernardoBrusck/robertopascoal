@@ -17,17 +17,27 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <TextRevealSection />
-      <HorizontalScrollSection />
+      <div id="historia">
+        <HorizontalScrollSection />
+      </div>
       <ZoomParallaxSection />
       <TextRevealBlock
         text="Minha missão é simples: provar que a educação transforma qualquer realidade e que nunca é tarde para começar."
       />
-      <ServicesSection />
+      <div id="servicos">
+        <ServicesSection />
+      </div>
       <ImageGallery />
-      <BookSection />
-      <SpeakingSection />
+      <div id="livro">
+        <BookSection />
+      </div>
+      <div id="palestras">
+        <SpeakingSection />
+      </div>
       <TestimonialsSection />
-      <ContactFooter />
+      <div id="contato">
+        <ContactFooter />
+      </div>
     </div>
   );
 };

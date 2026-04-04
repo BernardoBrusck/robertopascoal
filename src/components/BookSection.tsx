@@ -52,7 +52,7 @@ const BookSection = () => {
           />
         </div>
         <div className="book-text flex flex-col gap-8" style={{ width: isMobile ? '100%' : '55%' }}>
-          <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Livro</span>
+          
           <h2 className="h-panel-title text-foreground">O Caminho<br />depois da<br />Pressa</h2>
           <p className="text-base md:text-lg font-light text-muted-foreground leading-relaxed max-w-md">
             Um convite para desacelerar e enxergar o que realmente importa.

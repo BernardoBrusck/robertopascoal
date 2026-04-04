@@ -43,14 +43,14 @@ const SpeakingSection = () => {
   return (
     <section ref={sectionRef} className="w-full px-4 sm:px-6 md:px-10 py-16 md:py-24">
       <div className="relative mx-auto overflow-hidden rounded-2xl" style={{ maxWidth: '1200px', minHeight: '500px' }}>
-        <img src="/image/palestra-roberto.webp" alt="Roberto Pascoal palestrando" className="absolute inset-0 w-full h-full object-cover" width={1200} height={800} loading="lazy" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/40" />
-        <div className="relative z-10 flex flex-col justify-end h-full min-h-[500px] p-8 md:p-14 lg:p-20">
-          <div className="max-w-xl flex flex-col gap-6">
+        <img src="/image/roberto-pascoal-criancas-sala.webp" alt="Roberto Pascoal em sala de aula com crianças" className="absolute inset-0 w-full h-full object-cover object-left" width={1200} height={800} loading="lazy" />
+        <div className="absolute inset-0 bg-gradient-to-l from-black/80 via-black/50 to-black/20" />
+        <div className="relative z-10 flex flex-col justify-end items-end h-full min-h-[500px] p-8 md:p-14 lg:p-20">
+          <div className="max-w-xl flex flex-col gap-6 text-right items-end">
             <span className="speak-reveal text-xs uppercase tracking-[0.3em] text-white/60">Roberto Pascoal</span>
             <h2 className="speak-reveal text-white font-bold leading-[0.95]" style={{ fontSize: 'clamp(32px, 5vw, 64px)', letterSpacing: '-0.04em' }}>Palestras que<br />transformam</h2>
             <p className="speak-reveal text-white/70 text-sm md:text-base leading-relaxed max-w-md">Leve uma experiência transformadora para o seu evento. Educação, propósito e impacto social.</p>
-            <form onSubmit={handleSubmit} className="speak-reveal flex flex-col sm:flex-row gap-3 max-w-md">
+            <form onSubmit={handleSubmit} className="speak-reveal flex flex-col sm:flex-row gap-3 max-w-md w-full">
               <Input type="email" placeholder="Seu melhor e-mail" value={email} onChange={(e) => setEmail(e.target.value)} className="h-12 flex-grow border-white/20 bg-white/10 text-white placeholder:text-white/40 focus:ring-offset-transparent focus:ring-white/30 backdrop-blur-sm" required />
               <Button type="submit" className="h-12 px-6 bg-white text-black font-medium hover:bg-white/90 transition-all duration-300 shrink-0">Enviar<ArrowRight className="ml-2 h-4 w-4" /></Button>
             </form>

@@ -222,7 +222,8 @@ const MobilePanelFormacao = () => (
 const MobilePanelOmunga = () => (
   <MobilePanel label="OMUNGA">
     <div className="flex flex-col gap-6">
-      <img src="/image/omunga-logo.webp" alt="Logo Omunga" className="h-8 mb-3 object-contain" loading="lazy" />
+      <h2 className="text-2xl font-medium tracking-tight text-foreground">Criar para transformar</h2>
+      <img src="/image/omunga-logo.webp" alt="Logo Omunga" className="h-12 object-contain" loading="lazy" />
       <Photo src="/image/roberto-pascoal-comunidade-isolada.webp" alt="Amazônia" className="w-full aspect-[16/10] rounded-lg" />
       <div className="flex gap-3">
         <Photo src="/image/roberto-pascoal-criancas-indigenas.webp" alt="Crianças indígenas" className="flex-1 aspect-[4/3] rounded" />

@@ -47,7 +47,7 @@ const SpeakingSection = () => {
         <div className="absolute inset-0 bg-gradient-to-l from-black/80 via-black/50 to-black/20" />
         <div className="relative z-10 flex flex-col justify-end items-end h-full min-h-[500px] p-8 md:p-14 lg:p-20">
           <div className="max-w-xl flex flex-col gap-6 text-right items-end">
-            <span className="speak-reveal text-xs uppercase tracking-[0.3em] text-white/60">Roberto Pascoal</span>
+            
             <h2 className="speak-reveal text-white font-bold leading-[0.95]" style={{ fontSize: 'clamp(32px, 5vw, 64px)', letterSpacing: '-0.04em' }}>Palestras que<br />transformam</h2>
             <p className="speak-reveal text-white/70 text-sm md:text-base leading-relaxed max-w-md">Leve uma experiência transformadora para o seu evento. Educação, propósito e impacto social.</p>
             <form onSubmit={handleSubmit} className="speak-reveal flex flex-col sm:flex-row gap-3 max-w-md w-full">

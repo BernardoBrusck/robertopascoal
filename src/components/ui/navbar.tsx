@@ -226,8 +226,8 @@ const Navbar = () => {
               {/* Mobile Menu Button */}
               <button
                 onClick={toggleMenu}
-                className={`relative z-[110] md:hidden p-2 transition-colors duration-300 ${textColor}`}
-                aria-label="Toggle menu"
+                className={`relative z-[110] md:hidden p-3 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors duration-300 ${textColor}`}
+                aria-label="Abrir menu de navegação"
               >
                 <Menu size={24} />
               </button>

@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import TextRevealBlock from '@/components/TextRevealBlock';
-
-declare const gsap: any;
+import { loadGsapWithScrollTrigger } from '@/lib/loadGsap';
 
 interface FloatingPhoto {
   top: string;
@@ -25,60 +24,27 @@ const rightPhotos: FloatingPhoto[] = [
   { top: '75%', right: '6%', rotate: 4, speed: -25, src: '/image/foto-roberto-08.webp', alt: 'Roberto no palco' },
 ];
 
-const PhotoCard = ({
-  photo,
-}: {
-  photo: FloatingPhoto;
-  index: number;
-  side: 'left' | 'right';
-}) => {
+const PhotoCard = ({ photo }: { photo: FloatingPhoto; index: number; side: 'left' | 'right' }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const waitForGsap = setInterval(() => {
-      if (typeof gsap !== 'undefined' && gsap.registerPlugin) {
-        clearInterval(waitForGsap);
+    let cancelled = false;
 
-        const loadScrollTrigger = (): Promise<void> =>
-          new Promise((res, rej) => {
-            if ((window as any).ScrollTrigger) {
-              gsap.registerPlugin((window as any).ScrollTrigger);
-              res();
-              return;
-            }
-            const s = document.createElement('script');
-            s.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-            s.onload = () => {
-              setTimeout(() => {
-                gsap.registerPlugin((window as any).ScrollTrigger);
-                res();
-              }, 100);
-            };
-            s.onerror = () => rej();
-            document.head.appendChild(s);
-          });
+    loadGsapWithScrollTrigger().then(({ gsap }) => {
+      if (cancelled || !ref.current) return;
+      gsap.to(ref.current, {
+        y: photo.speed,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: ref.current.closest('section'),
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1,
+        },
+      });
+    });
 
-        loadScrollTrigger().then(() => {
-          if (!ref.current) return;
-          gsap.to(ref.current, {
-            y: photo.speed,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: ref.current.closest('section'),
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1,
-            },
-          });
-        });
-      }
-    }, 100);
-
-    const timeout = setTimeout(() => clearInterval(waitForGsap), 15000);
-    return () => {
-      clearInterval(waitForGsap);
-      clearTimeout(timeout);
-    };
+    return () => { cancelled = true; };
   }, [photo.speed]);
 
   const style: React.CSSProperties = {
@@ -91,30 +57,14 @@ const PhotoCard = ({
   };
 
   return (
-    <div
-      ref={ref}
-      className="hidden lg:block pointer-events-none"
-      style={style}
-    >
+    <div ref={ref} className="hidden lg:block pointer-events-none" style={style}>
       <div
         className="bg-background border-[6px] border-background rounded-sm overflow-hidden"
-        style={{
-          width: 140,
-          height: 170,
-          boxShadow: '0 4px 20px -4px rgba(0,0,0,0.12), 0 2px 8px -2px rgba(0,0,0,0.08)',
-        }}
+        style={{ width: 140, height: 170, boxShadow: '0 4px 20px -4px rgba(0,0,0,0.12), 0 2px 8px -2px rgba(0,0,0,0.08)' }}
       >
-        <img
-          src={photo.src}
-          alt={photo.alt}
-          className="w-full object-cover"
-          style={{ height: 120 }}
-          loading="lazy"
-        />
+        <img src={photo.src} alt={photo.alt} className="w-full object-cover" style={{ height: 120 }} loading="lazy" width={140} height={120} />
         <div className="h-[50px] flex items-center justify-center">
-          <span className="text-[9px] text-muted-foreground/60 font-light tracking-wide">
-            {photo.alt}
-          </span>
+          <span className="text-[9px] text-muted-foreground/60 font-light tracking-wide">{photo.alt}</span>
         </div>
       </div>
     </div>

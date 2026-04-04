@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
-
-declare const gsap: any;
+import { loadGsapWithScrollTrigger } from '@/lib/loadGsap';
 
 interface TextRevealBlockProps {
   text: string;
@@ -12,35 +11,10 @@ const TextRevealBlock = ({ text, className = '' }: TextRevealBlockProps) => {
   const textRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    const waitForGsap = setInterval(() => {
-      if (typeof gsap !== 'undefined' && gsap.registerPlugin) {
-        clearInterval(waitForGsap);
+    let cancelled = false;
 
-        const loadScrollTrigger = (): Promise<void> =>
-          new Promise((res, rej) => {
-            if (gsap.plugins?.scrollTrigger || (window as any).ScrollTrigger) {
-              if ((window as any).ScrollTrigger) gsap.registerPlugin((window as any).ScrollTrigger);
-              res();
-              return;
-            }
-            const s = document.createElement('script');
-            s.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-            s.onload = () => {
-              setTimeout(() => {
-                gsap.registerPlugin((window as any).ScrollTrigger);
-                res();
-              }, 100);
-            };
-            s.onerror = () => rej();
-            document.head.appendChild(s);
-          });
-
-        loadScrollTrigger().then(() => initAnimation());
-      }
-    }, 100);
-
-    const initAnimation = () => {
-      if (!textRef.current || !sectionRef.current) return;
+    loadGsapWithScrollTrigger().then(({ gsap }) => {
+      if (cancelled || !textRef.current || !sectionRef.current) return;
 
       const content = textRef.current.textContent || '';
       textRef.current.innerHTML = content
@@ -63,13 +37,9 @@ const TextRevealBlock = ({ text, className = '' }: TextRevealBlockProps) => {
           scrub: 1,
         },
       });
-    };
+    });
 
-    const timeout = setTimeout(() => clearInterval(waitForGsap), 15000);
-    return () => {
-      clearInterval(waitForGsap);
-      clearTimeout(timeout);
-    };
+    return () => { cancelled = true; };
   }, []);
 
   return (

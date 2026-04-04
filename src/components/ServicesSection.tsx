@@ -193,7 +193,6 @@ const ServicesSection = () => {
         </div>
       </div>
       <HoverModal modal={modal} projects={projects} />
-      </div>
       <AnimatePresence>
         {selectedProject && <DetailModal project={selectedProject} onClose={() => setSelectedProject(null)} />}
       </AnimatePresence>

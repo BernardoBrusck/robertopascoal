@@ -63,14 +63,15 @@ const BookSection = () => {
           className="book-cover flex-shrink-0 flex items-center justify-center"
           style={{ width: isMobile ? '100%' : '45%' }}
         >
-          <div
-            className="relative w-[260px] md:w-[320px] lg:w-[360px] aspect-[3/4.3] rounded-sm bg-muted flex items-center justify-center text-muted-foreground text-xs uppercase tracking-[0.2em] select-none"
+          <img
+            src="/image/capa do livro.png"
+            alt="Capa do livro O Caminho depois da Pressa"
+            className="relative w-[260px] md:w-[320px] lg:w-[360px] rounded-sm"
             style={{
               boxShadow: '20px 20px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04)',
             }}
-          >
-            Capa do Livro
-          </div>
+            loading="lazy"
+          />
         </div>
 
         {/* Text + CTA */}

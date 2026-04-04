@@ -60,12 +60,13 @@ const SpeakingSection = () => {
         className="relative mx-auto overflow-hidden rounded-2xl"
         style={{ maxWidth: '1200px', minHeight: '500px' }}
       >
-        {/* Background placeholder - will be replaced with real image */}
-        <div className="absolute inset-0 bg-muted flex items-center justify-center">
-          <span className="text-muted-foreground text-xs uppercase tracking-[0.3em] select-none">
-            Foto palestrando
-          </span>
-        </div>
+        {/* Background image */}
+        <img
+          src="/image/B0119027.JPG"
+          alt="Roberto Pascoal palestrando"
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
+        />
 
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/40" />

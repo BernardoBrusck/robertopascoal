@@ -4,21 +4,21 @@ import { useInView } from 'framer-motion';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const galleryImages = [
-  { col: 0, ratio: 9 / 16, id: 'photo-1488521787991-ed7bbaae773c' },
-  { col: 0, ratio: 16 / 9, id: 'photo-1497375638960-ca368c7231e4' },
-  { col: 0, ratio: 9 / 16, id: 'photo-1509099836639-18ba1795216d' },
-  { col: 0, ratio: 16 / 9, id: 'photo-1524069290683-0457abfe42c3' },
-  { col: 0, ratio: 9 / 16, id: 'photo-1503676260728-1c00da094a0b' },
-  { col: 1, ratio: 16 / 9, id: 'photo-1544717305-2782549b5136' },
-  { col: 1, ratio: 9 / 16, id: 'photo-1491841550275-ad7854e35ca6' },
-  { col: 1, ratio: 16 / 9, id: 'photo-1523050854058-8df90110c9f1' },
-  { col: 1, ratio: 9 / 16, id: 'photo-1516627145497-ae6968895b74' },
-  { col: 1, ratio: 16 / 9, id: 'photo-1532629345422-7515f3d16bb6' },
-  { col: 2, ratio: 9 / 16, id: 'photo-1509062522246-3755977927d7' },
-  { col: 2, ratio: 16 / 9, id: 'photo-1427504494785-3a9ca7044f45' },
-  { col: 2, ratio: 9 / 16, id: 'photo-1522202176988-66273c2fd55f' },
-  { col: 2, ratio: 16 / 9, id: 'photo-1577896851231-70ef18881571' },
-  { col: 2, ratio: 9 / 16, id: 'photo-1471286174890-9c112ffca5b4' },
+  { col: 0, ratio: 9 / 16, src: '/image/roberto-pascoal-hero-montanha.png' },
+  { col: 0, ratio: 16 / 9, src: '/image/roberto-pascoal-comunidade-isolada.jpg' },
+  { col: 0, ratio: 9 / 16, src: '/image/FOTO ROBERTO 04.jpg' },
+  { col: 0, ratio: 16 / 9, src: '/image/roberto-pascoal-criancas-indigenas.png' },
+  { col: 0, ratio: 9 / 16, src: '/image/01 - África 07 por Max Schwoelk.JPG' },
+  { col: 1, ratio: 16 / 9, src: '/image/roberto-pascoal-explorador.jpg' },
+  { col: 1, ratio: 9 / 16, src: '/image/FOTO ROBERTO 07.jpg' },
+  { col: 1, ratio: 16 / 9, src: '/image/200229_OMG_4225.jpg' },
+  { col: 1, ratio: 9 / 16, src: '/image/roberto-pascoal-leitura-indigena.png' },
+  { col: 1, ratio: 16 / 9, src: '/image/roberto-pascoal-projetos-africa.jpg' },
+  { col: 2, ratio: 9 / 16, src: '/image/B0119027.JPG' },
+  { col: 2, ratio: 16 / 9, src: '/image/FOTO ROBERTO 05.jpg' },
+  { col: 2, ratio: 9 / 16, src: '/image/roberto-pascoal-professor-africa.jpg' },
+  { col: 2, ratio: 16 / 9, src: '/image/FOTO ROBERTO 08 (2).jpg' },
+  { col: 2, ratio: 9 / 16, src: '/image/FOTO ROBERTO 09.jpg' },
 ];
 
 export function ImageGallery() {
@@ -51,7 +51,7 @@ export function ImageGallery() {
                     <AnimatedImage
                       key={`${colIdx}-${index}`}
                       alt={`Gallery image ${colIdx * 5 + index + 1}`}
-                      src={`https://images.unsplash.com/${img.id}?w=800&auto=format&q=75&fit=crop`}
+                      src={img.src}
                       ratio={img.ratio}
                     />
                   ))}

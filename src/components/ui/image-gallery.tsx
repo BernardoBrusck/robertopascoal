@@ -6,20 +6,20 @@ import { AspectRatio } from '@/components/ui/aspect-ratio';
 const galleryImages = [
   { col: 0, ratio: 9 / 16, src: '/image/roberto-pascoal-hero-montanha.webp' },
   { col: 0, ratio: 16 / 9, src: '/image/roberto-pascoal-comunidade-isolada.webp' },
-  { col: 0, ratio: 9 / 16, src: '/image/FOTO ROBERTO 04.webp' },
+  { col: 0, ratio: 9 / 16, src: '/image/foto-roberto-04.webp' },
   { col: 0, ratio: 16 / 9, src: '/image/roberto-pascoal-criancas-indigenas.webp' },
-  { col: 0, ratio: 9 / 16, src: '/image/01 - África 07 por Max Schwoelk.webp' },
+  { col: 0, ratio: 9 / 16, src: '/image/africa-max-schwoelk.webp' },
   { col: 0, ratio: 16 / 9, src: '/image/roberto-pascoal-indigena-interacao.webp' },
   { col: 1, ratio: 16 / 9, src: '/image/roberto-pascoal-explorador.webp' },
-  { col: 1, ratio: 9 / 16, src: '/image/FOTO ROBERTO 07.webp' },
-  { col: 1, ratio: 16 / 9, src: '/image/200229_OMG_4225.webp' },
+  { col: 1, ratio: 9 / 16, src: '/image/foto-roberto-07.webp' },
+  { col: 1, ratio: 16 / 9, src: '/image/omg-4225.webp' },
   { col: 1, ratio: 9 / 16, src: '/image/roberto-pascoal-leitura-indigena.webp' },
   { col: 1, ratio: 16 / 9, src: '/image/roberto-pascoal-projetos-africa.webp' },
-  { col: 2, ratio: 9 / 16, src: '/image/B0119027.webp' },
-  { col: 2, ratio: 16 / 9, src: '/image/FOTO ROBERTO 05.webp' },
+  { col: 2, ratio: 9 / 16, src: '/image/palestra-roberto.webp' },
+  { col: 2, ratio: 16 / 9, src: '/image/foto-roberto-05.webp' },
   { col: 2, ratio: 9 / 16, src: '/image/roberto-pascoal-professor-africa.webp' },
-  { col: 2, ratio: 16 / 9, src: '/image/FOTO ROBERTO 08 (2).webp' },
-  { col: 2, ratio: 9 / 16, src: '/image/FOTO ROBERTO 09.webp' },
+  { col: 2, ratio: 16 / 9, src: '/image/foto-roberto-08.webp' },
+  { col: 2, ratio: 9 / 16, src: '/image/foto-roberto-09.webp' },
 ];
 
 export function ImageGallery() {

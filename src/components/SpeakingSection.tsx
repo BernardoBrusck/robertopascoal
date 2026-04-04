@@ -62,7 +62,7 @@ const SpeakingSection = () => {
       >
         {/* Background image */}
         <img
-          src="/image/B0119027.webp"
+          src="/image/palestra-roberto.webp"
           alt="Roberto Pascoal palestrando"
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"

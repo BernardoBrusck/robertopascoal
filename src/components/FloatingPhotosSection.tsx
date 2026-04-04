@@ -14,15 +14,15 @@ interface FloatingPhoto {
 }
 
 const leftPhotos: FloatingPhoto[] = [
-  { top: '8%', left: '3%', rotate: -4, speed: -40, src: '/image/Foto de Roberto Pascoal.webp', alt: 'Roberto Pascoal' },
-  { top: '38%', left: '7%', rotate: 5, speed: -70, src: '/image/Foto de Roberto Pascoal (1).webp', alt: 'Roberto Pascoal' },
-  { top: '68%', left: '2%', rotate: -6, speed: -30, src: '/image/Foto de Roberto Pascoal (2).webp', alt: 'Roberto Pascoal' },
+  { top: '8%', left: '3%', rotate: -4, speed: -40, src: '/image/roberto-pascoal-retrato.webp', alt: 'Roberto Pascoal' },
+  { top: '38%', left: '7%', rotate: 5, speed: -70, src: '/image/roberto-pascoal-retrato-1.webp', alt: 'Roberto Pascoal' },
+  { top: '68%', left: '2%', rotate: -6, speed: -30, src: '/image/roberto-pascoal-retrato-2.webp', alt: 'Roberto Pascoal' },
 ];
 
 const rightPhotos: FloatingPhoto[] = [
   { top: '12%', right: '4%', rotate: 5, speed: -55, src: '/image/roberto-pascoal-caminhada-brasil.webp', alt: 'Caminhada Brasil' },
   { top: '45%', right: '2%', rotate: -3, speed: -80, src: '/image/roberto-pascoal-indigena-interacao.webp', alt: 'Interação indígena' },
-  { top: '75%', right: '6%', rotate: 4, speed: -25, src: '/image/FOTO ROBERTO 08 (2).webp', alt: 'Roberto no palco' },
+  { top: '75%', right: '6%', rotate: 4, speed: -25, src: '/image/foto-roberto-08.webp', alt: 'Roberto no palco' },
 ];
 
 const PhotoCard = ({

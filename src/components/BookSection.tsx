@@ -64,7 +64,7 @@ const BookSection = () => {
           style={{ width: isMobile ? '100%' : '45%' }}
         >
           <img
-            src="/image/capa do livro.webp"
+            src="/image/capa-do-livro.webp"
             alt="Capa do livro O Caminho depois da Pressa"
             className="relative w-[260px] md:w-[320px] lg:w-[360px] rounded-sm"
             style={{

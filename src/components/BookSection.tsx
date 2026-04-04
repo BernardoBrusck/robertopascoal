@@ -99,7 +99,9 @@ const BookSection = () => {
           </p>
 
           <a
-            href="#"
+            href="https://hotmart.com/pt-br/marketplace/produtos/o-caminho-depois-da-pressa/E102970771D"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center w-fit px-10 py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium border border-foreground text-foreground bg-transparent transition-all duration-300 hover:bg-foreground hover:text-background"
           >
             Comprar agora

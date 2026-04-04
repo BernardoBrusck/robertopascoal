@@ -53,7 +53,7 @@ const PanelInfancia = () => (
         className="polaroid-frame absolute bottom-0 right-0 w-[200px] h-[240px] anim-photo"
         style={{ transform: 'rotate(2deg)' }}
       >
-        <Photo src="/image/IMG_3580 (1).JPG" alt="Infância 2" className="w-full h-full rounded" />
+        <Photo src="/image/roberto-infancia-crianca.png" alt="Infância 2" className="w-full h-full rounded" />
       </div>
     </div>
     <div className="flex flex-col justify-center max-w-lg anim-text">
@@ -95,6 +95,7 @@ const PanelOmunga = () => (
     <div className="flex items-start gap-16">
       <div className="flex flex-col gap-6 anim-text">
         <div>
+          <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-10 md:h-12 mb-4 object-contain" loading="lazy" />
           <h2 className="h-panel-title whitespace-pre-line text-foreground">
             {'Criar para\ntransformar'}
           </h2>
@@ -184,7 +185,7 @@ const MobilePanelInfancia = () => (
           </span>
         </div>
         <div className="w-2/5 self-end" style={{ transform: 'rotate(1.5deg)' }}>
-          <Photo src="/image/IMG_3580 (1).JPG" alt="Infância 2" className="w-full aspect-square rounded" />
+          <Photo src="/image/roberto-infancia-crianca.png" alt="Infância 2" className="w-full aspect-square rounded" />
         </div>
       </div>
       <div>
@@ -221,6 +222,7 @@ const MobilePanelFormacao = () => (
 const MobilePanelOmunga = () => (
   <MobilePanel label="OMUNGA">
     <div className="flex flex-col gap-6">
+      <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-8 mb-3 object-contain" loading="lazy" />
       <Photo src="/image/roberto-pascoal-comunidade-isolada.jpg" alt="Amazônia" className="w-full aspect-[16/10] rounded-lg" />
       <div className="flex gap-3">
         <Photo src="/image/roberto-pascoal-criancas-indigenas.png" alt="Crianças indígenas" className="flex-1 aspect-[4/3] rounded" />

@@ -5,28 +5,23 @@ import {
   Copy,
   Mail,
   MapPin,
-  Phone,
   Instagram,
-  Globe,
   Linkedin,
   MessageCircle,
 } from 'lucide-react';
 import { Button, type ButtonProps } from '@/components/ui/button';
 
 const CONTACT = {
-  email: 'contato@robertopascoal.com.br',
-  whatsapp: '+5547999999999',
-  whatsappDisplay: '+55 47 99999-9999',
-  phone: '+5547999999999',
-  phoneDisplay: '+55 47 99999-9999',
+  email: 'roberto.pascoal@omunga.com',
+  whatsapp: '+554789054401',
+  whatsappDisplay: '+55 47 8905-4401',
   location: 'Joinville, SC — Brasil',
 };
 
 const SOCIALS = [
-  { icon: Instagram, href: 'https://instagram.com/robertopascoal', label: 'Instagram Roberto' },
-  { icon: Instagram, href: 'https://instagram.com/omunga', label: 'Instagram Omunga' },
-  { icon: Globe, href: 'https://omunga.com.br', label: 'omunga.com.br' },
-  { icon: Linkedin, href: 'https://linkedin.com/in/robertopascoal', label: 'LinkedIn' },
+  { icon: Instagram, href: 'https://www.instagram.com/roberto_pascoal/', label: 'Instagram Roberto' },
+  { icon: Instagram, href: 'https://www.instagram.com/omunga_oficial/', label: 'Instagram Omunga' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/omunga/', label: 'LinkedIn Omunga' },
 ];
 
 function CopyButton({ text, className, ...props }: ButtonProps & { text: string }) {
@@ -105,7 +100,7 @@ const ContactFooter = () => {
         <div className="border-t border-border" />
 
         {/* Contact Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 py-12">
           <ContactBlock icon={Mail} label="E-mail">
             <div className="flex items-center gap-2">
               <a
@@ -129,13 +124,6 @@ const ContactFooter = () => {
                 <MessageCircle className="h-4 w-4" />
                 {CONTACT.whatsappDisplay}
               </a>
-            </div>
-          </ContactBlock>
-
-          <ContactBlock icon={Phone} label="Telefone">
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-foreground">{CONTACT.phoneDisplay}</span>
-              <CopyButton text={CONTACT.phone} />
             </div>
           </ContactBlock>
 

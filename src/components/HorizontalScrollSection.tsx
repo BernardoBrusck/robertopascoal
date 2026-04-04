@@ -125,36 +125,12 @@ const PanelOmunga = () => (
 
 const PanelHoje = () => (
   <div className="panel-inner relative flex flex-col items-center justify-center h-full w-full px-16 lg:px-24">
-    <PhotoPlaceholder
-      label="Foto palestra"
-      className="absolute top-[8%] left-[3%] w-[200px] h-[140px] rounded-lg anim-scatter"
-      style={{ transform: 'rotate(-3deg)' }}
-    />
-    <PhotoPlaceholder
-      label="Foto ação social"
-      className="absolute top-[42%] left-[2%] w-[150px] h-[190px] rounded anim-scatter"
-      style={{ transform: 'rotate(2deg)' }}
-    />
-    <PhotoPlaceholder
-      label="Foto comunidade"
-      className="absolute bottom-[10%] left-[12%] w-[190px] h-[130px] rounded-lg anim-scatter"
-      style={{ transform: 'rotate(-1.5deg)' }}
-    />
-    <PhotoPlaceholder
-      label="Foto livro"
-      className="absolute top-[6%] right-[4%] w-[180px] h-[130px] rounded-lg anim-scatter"
-      style={{ transform: 'rotate(2.5deg)' }}
-    />
-    <PhotoPlaceholder
-      label="Foto palco"
-      className="absolute top-[40%] right-[3%] w-[160px] h-[200px] rounded anim-scatter"
-      style={{ transform: 'rotate(-2deg)' }}
-    />
-    <PhotoPlaceholder
-      label="Foto atual"
-      className="absolute bottom-[8%] right-[14%] w-[200px] h-[140px] rounded-lg anim-scatter"
-      style={{ transform: 'rotate(1deg)' }}
-    />
+    <Photo src="/image/B0119027.JPG" alt="Palestra" className="absolute top-[8%] left-[3%] w-[200px] h-[140px] rounded-lg anim-scatter" style={{ transform: 'rotate(-3deg)' }} />
+    <Photo src="/image/200229_OMG_4225.jpg" alt="Ação social" className="absolute top-[42%] left-[2%] w-[150px] h-[190px] rounded anim-scatter" style={{ transform: 'rotate(2deg)' }} />
+    <Photo src="/image/roberto-pascoal-projetos-africa.jpg" alt="Projetos África" className="absolute bottom-[10%] left-[12%] w-[190px] h-[130px] rounded-lg anim-scatter" style={{ transform: 'rotate(-1.5deg)' }} />
+    <Photo src="/image/capa do livro.png" alt="Livro" className="absolute top-[6%] right-[4%] w-[180px] h-[130px] rounded-lg anim-scatter" style={{ transform: 'rotate(2.5deg)' }} />
+    <Photo src="/image/FOTO ROBERTO 08 (2).jpg" alt="No palco" className="absolute top-[40%] right-[3%] w-[160px] h-[200px] rounded anim-scatter" style={{ transform: 'rotate(-2deg)' }} />
+    <Photo src="/image/FOTO ROBERTO 09.jpg" alt="Roberto atual" className="absolute bottom-[8%] right-[14%] w-[200px] h-[140px] rounded-lg anim-scatter" style={{ transform: 'rotate(1deg)' }} />
     <div className="relative z-10 text-center max-w-2xl anim-center">
       <h2 className="h-panel-title text-foreground">Inspirar para agir</h2>
       <p className="h-panel-text text-muted-foreground mx-auto mt-4">

@@ -14,6 +14,16 @@ const navItems = [
   { label: "Blog", href: "/blog" },
 ];
 
+const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  if (href.startsWith("#")) {
+    e.preventDefault();
+    const el = document.querySelector(href);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+};
+
 /**
  * Samples the pixel color behind the header center to determine
  * if the background is dark (needs white text) or light (needs dark text).
@@ -194,6 +204,7 @@ const Navbar = () => {
                   <a
                     key={item.label}
                     href={item.href}
+                    onClick={(e) => handleAnchorClick(e, item.href)}
                     className={`text-xs uppercase tracking-[0.2em] transition-colors duration-300 ${mutedColor} hover:opacity-100`}
                   >
                     {item.label}
@@ -205,6 +216,7 @@ const Navbar = () => {
               <div className="hidden md:block">
                 <a
                   href="#contato"
+                  onClick={(e) => handleAnchorClick(e, "#contato")}
                   className={`inline-flex items-center justify-center px-6 py-2.5 rounded-sm text-xs uppercase tracking-[0.2em] font-medium border bg-transparent transition-all duration-300 ${textColor} ${borderColor} ${hoverBg}`}
                 >
                   Contato
@@ -252,7 +264,10 @@ const Navbar = () => {
                   >
                     <a
                       href={item.href}
-                      onClick={() => setIsOpen(false)}
+                      onClick={(e) => {
+                        handleAnchorClick(e, item.href);
+                        setIsOpen(false);
+                      }}
                       className="text-2xl font-bold uppercase tracking-[0.15em] text-foreground transition-opacity hover:opacity-60"
                     >
                       {item.label}
@@ -270,7 +285,10 @@ const Navbar = () => {
                 >
                   <a
                     href="#contato"
-                    onClick={() => setIsOpen(false)}
+                    onClick={(e) => {
+                      handleAnchorClick(e, "#contato");
+                      setIsOpen(false);
+                    }}
                     className="inline-flex items-center justify-center px-10 py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium border border-foreground text-foreground bg-transparent transition-all duration-300 hover:bg-foreground hover:text-background"
                   >
                     Contato

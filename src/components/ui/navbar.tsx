@@ -204,6 +204,7 @@ const Navbar = () => {
                   <a
                     key={item.label}
                     href={item.href}
+                    onClick={(e) => handleAnchorClick(e, item.href)}
                     className={`text-xs uppercase tracking-[0.2em] transition-colors duration-300 ${mutedColor} hover:opacity-100`}
                   >
                     {item.label}

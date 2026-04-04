@@ -1,111 +1,63 @@
 
 
-# Plano: Sistema de Blog Completo com Painel Admin
+# Plano: Substituir todos os placeholders por fotos reais do Roberto
 
-## Resumo
+## Mapeamento de locais com fotos
 
-Criar um sistema de blog completo com: backend no Supabase (Lovable Cloud), painel administrativo com autenticação, editor de blocos tipo Notion, e páginas públicas de blog com filtros, busca e compartilhamento.
+Há **6 locais** no site usando placeholders ou imagens genéricas do Unsplash:
 
-## Pré-requisito: Ativar Lovable Cloud
+### 1. HorizontalScrollSection (Timeline de Jornada)
+~20 placeholders cinza com labels como "Foto infância 1", "Foto Amazônia", etc. — tanto desktop quanto mobile.
 
-Antes de tudo, precisamos ativar o Lovable Cloud para ter Supabase (banco de dados, auth, storage). Sem isso, nada do blog funciona.
+**Mapeamento de imagens:**
+- "Foto infância 1/2" → `foto_infancia_upscale_4x.jpg`, `IMG_3580 (1).JPG`
+- "Foto formação 1/2" → `FOTO ROBERTO 04.jpg`, `FOTO ROBERTO 05.jpg`
+- "Foto teatro / palco" → `FOTO ROBERTO 07.jpg`
+- "Foto Amazônia" → `roberto-pascoal-comunidade-isolada.jpg`
+- "Foto comunidade 1/2" → `roberto-pascoal-criancas-indigenas.png`, `roberto-pascoal-leitura-indigena.png`
+- "Foto palestra" → `B0119027.JPG`
+- "Foto ação social" → `200229_OMG_4225.jpg`
+- "Foto comunidade (painel hoje)" → `roberto-pascoal-projetos-africa.jpg`
+- "Foto livro" → `capa do livro.png`
+- "Foto palco" → `FOTO ROBERTO 08 (2).jpg`
+- "Foto atual" → `FOTO ROBERTO 09.jpg`
 
-## Estrutura do Banco de Dados
+### 2. ZoomParallaxSection (7 imagens Unsplash)
+Substituir pelas fotos reais do Roberto:
+- `roberto-pascoal-hero-montanha.png`, `roberto-pascoal-explorador.jpg`, `01 - África 07 por Max Schwoelk.JPG`, `roberto-pascoal-caminhada-brasil.png`, `roberto-pascoal-indigena-interacao.png`, `200229_OMG_4225.jpg`, `roberto-pascoal-professor-africa.jpg`
 
-### Tabelas
+### 3. FloatingPhotosSection (6 fotos laterais — apenas placeholders cinza)
+Substituir os placeholders SVG por fotos reais recortadas:
+- Left: `Foto de Roberto Pascoal.jpg`, `Foto de Roberto Pascoal (1).jpg`, `Foto de Roberto Pascoal (2).jpg`
+- Right: `Foto de Roberto Pascoal (3).jpg`, `03- Post Documentário.jpg`, `roberto-pascoal-professor-africa.jpg`
 
-1. **posts** — id, title, slug, excerpt, content (JSONB para blocos), cover_image, status (draft/published), author_id (FK auth.users), category_id, published_at, created_at, updated_at
-2. **categories** — id, name, slug, description, created_at
-3. **tags** — id, name, slug
-4. **post_tags** — post_id, tag_id (junção N:N)
-5. **media** — id, url, alt_text, uploaded_by, created_at (referencia arquivos no Supabase Storage)
-6. **leads** — id, name, email, phone, message, source (palestra/contato), created_at (interesse em palestras)
-7. **user_roles** — id, user_id, role (admin) — segurança RLS
+### 4. BookSection (placeholder "Capa do Livro")
+Substituir o `<div>` cinza pela imagem real: `capa do livro.png`
 
-### Storage Buckets
-- `blog-images` — imagens dos artigos
-- `media` — biblioteca de mídia geral
+### 5. SpeakingSection (placeholder "Foto palestrando")
+Substituir fundo cinza pela imagem: `B0119027.JPG`
 
-## Editor de Blocos (tipo Notion)
+### 6. ImageGallery (15 imagens Unsplash)
+Substituir pelas fotos reais do Roberto, distribuídas nas 3 colunas com proporções variadas.
 
-Usar **BlockNote** (`@blocknote/react` + `@blocknote/core`) — editor open-source estilo Notion, com:
-- Blocos de texto, heading, lista, citação, imagem, separador
-- Drag & drop para reordenar blocos
-- Upload de imagens integrado ao Supabase Storage
-- Salva como JSON no campo `content` do post
+## Implementação técnica
 
-## Páginas Públicas (Frontend)
+- Todas as imagens ficam em `/public/image/` — referenciar como `/image/nome.jpg`
+- Remover o componente `PhotoPlaceholder` do `HorizontalScrollSection` e usar `<img>` com `object-cover`
+- No `FloatingPhotosSection`, substituir o bloco SVG/placeholder por `<img>`
+- No `BookSection`, trocar o `<div>` por `<img src="/image/capa do livro.png">`
+- No `SpeakingSection`, trocar o `<div>` por `<img>` absoluto
+- No `ZoomParallaxSection`, trocar URLs Unsplash por paths locais
+- No `ImageGallery`, trocar IDs Unsplash por paths locais
 
-| Rota | Descrição |
+## Arquivos modificados
+
+| Arquivo | Mudança |
 |---|---|
-| `/blog` | Listagem com grid de cards, barra de busca, filtro por categoria/tag, paginação |
-| `/blog/:slug` | Artigo individual — cover, título, conteúdo renderizado, tags, compartilhamento (WhatsApp, LinkedIn, Twitter) |
-| `/blog/categoria/:slug` | Posts filtrados por categoria |
-
-### Estilo das páginas públicas
-- Fundo branco, tipografia editorial (mesma do site)
-- Cards com imagem cover, título bold, excerpt, data, categoria
-- Barra de busca minimalista no topo
-- Botões de compartilhar: WhatsApp, LinkedIn, Twitter (ícones lucide)
-
-## Painel Administrativo
-
-| Rota | Descrição |
-|---|---|
-| `/admin/login` | Tela de login (email + senha) |
-| `/admin` | Dashboard — contagem de posts, leads recentes |
-| `/admin/posts` | Lista de posts (draft/publicado), criar/editar/excluir |
-| `/admin/posts/new` | Editor de blocos + metadados (título, slug, categoria, tags, cover) |
-| `/admin/posts/:id/edit` | Editar post existente |
-| `/admin/categories` | CRUD de categorias |
-| `/admin/media` | Biblioteca de mídia — upload, listar, deletar |
-| `/admin/leads` | Lista de leads (interesse em palestras/contato) |
-
-### Proteção
-- Rota `/admin/*` protegida por auth + verificação de role `admin`
-- RLS em todas as tabelas: posts publicados são públicos, drafts só admin vê
-
-## Integração com o Site Atual
-
-- Adicionar "Blog" no navbar (`navItems`)
-- No ContactFooter, o formulário de interesse em palestra salva na tabela `leads`
-- Link do blog no footer
-
-## Arquivos Principais
-
-| Arquivo | Ação |
-|---|---|
-| Lovable Cloud | Ativar (Supabase + Auth + Storage) |
-| Migrations | Criar tabelas: posts, categories, tags, post_tags, media, leads, user_roles |
-| `src/integrations/supabase/` | Client + types (auto-gerado) |
-| `src/pages/Blog.tsx` | Listagem pública do blog |
-| `src/pages/BlogPost.tsx` | Artigo individual |
-| `src/pages/BlogCategory.tsx` | Posts por categoria |
-| `src/pages/admin/Login.tsx` | Login do admin |
-| `src/pages/admin/Dashboard.tsx` | Dashboard admin |
-| `src/pages/admin/Posts.tsx` | Lista de posts |
-| `src/pages/admin/PostEditor.tsx` | Editor de blocos (BlockNote) |
-| `src/pages/admin/Categories.tsx` | CRUD categorias |
-| `src/pages/admin/Media.tsx` | Biblioteca de mídia |
-| `src/pages/admin/Leads.tsx` | Lista de leads |
-| `src/components/blog/BlogCard.tsx` | Card de post |
-| `src/components/blog/ShareButtons.tsx` | Botões de compartilhar |
-| `src/components/blog/BlockRenderer.tsx` | Renderizador de blocos no front |
-| `src/components/admin/AdminLayout.tsx` | Layout com sidebar do admin |
-| `src/components/admin/ProtectedRoute.tsx` | Guard de autenticação |
-| `src/App.tsx` | Adicionar todas as rotas |
-| `src/components/ui/navbar.tsx` | Adicionar link "Blog" |
-
-## Ordem de Implementação
-
-1. Ativar Lovable Cloud + criar migrations
-2. Auth + user_roles + ProtectedRoute
-3. AdminLayout + Dashboard
-4. CRUD de categorias e tags
-5. Biblioteca de mídia (upload Supabase Storage)
-6. Editor de posts (BlockNote) + listagem admin
-7. Páginas públicas do blog (listagem, individual, categoria)
-8. Compartilhamento + busca + filtros
-9. Leads (integrar formulário do ContactFooter/SpeakingSection)
-10. Adicionar "Blog" no navbar
+| `src/components/HorizontalScrollSection.tsx` | Substituir ~20 PhotoPlaceholders por `<img>` reais |
+| `src/components/ZoomParallaxSection.tsx` | 7 URLs Unsplash → paths locais |
+| `src/components/FloatingPhotosSection.tsx` | 6 placeholders SVG → `<img>` reais |
+| `src/components/BookSection.tsx` | Placeholder → imagem da capa |
+| `src/components/SpeakingSection.tsx` | Fundo placeholder → foto real |
+| `src/components/ui/image-gallery.tsx` | 15 URLs Unsplash → fotos locais |
 

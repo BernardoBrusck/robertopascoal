@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import TextRevealBlock from '@/components/TextRevealBlock';
-import { loadGsapWithScrollTrigger } from '@/lib/loadGsap';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface FloatingPhoto {
   top: string;
@@ -28,23 +31,18 @@ const PhotoCard = ({ photo }: { photo: FloatingPhoto; index: number; side: 'left
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let cancelled = false;
-
-    loadGsapWithScrollTrigger().then(({ gsap }) => {
-      if (cancelled || !ref.current) return;
-      gsap.to(ref.current, {
-        y: photo.speed,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: ref.current.closest('section'),
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1,
-        },
-      });
+    if (!ref.current) return;
+    const anim = gsap.to(ref.current, {
+      y: photo.speed,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: ref.current.closest('section'),
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+      },
     });
-
-    return () => { cancelled = true; };
+    return () => { anim.kill(); };
   }, [photo.speed]);
 
   const style: React.CSSProperties = {
@@ -58,10 +56,7 @@ const PhotoCard = ({ photo }: { photo: FloatingPhoto; index: number; side: 'left
 
   return (
     <div ref={ref} className="hidden lg:block pointer-events-none" style={style}>
-      <div
-        className="bg-background border-[6px] border-background rounded-sm overflow-hidden"
-        style={{ width: 140, height: 170, boxShadow: '0 4px 20px -4px rgba(0,0,0,0.12), 0 2px 8px -2px rgba(0,0,0,0.08)' }}
-      >
+      <div className="bg-background border-[6px] border-background rounded-sm overflow-hidden" style={{ width: 140, height: 170, boxShadow: '0 4px 20px -4px rgba(0,0,0,0.12), 0 2px 8px -2px rgba(0,0,0,0.08)' }}>
         <img src={photo.src} alt={photo.alt} className="w-full object-cover" style={{ height: 120 }} loading="lazy" width={140} height={120} />
         <div className="h-[50px] flex items-center justify-center">
           <span className="text-[9px] text-muted-foreground/60 font-light tracking-wide">{photo.alt}</span>

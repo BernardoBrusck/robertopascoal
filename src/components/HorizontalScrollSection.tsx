@@ -1,7 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { motion, useInView } from 'framer-motion';
-import { loadGsapWithScrollTrigger } from '@/lib/loadGsap';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 /* ─── Panel Data ─── */
 const timelineSteps = [
@@ -12,24 +15,8 @@ const timelineSteps = [
 ];
 
 /* ─── Photo component ─── */
-const Photo = ({
-  src,
-  alt,
-  className = '',
-  style = {},
-}: {
-  src: string;
-  alt: string;
-  className?: string;
-  style?: React.CSSProperties;
-}) => (
-  <img
-    src={src}
-    alt={alt}
-    className={`object-cover ${className}`}
-    style={style}
-    loading="lazy"
-  />
+const Photo = ({ src, alt, className = '', style = {} }: { src: string; alt: string; className?: string; style?: React.CSSProperties; }) => (
+  <img src={src} alt={alt} className={`object-cover ${className}`} style={style} loading="lazy" />
 );
 
 /* ═══════════════════════════════════════════════════════
@@ -39,31 +26,17 @@ const Photo = ({
 const PanelInfancia = () => (
   <div className="panel-inner flex items-center justify-center h-full w-full px-16 lg:px-24 gap-16">
     <div className="relative flex-shrink-0 w-[340px] h-[460px]">
-      <div
-        className="polaroid-frame absolute top-0 left-0 w-[280px] h-[340px] anim-photo"
-        style={{ transform: 'rotate(-3deg)' }}
-      >
+      <div className="polaroid-frame absolute top-0 left-0 w-[280px] h-[340px] anim-photo" style={{ transform: 'rotate(-3deg)' }}>
         <Photo src="/image/infancia-upscale.webp" alt="Infância de Roberto" className="w-full h-full rounded" />
-        <span className="block text-center text-[11px] text-muted-foreground mt-2 font-medium tracking-wide">
-          Joinville, anos 80
-        </span>
+        <span className="block text-center text-[11px] text-muted-foreground mt-2 font-medium tracking-wide">Joinville, anos 80</span>
       </div>
-      <div
-        className="polaroid-frame absolute bottom-0 right-0 w-[200px] h-[240px] anim-photo"
-        style={{ transform: 'rotate(2deg)' }}
-      >
+      <div className="polaroid-frame absolute bottom-0 right-0 w-[200px] h-[240px] anim-photo" style={{ transform: 'rotate(2deg)' }}>
         <Photo src="/image/roberto-infancia-crianca.webp" alt="Infância 2" className="w-full h-full rounded" />
       </div>
     </div>
     <div className="flex flex-col justify-center max-w-lg anim-text">
-      <h2 className="h-panel-title whitespace-pre-line text-foreground">
-        {'Onde tudo\ncomeçou'}
-      </h2>
-      <p className="h-panel-text text-muted-foreground">
-        Nascido no interior do Brasil, Roberto cresceu cercado por histórias e pela
-        vontade de transformar o mundo ao seu redor. Desde cedo, a educação foi seu
-        maior aliado.
-      </p>
+      <h2 className="h-panel-title whitespace-pre-line text-foreground">{'Onde tudo\ncomeçou'}</h2>
+      <p className="h-panel-text text-muted-foreground">Nascido no interior do Brasil, Roberto cresceu cercado por histórias e pela vontade de transformar o mundo ao seu redor. Desde cedo, a educação foi seu maior aliado.</p>
     </div>
   </div>
 );
@@ -71,13 +44,8 @@ const PanelInfancia = () => (
 const PanelFormacao = () => (
   <div className="panel-inner flex items-center justify-center h-full w-full px-16 lg:px-24 gap-16">
     <div className="flex flex-col justify-center max-w-md anim-text">
-      <h2 className="h-panel-title whitespace-pre-line text-foreground">
-        {'O poder\nda palavra'}
-      </h2>
-      <p className="h-panel-text text-muted-foreground mb-8">
-        Escritor e comunicador por natureza. Encontrou nos livros e nas palestras a
-        ferramenta para amplificar sua voz e levar sua mensagem a milhares de pessoas.
-      </p>
+      <h2 className="h-panel-title whitespace-pre-line text-foreground">{'O poder\nda palavra'}</h2>
+      <p className="h-panel-text text-muted-foreground mb-8">Escritor e comunicador por natureza. Encontrou nos livros e nas palestras a ferramenta para amplificar sua voz e levar sua mensagem a milhares de pessoas.</p>
       <div className="flex gap-4">
         <Photo src="/image/roberto-pascoal-retrato-1.webp" alt="Formação 1" className="w-[160px] h-[120px] rounded anim-photo-sm" />
         <Photo src="/image/foto-roberto-05.webp" alt="Formação 2" className="w-[160px] h-[120px] rounded anim-photo-sm" />
@@ -94,10 +62,8 @@ const PanelOmunga = () => (
     <div className="flex items-start gap-16">
       <div className="flex flex-col gap-6 anim-text">
         <div>
-          <h2 className="h-panel-title whitespace-pre-line text-foreground">
-            {'Criar para\ntransformar'}
-          </h2>
-          <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-16 md:h-20 mt-5 object-contain" loading="lazy" />
+          <h2 className="h-panel-title whitespace-pre-line text-foreground">{'Criar para\ntransformar'}</h2>
+          <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-16 md:h-20 mt-5 object-contain" loading="lazy" width={200} height={80} />
         </div>
         <Photo src="/image/roberto-pascoal-comunidade-isolada.webp" alt="Amazônia" className="w-[400px] h-[280px] rounded-lg anim-photo" />
       </div>
@@ -107,17 +73,10 @@ const PanelOmunga = () => (
           <Photo src="/image/roberto-pascoal-leitura-indigena.webp" alt="Leitura indígena" className="w-[180px] h-[140px] rounded anim-photo-sm" />
         </div>
         <div className="anim-counter">
-          <span className="text-foreground font-bold text-5xl lg:text-7xl tracking-tight counter-number">
-            +50
-          </span>
-          <span className="block text-muted-foreground text-sm uppercase tracking-widest mt-1">
-            bibliotecas construídas
-          </span>
+          <span className="text-foreground font-bold text-5xl lg:text-7xl tracking-tight counter-number">+50</span>
+          <span className="block text-muted-foreground text-sm uppercase tracking-widest mt-1">bibliotecas construídas</span>
         </div>
-        <p className="h-panel-text text-muted-foreground max-w-sm anim-text-delay">
-          Fundou o Projeto Omunga com uma missão clara: levar bibliotecas e educação
-          para as comunidades mais isoladas da Amazônia.
-        </p>
+        <p className="h-panel-text text-muted-foreground max-w-sm anim-text-delay">Fundou o Projeto Omunga com uma missão clara: levar bibliotecas e educação para as comunidades mais isoladas da Amazônia.</p>
       </div>
     </div>
   </div>
@@ -133,10 +92,7 @@ const PanelHoje = () => (
     <Photo src="/image/foto-roberto-09.webp" alt="Roberto atual" className="absolute bottom-[8%] right-[14%] w-[200px] h-[140px] rounded-lg anim-scatter" style={{ transform: 'rotate(1deg)' }} />
     <div className="relative z-10 text-center max-w-2xl anim-center">
       <h2 className="h-panel-title text-foreground">Inspirar para agir</h2>
-      <p className="h-panel-text text-muted-foreground mx-auto mt-4">
-        Empreendedor social, palestrante e aspirante a escritor. Roberto continua
-        dedicando cada dia a provar que a educação é o caminho.
-      </p>
+      <p className="h-panel-text text-muted-foreground mx-auto mt-4">Empreendedor social, palestrante e aspirante a escritor. Roberto continua dedicando cada dia a provar que a educação é o caminho.</p>
     </div>
   </div>
 );
@@ -147,27 +103,13 @@ const panels = [PanelInfancia, PanelFormacao, PanelOmunga, PanelHoje];
    MOBILE PANELS (vertical scroll, framer-motion)
    ═══════════════════════════════════════════════════════ */
 
-const MobilePanel = ({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) => {
+const MobilePanel = ({ label, children }: { label: string; children: React.ReactNode; }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
   return (
-    <motion.div
-      ref={ref}
-      className="w-full px-6 py-16 border-b border-border"
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-    >
-      <span className="text-xs text-muted-foreground uppercase tracking-[0.2em] mb-4 block">
-        {label}
-      </span>
+    <motion.div ref={ref} className="w-full px-6 py-16 border-b border-border" initial={{ opacity: 0, y: 40 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}>
+      <span className="text-xs text-muted-foreground uppercase tracking-[0.2em] mb-4 block">{label}</span>
       {children}
     </motion.div>
   );
@@ -179,9 +121,7 @@ const MobilePanelInfancia = () => (
       <div className="flex gap-3">
         <div className="flex-1" style={{ transform: 'rotate(-2deg)' }}>
           <Photo src="/image/infancia-upscale.webp" alt="Infância" className="w-full aspect-[4/5] rounded" />
-          <span className="block text-center text-[10px] text-muted-foreground mt-1 tracking-wide">
-            Joinville, anos 80
-          </span>
+          <span className="block text-center text-[10px] text-muted-foreground mt-1 tracking-wide">Joinville, anos 80</span>
         </div>
         <div className="w-2/5 self-end" style={{ transform: 'rotate(1.5deg)' }}>
           <Photo src="/image/roberto-infancia-crianca.webp" alt="Infância 2" className="w-full aspect-square rounded" />
@@ -189,11 +129,7 @@ const MobilePanelInfancia = () => (
       </div>
       <div>
         <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">Onde tudo começou</h2>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Nascido no interior do Brasil, Roberto cresceu cercado por histórias e pela
-          vontade de transformar o mundo ao seu redor. Desde cedo, a educação foi seu
-          maior aliado.
-        </p>
+        <p className="text-sm text-muted-foreground leading-relaxed">Nascido no interior do Brasil, Roberto cresceu cercado por histórias e pela vontade de transformar o mundo ao seu redor. Desde cedo, a educação foi seu maior aliado.</p>
       </div>
     </div>
   </MobilePanel>
@@ -205,10 +141,7 @@ const MobilePanelFormacao = () => (
       <Photo src="/image/foto-roberto-07.webp" alt="Roberto no palco" className="w-full aspect-[3/4] rounded-lg" />
       <div>
         <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">O poder da palavra</h2>
-        <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-          Escritor e comunicador por natureza. Encontrou nos livros e nas palestras a
-          ferramenta para amplificar sua voz e levar sua mensagem a milhares de pessoas.
-        </p>
+        <p className="text-sm text-muted-foreground leading-relaxed mb-5">Escritor e comunicador por natureza. Encontrou nos livros e nas palestras a ferramenta para amplificar sua voz e levar sua mensagem a milhares de pessoas.</p>
       </div>
       <Photo src="/image/foto-roberto-04.webp" alt="Formação 1" className="w-full aspect-[4/3] rounded" />
       <Photo src="/image/foto-roberto-05.webp" alt="Formação 2" className="w-full aspect-[4/3] rounded" />
@@ -220,22 +153,17 @@ const MobilePanelOmunga = () => (
   <MobilePanel label="OMUNGA">
     <div className="flex flex-col gap-6">
       <h2 className="text-2xl font-medium tracking-tight text-foreground">Criar para transformar</h2>
-      <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-12 object-contain" loading="lazy" />
+      <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-12 object-contain" loading="lazy" width={160} height={48} />
       <Photo src="/image/roberto-pascoal-comunidade-isolada.webp" alt="Amazônia" className="w-full aspect-[16/10] rounded-lg" />
       <Photo src="/image/roberto-pascoal-criancas-indigenas.webp" alt="Crianças indígenas" className="w-full aspect-[4/3] rounded" />
       <Photo src="/image/roberto-pascoal-leitura-indigena.webp" alt="Leitura indígena" className="w-full aspect-[4/3] rounded" />
       <div>
         <span className="text-foreground font-bold text-4xl tracking-tight">+50</span>
-        <span className="block text-muted-foreground text-xs uppercase tracking-widest mt-1">
-          bibliotecas construídas
-        </span>
+        <span className="block text-muted-foreground text-xs uppercase tracking-widest mt-1">bibliotecas construídas</span>
       </div>
       <div>
         <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">Criar para transformar</h2>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Fundou o Projeto Omunga com uma missão clara: levar bibliotecas e educação
-          para as comunidades mais isoladas da Amazônia.
-        </p>
+        <p className="text-sm text-muted-foreground leading-relaxed">Fundou o Projeto Omunga com uma missão clara: levar bibliotecas e educação para as comunidades mais isoladas da Amazônia.</p>
       </div>
     </div>
   </MobilePanel>
@@ -248,10 +176,7 @@ const MobilePanelHoje = () => (
       <Photo src="/image/capa-do-livro.webp" alt="Livro" className="w-full aspect-[3/4] rounded-lg" />
       <div className="text-center">
         <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">Inspirar para agir</h2>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Empreendedor social, palestrante e aspirante a escritor. Roberto continua
-          dedicando cada dia a provar que a educação é o caminho.
-        </p>
+        <p className="text-sm text-muted-foreground leading-relaxed">Empreendedor social, palestrante e aspirante a escritor. Roberto continua dedicando cada dia a provar que a educação é o caminho.</p>
       </div>
       <Photo src="/image/omg-4225.webp" alt="Ação social" className="w-full aspect-square rounded" />
       <Photo src="/image/foto-roberto-09.webp" alt="Roberto atual" className="w-full aspect-[4/3] rounded-lg" />
@@ -271,181 +196,93 @@ const HorizontalScrollSection = () => {
 
   useEffect(() => {
     if (isMobile) return;
+    if (!sectionRef.current || !containerRef.current) return;
 
-    let cancelled = false;
+    const container = containerRef.current;
 
-    loadGsapWithScrollTrigger().then(({ gsap }) => {
-      if (cancelled) return;
-      initAnimation(gsap);
+    const scrollTween = gsap.to(container, {
+      x: () => -(container.scrollWidth - window.innerWidth),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        pin: true,
+        scrub: 1,
+        end: () => `+=${container.scrollWidth - window.innerWidth}`,
+        invalidateOnRefresh: true,
+      },
     });
 
-    const initAnimation = (gsap: any) => {
-      if (!sectionRef.current || !containerRef.current) return;
-      const container = containerRef.current;
-
-      const scrollTween = gsap.to(container, {
-        x: () => -(container.scrollWidth - window.innerWidth),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          pin: true,
-          scrub: 1,
-          end: () => `+=${container.scrollWidth - window.innerWidth}`,
-          invalidateOnRefresh: true,
-        },
+    const line = container.querySelector('.timeline-progress');
+    if (line) {
+      gsap.fromTo(line, { scaleX: 0 }, {
+        scaleX: 1, ease: 'none',
+        scrollTrigger: { trigger: sectionRef.current, scrub: 1, start: 'top top', end: () => `+=${container.scrollWidth - window.innerWidth}` },
       });
+    }
 
-      const line = container.querySelector('.timeline-progress');
-      if (line) {
-        gsap.fromTo(
-          line,
-          { scaleX: 0 },
-          {
-            scaleX: 1,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              scrub: 1,
-              start: 'top top',
-              end: () => `+=${container.scrollWidth - window.innerWidth}`,
-            },
-          }
-        );
+    const panelEls = container.querySelectorAll('.h-panel');
+
+    panelEls.forEach((panel: Element) => {
+      const stBase = { trigger: panel, containerAnimation: scrollTween, start: 'left 80%', end: 'left 20%', toggleActions: 'play none none reverse' as const };
+
+      const photos = panel.querySelectorAll('.anim-photo');
+      if (photos.length) gsap.from(photos, { y: 60, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out', scrollTrigger: stBase });
+
+      const photosSm = panel.querySelectorAll('.anim-photo-sm');
+      if (photosSm.length) gsap.from(photosSm, { y: 40, opacity: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out', scrollTrigger: { ...stBase, start: 'left 60%' } });
+
+      const photoMain = panel.querySelector('.anim-photo-main');
+      if (photoMain) gsap.from(photoMain, { scale: 0.8, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: stBase });
+
+      const scatterPhotos = panel.querySelectorAll('.anim-scatter');
+      if (scatterPhotos.length) {
+        scatterPhotos.forEach((el: Element, j: number) => {
+          const directions = [{ x: -80, y: 40 }, { x: 60, y: -50 }, { x: -40, y: -60 }, { x: 70, y: 50 }, { x: -60, y: -30 }, { x: 50, y: 60 }];
+          const dir = directions[j % directions.length];
+          gsap.from(el, { x: dir.x, y: dir.y, opacity: 0, duration: 0.8, delay: j * 0.12, ease: 'power3.out', scrollTrigger: stBase });
+        });
       }
 
-      const panelEls = container.querySelectorAll('.h-panel');
+      const texts = panel.querySelectorAll('.anim-text');
+      if (texts.length) gsap.from(texts, { x: -40, opacity: 0, duration: 0.8, ease: 'power2.out', scrollTrigger: stBase });
 
-      panelEls.forEach((panel: Element) => {
-        const stBase = {
-          trigger: panel,
-          containerAnimation: scrollTween,
-          start: 'left 80%',
-          end: 'left 20%',
-          toggleActions: 'play none none reverse',
-        };
+      const center = panel.querySelector('.anim-center');
+      if (center) gsap.from(center, { y: 30, opacity: 0, duration: 0.8, ease: 'power2.out', scrollTrigger: stBase });
 
-        const photos = panel.querySelectorAll('.anim-photo');
-        if (photos.length) {
-          gsap.from(photos, {
-            y: 60, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out',
-            scrollTrigger: stBase,
-          });
-        }
+      const counter = panel.querySelector('.anim-counter');
+      if (counter) gsap.from(counter, { scale: 0.6, opacity: 0, duration: 0.8, ease: 'back.out(1.4)', scrollTrigger: { ...stBase, start: 'left 50%' } });
 
-        const photosSm = panel.querySelectorAll('.anim-photo-sm');
-        if (photosSm.length) {
-          gsap.from(photosSm, {
-            y: 40, opacity: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out',
-            scrollTrigger: { ...stBase, start: 'left 60%' },
-          });
-        }
+      const delayedText = panel.querySelector('.anim-text-delay');
+      if (delayedText) gsap.from(delayedText, { y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', scrollTrigger: { ...stBase, start: 'left 40%' } });
+    });
 
-        const photoMain = panel.querySelector('.anim-photo-main');
-        if (photoMain) {
-          gsap.from(photoMain, {
-            scale: 0.8, opacity: 0, duration: 1, ease: 'power3.out',
-            scrollTrigger: stBase,
-          });
-        }
-
-        const scatterPhotos = panel.querySelectorAll('.anim-scatter');
-        if (scatterPhotos.length) {
-          scatterPhotos.forEach((el: Element, j: number) => {
-            const directions = [
-              { x: -80, y: 40 }, { x: 60, y: -50 }, { x: -40, y: -60 },
-              { x: 70, y: 50 }, { x: -60, y: -30 }, { x: 50, y: 60 },
-            ];
-            const dir = directions[j % directions.length];
-            gsap.from(el, {
-              x: dir.x, y: dir.y, opacity: 0, duration: 0.8, delay: j * 0.12,
-              ease: 'power3.out', scrollTrigger: stBase,
-            });
-          });
-        }
-
-        const texts = panel.querySelectorAll('.anim-text');
-        if (texts.length) {
-          gsap.from(texts, {
-            x: -40, opacity: 0, duration: 0.8, ease: 'power2.out',
-            scrollTrigger: stBase,
-          });
-        }
-
-        const center = panel.querySelector('.anim-center');
-        if (center) {
-          gsap.from(center, {
-            y: 30, opacity: 0, duration: 0.8, ease: 'power2.out',
-            scrollTrigger: stBase,
-          });
-        }
-
-        const counter = panel.querySelector('.anim-counter');
-        if (counter) {
-          gsap.from(counter, {
-            scale: 0.6, opacity: 0, duration: 0.8, ease: 'back.out(1.4)',
-            scrollTrigger: { ...stBase, start: 'left 50%' },
-          });
-        }
-
-        const delayedText = panel.querySelector('.anim-text-delay');
-        if (delayedText) {
-          gsap.from(delayedText, {
-            y: 20, opacity: 0, duration: 0.6, ease: 'power2.out',
-            scrollTrigger: { ...stBase, start: 'left 40%' },
-          });
-        }
-      });
-    };
-
-    return () => { cancelled = true; };
+    return () => { ScrollTrigger.getAll().forEach(t => t.kill()); };
   }, [isMobile]);
 
-  /* ── Mobile: vertical stack ── */
   if (isMobile) {
     return (
       <section className="relative z-10 w-full bg-background pb-8">
-        {mobilePanels.map((Panel, i) => (
-          <Panel key={timelineSteps[i].id} />
-        ))}
+        {mobilePanels.map((Panel, i) => <Panel key={timelineSteps[i].id} />)}
       </section>
     );
   }
 
-  /* ── Desktop: horizontal GSAP scroll ── */
   return (
     <section ref={sectionRef} className="relative h-screen overflow-hidden bg-background">
       <div className="absolute bottom-8 left-0 right-0 h-px z-20" style={{ background: 'hsl(var(--foreground) / 0.12)' }}>
-        <div
-          className="timeline-progress absolute inset-0 origin-left"
-          style={{ transformOrigin: 'left center', background: 'hsl(var(--foreground) / 0.2)' }}
-        />
+        <div className="timeline-progress absolute inset-0 origin-left" style={{ transformOrigin: 'left center', background: 'hsl(var(--foreground) / 0.2)' }} />
+        <div className="absolute inset-0 flex justify-between px-8">
+          {timelineSteps.map((step) => (
+            <span key={step.id} className="h-panel-label text-muted-foreground relative top-3">{step.label}</span>
+          ))}
+        </div>
       </div>
-
-      <div
-        ref={containerRef}
-        className="flex h-screen"
-        style={{ width: `${timelineSteps.length * 100}vw` }}
-      >
-        {timelineSteps.map((step, i) => {
-          const Panel = panels[i];
-          return (
-            <div
-              key={step.id}
-              className="h-panel relative w-screen h-screen flex items-center bg-background"
-            >
-              <Panel />
-              <div
-                className="absolute bottom-6 z-30 flex flex-col items-center"
-                style={{ left: '50%', transform: 'translateX(-50%)' }}
-              >
-                <span className="text-xs text-muted-foreground uppercase tracking-widest whitespace-nowrap mb-2">
-                  {step.label}
-                </span>
-                <div className="w-3 h-3 rounded-full bg-foreground" />
-              </div>
-            </div>
-          );
-        })}
+      <div ref={containerRef} className="flex h-full w-max">
+        {panels.map((Panel, i) => (
+          <div key={timelineSteps[i].id} className="h-panel w-screen h-full flex-shrink-0 overflow-hidden">
+            <Panel />
+          </div>
+        ))}
       </div>
     </section>
   );

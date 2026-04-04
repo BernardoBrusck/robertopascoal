@@ -41,13 +41,29 @@ const BookSection = () => {
     >
       <div className={`w-full max-w-7xl mx-auto px-6 md:px-16 lg:px-24 flex ${isMobile ? 'flex-col gap-12 py-24' : 'flex-row items-center gap-16'}`}>
         <div className="book-cover flex-shrink-0 flex items-center justify-center" style={{ width: isMobile ? '100%' : '45%' }}>
-          <img
-            src="/image/capa-do-livro.webp"
-            alt="Capa do livro O Caminho depois da Pressa"
-            className="relative w-[260px] md:w-[320px] lg:w-[360px] rounded-sm"
-            width={360}
-            height={540}
-            style={{ boxShadow: '20px 20px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04)' }}
+          <div className="relative" style={{ perspective: '1200px' }}>
+            {/* Book spine shadow */}
+            <div className="absolute inset-0 rounded-sm" style={{
+              boxShadow: '6px 6px 20px rgba(0,0,0,0.25), 20px 20px 60px rgba(0,0,0,0.12)',
+              transform: 'translateZ(-2px)',
+            }} />
+            {/* Book edge (spine effect) */}
+            <div className="absolute top-1 -left-[6px] bottom-1 w-[6px] rounded-l-[2px]" style={{
+              background: 'linear-gradient(to right, hsl(var(--muted)), hsl(var(--border)))',
+              boxShadow: '-2px 0 6px rgba(0,0,0,0.15)',
+            }} />
+            {/* Bottom edge */}
+            <div className="absolute -bottom-[4px] left-0 right-1 h-[4px] rounded-b-[2px]" style={{
+              background: 'linear-gradient(to bottom, hsl(var(--muted)), hsl(var(--border)))',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+            }} />
+            <img
+              src="/image/capa-do-livro.webp"
+              alt="Capa do livro O Caminho depois da Pressa"
+              className="relative w-[260px] md:w-[320px] lg:w-[360px] rounded-r-sm rounded-l-[1px]"
+              width={360}
+              height={540}
+              style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.06)' }}
             loading="lazy"
           />
         </div>

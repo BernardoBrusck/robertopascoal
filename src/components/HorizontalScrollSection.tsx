@@ -211,10 +211,8 @@ const MobilePanelFormacao = () => (
           ferramenta para amplificar sua voz e levar sua mensagem a milhares de pessoas.
         </p>
       </div>
-      <div className="flex gap-3">
-        <Photo src="/image/foto-roberto-04.webp" alt="Formação 1" className="flex-1 aspect-[4/3] rounded" />
-        <Photo src="/image/foto-roberto-05.webp" alt="Formação 2" className="flex-1 aspect-[4/3] rounded" />
-      </div>
+      <Photo src="/image/foto-roberto-04.webp" alt="Formação 1" className="w-full aspect-[4/3] rounded" />
+      <Photo src="/image/foto-roberto-05.webp" alt="Formação 2" className="w-full aspect-[4/3] rounded" />
     </div>
   </MobilePanel>
 );
@@ -225,10 +223,8 @@ const MobilePanelOmunga = () => (
       <h2 className="text-2xl font-medium tracking-tight text-foreground">Criar para transformar</h2>
       <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-12 object-contain" loading="lazy" />
       <Photo src="/image/roberto-pascoal-comunidade-isolada.webp" alt="Amazônia" className="w-full aspect-[16/10] rounded-lg" />
-      <div className="flex gap-3">
-        <Photo src="/image/roberto-pascoal-criancas-indigenas.webp" alt="Crianças indígenas" className="flex-1 aspect-[4/3] rounded" />
-        <Photo src="/image/roberto-pascoal-leitura-indigena.webp" alt="Leitura indígena" className="flex-1 aspect-[4/3] rounded" />
-      </div>
+      <Photo src="/image/roberto-pascoal-criancas-indigenas.webp" alt="Crianças indígenas" className="w-full aspect-[4/3] rounded" />
+      <Photo src="/image/roberto-pascoal-leitura-indigena.webp" alt="Leitura indígena" className="w-full aspect-[4/3] rounded" />
       <div>
         <span className="text-foreground font-bold text-4xl tracking-tight">+50</span>
         <span className="block text-muted-foreground text-xs uppercase tracking-widest mt-1">
@@ -249,10 +245,8 @@ const MobilePanelOmunga = () => (
 const MobilePanelHoje = () => (
   <MobilePanel label="HOJE">
     <div className="flex flex-col gap-6">
-      <div className="flex gap-3">
-        <Photo src="/image/palestra-roberto.webp" alt="Palestra" className="flex-1 aspect-[4/3] rounded-lg" />
-        <Photo src="/image/capa-do-livro.webp" alt="Livro" className="flex-1 aspect-[3/4] rounded-lg" />
-      </div>
+      <Photo src="/image/palestra-roberto.webp" alt="Palestra" className="w-full aspect-[4/3] rounded-lg" />
+      <Photo src="/image/capa-do-livro.webp" alt="Livro" className="w-full aspect-[3/4] rounded-lg" />
       <div className="text-center">
         <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">Inspirar para agir</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
@@ -260,10 +254,8 @@ const MobilePanelHoje = () => (
           dedicando cada dia a provar que a educação é o caminho.
         </p>
       </div>
-      <div className="flex gap-3">
-        <Photo src="/image/omg-4225.webp" alt="Ação social" className="flex-1 aspect-square rounded" />
-        <Photo src="/image/foto-roberto-09.webp" alt="Roberto atual" className="flex-1 aspect-[4/3] rounded-lg" />
-      </div>
+      <Photo src="/image/omg-4225.webp" alt="Ação social" className="w-full aspect-square rounded" />
+      <Photo src="/image/foto-roberto-09.webp" alt="Roberto atual" className="w-full aspect-[4/3] rounded-lg" />
     </div>
   </MobilePanel>
 );

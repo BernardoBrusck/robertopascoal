@@ -51,7 +51,7 @@ export function ImageGallery() {
                     <AnimatedImage
                       key={`${colIdx}-${index}`}
                       alt={`Gallery image ${colIdx * 5 + index + 1}`}
-                      src={`https://images.unsplash.com/${img.id}?w=800&auto=format&q=75&fit=crop`}
+                      src={img.src}
                       ratio={img.ratio}
                     />
                   ))}

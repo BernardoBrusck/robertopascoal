@@ -26,7 +26,6 @@ function UnifiedSlider() {
   const [prevIndex, setPrevIndex] = useState<number | null>(null);
   const isMobile = useIsMobile();
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const goTo = useCallback((idx: number) => {
     setPrevIndex(current);

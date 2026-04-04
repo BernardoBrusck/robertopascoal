@@ -190,9 +190,9 @@ const ServicesSection = () => {
             <Project key={project.title} index={index} title={project.title} category={project.category} setModal={setModal} onClick={() => setSelectedProject(project)} />
           ))}
           <div className="border-t border-border/40" />
-          <HoverModal modal={modal} projects={projects} />
         </div>
       </div>
+      <HoverModal modal={modal} projects={projects} />
       <AnimatePresence>
         {selectedProject && <DetailModal project={selectedProject} onClose={() => setSelectedProject(null)} />}
       </AnimatePresence>

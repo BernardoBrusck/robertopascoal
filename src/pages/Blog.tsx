@@ -97,6 +97,11 @@ const Blog = () => {
         }
       }
 
+      if (searchQuery.trim()) {
+        const term = `%${searchQuery.trim()}%`;
+        query = query.or(`title.ilike.${term},excerpt.ilike.${term}`);
+      }
+
       const { data, count } = await query.range(from, to);
       setPosts((data as unknown as PostWithCategory[]) || []);
       setTotalCount(count || 0);
@@ -104,7 +109,7 @@ const Blog = () => {
     };
 
     fetchPosts();
-  }, [page, categoriaSlug, categories]);
+  }, [page, categoriaSlug, categories, searchQuery]);
 
   const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
 

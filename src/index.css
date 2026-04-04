@@ -22,7 +22,7 @@
     --secondary-foreground: 220 20% 10%;
 
     --muted: 220 10% 96%;
-    --muted-foreground: 220 10% 45%;
+    --muted-foreground: 220 10% 38%;
 
     --accent: 38 70% 55%;
     --accent-foreground: 220 20% 10%;
@@ -178,14 +178,37 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.25);
   border: none;
-  padding: 0;
+  padding: 18px;
+  margin: -18px;
+  background-clip: content-box;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .slider-dot.active {
   background: #ffffff;
+  background-clip: content-box;
   transform: scale(1.4);
+}
+
+/* Slider text animations */
+@keyframes slideFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-fade-in {
+  animation: slideFadeIn 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.animate-slide-fade-in-delayed {
+  animation: slideFadeIn 1s cubic-bezier(0.25, 0.1, 0.25, 1) 0.15s forwards;
+  opacity: 0;
 }
 
 .slider-dot:hover {

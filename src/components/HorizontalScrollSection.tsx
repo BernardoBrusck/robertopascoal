@@ -223,10 +223,8 @@ const MobilePanelOmunga = () => (
       <h2 className="text-2xl font-medium tracking-tight text-foreground">Criar para transformar</h2>
       <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-12 object-contain" loading="lazy" />
       <Photo src="/image/roberto-pascoal-comunidade-isolada.webp" alt="Amazônia" className="w-full aspect-[16/10] rounded-lg" />
-      <div className="flex gap-3">
-        <Photo src="/image/roberto-pascoal-criancas-indigenas.webp" alt="Crianças indígenas" className="flex-1 aspect-[4/3] rounded" />
-        <Photo src="/image/roberto-pascoal-leitura-indigena.webp" alt="Leitura indígena" className="flex-1 aspect-[4/3] rounded" />
-      </div>
+      <Photo src="/image/roberto-pascoal-criancas-indigenas.webp" alt="Crianças indígenas" className="w-full aspect-[4/3] rounded" />
+      <Photo src="/image/roberto-pascoal-leitura-indigena.webp" alt="Leitura indígena" className="w-full aspect-[4/3] rounded" />
       <div>
         <span className="text-foreground font-bold text-4xl tracking-tight">+50</span>
         <span className="block text-muted-foreground text-xs uppercase tracking-widest mt-1">

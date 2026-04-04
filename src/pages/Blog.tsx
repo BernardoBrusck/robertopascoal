@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
+import { Search } from "lucide-react";
 import { Navbar } from "@/components/ui/navbar";
 import BlogCard from "@/components/blog/BlogCard";
 import { Skeleton } from "@/components/ui/skeleton";

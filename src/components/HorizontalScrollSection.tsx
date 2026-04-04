@@ -211,10 +211,8 @@ const MobilePanelFormacao = () => (
           ferramenta para amplificar sua voz e levar sua mensagem a milhares de pessoas.
         </p>
       </div>
-      <div className="flex gap-3">
-        <Photo src="/image/foto-roberto-04.webp" alt="Formação 1" className="flex-1 aspect-[4/3] rounded" />
-        <Photo src="/image/foto-roberto-05.webp" alt="Formação 2" className="flex-1 aspect-[4/3] rounded" />
-      </div>
+      <Photo src="/image/foto-roberto-04.webp" alt="Formação 1" className="w-full aspect-[4/3] rounded" />
+      <Photo src="/image/foto-roberto-05.webp" alt="Formação 2" className="w-full aspect-[4/3] rounded" />
     </div>
   </MobilePanel>
 );

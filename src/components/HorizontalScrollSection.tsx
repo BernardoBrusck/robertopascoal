@@ -99,21 +99,12 @@ const PanelOmunga = () => (
             {'Criar para\ntransformar'}
           </h2>
         </div>
-        <PhotoPlaceholder
-          label="Foto Amazônia"
-          className="w-[400px] h-[280px] rounded-lg anim-photo"
-        />
+        <Photo src="/image/roberto-pascoal-comunidade-isolada.jpg" alt="Amazônia" className="w-[400px] h-[280px] rounded-lg anim-photo" />
       </div>
       <div className="flex flex-col gap-6 pt-12">
         <div className="flex gap-4">
-          <PhotoPlaceholder
-            label="Foto comunidade 1"
-            className="w-[180px] h-[140px] rounded anim-photo-sm"
-          />
-          <PhotoPlaceholder
-            label="Foto comunidade 2"
-            className="w-[180px] h-[140px] rounded anim-photo-sm"
-          />
+          <Photo src="/image/roberto-pascoal-criancas-indigenas.png" alt="Crianças indígenas" className="w-[180px] h-[140px] rounded anim-photo-sm" />
+          <Photo src="/image/roberto-pascoal-leitura-indigena.png" alt="Leitura indígena" className="w-[180px] h-[140px] rounded anim-photo-sm" />
         </div>
         <div className="anim-counter">
           <span className="text-foreground font-bold text-5xl lg:text-7xl tracking-tight counter-number">

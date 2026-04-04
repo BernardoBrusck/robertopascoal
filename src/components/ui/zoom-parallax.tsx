@@ -7,6 +7,8 @@ import LazyImage from '@/lib/LazyImage';
 interface Image {
   src: string;
   alt?: string;
+  width?: number;
+  height?: number;
 }
 
 interface ZoomParallaxProps {

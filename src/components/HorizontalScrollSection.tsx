@@ -178,19 +178,17 @@ const MobilePanelInfancia = () => (
     <div className="flex flex-col gap-6">
       <div className="flex gap-3">
         <div className="flex-1" style={{ transform: 'rotate(-2deg)' }}>
-          <PhotoPlaceholder label="Foto infância 1" className="w-full aspect-[4/5] rounded" />
+          <Photo src="/image/foto_infancia_upscale_4x.jpg" alt="Infância" className="w-full aspect-[4/5] rounded" />
           <span className="block text-center text-[10px] text-muted-foreground mt-1 tracking-wide">
             Joinville, anos 80
           </span>
         </div>
         <div className="w-2/5 self-end" style={{ transform: 'rotate(1.5deg)' }}>
-          <PhotoPlaceholder label="Foto infância 2" className="w-full aspect-square rounded" />
+          <Photo src="/image/IMG_3580 (1).JPG" alt="Infância 2" className="w-full aspect-square rounded" />
         </div>
       </div>
       <div>
-        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">
-          Onde tudo começou
-        </h2>
+        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">Onde tudo começou</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Nascido no interior do Brasil, Roberto cresceu cercado por histórias e pela
           vontade de transformar o mundo ao seu redor. Desde cedo, a educação foi seu
@@ -204,22 +202,17 @@ const MobilePanelInfancia = () => (
 const MobilePanelFormacao = () => (
   <MobilePanel label="FORMAÇÃO">
     <div className="flex flex-col gap-6">
-      <PhotoPlaceholder
-        label="Foto teatro / palco"
-        className="w-full aspect-[3/4] rounded-lg"
-      />
+      <Photo src="/image/FOTO ROBERTO 07.jpg" alt="Roberto no palco" className="w-full aspect-[3/4] rounded-lg" />
       <div>
-        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">
-          O poder da palavra
-        </h2>
+        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">O poder da palavra</h2>
         <p className="text-sm text-muted-foreground leading-relaxed mb-5">
           Escritor e comunicador por natureza. Encontrou nos livros e nas palestras a
           ferramenta para amplificar sua voz e levar sua mensagem a milhares de pessoas.
         </p>
       </div>
       <div className="flex gap-3">
-        <PhotoPlaceholder label="Foto formação 1" className="flex-1 aspect-[4/3] rounded" />
-        <PhotoPlaceholder label="Foto formação 2" className="flex-1 aspect-[4/3] rounded" />
+        <Photo src="/image/FOTO ROBERTO 04.jpg" alt="Formação 1" className="flex-1 aspect-[4/3] rounded" />
+        <Photo src="/image/FOTO ROBERTO 05.jpg" alt="Formação 2" className="flex-1 aspect-[4/3] rounded" />
       </div>
     </div>
   </MobilePanel>
@@ -228,13 +221,10 @@ const MobilePanelFormacao = () => (
 const MobilePanelOmunga = () => (
   <MobilePanel label="OMUNGA">
     <div className="flex flex-col gap-6">
-      <PhotoPlaceholder
-        label="Foto Amazônia"
-        className="w-full aspect-[16/10] rounded-lg"
-      />
+      <Photo src="/image/roberto-pascoal-comunidade-isolada.jpg" alt="Amazônia" className="w-full aspect-[16/10] rounded-lg" />
       <div className="flex gap-3">
-        <PhotoPlaceholder label="Foto comunidade 1" className="flex-1 aspect-[4/3] rounded" />
-        <PhotoPlaceholder label="Foto comunidade 2" className="flex-1 aspect-[4/3] rounded" />
+        <Photo src="/image/roberto-pascoal-criancas-indigenas.png" alt="Crianças indígenas" className="flex-1 aspect-[4/3] rounded" />
+        <Photo src="/image/roberto-pascoal-leitura-indigena.png" alt="Leitura indígena" className="flex-1 aspect-[4/3] rounded" />
       </div>
       <div>
         <span className="text-foreground font-bold text-4xl tracking-tight">+50</span>
@@ -243,9 +233,7 @@ const MobilePanelOmunga = () => (
         </span>
       </div>
       <div>
-        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">
-          Criar para transformar
-        </h2>
+        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">Criar para transformar</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Fundou o Projeto Omunga com uma missão clara: levar bibliotecas e educação
           para as comunidades mais isoladas da Amazônia.
@@ -259,21 +247,19 @@ const MobilePanelHoje = () => (
   <MobilePanel label="HOJE">
     <div className="flex flex-col gap-6">
       <div className="flex gap-3">
-        <PhotoPlaceholder label="Foto palestra" className="flex-1 aspect-[4/3] rounded-lg" />
-        <PhotoPlaceholder label="Foto livro" className="flex-1 aspect-[3/4] rounded-lg" />
+        <Photo src="/image/B0119027.JPG" alt="Palestra" className="flex-1 aspect-[4/3] rounded-lg" />
+        <Photo src="/image/capa do livro.png" alt="Livro" className="flex-1 aspect-[3/4] rounded-lg" />
       </div>
       <div className="text-center">
-        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">
-          Inspirar para agir
-        </h2>
+        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">Inspirar para agir</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Empreendedor social, palestrante e aspirante a escritor. Roberto continua
           dedicando cada dia a provar que a educação é o caminho.
         </p>
       </div>
       <div className="flex gap-3">
-        <PhotoPlaceholder label="Foto ação social" className="flex-1 aspect-square rounded" />
-        <PhotoPlaceholder label="Foto atual" className="flex-1 aspect-[4/3] rounded-lg" />
+        <Photo src="/image/200229_OMG_4225.jpg" alt="Ação social" className="flex-1 aspect-square rounded" />
+        <Photo src="/image/FOTO ROBERTO 09.jpg" alt="Roberto atual" className="flex-1 aspect-[4/3] rounded-lg" />
       </div>
     </div>
   </MobilePanel>

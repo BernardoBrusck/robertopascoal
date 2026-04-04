@@ -9,24 +9,24 @@ interface FloatingPhoto {
   right?: string;
   rotate: number;
   speed: number;
+  src: string;
+  alt: string;
 }
 
 const leftPhotos: FloatingPhoto[] = [
-  { top: '8%', left: '3%', rotate: -4, speed: -40 },
-  { top: '38%', left: '7%', rotate: 5, speed: -70 },
-  { top: '68%', left: '2%', rotate: -6, speed: -30 },
+  { top: '8%', left: '3%', rotate: -4, speed: -40, src: '/image/Foto de Roberto Pascoal.jpg', alt: 'Roberto Pascoal' },
+  { top: '38%', left: '7%', rotate: 5, speed: -70, src: '/image/Foto de Roberto Pascoal (1).jpg', alt: 'Roberto Pascoal' },
+  { top: '68%', left: '2%', rotate: -6, speed: -30, src: '/image/Foto de Roberto Pascoal (2).jpg', alt: 'Roberto Pascoal' },
 ];
 
 const rightPhotos: FloatingPhoto[] = [
-  { top: '12%', right: '4%', rotate: 5, speed: -55 },
-  { top: '45%', right: '2%', rotate: -3, speed: -80 },
-  { top: '75%', right: '6%', rotate: 4, speed: -25 },
+  { top: '12%', right: '4%', rotate: 5, speed: -55, src: '/image/Foto de Roberto Pascoal (3).jpg', alt: 'Roberto Pascoal' },
+  { top: '45%', right: '2%', rotate: -3, speed: -80, src: '/image/03- Post Documentário.jpg', alt: 'Documentário' },
+  { top: '75%', right: '6%', rotate: 4, speed: -25, src: '/image/roberto-pascoal-professor-africa.jpg', alt: 'Professor na África' },
 ];
 
 const PhotoCard = ({
   photo,
-  index,
-  side,
 }: {
   photo: FloatingPhoto;
   index: number;
@@ -104,21 +104,16 @@ const PhotoCard = ({
           boxShadow: '0 4px 20px -4px rgba(0,0,0,0.12), 0 2px 8px -2px rgba(0,0,0,0.08)',
         }}
       >
-        <div
-          className="w-full flex items-center justify-center"
-          style={{ height: 120, backgroundColor: '#f0eeeb' }}
-        >
-          <div className="flex flex-col items-center gap-1 text-muted-foreground/40">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <rect x="3" y="3" width="18" height="18" rx="2" />
-              <circle cx="8.5" cy="8.5" r="1.5" />
-              <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-            </svg>
-          </div>
-        </div>
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          className="w-full object-cover"
+          style={{ height: 120 }}
+          loading="lazy"
+        />
         <div className="h-[50px] flex items-center justify-center">
-          <span className="text-[9px] text-muted-foreground/40 font-light tracking-wide">
-            foto {side === 'left' ? index + 1 : index + 4}
+          <span className="text-[9px] text-muted-foreground/60 font-light tracking-wide">
+            {photo.alt}
           </span>
         </div>
       </div>
@@ -133,17 +128,12 @@ interface FloatingPhotosSectionProps {
 const FloatingPhotosSection = ({ text }: FloatingPhotosSectionProps) => {
   return (
     <section className="relative w-full overflow-hidden">
-      {/* Left photos */}
       {leftPhotos.map((photo, i) => (
         <PhotoCard key={`left-${i}`} photo={photo} index={i} side="left" />
       ))}
-
-      {/* Right photos */}
       {rightPhotos.map((photo, i) => (
         <PhotoCard key={`right-${i}`} photo={photo} index={i} side="right" />
       ))}
-
-      {/* Center content */}
       <TextRevealBlock text={text} />
     </section>
   );

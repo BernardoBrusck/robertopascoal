@@ -12,22 +12,25 @@ const timelineSteps = [
   { id: 'hoje', label: 'HOJE' },
 ];
 
-/* ─── Placeholder image component ─── */
-const PhotoPlaceholder = ({
-  label,
+/* ─── Photo component ─── */
+const Photo = ({
+  src,
+  alt,
   className = '',
   style = {},
 }: {
-  label: string;
+  src: string;
+  alt: string;
   className?: string;
   style?: React.CSSProperties;
 }) => (
-  <div
-    className={`bg-muted flex items-center justify-center text-muted-foreground text-xs uppercase tracking-widest select-none ${className}`}
+  <img
+    src={src}
+    alt={alt}
+    className={`object-cover ${className}`}
     style={style}
-  >
-    {label}
-  </div>
+    loading="lazy"
+  />
 );
 
 /* ═══════════════════════════════════════════════════════

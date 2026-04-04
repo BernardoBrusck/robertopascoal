@@ -80,21 +80,12 @@ const PanelFormacao = () => (
         ferramenta para amplificar sua voz e levar sua mensagem a milhares de pessoas.
       </p>
       <div className="flex gap-4">
-        <PhotoPlaceholder
-          label="Foto formação 1"
-          className="w-[160px] h-[120px] rounded anim-photo-sm"
-        />
-        <PhotoPlaceholder
-          label="Foto formação 2"
-          className="w-[160px] h-[120px] rounded anim-photo-sm"
-        />
+        <Photo src="/image/FOTO ROBERTO 04.jpg" alt="Formação 1" className="w-[160px] h-[120px] rounded anim-photo-sm" />
+        <Photo src="/image/FOTO ROBERTO 05.jpg" alt="Formação 2" className="w-[160px] h-[120px] rounded anim-photo-sm" />
       </div>
     </div>
     <div className="flex-shrink-0 anim-photo-main">
-      <PhotoPlaceholder
-        label="Foto teatro / palco"
-        className="w-[400px] h-[500px] rounded-lg"
-      />
+      <Photo src="/image/FOTO ROBERTO 07.jpg" alt="Roberto no palco" className="w-[400px] h-[500px] rounded-lg" />
     </div>
   </div>
 );

@@ -185,7 +185,7 @@ const MobilePanelInfancia = () => (
           </span>
         </div>
         <div className="w-2/5 self-end" style={{ transform: 'rotate(1.5deg)' }}>
-          <Photo src="/image/IMG_3580 (1).JPG" alt="Infância 2" className="w-full aspect-square rounded" />
+          <Photo src="/image/roberto-infancia-crianca.png" alt="Infância 2" className="w-full aspect-square rounded" />
         </div>
       </div>
       <div>

@@ -397,11 +397,7 @@ const HorizontalScrollSection = () => {
       });
     };
 
-    const timeout = setTimeout(() => clearInterval(waitForGsap), 15000);
-    return () => {
-      clearInterval(waitForGsap);
-      clearTimeout(timeout);
-    };
+    return () => { cancelled = true; };
   }, [isMobile]);
 
   /* ── Mobile: vertical stack ── */

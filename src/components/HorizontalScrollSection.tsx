@@ -245,10 +245,8 @@ const MobilePanelOmunga = () => (
 const MobilePanelHoje = () => (
   <MobilePanel label="HOJE">
     <div className="flex flex-col gap-6">
-      <div className="flex gap-3">
-        <Photo src="/image/palestra-roberto.webp" alt="Palestra" className="flex-1 aspect-[4/3] rounded-lg" />
-        <Photo src="/image/capa-do-livro.webp" alt="Livro" className="flex-1 aspect-[3/4] rounded-lg" />
-      </div>
+      <Photo src="/image/palestra-roberto.webp" alt="Palestra" className="w-full aspect-[4/3] rounded-lg" />
+      <Photo src="/image/capa-do-livro.webp" alt="Livro" className="w-full aspect-[3/4] rounded-lg" />
       <div className="text-center">
         <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">Inspirar para agir</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
@@ -256,10 +254,8 @@ const MobilePanelHoje = () => (
           dedicando cada dia a provar que a educação é o caminho.
         </p>
       </div>
-      <div className="flex gap-3">
-        <Photo src="/image/omg-4225.webp" alt="Ação social" className="flex-1 aspect-square rounded" />
-        <Photo src="/image/foto-roberto-09.webp" alt="Roberto atual" className="flex-1 aspect-[4/3] rounded-lg" />
-      </div>
+      <Photo src="/image/omg-4225.webp" alt="Ação social" className="w-full aspect-square rounded" />
+      <Photo src="/image/foto-roberto-09.webp" alt="Roberto atual" className="w-full aspect-[4/3] rounded-lg" />
     </div>
   </MobilePanel>
 );

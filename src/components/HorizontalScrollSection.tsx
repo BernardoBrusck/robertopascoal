@@ -95,10 +95,10 @@ const PanelOmunga = () => (
     <div className="flex items-start gap-16">
       <div className="flex flex-col gap-6 anim-text">
         <div>
-          <img src="/image/omunga-logo.webp" alt="Logo Omunga" className="h-10 md:h-12 mb-4 object-contain" loading="lazy" />
           <h2 className="h-panel-title whitespace-pre-line text-foreground">
             {'Criar para\ntransformar'}
           </h2>
+          <img src="/image/omunga-logo.webp" alt="Logo Omunga" className="h-16 md:h-20 mt-5 object-contain" loading="lazy" />
         </div>
         <Photo src="/image/roberto-pascoal-comunidade-isolada.webp" alt="Amazônia" className="w-[400px] h-[280px] rounded-lg anim-photo" />
       </div>
@@ -222,7 +222,8 @@ const MobilePanelFormacao = () => (
 const MobilePanelOmunga = () => (
   <MobilePanel label="OMUNGA">
     <div className="flex flex-col gap-6">
-      <img src="/image/omunga-logo.webp" alt="Logo Omunga" className="h-8 mb-3 object-contain" loading="lazy" />
+      <h2 className="text-2xl font-medium tracking-tight text-foreground">Criar para transformar</h2>
+      <img src="/image/omunga-logo.webp" alt="Logo Omunga" className="h-12 object-contain" loading="lazy" />
       <Photo src="/image/roberto-pascoal-comunidade-isolada.webp" alt="Amazônia" className="w-full aspect-[16/10] rounded-lg" />
       <div className="flex gap-3">
         <Photo src="/image/roberto-pascoal-criancas-indigenas.webp" alt="Crianças indígenas" className="flex-1 aspect-[4/3] rounded" />

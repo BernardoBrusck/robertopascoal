@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { motion, useInView } from 'framer-motion';
-
-declare const gsap: any;
+import { loadGsapWithScrollTrigger } from '@/lib/loadGsap';
 
 /* ─── Panel Data ─── */
 const timelineSteps = [

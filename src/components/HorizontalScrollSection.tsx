@@ -95,6 +95,7 @@ const PanelOmunga = () => (
     <div className="flex items-start gap-16">
       <div className="flex flex-col gap-6 anim-text">
         <div>
+          <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-10 md:h-12 mb-4 object-contain" loading="lazy" />
           <h2 className="h-panel-title whitespace-pre-line text-foreground">
             {'Criar para\ntransformar'}
           </h2>

@@ -1,148 +1,136 @@
 
 
-# Plano: Otimização Completa de Performance, Acessibilidade e SEO
+# Plano: Otimização Completa de Performance e Acessibilidade (Lighthouse 13)
 
-## Visão geral
+## Estado atual
 
-12 itens do relatório Lighthouse serão implementados em 5 blocos de trabalho. O foco principal é eliminar Three.js/GSAP via CDN, migrar GSAP para npm, recomprimir imagens, e corrigir acessibilidade.
-
----
-
-## Bloco 1 — Eliminar Three.js do desktop slider
-
-**Problema**: Three.js (~600KB) é carregado via CDN apenas para um efeito de transição "glass" entre slides. Gera 4.6s de trabalho de thread principal.
-
-**Solução**: Substituir o `DesktopSlider` por uma versão CSS pura com transição de fade + scale sutil (igual ao `MobileSlider` mas com animações mais ricas via CSS keyframes). Remover completamente a referência a Three.js.
-
-**Arquivo**: `src/components/ui/lumina-interactive-list.tsx`
-- Remover o componente `DesktopSlider` inteiro (que usa Three.js + canvas WebGL)
-- Unificar desktop e mobile num único componente slider com transições CSS
-- Manter auto-slide de 3.5s, navegação por dots, texto animado via CSS
-- A primeira imagem terá `fetchPriority="high"` e `loading="eager"`
-
-**Impacto**: -600KB JS, TBT reduzido drasticamente
+Muitas otimizações já foram aplicadas: Three.js removido, GSAP migrado para npm, lazy loading de seções, touch targets nos dots/sociais, `lang="pt-BR"`, favicon SVG. O que resta:
 
 ---
 
-## Bloco 2 — Migrar GSAP para npm + eliminar CDN
+## Problema 1 — Preload aponta para imagem errada
 
-**Problema**: GSAP + ScrollTrigger carregados via CDN externo em `loadGsap.ts` e duplicados no slider. Sem tree-shaking, requests extras.
+O slides array começa com `slide06` (index 0), mas o preload no `index.html` aponta para `slide-06-omunga.webp`. Como index 0 já tem `fetchPriority="high"`, o preload está correto para a imagem exibida primeiro. **Porém**, o preload path usa `/src/assets/hero/slide-06-omunga.webp` que é um path de source, não de build — em produção o Vite faz hash do asset.
 
-**Solução**:
-- Instalar `gsap` via npm
-- Reescrever `src/lib/loadGsap.ts` para exportar gsap/ScrollTrigger via import direto (sem script injection)
-- Atualizar todos os componentes que usam `declare const gsap: any` + `waitForGsap`:
-  - `src/components/BookSection.tsx`
-  - `src/components/ServicesSection.tsx`
-  - `src/components/SpeakingSection.tsx`
-  - `src/components/TestimonialsSection.tsx`
-  - `src/components/TextRevealSection.tsx`
-  - `src/components/TextRevealBlock.tsx`
-  - `src/components/FloatingPhotosSection.tsx`
-  - `src/components/HorizontalScrollSection.tsx`
-
-Cada componente passará de `waitForGsap` polling para import direto:
-```typescript
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
-```
-
-**Impacto**: Elimina 3 requests CDN, habilita tree-shaking, code splitting automático pelo Vite
+### Correção
+- **`index.html`**: Remover o `<link rel="preload">` com path de source (não funciona em produção). O Vite transforma imports de assets automaticamente — o `fetchPriority="high"` no `<img>` do componente já é suficiente.
+- **`lumina-interactive-list.tsx`**: Confirmar que o slide index 0 (que é `slide06`) tem `fetchPriority="high"` e `loading="eager"` — já está correto. Atualizar `width`/`height` para `1920`/`1080`.
 
 ---
 
-## Bloco 3 — Otimização de imagens
+## Problema 2 — 37 imagens sem width/height
 
-### 3a. Recomprimir imagens pesadas
-Imagens acima de 150KB serão recomprimidas via ImageMagick (quality 75, max 1200px):
-- `roberto-pascoal-retrato-2.webp` (349KB)
-- `roberto-pascoal-leitura-indigena.webp` (188KB)
-- `roberto-pascoal-retrato.webp` (178KB)
-- `roberto-pascoal-criancas-indigenas.webp` (166KB)
-- `img-3580.webp` (166KB)
-- `gemini-1.webp` (163KB)
-- `tatuagem-concha-caminho.webp` (143KB) — se usada
-- Hero slides: `slide-01-caminho.webp` (257KB), `slide-04-roraima.webp` (171KB), `slide-06-omunga.webp` (164KB)
-- Remover arquivos originais não-webp dos hero slides (.jpg, .png, .jpeg) — ~13MB de economia
+### Arquivos e mudanças
 
-### 3b. Adicionar `width` e `height` em todas as imagens
-- Atualizar `LazyImage` para aceitar e passar `width`/`height`
-- Adicionar dimensões em todos os `<img>` e `<Photo>` nos componentes
+**`src/components/HorizontalScrollSection.tsx`** — Componente `Photo`:
+- Adicionar props `width` e `height` ao componente `Photo`
+- Adicionar atributos em cada uso: Infância, Formação, Omunga, Hoje (desktop e mobile)
+- ~25 imagens neste componente
 
-### 3c. Hero LCP
-- Primeira imagem do slider com `fetchPriority="high"` + `loading="eager"`
-- Preload no `index.html` já existe para `slide-06-omunga.webp` — manter
+**`src/components/ui/image-gallery.tsx`** — `AnimatedImage`:
+- Adicionar `width`/`height` ao `<img>` dentro de `AnimatedImage` (ex: `width={800} height={600}` para landscape, `width={600} height={1067}` para portrait baseado no ratio)
+
+**`src/components/ui/zoom-parallax.tsx`** — `LazyImage`:
+- O `LazyImage` já aceita width/height via spread props — adicionar em cada uso no `ZoomParallaxSection.tsx` ou diretamente no componente
+
+**`src/components/ui/lumina-interactive-list.tsx`**: Atualizar para `width={1920} height={1080}`
 
 ---
 
-## Bloco 4 — Animações compostas + Lazy loading de seções
+## Problema 3 — Imagens ainda pesadas
 
-### 4a. Corrigir animações não compostas
-Auditar todas as animações GSAP e verificar que usam `x`, `y`, `scale`, `opacity` em vez de `left`, `top`, `width`, `height`. Principais pontos:
-- `ServicesSection.tsx` — `HoverModal` usa `gsap.quickTo` com `left` e `top` → mudar para `x` e `y`
-- `BookSection.tsx` — usa `x` e `y` corretamente ✅
-- `HorizontalScrollSection.tsx` — usa `x`, `y`, `scale`, `opacity` ✅
-- `TestimonialsSection.tsx` — usa `x` ✅
+### Recomprimir imagens >100KB
+Script bash com ImageMagick para recomprimir para quality 70, max 1200px:
+- `roberto-pascoal-retrato-2.webp` (333KB)
+- `roberto-pascoal-retrato.webp` (170KB)
+- `roberto-pascoal-projetos-africa.webp` (144KB)
+- `roberto-pascoal-professor-africa.webp` (144KB)
+- `palestra-roberto.webp` (143KB)
+- `tatuagem-concha-caminho.webp` (142KB)
+- `capa-do-livro.webp` (140KB)
+- `africa-max-schwoelk.webp` (135KB)
+- `roberto-pascoal-explorador.webp` (133KB)
+- `gemini-2.webp` (132KB)
+- `roberto-pascoal-hero-montanha.webp` (131KB)
+- `roberto-pascoal-retrato-1.webp` (130KB)
+- `insta-3.webp` (129KB)
+- `roberto-pascoal-comunidade-isolada.webp` (119KB)
+- `post-documentario.webp` (114KB)
+- `gemini-3.webp` (111KB)
+- Hero slides: `slide-02-concha.webp` (146KB), `slide-05-indigena.webp` (153KB), `slide-03-amazonia.webp` (132KB)
 
-### 4b. Lazy load de seções abaixo da dobra
-No `Index.tsx`, lazy-load componentes pesados:
-```tsx
-const TestimonialsSection = lazy(() => import('./components/TestimonialsSection'));
-const BookSection = lazy(() => import('./components/BookSection'));
-const ServicesSection = lazy(() => import('./components/ServicesSection'));
-```
+Target: <100KB cada
 
 ---
 
-## Bloco 5 — Acessibilidade + CSS cleanup
+## Problema 4 — JavaScript não usado (144KB)
 
-### 5a. Contraste de cores
-- Labels de categoria (`text-muted-foreground`) — verificar que `--muted-foreground: 220 10% 45%` atinge 4.5:1 sobre branco (HSL 220 10% 45% ≈ #6b7280 → contraste ~4.6:1, borderline)
-- Ajustar para `--muted-foreground: 220 10% 40%` se necessário
+### Ações
+- **`src/pages/Index.tsx`**: Adicionar lazy loading para `ImageGallery`, `ZoomParallaxSection`, `TextRevealBlock`, `HorizontalScrollSection` e `ContactFooter` — estes ainda estão no bundle principal
+- **`vite.config.ts`**: Adicionar `manualChunks` para separar `gsap` e `framer-motion` em vendor chunks
 
-### 5b. Áreas de toque mobile (44×44px)
-- Dots do slider: atualmente 8×8px → adicionar padding para 44×44px área
-- Ícones sociais no footer → `min-w-[44px] min-h-[44px] p-3`
-- Botão Toggle menu → já tem `p-2` (32px), aumentar para `p-3`
+---
 
-### 5c. Tailwind content config
-- Verificar que `tailwind.config.ts` content inclui `"./index.html"` — atualmente não inclui, adicionar
+## Problema 5 — CSS não usado (10KB)
 
-### 5d. Remover `src/App.css`
-- Contém CSS padrão do Vite template (`.logo`, `.card`, etc.) que não é usado
+O `tailwind.config.ts` content já inclui `"./index.html"`. Verificar se algum CSS extra está importado desnecessariamente. Remover a classe `.webgl-canvas` do `index.css` (Three.js removido).
+
+---
+
+## Problema 6 — Render blocking (300ms)
+
+- **`vite.config.ts`**: Adicionar `modulePreload: { polyfill: true }` e `manualChunks` para vendor splitting
+
+---
+
+## Problema 7 — Animações não compostas (23-26 elementos)
+
+### Correções
+- **`ServicesSection.tsx` L105**: `transition-[top]` com `style={{ top: ... }}` → substituir por `transform: translateY()` com `transition-transform`
+- **`image-gallery.tsx` L44**: `transition-[max-height]` — manter, pois é necessário para o expand/collapse
+- **`LoadingScreen.tsx` L75**: `transition: "width"` na barra de progresso → manter (progresso visual)
+- **`ServicesSection.tsx` L53,55**: `transition-all` nos Project items — restringir para `transition-[opacity,transform]`
+- **`index.css`**: Verificar keyframes — `slideFadeIn` já usa `transform` ✅
+
+---
+
+## Problema 8 — Google Analytics
+
+Adicionar placeholder GA4 no `index.html` com ID `G-XXXXXXXXXX` e instruir o usuário a substituir pelo ID real. Adicionar event tracking nos CTAs do `BookSection` e `SpeakingSection`.
+
+---
+
+## Problema 9 — Contraste de cores
+
+- `--muted-foreground: 220 10% 38%` → verificar contraste. HSL(220, 10%, 38%) ≈ #575d65, contraste ~5.2:1 sobre branco — OK
+- Verificar textos sobre imagens no slider: já usa `rgba(255,255,255,0.55)` sobre gradiente escuro — OK
+- Labels uppercase nas seções: usam `text-muted-foreground` — OK com o valor ajustado
+
+---
+
+## Problema 10 — Áreas de toque
+
+- Slider dots: já têm `min-width: 44px; min-height: 44px` ✅
+- Social icons no footer: já têm `p-3 min-w-[44px] min-h-[44px]` ✅
+- Verificar WhatsApp link no `SpeakingSection`: já tem `min-h-[44px]` ✅
+- Botão close do `DetailModal` em `ServicesSection`: é um `<button>` pequeno sem padding — adicionar `p-2 min-w-[44px] min-h-[44px]`
 
 ---
 
 ## Arquivos afetados
 
-| Arquivo | Ação |
-|---------|------|
-| `package.json` | Adicionar `gsap` como dependência |
-| `src/lib/loadGsap.ts` | Reescrever com import npm |
-| `src/components/ui/lumina-interactive-list.tsx` | Remover Three.js, unificar slider CSS |
-| `src/components/BookSection.tsx` | Migrar para import gsap npm |
-| `src/components/ServicesSection.tsx` | Migrar + corrigir `left/top` → `x/y` |
-| `src/components/SpeakingSection.tsx` | Migrar para import gsap npm |
-| `src/components/TestimonialsSection.tsx` | Migrar para import gsap npm |
-| `src/components/TextRevealSection.tsx` | Já usa loadGsap, simplificar |
-| `src/components/TextRevealBlock.tsx` | Já usa loadGsap, simplificar |
-| `src/components/FloatingPhotosSection.tsx` | Já usa loadGsap, simplificar |
-| `src/components/HorizontalScrollSection.tsx` | Já usa loadGsap, simplificar |
-| `src/components/ContactFooter.tsx` | Touch targets nos sociais |
-| `src/components/ui/navbar.tsx` | Touch target no menu button |
-| `src/lib/LazyImage.tsx` | Suporte a width/height |
-| `src/pages/Index.tsx` | Lazy load de seções |
-| `src/index.css` | Ajustar slider-dot touch area, muted-foreground |
-| `tailwind.config.ts` | Adicionar `"./index.html"` ao content |
-| `src/App.css` | Deletar |
-| `src/assets/hero/*.jpg,*.png,*.jpeg` | Deletar originais não-webp |
-| `public/image/` | Recomprimir imagens >150KB |
-
-## Resultado esperado
-- Performance Desktop: 83 → 95+
-- Performance Mobile: 88 → 92+
-- TBT: Redução massiva com remoção de Three.js
-- Payload: ~4.5MB → ~1.5MB
-- Acessibilidade: 86 → 95+
+| Arquivo | Mudanças |
+|---------|----------|
+| `index.html` | Remover preload errado, adicionar GA4 placeholder |
+| `src/components/ui/lumina-interactive-list.tsx` | width/height 1920x1080 |
+| `src/components/HorizontalScrollSection.tsx` | width/height em todas as Photos |
+| `src/components/ui/image-gallery.tsx` | width/height no AnimatedImage |
+| `src/components/ui/zoom-parallax.tsx` | width/height no LazyImage |
+| `src/components/ZoomParallaxSection.tsx` | Adicionar width/height nos image objects |
+| `src/components/ServicesSection.tsx` | Corrigir animações não compostas (top→translateY), touch target no close button |
+| `src/pages/Index.tsx` | Lazy load de mais componentes |
+| `src/index.css` | Remover `.webgl-canvas` |
+| `vite.config.ts` | manualChunks para vendor splitting |
+| `public/image/` | Recomprimir ~19 imagens >100KB |
+| `src/assets/hero/` | Recomprimir 3 slides >100KB |
 

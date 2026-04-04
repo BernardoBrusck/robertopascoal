@@ -21,10 +21,9 @@ const CONTACT = {
 };
 
 const SOCIALS = [
-  { icon: Instagram, href: 'https://instagram.com/robertopascoal', label: 'Instagram Roberto' },
-  { icon: Instagram, href: 'https://instagram.com/omunga', label: 'Instagram Omunga' },
-  { icon: Globe, href: 'https://omunga.com.br', label: 'omunga.com.br' },
-  { icon: Linkedin, href: 'https://linkedin.com/in/robertopascoal', label: 'LinkedIn' },
+  { icon: Instagram, href: 'https://www.instagram.com/roberto_pascoal/', label: 'Instagram Roberto' },
+  { icon: Instagram, href: 'https://www.instagram.com/omunga_oficial/', label: 'Instagram Omunga' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/omunga/', label: 'LinkedIn Omunga' },
 ];
 
 function CopyButton({ text, className, ...props }: ButtonProps & { text: string }) {

@@ -1,28 +1,25 @@
 
 
-# Plano: Corrigir ZoomParallax no mobile
+# Plano: Restaurar efeito Zoom Parallax no mobile
 
 ## Problema
 
-A seção ZoomParallax usa posições em `vw/vh` projetadas para desktop. No viewport mobile (390px), as 7 imagens se sobrepõem de forma caótica, causando overflow e layout quebrado.
+O efeito de zoom parallax foi removido no mobile e substituído por imagens empilhadas simples. O usuário quer o efeito de volta — só a timeline (HorizontalScrollSection) deveria ter sido ajustada, não o ZoomParallax.
 
 ## Solução
 
-Tornar o `ZoomParallax` responsivo: no mobile, esconder o efeito de zoom e exibir uma grade simples de imagens empilhadas. No desktop, manter o comportamento atual.
+Remover o early return mobile do `zoom-parallax.tsx` e manter o efeito parallax em todas as telas. Ajustar os tamanhos das imagens para mobile para que caibam sem overflow.
 
 ## Alterações
 
 ### `src/components/ui/zoom-parallax.tsx`
 
-- Usar o hook `useIsMobile()` para detectar tela pequena
-- **Mobile**: renderizar um grid simples (1 coluna, gap entre imagens, sem parallax/scale)
-- **Desktop**: manter o comportamento atual com sticky + scale transforms
+- Remover o bloco `if (isMobile) { return ... }` (linhas 33-47)
+- Remover import do `useIsMobile`
+- Ajustar os tamanhos das imagens com classes responsivas para que no mobile usem proporções maiores (ex: `h-[40vh] w-[60vw]` para a imagem central, e proporções ajustadas para as demais) evitando overflow
+- Manter `overflow-hidden` no container sticky para prevenir overflow-x
 
-### `src/components/ZoomParallaxSection.tsx`
+### Resultado
 
-- Nenhuma alteração necessária (já passa as imagens corretamente)
-
-## Resultado
-
-No mobile, as imagens aparecem em uma coluna vertical limpa, sem sobreposição. No desktop, o efeito de zoom parallax continua funcionando normalmente.
+O efeito de zoom parallax volta a funcionar no mobile como antes, com as imagens escalando conforme o scroll.
 

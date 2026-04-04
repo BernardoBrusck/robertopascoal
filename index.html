@@ -10,14 +10,6 @@
     <link rel="canonical" href="https://robertopascoal.brusck.com" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-    <!-- GA4 Analytics — substituir G-XXXXXXXXXX pelo ID real -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -75,5 +67,14 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- GA4 Analytics — substituir G-XXXXXXXXXX pelo ID real -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
   </body>
 </html>

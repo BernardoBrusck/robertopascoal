@@ -64,8 +64,9 @@ const BookSection = () => {
               width={360}
               height={540}
               style={{ boxShadow: '0 0 0 1px rgba(0,0,0,0.06)' }}
-            loading="lazy"
-          />
+              loading="lazy"
+            />
+          </div>
         </div>
         <div className="book-text flex flex-col gap-8" style={{ width: isMobile ? '100%' : '55%' }}>
           

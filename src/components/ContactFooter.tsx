@@ -14,11 +14,9 @@ import {
 import { Button, type ButtonProps } from '@/components/ui/button';
 
 const CONTACT = {
-  email: 'contato@robertopascoal.com.br',
-  whatsapp: '+5547999999999',
-  whatsappDisplay: '+55 47 99999-9999',
-  phone: '+5547999999999',
-  phoneDisplay: '+55 47 99999-9999',
+  email: 'roberto.pascoal@omunga.com',
+  whatsapp: '+554789054401',
+  whatsappDisplay: '+55 47 8905-4401',
   location: 'Joinville, SC — Brasil',
 };
 

@@ -279,7 +279,7 @@ const HorizontalScrollSection = () => {
       initAnimation(gsap);
     });
 
-    const initAnimation = () => {
+    const initAnimation = (gsap: any) => {
       if (!sectionRef.current || !containerRef.current) return;
       const container = containerRef.current;
 

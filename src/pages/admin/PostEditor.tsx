@@ -256,6 +256,22 @@ const PostEditor = () => {
             placeholder="Título do artigo"
             className="w-full text-3xl md:text-4xl font-bold tracking-[-0.04em] text-foreground bg-transparent border-none outline-none placeholder:text-muted-foreground/40 mb-6"
           />
+          {/* Custom block insert toolbar */}
+          <div className="flex items-center gap-1 mb-4 pb-3 border-b border-border">
+            <span className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground mr-2">Inserir:</span>
+            <Button variant="ghost" size="sm" className="gap-1.5 text-xs h-7" onClick={() => insertGalleryBlock(editor)}>
+              <ImagePlus size={14} />
+              Galeria
+            </Button>
+            <Button variant="ghost" size="sm" className="gap-1.5 text-xs h-7" onClick={() => insertVideoBlock(editor)}>
+              <Film size={14} />
+              Vídeo
+            </Button>
+            <Button variant="ghost" size="sm" className="gap-1.5 text-xs h-7" onClick={() => insertCalloutBlock(editor)}>
+              <AlertCircle size={14} />
+              Aviso
+            </Button>
+          </div>
           <div className="min-h-[400px]">
             <BlockNoteView editor={editor} theme="light" />
           </div>

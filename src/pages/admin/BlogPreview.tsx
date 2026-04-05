@@ -54,7 +54,7 @@ const BlogPreview = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       {/* Preview banner */}
-      <div className="fixed top-0 left-0 right-0 z-[60] bg-yellow-500 text-yellow-950 text-center text-xs py-1 font-medium">
+      <div className="fixed top-0 left-0 right-0 z-[60] bg-accent text-accent-foreground text-center text-xs py-1 font-medium">
         Pré-visualização — Este post ainda não está publicado
       </div>
       <article className="pt-32 pb-20 px-6 md:px-10 max-w-3xl mx-auto">

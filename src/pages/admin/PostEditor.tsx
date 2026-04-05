@@ -46,6 +46,7 @@ const PostEditor = () => {
   const [saving, setSaving] = useState(false);
   const [initialContent, setInitialContent] = useState<any>(undefined);
   const [loaded, setLoaded] = useState(!isEditing);
+  const [showChecklist, setShowChecklist] = useState(false);
 
   // Autosave state
   const [lastSaved, setLastSaved] = useState<Date | null>(null);

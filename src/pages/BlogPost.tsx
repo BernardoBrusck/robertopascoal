@@ -57,7 +57,7 @@ const BlogPost = () => {
       "@type": "Article",
       "headline": post.seo_title || post.title,
       "description": post.meta_description || post.excerpt || "",
-      "image": post.cover_image || undefined,
+      "image": post.og_image || post.cover_image || undefined,
       "datePublished": post.published_at || undefined,
       "dateModified": post.updated_at,
       "author": {

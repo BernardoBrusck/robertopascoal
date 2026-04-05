@@ -23,6 +23,10 @@ interface Post {
   cover_image: string | null;
   published_at: string | null;
   updated_at: string;
+  seo_title: string | null;
+  meta_description: string | null;
+  og_image: string | null;
+  canonical_url: string | null;
   categories: { name: string; slug: string } | null;
   post_tags?: { tags: Tag | null }[];
 }

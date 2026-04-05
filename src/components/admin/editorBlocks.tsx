@@ -119,6 +119,27 @@ const GalleryBlock = createReactBlockSpec(
             <Plus size={14} />
             Adicionar imagens
           </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-1.5 text-xs w-full"
+            onClick={() => setPickerOpen(true)}
+          >
+            <FolderOpen size={14} />
+            Escolher da biblioteca
+          </Button>
+          <MediaPickerModal
+            open={pickerOpen}
+            onOpenChange={setPickerOpen}
+            multiple
+            onSelect={(items) => {
+              const newImages = [...images];
+              items.forEach((item) => {
+                newImages.push({ src: item.url, alt: item.alt_text || "", caption: "" });
+              });
+              updateImages(newImages);
+            }}
+          />
         </div>
       );
     },

@@ -170,11 +170,21 @@ const PostEditorSidebar = (props: PostEditorSidebarProps) => {
               </button>
             </div>
           ) : (
-            <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-border rounded-md p-6 cursor-pointer hover:border-muted-foreground/50 transition-colors">
-              <Upload size={20} className="text-muted-foreground" />
-              <span className="text-xs text-muted-foreground">Clique ou arraste</span>
-              <input type="file" accept="image/*" onChange={props.onCoverUpload} className="hidden" />
-            </label>
+            <div className="space-y-2">
+              <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-border rounded-md p-6 cursor-pointer hover:border-muted-foreground/50 transition-colors">
+                <Upload size={20} className="text-muted-foreground" />
+                <span className="text-xs text-muted-foreground">Clique ou arraste</span>
+                <input type="file" accept="image/*" onChange={props.onCoverUpload} className="hidden" />
+              </label>
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full text-xs"
+                onClick={() => setMediaPickerOpen(true)}
+              >
+                Escolher da biblioteca
+              </Button>
+            </div>
           )}
           <div className="space-y-1.5">
             <Label className="text-xs">Alt text</Label>
@@ -185,6 +195,16 @@ const PostEditorSidebar = (props: PostEditorSidebarProps) => {
               className="h-9 text-sm"
             />
           </div>
+          <MediaPickerModal
+            open={mediaPickerOpen}
+            onOpenChange={setMediaPickerOpen}
+            onSelect={(items) => {
+              if (items.length > 0) {
+                props.setCoverImage(items[0].url);
+                if (items[0].alt_text) props.setCoverAlt(items[0].alt_text);
+              }
+            }}
+          />
         </CollapsibleContent>
       </Collapsible>
 

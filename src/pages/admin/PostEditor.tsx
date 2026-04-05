@@ -257,17 +257,7 @@ const PostEditor = () => {
             className="w-full text-3xl md:text-4xl font-bold tracking-[-0.04em] text-foreground bg-transparent border-none outline-none placeholder:text-muted-foreground/40 mb-6"
           />
           <div className="min-h-[400px]">
-            <BlockNoteView editor={editor} theme="light" slashMenu={false}>
-              <SuggestionMenuController
-                triggerCharacter="/"
-                getItems={async (query) =>
-                  filterSuggestionItems(
-                    [...getDefaultSlashMenuItems(editor), ...customSlashMenuItems],
-                    query
-                  )
-                }
-              />
-            </BlockNoteView>
+            <BlockNoteView editor={editor} theme="light" />
           </div>
         </div>
       </div>

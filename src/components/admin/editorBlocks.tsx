@@ -4,7 +4,8 @@ import { useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ImagePlus, Film, Plus, X, Columns2, Columns3, Youtube, Upload, AlertCircle } from "lucide-react";
+import { ImagePlus, Film, Plus, X, Columns2, Columns3, Youtube, Upload, AlertCircle, FolderOpen } from "lucide-react";
+import MediaPickerModal from "@/components/admin/MediaPickerModal";
 
 // ==================== GALLERY BLOCK ====================
 

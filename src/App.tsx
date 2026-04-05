@@ -20,6 +20,8 @@ const PostEditor = lazy(() => import("./pages/admin/PostEditor"));
 const Categories = lazy(() => import("./pages/admin/Categories"));
 const Media = lazy(() => import("./pages/admin/Media"));
 const Leads = lazy(() => import("./pages/admin/Leads"));
+const Tags = lazy(() => import("./pages/admin/Tags"));
+const BlogPreview = lazy(() => import("./pages/admin/BlogPreview"));
 
 const queryClient = new QueryClient();
 
@@ -53,6 +55,11 @@ const App = () => {
               <Route path="/" element={<HomeWithLoading />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/blog/preview/:id" element={
+                <ProtectedRoute>
+                  <Suspense fallback={<AdminFallback />}><BlogPreview /></Suspense>
+                </ProtectedRoute>
+              } />
               <Route path="/admin/login" element={<Login />} />
               <Route
                 path="/admin"
@@ -69,6 +76,7 @@ const App = () => {
                 <Route path="posts/new" element={<Suspense fallback={<AdminFallback />}><PostEditor /></Suspense>} />
                 <Route path="posts/:id/edit" element={<Suspense fallback={<AdminFallback />}><PostEditor /></Suspense>} />
                 <Route path="categories" element={<Suspense fallback={<AdminFallback />}><Categories /></Suspense>} />
+                <Route path="tags" element={<Suspense fallback={<AdminFallback />}><Tags /></Suspense>} />
                 <Route path="media" element={<Suspense fallback={<AdminFallback />}><Media /></Suspense>} />
                 <Route path="leads" element={<Suspense fallback={<AdminFallback />}><Leads /></Suspense>} />
               </Route>

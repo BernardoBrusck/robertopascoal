@@ -9,6 +9,7 @@ import "@blocknote/shadcn/style.css";
 import { customSchema, insertGalleryBlock, insertVideoBlock, insertCalloutBlock } from "@/components/admin/editorBlocks";
 import { Save, ArrowLeft, Eye, ImagePlus, Film, AlertCircle } from "lucide-react";
 import PostEditorSidebar from "@/components/admin/PostEditorSidebar";
+import PublishChecklist from "@/components/admin/PublishChecklist";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
@@ -45,6 +46,7 @@ const PostEditor = () => {
   const [saving, setSaving] = useState(false);
   const [initialContent, setInitialContent] = useState<any>(undefined);
   const [loaded, setLoaded] = useState(!isEditing);
+  const [showChecklist, setShowChecklist] = useState(false);
 
   // Autosave state
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
@@ -243,7 +245,14 @@ const PostEditor = () => {
               <Save size={14} />
               {saving ? "Salvando..." : "Salvar rascunho"}
             </Button>
-            <Button size="sm" className="text-xs" onClick={() => handleSave(true)} disabled={saving}>
+            <Button size="sm" className="text-xs" onClick={() => {
+              const allGood = !!coverImage && !!categoryId && !!excerpt.trim() && !!seoTitle.trim() && !!metaDescription.trim();
+              if (allGood || status === "published") {
+                handleSave(true);
+              } else {
+                setShowChecklist(true);
+              }
+            }} disabled={saving}>
               {saving ? "Publicando..." : "Publicar"}
             </Button>
           </div>
@@ -307,6 +316,17 @@ const PostEditor = () => {
         setOgImage={setOgImage}
         canonicalUrl={canonicalUrl}
         setCanonicalUrl={setCanonicalUrl}
+      />
+
+      <PublishChecklist
+        open={showChecklist}
+        onOpenChange={setShowChecklist}
+        onPublish={() => handleSave(true)}
+        coverImage={coverImage}
+        categoryId={categoryId}
+        excerpt={excerpt}
+        seoTitle={seoTitle}
+        metaDescription={metaDescription}
       />
     </div>
   );

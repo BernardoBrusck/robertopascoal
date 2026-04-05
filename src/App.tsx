@@ -20,6 +20,8 @@ const PostEditor = lazy(() => import("./pages/admin/PostEditor"));
 const Categories = lazy(() => import("./pages/admin/Categories"));
 const Media = lazy(() => import("./pages/admin/Media"));
 const Leads = lazy(() => import("./pages/admin/Leads"));
+const Tags = lazy(() => import("./pages/admin/Tags"));
+const BlogPreview = lazy(() => import("./pages/admin/BlogPreview"));
 
 const queryClient = new QueryClient();
 

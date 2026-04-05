@@ -111,10 +111,10 @@ const BlogPost = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <SeoHead
-        title={`${post.title} — Roberto Pascoal`}
-        description={post.excerpt || `Leia "${post.title}" no blog de Roberto Pascoal.`}
+        title={`${post.seo_title || post.title} — Roberto Pascoal`}
+        description={post.meta_description || post.excerpt || `Leia "${post.title}" no blog de Roberto Pascoal.`}
         url={`https://robertopascoal.lovable.app/blog/${post.slug}`}
-        image={post.cover_image}
+        image={post.og_image || post.cover_image}
         type="article"
         jsonLd={jsonLd}
       />

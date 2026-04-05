@@ -37,6 +37,7 @@ interface PostEditorSidebarProps {
   publishedAt: string;
   setPublishedAt: (s: string) => void;
   coverImage: string;
+  setCoverImage: (s: string) => void;
   onCoverUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCoverRemove: () => void;
   coverAlt: string;

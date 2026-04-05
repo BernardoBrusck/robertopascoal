@@ -310,7 +310,7 @@ const PostEditorSidebar = (props: PostEditorSidebarProps) => {
           {/* Google preview */}
           <div className="rounded-md border border-border p-3 space-y-1 bg-muted/30">
             <p className="text-[11px] text-muted-foreground truncate">robertopascoal.lovable.app › blog › {props.slug || "..."}</p>
-            <p className="text-sm font-medium text-blue-700 truncate">{props.seoTitle || props.slug || "Título do artigo"}</p>
+            <p className="text-sm font-medium text-primary truncate">{props.seoTitle || props.slug || "Título do artigo"}</p>
             <p className="text-xs text-muted-foreground line-clamp-2">{props.metaDescription || props.excerpt || "Descrição do artigo aparece aqui..."}</p>
           </div>
 

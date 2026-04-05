@@ -119,9 +119,9 @@ const PostEditor = () => {
 
     let postId = id;
     if (isEditing) {
-      await supabase.from("posts").update(postData).eq("id", id);
+      await supabase.from("posts").update(postData as any).eq("id", id);
     } else {
-      const { data } = await supabase.from("posts").insert(postData).select("id").single();
+      const { data } = await supabase.from("posts").insert(postData as any).select("id").single();
       postId = data?.id;
     }
 

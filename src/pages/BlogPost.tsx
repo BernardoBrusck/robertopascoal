@@ -23,6 +23,10 @@ interface Post {
   cover_image: string | null;
   published_at: string | null;
   updated_at: string;
+  seo_title: string | null;
+  meta_description: string | null;
+  og_image: string | null;
+  canonical_url: string | null;
   categories: { name: string; slug: string } | null;
   post_tags?: { tags: Tag | null }[];
 }
@@ -36,7 +40,7 @@ const BlogPost = () => {
     const fetchPost = async () => {
       const { data } = await supabase
         .from("posts")
-        .select("id, title, slug, excerpt, content, cover_image, published_at, updated_at, categories(name, slug), post_tags(tags(name, slug))")
+        .select("id, title, slug, excerpt, content, cover_image, published_at, updated_at, seo_title, meta_description, og_image, canonical_url, categories(name, slug), post_tags(tags(name, slug))")
         .eq("slug", slug)
         .eq("status", "published")
         .single();
@@ -51,9 +55,9 @@ const BlogPost = () => {
     return {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": post.title,
-      "description": post.excerpt || "",
-      "image": post.cover_image || undefined,
+      "headline": post.seo_title || post.title,
+      "description": post.meta_description || post.excerpt || "",
+      "image": post.og_image || post.cover_image || undefined,
       "datePublished": post.published_at || undefined,
       "dateModified": post.updated_at,
       "author": {
@@ -107,10 +111,10 @@ const BlogPost = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <SeoHead
-        title={`${post.title} — Roberto Pascoal`}
-        description={post.excerpt || `Leia "${post.title}" no blog de Roberto Pascoal.`}
+        title={`${post.seo_title || post.title} — Roberto Pascoal`}
+        description={post.meta_description || post.excerpt || `Leia "${post.title}" no blog de Roberto Pascoal.`}
         url={`https://robertopascoal.lovable.app/blog/${post.slug}`}
-        image={post.cover_image}
+        image={post.og_image || post.cover_image}
         type="article"
         jsonLd={jsonLd}
       />

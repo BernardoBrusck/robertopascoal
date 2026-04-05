@@ -90,6 +90,7 @@ const PostEditorSidebar = (props: PostEditorSidebarProps) => {
   const [excerptOpen, setExcerptOpen] = useState(true);
   const [seoOpen, setSeoOpen] = useState(false);
   const [tagSearch, setTagSearch] = useState("");
+  const [mediaPickerOpen, setMediaPickerOpen] = useState(false);
 
   const filteredTags = props.allTags.filter((t) =>
     t.name.toLowerCase().includes(tagSearch.toLowerCase())

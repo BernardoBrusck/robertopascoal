@@ -55,7 +55,7 @@ const PostEditor = () => {
   const autosaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const dirty = useRef(false);
 
-  const editor = useCreateBlockNote({ initialContent });
+  const editor = useCreateBlockNote({ schema: customSchema, initialContent });
 
   useEffect(() => {
     supabase.from("categories").select("id, name").then(({ data }) => setCategories(data ?? []));

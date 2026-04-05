@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/shadcn";
 import "@blocknote/shadcn/style.css";
-import { Save, ArrowLeft, Eye } from "lucide-react";
+import { customSchema, insertGalleryBlock, insertVideoBlock, insertCalloutBlock } from "@/components/admin/editorBlocks";
+import { Save, ArrowLeft, Eye, ImagePlus, Film, AlertCircle } from "lucide-react";
 import PostEditorSidebar from "@/components/admin/PostEditorSidebar";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -52,7 +53,7 @@ const PostEditor = () => {
   const autosaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const dirty = useRef(false);
 
-  const editor = useCreateBlockNote({ initialContent });
+  const editor = useCreateBlockNote({ schema: customSchema, initialContent });
 
   useEffect(() => {
     supabase.from("categories").select("id, name").then(({ data }) => setCategories(data ?? []));
@@ -255,6 +256,22 @@ const PostEditor = () => {
             placeholder="Título do artigo"
             className="w-full text-3xl md:text-4xl font-bold tracking-[-0.04em] text-foreground bg-transparent border-none outline-none placeholder:text-muted-foreground/40 mb-6"
           />
+          {/* Custom block insert toolbar */}
+          <div className="flex items-center gap-1 mb-4 pb-3 border-b border-border">
+            <span className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground mr-2">Inserir:</span>
+            <Button variant="ghost" size="sm" className="gap-1.5 text-xs h-7" onClick={() => insertGalleryBlock(editor)}>
+              <ImagePlus size={14} />
+              Galeria
+            </Button>
+            <Button variant="ghost" size="sm" className="gap-1.5 text-xs h-7" onClick={() => insertVideoBlock(editor)}>
+              <Film size={14} />
+              Vídeo
+            </Button>
+            <Button variant="ghost" size="sm" className="gap-1.5 text-xs h-7" onClick={() => insertCalloutBlock(editor)}>
+              <AlertCircle size={14} />
+              Aviso
+            </Button>
+          </div>
           <div className="min-h-[400px]">
             <BlockNoteView editor={editor} theme="light" />
           </div>

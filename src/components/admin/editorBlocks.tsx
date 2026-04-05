@@ -327,48 +327,27 @@ export const customSchema = BlockNoteSchema.create({
 
 export type CustomSchema = typeof customSchema;
 
-// Slash menu items for custom blocks
-export const customSlashMenuItems = [
-  {
-    title: "Galeria",
-    subtext: "Grade de imagens com lightbox",
-    group: "Mídia",
-    icon: <ImagePlus size={18} />,
-    aliases: ["gallery", "galeria", "fotos"],
-    onItemClick: (editor: any) => {
-      editor.insertBlocks(
-        [{ type: "gallery", props: { images: "[]", columns: "3" } }],
-        editor.getTextCursorPosition().block,
-        "after"
-      );
-    },
-  },
-  {
-    title: "Vídeo",
-    subtext: "YouTube, Vimeo ou upload",
-    group: "Mídia",
-    icon: <Film size={18} />,
-    aliases: ["video", "youtube", "vimeo"],
-    onItemClick: (editor: any) => {
-      editor.insertBlocks(
-        [{ type: "video", props: { mode: "embed", url: "", caption: "" } }],
-        editor.getTextCursorPosition().block,
-        "after"
-      );
-    },
-  },
-  {
-    title: "Aviso",
-    subtext: "Caixa de destaque colorida",
-    group: "Básico",
-    icon: <AlertCircle size={18} />,
-    aliases: ["callout", "aviso", "alerta", "dica"],
-    onItemClick: (editor: any) => {
-      editor.insertBlocks(
-        [{ type: "callout", props: { calloutType: "info" } }],
-        editor.getTextCursorPosition().block,
-        "after"
-      );
-    },
-  },
-];
+// Helper functions to insert custom blocks
+export const insertGalleryBlock = (editor: any) => {
+  editor.insertBlocks(
+    [{ type: "gallery", props: { images: "[]", columns: "3" } }],
+    editor.getTextCursorPosition().block,
+    "after"
+  );
+};
+
+export const insertVideoBlock = (editor: any) => {
+  editor.insertBlocks(
+    [{ type: "video", props: { mode: "embed", url: "", caption: "" } }],
+    editor.getTextCursorPosition().block,
+    "after"
+  );
+};
+
+export const insertCalloutBlock = (editor: any) => {
+  editor.insertBlocks(
+    [{ type: "callout", props: { calloutType: "info" } }],
+    editor.getTextCursorPosition().block,
+    "after"
+  );
+};

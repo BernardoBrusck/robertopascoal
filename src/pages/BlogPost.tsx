@@ -40,7 +40,7 @@ const BlogPost = () => {
     const fetchPost = async () => {
       const { data } = await supabase
         .from("posts")
-        .select("id, title, slug, excerpt, content, cover_image, published_at, updated_at, categories(name, slug), post_tags(tags(name, slug))")
+        .select("id, title, slug, excerpt, content, cover_image, published_at, updated_at, seo_title, meta_description, og_image, canonical_url, categories(name, slug), post_tags(tags(name, slug))")
         .eq("slug", slug)
         .eq("status", "published")
         .single();

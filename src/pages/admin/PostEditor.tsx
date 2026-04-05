@@ -317,6 +317,17 @@ const PostEditor = () => {
         canonicalUrl={canonicalUrl}
         setCanonicalUrl={setCanonicalUrl}
       />
+
+      <PublishChecklist
+        open={showChecklist}
+        onOpenChange={setShowChecklist}
+        onPublish={() => handleSave(true)}
+        coverImage={coverImage}
+        categoryId={categoryId}
+        excerpt={excerpt}
+        seoTitle={seoTitle}
+        metaDescription={metaDescription}
+      />
     </div>
   );
 };

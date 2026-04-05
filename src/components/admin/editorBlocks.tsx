@@ -4,7 +4,8 @@ import { useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ImagePlus, Film, Plus, X, Columns2, Columns3, Youtube, Upload, AlertCircle } from "lucide-react";
+import { ImagePlus, Film, Plus, X, Columns2, Columns3, Youtube, Upload, AlertCircle, FolderOpen } from "lucide-react";
+import MediaPickerModal from "@/components/admin/MediaPickerModal";
 
 // ==================== GALLERY BLOCK ====================
 
@@ -30,6 +31,7 @@ const GalleryBlock = createReactBlockSpec(
       })();
       const columns = block.props.columns;
       const fileInputRef = useRef<HTMLInputElement>(null);
+      const [pickerOpen, setPickerOpen] = useState(false);
 
       const updateImages = (newImages: GalleryImage[]) => {
         editor.updateBlock(block, {
@@ -117,6 +119,27 @@ const GalleryBlock = createReactBlockSpec(
             <Plus size={14} />
             Adicionar imagens
           </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-1.5 text-xs w-full"
+            onClick={() => setPickerOpen(true)}
+          >
+            <FolderOpen size={14} />
+            Escolher da biblioteca
+          </Button>
+          <MediaPickerModal
+            open={pickerOpen}
+            onOpenChange={setPickerOpen}
+            multiple
+            onSelect={(items) => {
+              const newImages = [...images];
+              items.forEach((item) => {
+                newImages.push({ src: item.url, alt: item.alt_text || "", caption: "" });
+              });
+              updateImages(newImages);
+            }}
+          />
         </div>
       );
     },

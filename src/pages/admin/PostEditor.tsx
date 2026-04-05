@@ -293,6 +293,7 @@ const PostEditor = () => {
         publishedAt={publishedAt}
         setPublishedAt={setPublishedAt}
         coverImage={coverImage}
+        setCoverImage={setCoverImage}
         onCoverUpload={handleCoverUpload}
         onCoverRemove={() => setCoverImage("")}
         coverAlt={coverAlt}

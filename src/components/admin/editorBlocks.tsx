@@ -31,6 +31,7 @@ const GalleryBlock = createReactBlockSpec(
       })();
       const columns = block.props.columns;
       const fileInputRef = useRef<HTMLInputElement>(null);
+      const [pickerOpen, setPickerOpen] = useState(false);
 
       const updateImages = (newImages: GalleryImage[]) => {
         editor.updateBlock(block, {

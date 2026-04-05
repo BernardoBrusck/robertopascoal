@@ -245,7 +245,14 @@ const PostEditor = () => {
               <Save size={14} />
               {saving ? "Salvando..." : "Salvar rascunho"}
             </Button>
-            <Button size="sm" className="text-xs" onClick={() => handleSave(true)} disabled={saving}>
+            <Button size="sm" className="text-xs" onClick={() => {
+              const allGood = !!coverImage && !!categoryId && !!excerpt.trim() && !!seoTitle.trim() && !!metaDescription.trim();
+              if (allGood || status === "published") {
+                handleSave(true);
+              } else {
+                setShowChecklist(true);
+              }
+            }} disabled={saving}>
               {saving ? "Publicando..." : "Publicar"}
             </Button>
           </div>

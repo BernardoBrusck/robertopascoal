@@ -319,9 +319,9 @@ const CalloutBlock = createReactBlockSpec(
 export const customSchema = BlockNoteSchema.create({
   blockSpecs: {
     ...defaultBlockSpecs,
-    gallery: GalleryBlock,
-    video: VideoBlock,
-    callout: CalloutBlock,
+    gallery: GalleryBlock(),
+    video: VideoBlock(),
+    callout: CalloutBlock(),
   },
 });
 

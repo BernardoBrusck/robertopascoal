@@ -7,7 +7,7 @@ import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/shadcn";
 import "@blocknote/shadcn/style.css";
 import { customSchema, insertGalleryBlock, insertVideoBlock, insertCalloutBlock } from "@/components/admin/editorBlocks";
-import { Save, ArrowLeft, Eye } from "lucide-react";
+import { Save, ArrowLeft, Eye, ImagePlus, Film, AlertCircle } from "lucide-react";
 import PostEditorSidebar from "@/components/admin/PostEditorSidebar";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";

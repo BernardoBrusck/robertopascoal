@@ -67,9 +67,32 @@ const useHeaderContrast = (scrolled: boolean) => {
       const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
       setIsDarkBg(luminance < 0.5);
     } else {
-      // If bg is transparent, check for background images (hero slider)
-      // Assume dark since hero has images
-      setIsDarkBg(true);
+      // If bg is transparent, walk up the DOM to find a non-transparent ancestor
+      let el: Element | null = target;
+      let found = false;
+      while (el && el !== document.documentElement) {
+        const elBg = window.getComputedStyle(el).backgroundColor;
+        const elMatch = elBg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+        if (elMatch) {
+          const a = elBg.match(/rgba\(\d+,\s*\d+,\s*\d+,\s*([\d.]+)/);
+          const alpha = a ? parseFloat(a[1]) : 1;
+          if (alpha > 0.1) {
+            const r = parseInt(elMatch[1]);
+            const g = parseInt(elMatch[2]);
+            const b = parseInt(elMatch[3]);
+            const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+            setIsDarkBg(lum < 0.5);
+            found = true;
+            break;
+          }
+        }
+        el = el.parentElement;
+      }
+      if (!found) {
+        // Check if there's a background-image on the target (hero slider)
+        const bgImage = window.getComputedStyle(target).backgroundImage;
+        setIsDarkBg(bgImage !== "none");
+      }
     }
   }, [scrolled]);
 

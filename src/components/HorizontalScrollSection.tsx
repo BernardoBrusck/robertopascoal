@@ -63,7 +63,7 @@ const PanelOmunga = () => (
       <div className="flex flex-col gap-6 anim-text">
         <div>
           <h2 className="h-panel-title whitespace-pre-line text-foreground">{'Criar para\ntransformar'}</h2>
-          <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-16 md:h-20 mt-5 object-contain" loading="lazy" width={200} height={80} />
+
         </div>
         <Photo src="/image/roberto-pascoal-comunidade-isolada.webp" alt="Amazônia" className="w-[400px] h-[280px] rounded-lg anim-photo" width={400} height={280} />
       </div>
@@ -84,13 +84,14 @@ const PanelOmunga = () => (
 
 const PanelHoje = () => (
   <div className="panel-inner relative flex flex-col items-center justify-center h-full w-full px-16 lg:px-24">
-    <Photo src="/image/roberto-pascoal-retrato-3.webp" alt="Roberto Pascoal" className="absolute top-[8%] left-[3%] w-[200px] h-[140px] rounded-lg anim-scatter" style={{ transform: 'rotate(-3deg)' }} width={200} height={140} />
-    <Photo src="/image/omg-4225.webp" alt="Ação social" className="absolute top-[42%] left-[2%] w-[150px] h-[190px] rounded anim-scatter" style={{ transform: 'rotate(2deg)' }} width={150} height={190} />
-    <Photo src="/image/roberto-pascoal-projetos-africa.webp" alt="Projetos África" className="absolute bottom-[10%] left-[12%] w-[190px] h-[130px] rounded-lg anim-scatter" style={{ transform: 'rotate(-1.5deg)' }} width={190} height={130} />
-    <Photo src="/image/post-documentario.webp" alt="Documentário" className="absolute top-[6%] right-[4%] w-[180px] h-[130px] rounded-lg anim-scatter" style={{ transform: 'rotate(2.5deg)' }} width={180} height={130} />
-    <Photo src="/image/insta-3.webp" alt="Roberto" className="absolute top-[40%] right-[3%] w-[160px] h-[200px] rounded anim-scatter" style={{ transform: 'rotate(-2deg)' }} width={160} height={200} />
-    <Photo src="/image/foto-roberto-09.webp" alt="Roberto atual" className="absolute bottom-[8%] right-[14%] w-[200px] h-[140px] rounded-lg anim-scatter" style={{ transform: 'rotate(1deg)' }} width={200} height={140} />
+    <Photo src="/image/WhatsApp Image 2026-04-01 at 15.47.16 (1).jpeg" alt="Roberto Pascoal" className="absolute top-[8%] left-[3%] w-[200px] h-[140px] rounded-lg anim-scatter" style={{ transform: 'rotate(-3deg)' }} width={200} height={140} />
+    <Photo src="/image/WhatsApp Image 2026-04-01 at 15.47.14 (1).jpeg" alt="Ação social" className="absolute top-[42%] left-[2%] w-[150px] h-[190px] rounded anim-scatter" style={{ transform: 'rotate(2deg)' }} width={150} height={190} />
+    <Photo src="/image/WhatsApp Image 2026-04-01 at 15.47.14 (2).jpeg" alt="Projetos África" className="absolute bottom-[10%] left-[12%] w-[190px] h-[130px] rounded-lg anim-scatter" style={{ transform: 'rotate(-1.5deg)' }} width={190} height={130} />
+    <Photo src="/image/WhatsApp Image 2026-04-01 at 15.47.15 (1).jpeg" alt="Documentário" className="absolute top-[6%] right-[4%] w-[180px] h-[130px] rounded-lg anim-scatter" style={{ transform: 'rotate(2.5deg)' }} width={180} height={130} />
+    <Photo src="/image/WhatsApp Image 2026-04-01 at 15.47.11.jpeg" alt="Roberto" className="absolute top-[40%] right-[3%] w-[160px] h-[200px] rounded anim-scatter" style={{ transform: 'rotate(-2deg)' }} width={160} height={200} />
+    <Photo src="/image/WhatsApp Image 2026-04-01 at 15.47.17.jpeg" alt="Roberto atual" className="absolute bottom-[8%] right-[14%] w-[200px] h-[140px] rounded-lg anim-scatter" style={{ transform: 'rotate(1deg)' }} width={200} height={140} />
     <div className="relative z-10 text-center max-w-2xl anim-center">
+      <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-12 md:h-16 mb-6 mx-auto object-contain invert dark:invert-0" loading="lazy" />
       <h2 className="h-panel-title text-foreground">Inspirar para agir</h2>
       <p className="h-panel-text text-muted-foreground mx-auto mt-4">Empreendedor social, palestrante e aspirante a escritor. Roberto continua dedicando cada dia a provar que a educação é o caminho.</p>
     </div>
@@ -153,7 +154,7 @@ const MobilePanelOmunga = () => (
   <MobilePanel label="OMUNGA">
     <div className="flex flex-col gap-6">
       <h2 className="text-2xl font-medium tracking-tight text-foreground">Criar para transformar</h2>
-      <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-12 object-contain" loading="lazy" width={160} height={48} />
+
       <Photo src="/image/roberto-pascoal-comunidade-isolada.webp" alt="Amazônia" className="w-full aspect-[16/10] rounded-lg" width={800} height={500} />
       <Photo src="/image/roberto-pascoal-criancas-indigenas.webp" alt="Crianças indígenas" className="w-full aspect-[4/3] rounded" width={800} height={600} />
       <Photo src="/image/roberto-pascoal-leitura-indigena.webp" alt="Leitura indígena" className="w-full aspect-[4/3] rounded" width={800} height={600} />
@@ -175,11 +176,12 @@ const MobilePanelHoje = () => (
       <Photo src="/image/palestra-roberto.webp" alt="Palestra" className="w-full aspect-[4/3] rounded-lg" width={800} height={600} />
       <Photo src="/image/capa-do-livro.webp" alt="Livro" className="w-full aspect-[3/4] rounded-lg" width={400} height={533} />
       <div className="text-center">
+        <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-10 mb-4 mx-auto object-contain" loading="lazy" />
         <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">Inspirar para agir</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">Empreendedor social, palestrante e aspirante a escritor. Roberto continua dedicando cada dia a provar que a educação é o caminho.</p>
       </div>
-      <Photo src="/image/omg-4225.webp" alt="Ação social" className="w-full aspect-square rounded" width={600} height={600} />
-      <Photo src="/image/foto-roberto-09.webp" alt="Roberto atual" className="w-full aspect-[4/3] rounded-lg" width={800} height={600} />
+      <Photo src="/image/WhatsApp Image 2026-04-01 at 15.47.14 (1).jpeg" alt="Ação social" className="w-full aspect-square rounded" width={600} height={600} />
+      <Photo src="/image/WhatsApp Image 2026-04-01 at 15.47.17.jpeg" alt="Roberto atual" className="w-full aspect-[4/3] rounded-lg" width={800} height={600} />
     </div>
   </MobilePanel>
 );
@@ -212,13 +214,7 @@ const HorizontalScrollSection = () => {
       },
     });
 
-    const line = container.querySelector('.timeline-progress');
-    if (line) {
-      gsap.fromTo(line, { scaleX: 0 }, {
-        scaleX: 1, ease: 'none',
-        scrollTrigger: { trigger: sectionRef.current, scrub: 1, start: 'top top', end: () => `+=${container.scrollWidth - window.innerWidth}` },
-      });
-    }
+
 
     const panelEls = container.querySelectorAll('.h-panel');
 
@@ -256,7 +252,14 @@ const HorizontalScrollSection = () => {
       if (delayedText) gsap.from(delayedText, { y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', scrollTrigger: { ...stBase, start: 'left 40%' } });
     });
 
-    return () => { ScrollTrigger.getAll().forEach(t => t.kill()); };
+    return () => {
+      scrollTween.kill();
+      ScrollTrigger.getAll().forEach(t => {
+        if (t.vars.trigger === sectionRef.current || (t.vars.containerAnimation === scrollTween)) {
+          t.kill();
+        }
+      });
+    };
   }, [isMobile]);
 
   if (isMobile) {
@@ -269,14 +272,7 @@ const HorizontalScrollSection = () => {
 
   return (
     <section ref={sectionRef} className="relative h-screen overflow-hidden bg-background">
-      <div className="absolute bottom-8 left-0 right-0 h-px z-20" style={{ background: 'hsl(var(--foreground) / 0.12)' }}>
-        <div className="timeline-progress absolute inset-0 origin-left" style={{ transformOrigin: 'left center', background: 'hsl(var(--foreground) / 0.2)' }} />
-        <div className="absolute inset-0 flex justify-between px-8">
-          {timelineSteps.map((step) => (
-            <span key={step.id} className="h-panel-label text-muted-foreground relative top-3">{step.label}</span>
-          ))}
-        </div>
-      </div>
+
       <div ref={containerRef} className="flex h-full w-max">
         {panels.map((Panel, i) => (
           <div key={timelineSteps[i].id} className="h-panel w-screen h-full flex-shrink-0 overflow-hidden">

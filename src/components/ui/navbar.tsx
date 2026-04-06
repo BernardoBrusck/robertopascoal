@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const navItems = [
   { label: "História", href: "#historia" },
@@ -14,15 +15,7 @@ const navItems = [
   { label: "Blog", href: "/blog" },
 ];
 
-const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-  if (href.startsWith("#")) {
-    e.preventDefault();
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }
-};
+
 
 /**
  * Samples the pixel color behind the header center to determine
@@ -110,7 +103,27 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
   const [hoverShow, setHoverShow] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isBlogPage = location.pathname.startsWith("/blog");
+  const isHomePage = location.pathname === "/";
+
   const isDarkBg = useHeaderContrast(scrolled);
+
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      if (!isHomePage) {
+        // Not on home page, navigate to home + anchor
+        navigate("/" + href);
+      } else {
+        e.preventDefault();
+        const el = document.querySelector(href);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    }
+  };
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -158,30 +171,41 @@ const Navbar = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  // Force dark text on blog pages at top
+  const forceDarkText = isBlogPage && !scrolled;
+
   // Dynamic text color based on contrast
   const textColor = scrolled
     ? "text-foreground"
-    : isDarkBg
-      ? "text-white"
-      : "text-foreground";
+    : forceDarkText
+      ? "text-foreground"
+      : isDarkBg
+        ? "text-white"
+        : "text-foreground";
 
   const mutedColor = scrolled
     ? "text-foreground/70"
-    : isDarkBg
-      ? "text-white/70"
-      : "text-foreground/70";
+    : forceDarkText
+      ? "text-foreground/70"
+      : isDarkBg
+        ? "text-white/70"
+        : "text-foreground/70";
 
   const borderColor = scrolled
     ? "border-foreground"
-    : isDarkBg
-      ? "border-white"
-      : "border-foreground";
+    : forceDarkText
+      ? "border-foreground"
+      : isDarkBg
+        ? "border-white"
+        : "border-foreground";
 
   const hoverBg = scrolled
     ? "hover:bg-foreground hover:text-background"
-    : isDarkBg
-      ? "hover:bg-white hover:text-black"
-      : "hover:bg-foreground hover:text-background";
+    : forceDarkText
+      ? "hover:bg-foreground hover:text-background"
+      : isDarkBg
+        ? "hover:bg-white hover:text-black"
+        : "hover:bg-foreground hover:text-background";
 
   return (
     <>
@@ -215,7 +239,13 @@ const Navbar = () => {
             <div className="flex items-center justify-between h-16">
               {/* Logo */}
               <a
-                href="#"
+                href="/"
+                onClick={(e) => {
+                  if (isHomePage) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
                 className={`relative z-[110] text-sm uppercase tracking-[0.25em] font-bold transition-colors duration-300 ${textColor}`}
               >
                 Roberto Pascoal

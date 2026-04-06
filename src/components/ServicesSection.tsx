@@ -68,13 +68,13 @@ function HoverModal({ modal, projects: items }: { modal: { active: boolean; inde
   useEffect(() => {
     if (!modalContainer.current || !cursor.current || !cursorLabel.current) return;
 
-    // Use transform (x, y) instead of left/top for composited animations
-    const xMoveContainer = gsap.quickTo(modalContainer.current, 'x', { duration: 0.8, ease: 'power3' });
-    const yMoveContainer = gsap.quickTo(modalContainer.current, 'y', { duration: 0.8, ease: 'power3' });
-    const xMoveCursor = gsap.quickTo(cursor.current, 'x', { duration: 0.5, ease: 'power3' });
-    const yMoveCursor = gsap.quickTo(cursor.current, 'y', { duration: 0.5, ease: 'power3' });
-    const xMoveCursorLabel = gsap.quickTo(cursorLabel.current, 'x', { duration: 0.45, ease: 'power3' });
-    const yMoveCursorLabel = gsap.quickTo(cursorLabel.current, 'y', { duration: 0.45, ease: 'power3' });
+    // Use left/top as to not conflict with Framer Motion's transform
+    const xMoveContainer = gsap.quickTo(modalContainer.current, 'left', { duration: 0.8, ease: 'power3' });
+    const yMoveContainer = gsap.quickTo(modalContainer.current, 'top', { duration: 0.8, ease: 'power3' });
+    const xMoveCursor = gsap.quickTo(cursor.current, 'left', { duration: 0.5, ease: 'power3' });
+    const yMoveCursor = gsap.quickTo(cursor.current, 'top', { duration: 0.5, ease: 'power3' });
+    const xMoveCursorLabel = gsap.quickTo(cursorLabel.current, 'left', { duration: 0.45, ease: 'power3' });
+    const yMoveCursorLabel = gsap.quickTo(cursorLabel.current, 'top', { duration: 0.45, ease: 'power3' });
 
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;

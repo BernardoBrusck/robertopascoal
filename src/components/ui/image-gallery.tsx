@@ -6,22 +6,34 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 const galleryImages = [
   // Column 0
   { col: 0, src: '/image/roberto-pascoal-hero-montanha.webp', alt: 'Roberto Pascoal na montanha' },
+  { col: 0, src: '/image/WhatsApp Image 2026-04-01 at 15.47.11 (1).jpeg', alt: 'Roberto Pascoal em Viagem' },
+  { col: 0, src: '/image/WhatsApp Image 2026-04-01 at 15.47.14 (2).jpeg', alt: 'Roberto Pascoal em Viagem' },
+  { col: 0, src: '/image/WhatsApp Image 2026-04-01 at 15.47.15 (1).jpeg', alt: 'Roberto Pascoal em Viagem' },
+  { col: 0, src: '/image/WhatsApp Image 2026-04-01 at 15.47.16 (2).jpeg', alt: 'Roberto Pascoal em Viagem' },
+  { col: 0, src: '/image/WhatsApp Image 2026-04-01 at 15.47.18 (1).jpeg', alt: 'Roberto Pascoal em Viagem' },
+  { col: 0, src: '/image/WhatsApp Image 2026-04-01 at 15.47.22 (2).jpeg', alt: 'Roberto Pascoal em Viagem' },
   { col: 0, src: '/image/roberto-pascoal-comunidade-isolada.webp', alt: 'Comunidade isolada' },
-  { col: 0, src: '/image/foto-roberto-04.webp', alt: 'Roberto Pascoal' },
-  { col: 0, src: '/image/roberto-pascoal-criancas-indigenas.webp', alt: 'Crianças indígenas' },
-  { col: 0, src: '/image/africa-max-schwoelk.webp', alt: 'África' },
+
   // Column 1
   { col: 1, src: '/image/roberto-pascoal-explorador.webp', alt: 'Roberto explorador' },
-  { col: 1, src: '/image/foto-roberto-07.webp', alt: 'Roberto Pascoal' },
+  { col: 1, src: '/image/WhatsApp Image 2026-04-01 at 15.47.11.jpeg', alt: 'Roberto Pascoal em Viagem' },
+  { col: 1, src: '/image/WhatsApp Image 2026-04-01 at 15.47.14.jpeg', alt: 'Roberto Pascoal em Viagem' },
+  { col: 1, src: '/image/WhatsApp Image 2026-04-01 at 15.47.15.jpeg', alt: 'Roberto Pascoal em Viagem' },
+  { col: 1, src: '/image/WhatsApp Image 2026-04-01 at 15.47.16.jpeg', alt: 'Roberto Pascoal em Viagem' },
+  { col: 1, src: '/image/WhatsApp Image 2026-04-01 at 15.47.18.jpeg', alt: 'Roberto Pascoal em Viagem' },
   { col: 1, src: '/image/omg-4225.webp', alt: 'Ação social Omunga' },
-  { col: 1, src: '/image/roberto-pascoal-leitura-indigena.webp', alt: 'Leitura indígena' },
   { col: 1, src: '/image/roberto-pascoal-projetos-africa.webp', alt: 'Projetos na África' },
+  { col: 1, src: '/image/WhatsApp Image 2026-04-01 at 15.47.22 (3).jpeg', alt: 'Roberto Pascoal em Viagem' },
+
   // Column 2
   { col: 2, src: '/image/palestra-roberto.webp', alt: 'Roberto palestrando' },
-  { col: 2, src: '/image/foto-roberto-05.webp', alt: 'Roberto Pascoal' },
+  { col: 2, src: '/image/WhatsApp Image 2026-04-01 at 15.47.14 (1).jpeg', alt: 'Roberto Pascoal em Viagem' },
+  { col: 2, src: '/image/WhatsApp Image 2026-04-01 at 15.47.16 (1).jpeg', alt: 'Roberto Pascoal em Viagem' },
+  { col: 2, src: '/image/WhatsApp Image 2026-04-01 at 15.47.17.jpeg', alt: 'Roberto Pascoal em Viagem' },
+  { col: 2, src: '/image/WhatsApp Image 2026-04-01 at 15.47.22.jpeg', alt: 'Roberto Pascoal em Viagem' },
   { col: 2, src: '/image/roberto-pascoal-professor-africa.webp', alt: 'Roberto como professor na África' },
   { col: 2, src: '/image/foto-roberto-08.webp', alt: 'Roberto Pascoal' },
-  { col: 2, src: '/image/roberto-pascoal-retrato-2.webp', alt: 'Retrato de Roberto Pascoal' },
+  { col: 2, src: '/image/africa-max-schwoelk.webp', alt: 'África' },
 ];
 
 // Flat list for lightbox navigation

@@ -6,12 +6,14 @@ import { Button } from "@/components/ui/button";
 import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/shadcn";
 import "@blocknote/shadcn/style.css";
-import { customSchema, insertGalleryBlock, insertVideoBlock, insertCalloutBlock } from "@/components/admin/editorBlocks";
-import { Save, ArrowLeft, Eye, ImagePlus, Film, AlertCircle } from "lucide-react";
+import { customSchema, insertGalleryBlock, insertVideoBlock, insertCalloutBlock, insertImageBlock, insertAudioBlock, insertFileBlock } from "@/components/admin/editorBlocks";
+import { Save, ArrowLeft, Eye, ImagePlus, Film, AlertCircle, Image, Music, FileUp } from "lucide-react";
 import PostEditorSidebar from "@/components/admin/PostEditorSidebar";
 import PublishChecklist from "@/components/admin/PublishChecklist";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { compressImage, isCompressibleImage } from "@/lib/compressImage";
+import { uploadStore } from "@/lib/uploadStore";
 
 interface Category { id: string; name: string; }
 interface Tag { id: string; name: string; slug: string; }
@@ -44,8 +46,7 @@ const PostEditor = () => {
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
 
   const [saving, setSaving] = useState(false);
-  const [initialContent, setInitialContent] = useState<any>(undefined);
-  const [loaded, setLoaded] = useState(!isEditing);
+  const [loaded, setLoaded] = useState(false);
   const [showChecklist, setShowChecklist] = useState(false);
 
   // Autosave state
@@ -55,11 +56,32 @@ const PostEditor = () => {
   const autosaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const dirty = useRef(false);
 
-  const editor = useCreateBlockNote({ schema: customSchema, initialContent });
+  // Editor initialization — uploadFile enables drag & drop uploads
+  const editor = useCreateBlockNote({
+    schema: customSchema,
+    uploadFile: async (rawFile: File) => {
+      const trackId = uploadStore.add(rawFile.name);
+      try {
+        const file = isCompressibleImage(rawFile) ? await compressImage(rawFile) : rawFile;
+        const ext = file.name.split(".").pop();
+        const path = `uploads/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+        const { error } = await supabase.storage.from("media").upload(path, file);
+        if (error) throw error;
+        const { data } = supabase.storage.from("media").getPublicUrl(path);
+        await supabase.from("media").insert({ url: data.publicUrl, alt_text: rawFile.name, uploaded_by: user?.id });
+        uploadStore.done(trackId);
+        return data.publicUrl;
+      } catch (err) {
+        uploadStore.error(trackId);
+        throw err;
+      }
+    },
+  });
 
   useEffect(() => {
     supabase.from("categories").select("id, name").then(({ data }) => setCategories(data ?? []));
     supabase.from("tags").select("id, name, slug").then(({ data }) => setAllTags(data ?? []));
+    if (!isEditing) setLoaded(true);
   }, []);
 
   useEffect(() => {
@@ -79,7 +101,11 @@ const PostEditor = () => {
         setOgImage((data as any).og_image ?? "");
         setCanonicalUrl((data as any).canonical_url ?? "");
         if (data.content && Array.isArray(data.content) && data.content.length > 0) {
-          setInitialContent(data.content);
+          try {
+            editor.replaceBlocks(editor.document, data.content as any);
+          } catch (e) {
+            console.warn("Não foi possível carregar conteúdo do editor:", e);
+          }
         }
         const { data: ptData } = await supabase.from("post_tags").select("tag_id").eq("post_id", data.id);
         setSelectedTagIds((ptData ?? []).map((pt) => pt.tag_id));
@@ -194,14 +220,24 @@ const PostEditor = () => {
   };
 
   const handleCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const ext = file.name.split(".").pop();
-    const path = `covers/${Date.now()}.${ext}`;
-    const { error } = await supabase.storage.from("blog-images").upload(path, file);
-    if (!error) {
-      const { data } = supabase.storage.from("blog-images").getPublicUrl(path);
-      setCoverImage(data.publicUrl);
+    const rawFile = e.target.files?.[0];
+    if (!rawFile) return;
+    const trackId = uploadStore.add(rawFile.name);
+    try {
+      const file = isCompressibleImage(rawFile) ? await compressImage(rawFile) : rawFile;
+      const ext = file.name.split(".").pop();
+      const path = `covers/${Date.now()}.${ext}`;
+      const { error } = await supabase.storage.from("media").upload(path, file);
+      if (!error) {
+        const { data } = supabase.storage.from("media").getPublicUrl(path);
+        setCoverImage(data.publicUrl);
+        await supabase.from("media").insert({ url: data.publicUrl, alt_text: rawFile.name, uploaded_by: user?.id });
+        uploadStore.done(trackId);
+      } else {
+        uploadStore.error(trackId);
+      }
+    } catch {
+      uploadStore.error(trackId);
     }
   };
 
@@ -266,8 +302,12 @@ const PostEditor = () => {
             className="w-full text-3xl md:text-4xl font-bold tracking-[-0.04em] text-foreground bg-transparent border-none outline-none placeholder:text-muted-foreground/40 mb-6"
           />
           {/* Custom block insert toolbar */}
-          <div className="flex items-center gap-1 mb-4 pb-3 border-b border-border">
+          <div className="flex items-center gap-1 mb-4 pb-3 border-b border-border flex-wrap">
             <span className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground mr-2">Inserir:</span>
+            <Button variant="ghost" size="sm" className="gap-1.5 text-xs h-7" onClick={() => insertImageBlock(editor)}>
+              <Image size={14} />
+              Imagem
+            </Button>
             <Button variant="ghost" size="sm" className="gap-1.5 text-xs h-7" onClick={() => insertGalleryBlock(editor)}>
               <ImagePlus size={14} />
               Galeria
@@ -275,6 +315,14 @@ const PostEditor = () => {
             <Button variant="ghost" size="sm" className="gap-1.5 text-xs h-7" onClick={() => insertVideoBlock(editor)}>
               <Film size={14} />
               Vídeo
+            </Button>
+            <Button variant="ghost" size="sm" className="gap-1.5 text-xs h-7" onClick={() => insertAudioBlock(editor)}>
+              <Music size={14} />
+              Áudio
+            </Button>
+            <Button variant="ghost" size="sm" className="gap-1.5 text-xs h-7" onClick={() => insertFileBlock(editor)}>
+              <FileUp size={14} />
+              Arquivo
             </Button>
             <Button variant="ghost" size="sm" className="gap-1.5 text-xs h-7" onClick={() => insertCalloutBlock(editor)}>
               <AlertCircle size={14} />

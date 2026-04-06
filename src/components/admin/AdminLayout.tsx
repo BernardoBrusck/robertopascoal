@@ -2,6 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { LayoutDashboard, FileText, FolderOpen, Image, Users, LogOut, Home, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import UploadToast from "@/components/admin/UploadToast";
 
 const navItems = [
   { to: "/admin", icon: LayoutDashboard, label: "Dashboard", end: true },
@@ -66,6 +67,9 @@ const AdminLayout = () => {
       <main className="flex-1 p-8 overflow-auto">
         <Outlet />
       </main>
+
+      {/* Global upload progress toast */}
+      <UploadToast />
     </div>
   );
 };

@@ -22,6 +22,8 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
     offset: ['start start', 'end end'],
   });
 
+  const opacity = useTransform(scrollYProgress, [0, 0.08], [0, 1]);
+
   const scale4 = useTransform(scrollYProgress, [0, 1], [1, 4]);
   const scale5 = useTransform(scrollYProgress, [0, 1], [1, 5]);
   const scale6 = useTransform(scrollYProgress, [0, 1], [1, 6]);
@@ -42,7 +44,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 
   return (
     <div ref={container} className="relative h-[300vh]">
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <motion.div style={{ opacity }} className="sticky top-0 h-screen overflow-hidden">
         {images.map(({ src, alt }, index) => {
           const scale = scales[index % scales.length];
 
@@ -65,7 +67,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
             </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }

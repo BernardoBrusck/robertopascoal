@@ -44,7 +44,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 
   return (
     <div ref={container} className="relative h-[300vh]">
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <motion.div style={{ opacity }} className="sticky top-0 h-screen overflow-hidden">
         {images.map(({ src, alt }, index) => {
           const scale = scales[index % scales.length];
 

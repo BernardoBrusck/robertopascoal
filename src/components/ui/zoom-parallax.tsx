@@ -67,7 +67,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
             </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }

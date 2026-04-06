@@ -172,7 +172,7 @@ const MobilePanelOmunga = () => (
 
 const MobilePanelHoje = () => (
   <MobilePanel label="HOJE">
-    <div className="flex flex-col gap-6 pb-[30vh]">
+    <div className="flex flex-col gap-6">
       <Photo src="/image/palestra-roberto.webp" alt="Palestra" className="w-full aspect-[4/3] rounded-lg" width={800} height={600} />
       <Photo src="/image/capa-do-livro.webp" alt="Livro" className="w-full aspect-[3/4] rounded-lg" width={400} height={533} />
       <div className="text-center">

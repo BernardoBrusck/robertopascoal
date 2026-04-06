@@ -3,6 +3,7 @@
 import { useScroll, useTransform, motion } from 'framer-motion';
 import { useRef } from 'react';
 import LazyImage from '@/lib/LazyImage';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface Image {
   src: string;
@@ -17,18 +18,44 @@ interface ZoomParallaxProps {
 
 export function ZoomParallax({ images }: ZoomParallaxProps) {
   const container = useRef(null);
+  const isMobile = useIsMobile();
+
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ['start start', 'end end'],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.08], [0, 1]);
+  // On mobile: the container is 500vh tall. The first ~40% of scroll is
+  // a "dead zone" where images sit at scale 1, giving the previous section
+  // time to fully exit the viewport. Zoom only starts after that.
+  // On desktop: zoom spans the full scroll as before.
+  const MOBILE_DEAD = 0.35; // fraction of scroll before zoom begins
 
-  const scale4 = useTransform(scrollYProgress, [0, 1], [1, 4]);
-  const scale5 = useTransform(scrollYProgress, [0, 1], [1, 5]);
-  const scale6 = useTransform(scrollYProgress, [0, 1], [1, 6]);
-  const scale8 = useTransform(scrollYProgress, [0, 1], [1, 8]);
-  const scale9 = useTransform(scrollYProgress, [0, 1], [1, 9]);
+  const scale4 = useTransform(
+    scrollYProgress,
+    isMobile ? [MOBILE_DEAD, 1] : [0, 1],
+    [1, 4]
+  );
+  const scale5 = useTransform(
+    scrollYProgress,
+    isMobile ? [MOBILE_DEAD, 1] : [0, 1],
+    [1, 5]
+  );
+  const scale6 = useTransform(
+    scrollYProgress,
+    isMobile ? [MOBILE_DEAD, 1] : [0, 1],
+    [1, 6]
+  );
+  const scale8 = useTransform(
+    scrollYProgress,
+    isMobile ? [MOBILE_DEAD, 1] : [0, 1],
+    [1, 8]
+  );
+  const scale9 = useTransform(
+    scrollYProgress,
+    isMobile ? [MOBILE_DEAD, 1] : [0, 1],
+    [1, 9]
+  );
 
   const scales = [scale4, scale5, scale6, scale5, scale6, scale8, scale9];
 
@@ -42,9 +69,12 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
     'absolute top-[22.5vh] left-[25vw] h-[15vh] w-[15vw] md:h-[15vh] md:w-[15vw]',
   ];
 
+  // Mobile: taller container = more scroll before zoom kicks in
+  const containerHeight = isMobile ? 'h-[500vh]' : 'h-[300vh]';
+
   return (
-    <div ref={container} className="relative h-[300vh]">
-      <motion.div style={{ opacity }} className="sticky top-0 h-screen overflow-hidden">
+    <div ref={container} className={`relative ${containerHeight}`}>
+      <div className="sticky top-0 h-screen overflow-hidden">
         {images.map(({ src, alt }, index) => {
           const scale = scales[index % scales.length];
 
@@ -67,7 +97,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
             </motion.div>
           );
         })}
-      </motion.div>
+      </div>
     </div>
   );
 }

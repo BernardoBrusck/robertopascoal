@@ -22,6 +22,8 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
     offset: ['start start', 'end end'],
   });
 
+  const opacity = useTransform(scrollYProgress, [0, 0.08], [0, 1]);
+
   const scale4 = useTransform(scrollYProgress, [0, 1], [1, 4]);
   const scale5 = useTransform(scrollYProgress, [0, 1], [1, 5]);
   const scale6 = useTransform(scrollYProgress, [0, 1], [1, 6]);

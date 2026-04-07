@@ -37,8 +37,8 @@ const TextRevealSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-background flex items-center justify-center py-32 md:py-48 px-6 md:px-16 lg:px-24">
-      <p ref={textRef} className="text-reveal-text font-sans max-w-5xl text-center leading-[1.15]">
+    <section ref={sectionRef} className="relative w-full bg-background flex items-center justify-center py-20 md:py-48 px-6 md:px-16 lg:px-24">
+      <p ref={textRef} className="text-reveal-text font-sans max-w-5xl text-center leading-[1.15] py-4">
         A educação é o único caminho que ninguém pode tirar de você.
       </p>
     </section>

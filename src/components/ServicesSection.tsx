@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { X } from 'lucide-react';
 import { gsap } from 'gsap';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const projects = [
   {
@@ -92,6 +93,10 @@ function HoverModal({ modal, projects: items }: { modal: { active: boolean; inde
     return () => { cleanupRef.current?.(); };
   }, []);
 
+  const isMobile = useIsMobile();
+
+  if (isMobile) return null;
+
   return (
     <>
       <motion.div
@@ -138,7 +143,13 @@ function DetailModal({ project, onClose }: { project: (typeof projects)[0] | nul
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') { lightboxIndex !== null ? closeLightbox() : onClose(); }
+      if (e.key === 'Escape') {
+        if (lightboxIndex !== null) {
+          closeLightbox();
+        } else {
+          onClose();
+        }
+      }
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);

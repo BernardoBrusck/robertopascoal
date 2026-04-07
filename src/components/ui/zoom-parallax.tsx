@@ -10,6 +10,7 @@ interface Image {
   alt?: string;
   width?: number;
   height?: number;
+  isPolaroid?: boolean;
 }
 
 interface ZoomParallaxProps {
@@ -17,40 +18,40 @@ interface ZoomParallaxProps {
 }
 
 const desktopPositions = [
-  'h-[25vh] w-[25vw]',
-  'absolute -top-[30vh] left-[5vw] h-[30vh] w-[35vw]',
-  'absolute -top-[10vh] -left-[25vw] h-[45vh] w-[20vw]',
-  'absolute left-[27.5vw] h-[25vh] w-[25vw]',
-  'absolute top-[27.5vh] left-[5vw] h-[25vh] w-[20vw]',
-  'absolute top-[27.5vh] -left-[22.5vw] h-[25vh] w-[30vw]',
-  'absolute top-[22.5vh] left-[25vw] h-[15vh] w-[15vw]',
+  'w-[25vw] aspect-[16/10]', // 0: Center (original size)
+  'absolute -top-[36vh] left-[10vw] w-[12vw] aspect-[4/5]', // 1: Top Right
+  'absolute -top-[22vh] -left-[28vw] w-[14vw] aspect-[4/5]', // 2: Top Left
+  'absolute top-[10vh] left-[25vw] w-[13vw] aspect-[4/5]', // 3: Right
+  'absolute top-[35vh] left-[5vw] w-[13vw] aspect-[4/5]', // 4: Bottom Right
+  'absolute top-[32vh] -left-[26vw] w-[14vw] aspect-[4/5]', // 5: Bottom Left
+  'absolute -top-[18vh] left-[26vw] w-[11vw] aspect-[4/5]', // 6: Far Top Right (Índio - moved up and left)
 ];
 
 const mobileLayouts = [
   'col-span-2 aspect-[4/3]',
-  'aspect-[3/4] -mt-4',
-  'aspect-[4/5] mt-6',
+  'aspect-[3/4]',
+  'aspect-[4/5]',
   'col-span-2 aspect-[16/10]',
-  'aspect-square -mt-6',
-  'aspect-[4/3] mt-4',
+  'aspect-square',
+  'aspect-[4/3]',
   'col-span-2 aspect-[3/2]',
 ];
 
 function MobileZoomGallery({ images }: ZoomParallaxProps) {
   return (
     <div className="relative w-full bg-background px-4 py-8">
-      <div className="mx-auto grid max-w-3xl grid-cols-2 gap-3">
-        {images.map(({ src, alt, width, height }, index) => (
+      <div className="mx-auto grid max-w-3xl grid-cols-2 gap-4">
+        {images.map(({ src, alt, width, height, isPolaroid }, index) => (
           <div
             key={index}
-            className={`relative overflow-hidden rounded-sm ${mobileLayouts[index % mobileLayouts.length]}`}
+            className={`relative overflow-hidden ${mobileLayouts[index % mobileLayouts.length]}`}
           >
             <LazyImage
               src={src}
               alt={alt || ''}
               width={width || 800}
               height={height || 600}
-              className="h-full w-full object-cover"
+              className={isPolaroid ? "h-full w-full object-cover bg-white p-2 pb-6 shadow-xl" : "h-full w-full object-cover rounded-sm"}
               rootMargin="300px"
             />
           </div>
@@ -79,7 +80,7 @@ function DesktopZoomParallax({ images }: ZoomParallaxProps) {
   return (
     <div ref={container} className="relative h-[300vh]">
       <div className="sticky top-0 h-screen overflow-hidden">
-        {images.map(({ src, alt, width, height }, index) => {
+        {images.map(({ src, alt, width, height, isPolaroid }, index) => {
           const scale = scales[index % scales.length];
 
           return (
@@ -88,15 +89,30 @@ function DesktopZoomParallax({ images }: ZoomParallaxProps) {
               style={{ scale }}
               className="absolute left-0 top-0 flex h-full w-full items-center justify-center"
             >
-              <div className={`relative ${desktopPositions[index] || desktopPositions[0]}`}>
-                <LazyImage
-                  src={src}
-                  alt={alt || ''}
-                  width={width || 800}
-                  height={height || 600}
-                  className="h-full w-full rounded-sm object-cover"
-                  rootMargin="400px"
-                />
+              <div className={`relative flex items-center justify-center ${desktopPositions[index] || desktopPositions[0]}`}>
+                {isPolaroid ? (
+                   <div className="bg-white p-[5%] pb-[20%] shadow-[0_20px_40px_-5px_rgba(0,0,0,0.4)] w-full h-full flex flex-col rounded-[2px] transform rotate-1 hover:rotate-0 transition-transform duration-500">
+                     <div className="w-full flex-grow relative overflow-hidden bg-gray-100">
+                       <LazyImage
+                         src={src}
+                         alt={alt || ''}
+                         width={width || 800}
+                         height={height || 600}
+                         className="absolute inset-0 w-full h-full object-cover rounded-[1px]"
+                         rootMargin="400px"
+                       />
+                     </div>
+                   </div>
+                ) : (
+                  <LazyImage
+                    src={src}
+                    alt={alt || ''}
+                    width={width || 800}
+                    height={height || 600}
+                    className="h-full w-full rounded-[4px] object-cover shadow-[0_20px_40px_-5px_rgba(0,0,0,0.3)]"
+                    rootMargin="400px"
+                  />
+                )}
               </div>
             </motion.div>
           );
@@ -109,5 +125,7 @@ function DesktopZoomParallax({ images }: ZoomParallaxProps) {
 export function ZoomParallax({ images }: ZoomParallaxProps) {
   const isMobile = useIsMobile();
 
-  return isMobile ? <MobileZoomGallery images={images} /> : <DesktopZoomParallax images={images} />;
+  if (isMobile) return null;
+
+  return <DesktopZoomParallax images={images} />;
 }

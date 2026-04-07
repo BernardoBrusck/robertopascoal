@@ -56,6 +56,15 @@
     @apply bg-background text-foreground font-sans antialiased;
     overflow-x: clip;
   }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 /* Lumina Slider */
@@ -221,9 +230,20 @@
   }
 
   .slider-content-editorial {
-    bottom: 4rem;
+    bottom: 6rem;
     left: 1.5rem;
-    right: 4rem;
+    right: 2rem;
+    max-width: 85%;
+  }
+
+  .slider-title-editorial {
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  .slider-subtitle {
+    font-size: 0.65rem;
+    margin-bottom: 0.5rem;
   }
 
   .slider-counter-editorial {

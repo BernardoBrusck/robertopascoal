@@ -1,20 +1,12 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
-import slide01 from '@/assets/hero/slide-01-caminho.webp';
-import slide02 from '@/assets/hero/slide-02-concha.webp';
-import slide03 from '@/assets/hero/slide-03-amazonia.webp';
-import slide04 from '@/assets/hero/slide-04-roraima.webp';
-import slide05 from '@/assets/hero/slide-05-indigena.webp';
-import slide06 from '@/assets/hero/slide-06-omunga.webp';
-
 const slides = [
-  { title: "Roberto Pascoal", description: "Escritor. Palestrante. Fundador da Omunga.", media: slide06, mobilePosition: "30% center" },
-  { title: "Não é sobre se sentir pronto", description: "É sobre ser suficiente para continuar caminhando.", media: slide01, mobilePosition: "center center" },
-  { title: "O Caminho", description: "Sentido, propósito e a jornada que nos transforma.", media: slide02, mobilePosition: "center center" },
-  { title: "Multiculturalidade", description: "Quando todas as culturas coexistem, a humanidade se revela.", media: slide03, mobilePosition: "25% center" },
-  { title: "Nunca prontos", description: "Mas sempre suficientes para o próximo passo.", media: slide04, mobilePosition: "center center" },
-  { title: "A Jornada", description: "Da Amazônia ao Sertão, da África ao Monte Roraima.", media: slide05, mobilePosition: "20% center" },
+  { title: "Roberto Pascoal", description: "Escritor. Palestrante. Fundador da Omunga.", media: "/hero/Pagina 01 - Confirmada 01.jpg", mobilePosition: "center center" },
+  { title: "Não é sobre se sentir pronto", description: "É sobre ser suficiente para continuar caminhando.", media: "/hero/Página 01 - Confirmada 02.png", mobilePosition: "center center" },
+  { title: "O Caminho", description: "Sentido, propósito e a jornada que nos transforma.", media: "/hero/Página 01 - Confirmada 03.jpg", mobilePosition: "center center" },
+  { title: "A Jornada", description: "Da Amazônia ao Sertão, da África ao Monte Roraima.", media: "/hero/Página 01 - Confirmada 04.png", mobilePosition: "center center" },
+  { title: "Multiculturalidade", description: "Quando todas as culturas coexistem, a humanidade se revela.", media: "/hero/01 - África 06 por Max Schwoelk.JPG", mobilePosition: "center center" },
 ];
 
 /* ═══════════════════════════════════════════════════════
@@ -74,7 +66,7 @@ function UnifiedSlider() {
               objectPosition: isMobile ? slide.mobilePosition : 'center center',
             }}
             {...(i === 0
-              ? { fetchPriority: 'high' as const, loading: 'eager' as const }
+              ? { fetchpriority: 'high' as const, loading: 'eager' as const }
               : { loading: 'lazy' as const }
             )}
           />

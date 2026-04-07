@@ -72,19 +72,19 @@ const ContactFooter = () => {
           </ContactBlock>
         </div>
         <div className="border-t border-border" />
-        <div className="pt-12 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+        <div className="pt-12 flex flex-col md:flex-row md:items-center md:justify-between gap-12">
           <div>
-            <span className="text-xs uppercase tracking-[0.2em] font-medium text-muted-foreground">Encontre online</span>
-            <div className="flex flex-wrap gap-4 mt-4">
+            <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-muted-foreground opacity-60">Encontre online</span>
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 mt-6">
               {SOCIALS.map((link) => (
-                <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-foreground hover:text-muted-foreground transition-colors p-3 min-w-[44px] min-h-[44px]">
-                  <link.icon className="h-4 w-4" />
-                  <span>{link.label}</span>
+                <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 text-sm text-foreground hover:text-muted-foreground transition-colors p-3 border border-border/10 rounded-sm min-h-[44px] hover:bg-muted/30">
+                  <link.icon className="h-4 w-4 opacity-70" />
+                  <span className="font-light tracking-tight">{link.label}</span>
                 </a>
               ))}
             </div>
           </div>
-          <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Roberto Pascoal. Todos os direitos reservados.</p>
+          <p className="text-[10px] uppercase tracking-widest text-muted-foreground opacity-50">© {new Date().getFullYear()} Roberto Pascoal. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

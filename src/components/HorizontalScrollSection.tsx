@@ -105,14 +105,13 @@ const panels = [PanelInfancia, PanelFormacao, PanelOmunga, PanelHoje];
    ═══════════════════════════════════════════════════════ */
 
 const MobilePanel = ({ label, children }: { label: string; children: React.ReactNode; }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-60px' });
-
   return (
-    <motion.div ref={ref} className="w-full px-6 py-16 border-b border-border" initial={{ opacity: 0, y: 40 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}>
-      <span className="text-xs text-muted-foreground uppercase tracking-[0.2em] mb-4 block">{label}</span>
-      {children}
-    </motion.div>
+    <div className="w-full h-auto flex flex-col">
+      <span className="text-[10px] text-muted-foreground uppercase tracking-[0.3em] mb-6 block opacity-60">{label}</span>
+      <div className="w-full h-auto">
+        {children}
+      </div>
+    </div>
   );
 };
 
@@ -138,50 +137,51 @@ const MobilePanelInfancia = () => (
 
 const MobilePanelFormacao = () => (
   <MobilePanel label="FORMAÇÃO">
-    <div className="flex flex-col gap-6">
-      <Photo src="/image/foto-roberto-07.webp" alt="Roberto no palco" className="w-full aspect-[3/4] rounded-lg" width={600} height={800} />
+    <div className="flex flex-col gap-8">
+      <Photo src="/image/foto-roberto-07.webp" alt="Roberto no palco" className="w-full aspect-[3/4] rounded-lg shadow-xl" width={600} height={800} />
       <div>
-        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">O poder da palavra</h2>
-        <p className="text-sm text-muted-foreground leading-relaxed mb-5">Escritor e comunicador por natureza. Encontrou nos livros e nas palestras a ferramenta para amplificar sua voz e levar sua mensagem a milhares de pessoas.</p>
+        <h2 className="text-3xl font-medium tracking-tight text-foreground mb-4 leading-tight">O poder da<br/>palavra</h2>
+        <p className="text-sm text-muted-foreground leading-relaxed">Escritor e comunicador por natureza. Encontrou nos livros e nas palestras a ferramenta para amplificar sua voz e levar sua mensagem a milhares de pessoas.</p>
       </div>
-      <Photo src="/image/foto-roberto-04.webp" alt="Formação 1" className="w-full aspect-[4/3] rounded" width={800} height={600} />
-      <Photo src="/image/foto-roberto-05.webp" alt="Formação 2" className="w-full aspect-[4/3] rounded" width={800} height={600} />
+      <div className="grid grid-cols-2 gap-3">
+        <Photo src="/image/foto-roberto-04.webp" alt="Formação 1" className="w-full aspect-[4/3] rounded shadow-md" width={800} height={600} />
+        <Photo src="/image/foto-roberto-05.webp" alt="Formação 2" className="w-full aspect-[4/3] rounded shadow-md" width={800} height={600} />
+      </div>
     </div>
   </MobilePanel>
 );
 
 const MobilePanelOmunga = () => (
   <MobilePanel label="OMUNGA">
-    <div className="flex flex-col gap-6">
-      <h2 className="text-2xl font-medium tracking-tight text-foreground">Criar para transformar</h2>
+    <div className="flex flex-col gap-8">
+      <h2 className="text-3xl font-medium tracking-tight text-foreground leading-tight">Criar para<br/>transformar</h2>
 
-      <Photo src="/image/roberto-pascoal-comunidade-isolada.webp" alt="Amazônia" className="w-full aspect-[16/10] rounded-lg" width={800} height={500} />
-      <Photo src="/image/roberto-pascoal-criancas-indigenas.webp" alt="Crianças indígenas" className="w-full aspect-[4/3] rounded" width={800} height={600} />
-      <Photo src="/image/roberto-pascoal-leitura-indigena.webp" alt="Leitura indígena" className="w-full aspect-[4/3] rounded" width={800} height={600} />
-      <div>
-        <span className="text-foreground font-bold text-4xl tracking-tight">+50</span>
-        <span className="block text-muted-foreground text-xs uppercase tracking-widest mt-1">bibliotecas construídas</span>
+      <div className="flex flex-col gap-4">
+        <Photo src="/image/roberto-pascoal-comunidade-isolada.webp" alt="Amazônia" className="w-full aspect-[16/10] rounded-lg" width={800} height={500} />
+        <div className="flex gap-3">
+          <Photo src="/image/roberto-pascoal-criancas-indigenas.webp" alt="Crianças indígenas" className="w-1/2 aspect-[4/3] rounded" width={800} height={600} />
+          <Photo src="/image/roberto-pascoal-leitura-indigena.webp" alt="Leitura indígena" className="w-1/2 aspect-[4/3] rounded" width={800} height={600} />
+        </div>
       </div>
-      <div>
-        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">Criar para transformar</h2>
-        <p className="text-sm text-muted-foreground leading-relaxed">Fundou o Projeto Omunga com uma missão clara: levar bibliotecas e educação para as comunidades mais isoladas da Amazônia.</p>
+      
+      <div className="py-4 border-y border-border/10">
+        <span className="text-foreground font-bold text-5xl tracking-tight">+50</span>
+        <span className="block text-muted-foreground text-[10px] uppercase tracking-[0.2em] mt-2">bibliotecas construídas</span>
       </div>
+
+      <p className="text-sm text-muted-foreground leading-relaxed">Fundou o Projeto Omunga com uma missão clara: levar bibliotecas e educação para as comunidades mais isoladas da Amazônia.</p>
     </div>
   </MobilePanel>
 );
 
 const MobilePanelHoje = () => (
   <MobilePanel label="HOJE">
-    <div className="flex flex-col gap-6">
-      <Photo src="/image/palestra-roberto.webp" alt="Palestra" className="w-full aspect-[4/3] rounded-lg" width={800} height={600} />
-      <Photo src="/image/capa-do-livro.webp" alt="Livro" className="w-full aspect-[3/4] rounded-lg" width={400} height={533} />
-      <div className="text-center">
-        <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-10 mb-4 mx-auto object-contain" loading="lazy" />
-        <h2 className="text-2xl font-medium tracking-tight text-foreground mb-3">Inspirar para agir</h2>
-        <p className="text-sm text-muted-foreground leading-relaxed">Empreendedor social, palestrante e aspirante a escritor. Roberto continua dedicando cada dia a provar que a educação é o caminho.</p>
+    <div className="flex flex-col gap-10">
+      <div className="pt-4 text-center">
+        <img src="/image/omunga-logo.png" alt="Logo Omunga" className="h-12 mb-6 mx-auto object-contain invert dark:invert-0 opacity-80" loading="lazy" />
+        <h2 className="text-3xl font-medium tracking-tight text-foreground mb-4">Inspirar para agir</h2>
+        <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto">Empreendedor social, palestrante e aspirante a escritor. Roberto continua dedicando cada dia a provar que a educação é o caminho.</p>
       </div>
-      <Photo src="/image/WhatsApp Image 2026-04-01 at 15.47.14 (1).jpeg" alt="Ação social" className="w-full aspect-square rounded" width={600} height={600} />
-      <Photo src="/image/WhatsApp Image 2026-04-01 at 15.47.17.jpeg" alt="Roberto atual" className="w-full aspect-[4/3] rounded-lg" width={800} height={600} />
     </div>
   </MobilePanel>
 );
@@ -197,24 +197,23 @@ const HorizontalScrollSection = () => {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    if (isMobile) return;
+    if (isMobile !== false) return;
     if (!sectionRef.current || !containerRef.current) return;
 
+    const sectionEl = sectionRef.current;
     const container = containerRef.current;
 
     const scrollTween = gsap.to(container, {
       x: () => -(container.scrollWidth - window.innerWidth),
       ease: 'none',
       scrollTrigger: {
-        trigger: sectionRef.current,
+        trigger: sectionEl,
         pin: true,
         scrub: 1,
         end: () => `+=${container.scrollWidth - window.innerWidth}`,
         invalidateOnRefresh: true,
       },
     });
-
-
 
     const panelEls = container.querySelectorAll('.h-panel');
 
@@ -253,19 +252,42 @@ const HorizontalScrollSection = () => {
     });
 
     return () => {
-      scrollTween.kill();
-      ScrollTrigger.getAll().forEach(t => {
-        if (t.vars.trigger === sectionRef.current || (t.vars.containerAnimation === scrollTween)) {
-          t.kill();
+      if (scrollTween) {
+        scrollTween.kill();
+        if (scrollTween.scrollTrigger) {
+          scrollTween.scrollTrigger.kill(true);
+        }
+      }
+      
+      const triggers = ScrollTrigger.getAll();
+      triggers.forEach(t => {
+        if (t.vars.trigger === sectionEl || (t.vars.containerAnimation === scrollTween)) {
+          t.kill(true);
         }
       });
+
+      // Force clear any GSAP-injected styles and spacers
+      if (sectionEl) {
+        gsap.set(sectionEl, { clearProps: "all" });
+        // If GSAP left a pin-spacer, we might need to handle it, 
+        // but t.kill(true) usually handles it.
+      }
+      
+      ScrollTrigger.refresh();
     };
   }, [isMobile]);
 
   if (isMobile) {
     return (
-      <section className="relative z-10 w-full bg-background pb-8">
-        {mobilePanels.map((Panel, i) => <Panel key={timelineSteps[i].id} />)}
+      <section 
+        ref={sectionRef}
+        id="historia" 
+        className="relative block w-full bg-background py-20 px-6 flex flex-col gap-24 h-auto overflow-visible clear-both z-0"
+      >
+        <MobilePanelInfancia />
+        <MobilePanelFormacao />
+        <MobilePanelOmunga />
+        <MobilePanelHoje />
       </section>
     );
   }

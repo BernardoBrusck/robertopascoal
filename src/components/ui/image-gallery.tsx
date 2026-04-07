@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { useInView } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const galleryImages = [
   // Column 0
@@ -56,7 +57,7 @@ export function ImageGallery() {
   };
 
   return (
-    <section className="w-full bg-background py-20">
+    <section className="w-full bg-background py-20 clear-both">
       <div className="mx-auto max-w-[1400px] px-4">
         <div className="relative">
           <div
@@ -131,8 +132,8 @@ function Lightbox({
   onClose: () => void;
   onNavigate: (idx: number) => void;
 }) {
-  const prev = () => onNavigate((currentIndex - 1 + images.length) % images.length);
-  const next = () => onNavigate((currentIndex + 1) % images.length);
+  const prev = useCallback(() => onNavigate((currentIndex - 1 + images.length) % images.length), [currentIndex, images.length, onNavigate]);
+  const next = useCallback(() => onNavigate((currentIndex + 1) % images.length), [currentIndex, images.length, onNavigate]);
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -146,7 +147,7 @@ function Lightbox({
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKey);
     };
-  }, [currentIndex]);
+  }, [currentIndex, onClose, prev, next]);
 
   const current = images[currentIndex];
 
@@ -208,16 +209,17 @@ function MagneticButton({ onClick, label }: { onClick: () => void; label: string
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
+  const isMobile = useIsMobile();
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!btnRef.current) return;
+    if (isMobile || !btnRef.current) return;
     const rect = btnRef.current.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
     const dx = (e.clientX - cx) * 0.3;
     const dy = (e.clientY - cy) * 0.3;
     setOffset({ x: dx, y: dy });
-  }, []);
+  }, [isMobile]);
 
   const handleMouseLeave = () => {
     setIsHovered(false);
@@ -225,31 +227,27 @@ function MagneticButton({ onClick, label }: { onClick: () => void; label: string
   };
 
   const handleClick = () => {
+    if (isPressed) return;
     setIsPressed(true);
+    onClick();
     setTimeout(() => {
       setIsPressed(false);
-      onClick();
-    }, 300);
+    }, 1000);
   };
 
   return (
     <button
       ref={btnRef}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => !isMobile && setIsHovered(true)}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
-      className="relative z-10 flex h-28 w-28 items-center justify-center rounded-full bg-foreground text-background text-xs font-medium tracking-wider uppercase"
+      className="relative z-10 flex h-24 w-24 md:h-28 md:w-28 items-center justify-center rounded-full bg-foreground text-background text-[10px] md:text-xs font-medium tracking-wider uppercase shadow-xl"
       style={{
-        transform: isPressed
-          ? `translate(${offset.x}px, ${offset.y}px) scale(3)`
-          : isHovered
-            ? `translate(${offset.x}px, ${offset.y}px) scale(1.1)`
-            : 'translate(0, 0) scale(1)',
-        opacity: isPressed ? 0 : 1,
-        transition: isPressed
-          ? 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease'
-          : 'transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease',
+        transform: !isMobile && isHovered
+          ? `translate(${offset.x}px, ${offset.y}px) scale(1.1)`
+          : 'translate(0, 0) scale(1)',
+        transition: 'transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease',
         fontFamily: 'system-ui',
         cursor: 'pointer',
       }}

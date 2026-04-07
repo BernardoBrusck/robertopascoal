@@ -11,6 +11,10 @@ import NotFound from "./pages/NotFound";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Login from "./pages/admin/Login";
+import Home from "./pages/Home";
+import Livro from "./pages/Livro";
+import SobreMim from "./pages/SobreMim";
+import Palestras from "./pages/Palestras";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
@@ -53,6 +57,10 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<HomeWithLoading />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/livro" element={<Livro />} />
+              <Route path="/sobre-mim" element={<SobreMim />} />
+              <Route path="/palestras" element={<Palestras />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/blog/preview/:id" element={

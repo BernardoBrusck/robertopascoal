@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { Navbar } from "@/components/ui/navbar";
 import HeroSection from "@/components/HeroSection";
 import TextRevealSection from "@/components/TextRevealSection";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Lazy load all below-fold sections
 const HorizontalScrollSection = lazy(() => import("@/components/HorizontalScrollSection"));
@@ -17,29 +18,39 @@ const ContactFooter = lazy(() => import("@/components/ContactFooter"));
 const SectionFallback = () => <div className="min-h-[50vh]" />;
 
 const Index = () => {
+  const isMobile = useIsMobile();
+
+  if (isMobile === undefined) {
+    return <div className="min-h-screen bg-background" />;
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
       <TextRevealSection />
-      <div id="historia">
-        <Suspense fallback={<SectionFallback />}>
-          <HorizontalScrollSection />
-        </Suspense>
-      </div>
       <Suspense fallback={<SectionFallback />}>
-        <ZoomParallaxSection />
+        <HorizontalScrollSection />
       </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <TextRevealBlock
-          text="Minha missão é simples: provar que a educação transforma qualquer realidade e que nunca é tarde para começar."
-        />
-      </Suspense>
-      <div id="servicos">
-        <Suspense fallback={<SectionFallback />}>
-          <ServicesSection />
-        </Suspense>
-      </div>
+      
+      {!isMobile && (
+        <>
+          <Suspense fallback={<SectionFallback />}>
+            <ZoomParallaxSection />
+          </Suspense>
+          <Suspense fallback={<SectionFallback />}>
+            <TextRevealBlock
+              text="Minha missão é simples: provar que a educação transforma qualquer realidade e que nunca é tarde para começar."
+            />
+          </Suspense>
+          <div id="servicos">
+            <Suspense fallback={<SectionFallback />}>
+              <ServicesSection />
+            </Suspense>
+          </div>
+        </>
+      )}
+
       <Suspense fallback={<SectionFallback />}>
         <ImageGallery />
       </Suspense>

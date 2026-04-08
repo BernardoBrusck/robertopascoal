@@ -15,6 +15,7 @@ import Home from "./pages/Home";
 import Livro from "./pages/Livro";
 import SobreMim from "./pages/SobreMim";
 import Palestras from "./pages/Palestras";
+import Galeria from "./pages/Galeria";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
@@ -58,10 +59,11 @@ const App = () => {
             <Routes>
               <Route path="/" element={<HomeWithLoading />} />
               <Route path="/home" element={<Home />} />
-              <Route path="/livro" element={<Livro />} />
+              <Route path="/e-book" element={<Livro />} /> 
               <Route path="/sobre-mim" element={<SobreMim />} />
               <Route path="/palestras" element={<Palestras />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/galeria" element={<Galeria />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/blog/preview/:id" element={
                 <ProtectedRoute>

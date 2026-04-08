@@ -1,7 +1,9 @@
 import React from 'react';
 import { NavbarAlt } from "@/components/ui/navbar-alt";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import { Youtube, ExternalLink, CheckCircle2, MapPin, Calendar, Users, Clock, Building2, User, Mail, Phone, MessageSquare } from "lucide-react";
+import { useEffect } from "react";
 
 const Palestras = () => {
   const { scrollYProgress } = useScroll();
@@ -13,6 +15,20 @@ const Palestras = () => {
     viewport: { once: true },
     transition: { duration: 0.8 }
   };
+
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash === '#orcamento') {
+      setTimeout(() => {
+        const el = document.getElementById('orcamento');
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      }, 500);
+    }
+  }, [hash]);
 
   return (
     <div className="min-h-screen bg-white text-black font-sans selection:bg-black selection:text-white overflow-x-hidden">

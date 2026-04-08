@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const navItems = [
   { label: "História", href: "#historia" },
   { label: "Serviços", href: "#servicos" },
-  { label: "Livro", href: "#livro" },
+  { label: "E-book", href: "#livro" },
   { label: "Palestras", href: "#palestras" },
   { label: "Blog", href: "/blog" },
 ];

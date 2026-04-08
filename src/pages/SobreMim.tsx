@@ -26,29 +26,44 @@ const SobreMim = () => {
     <div className="min-h-screen bg-white text-black font-sans selection:bg-black selection:text-white overflow-x-hidden">
       <NavbarAlt />
 
-      {/* Hero Section */}
-      <section className="relative h-[80vh] w-full overflow-hidden flex items-center justify-center bg-gray-900">
-        <motion.div style={{ y: y1 }} className="absolute inset-0 z-0">
-          <img 
+      {/* Hero Section (Minimalista estilo Editorial) */}
+      <section className="pt-40 md:pt-48 pb-10 px-6 max-w-7xl mx-auto flex flex-col items-center justify-center text-center overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="space-y-8 md:space-y-10"
+        >
+          <motion.span 
+            initial={{ opacity: 0, letterSpacing: "0em" }}
+            animate={{ opacity: 1, letterSpacing: "0.25em" }}
+            transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+            className="text-[10px] md:text-sm uppercase text-gray-500 font-medium block"
+          >
+            Empreendedor Social &nbsp;&bull;&nbsp; Palestrante &nbsp;&bull;&nbsp; Escritor
+          </motion.span>
+          <h1 className="text-6xl md:text-8xl lg:text-[8.5rem] font-light tracking-tighter text-black leading-none">
+            Roberto <span className="font-serif italic font-medium -ml-1 md:-ml-4">Pascoal</span>
+          </h1>
+        </motion.div>
+      </section>
+
+      {/* Imagem Destaque (Com Parallax Interno) */}
+      <section className="relative w-full px-4 md:px-8 lg:px-12 mb-24 max-w-[1400px] mx-auto">
+        <motion.div 
+           initial={{ opacity: 0, scale: 0.95 }}
+           animate={{ opacity: 1, scale: 1 }}
+           transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
+           className="relative aspect-[4/3] md:aspect-[21/9] rounded-2xl overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)]"
+        >
+          {/* Usamos absolute com altura um pouco maior que o pai para o efeito de rolagem da imagem */}
+          <motion.img 
+            style={{ y: y1 }}
             src="/image/roberto-pascoal-retrato.webp" 
             alt="Roberto Pascoal" 
-            className="w-full h-full object-cover opacity-60"
+            className="absolute -top-[10%] left-0 w-full h-[120%] object-cover object-[center_30%]"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-white" />
-        </motion.div>
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2 }}
-          className="relative z-10 text-center px-6"
-        >
-          <h1 className="text-5xl md:text-8xl font-medium tracking-tighter text-black">
-            Roberto Pascoal
-          </h1>
-          <p className="mt-6 text-sm md:text-base uppercase tracking-[0.4em] text-gray-500 font-light">
-            Empreendedor Social • Palestrante • Escritor
-          </p>
         </motion.div>
       </section>
 

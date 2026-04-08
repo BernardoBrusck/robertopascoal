@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { motion } from 'framer-motion';
 
 const slides = [
   { title: "Roberto Pascoal", description: "Escritor. Palestrante. Fundador da Omunga.", media: "/hero/Pagina 01 - Confirmada 01.jpg", mobilePosition: "center center" },
@@ -72,7 +73,8 @@ function UnifiedSlider() {
           />
         ))}
       </div>
-      <div className="slider-overlay">
+      <div className="absolute inset-0 bg-black/60 z-10 pointer-events-none" />
+      <div className="slider-overlay z-20">
         <div id="slidesNav" className="slider-dots-nav">
           {slides.map((_, i) => (
             <button
@@ -83,20 +85,48 @@ function UnifiedSlider() {
             />
           ))}
         </div>
-        <div className="slider-content-editorial">
-          <p
-            key={`desc-${current}`}
-            className="slider-subtitle animate-slide-fade-in"
-          >
-            {slides[current].description}
-          </p>
-          <h1
-            key={`title-${current}`}
-            className="slider-title-editorial font-heading animate-slide-fade-in-delayed"
-          >
-            {slides[current].title}
-          </h1>
-        </div>
+        
+        {/* Animated Central Text */}
+        <motion.div 
+          initial="hidden" 
+          animate="visible" 
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } }
+          }}
+          className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
+        >
+          <div className="text-center font-sans font-light text-white flex flex-col gap-2 md:gap-3 drop-shadow-md">
+            
+            {/* Line 1 */}
+            <div className="overflow-hidden">
+              <motion.div 
+                variants={{
+                  hidden: { y: "120%", opacity: 0 },
+                  visible: { y: "0%", opacity: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
+                }}
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] tracking-tighter py-2 px-1 leading-tight"
+              >
+                Não é sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">pronto</span>
+              </motion.div>
+            </div>
+            
+            {/* Line 2 */}
+            <div className="overflow-hidden">
+              <motion.div 
+                variants={{
+                  hidden: { y: "120%", opacity: 0 },
+                  visible: { y: "0%", opacity: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
+                }}
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] tracking-tighter py-2 px-1 leading-tight"
+              >
+                Nem sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">completo</span>
+              </motion.div>
+            </div>
+
+          </div>
+        </motion.div>
+
         <div className="slider-counter-editorial">
           <span className="slider-counter-current">{String(current + 1).padStart(2, '0')}</span>
           <span className="slider-counter-line"></span>

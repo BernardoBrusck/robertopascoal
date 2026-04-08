@@ -2,10 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import { NavbarAlt } from "@/components/ui/navbar-alt";
 import HeroSection from "@/components/HeroSection";
 import { motion, AnimatePresence } from "framer-motion";
-import { Footprints, Backpack, Compass, Heart, ArrowDown, Volume2, VolumeX } from "lucide-react";
+import { ArrowDown, Volume2, VolumeX } from "lucide-react";
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ZoomParallax } from "@/components/ui/zoom-parallax";
+import { ValuePropositionSection } from "@/components/ValuePropositionSection";
+import { EbookSection } from "@/components/EbookSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,63 +17,82 @@ const zoomParallaxImages = [
   { src: '/image/Eu-e-minha-irmã.webp', alt: 'Eu e minha irmã', width: 1200, height: 800, isPolaroid: true },
   { src: '/image/Foto-05-Beto-Pag-11.webp', alt: 'Beto infância', width: 1200, height: 800, isPolaroid: true },
   { src: '/image/Foto-10-Mãe-e-Beto-Pg-14.webp', alt: 'Mãe e Beto', width: 800, height: 1200, isPolaroid: true },
-  { src: '/image/roberto-pascoal-explorador.webp', alt: 'Explorador', width: 800, height: 1200, isPolaroid: true },
-  { src: '/image/roberto-pascoal-indigena-interacao.webp', alt: 'Interação Indígena', width: 800, height: 600, isPolaroid: true },
+  { src: '/image/infancia-upscale.webp', alt: 'Roberto criança sala de aula', width: 800, height: 1200, isPolaroid: true },
+  { src: '/image/roberto-infancia-crianca.webp', alt: 'Roberto infância pote', width: 800, height: 600, isPolaroid: true },
 ];
 
 const Home = () => {
   const [isMuted, setIsMuted] = useState(true);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLParagraphElement>(null);
+  
+  // Refs for Block 02 Pinning
+  const containerRef = useRef<HTMLDivElement>(null);
+  const phrase1Ref = useRef<HTMLDivElement>(null);
+  const phrase2Ref = useRef<HTMLDivElement>(null);
+  const phrase3Ref = useRef<HTMLDivElement>(null);
+  const phrase4Ref = useRef<HTMLDivElement>(null);
+  const phrase5Ref = useRef<HTMLDivElement>(null);
 
+  // Refs for Block 03
   const sectionRef3 = useRef<HTMLDivElement>(null);
   const textRef3 = useRef<HTMLParagraphElement>(null);
 
-  // GSAP Text Reveal Effect - Block 02
+  // --- GSAP Pinned Scroll Reveal Effect - Block 02 ---
   useEffect(() => {
-    if (!textRef.current || !sectionRef.current) return;
-
-    const linesData = [
-      { text: "É sobre olhar para o que se", classes: "font-sans font-semibold tracking-tighter" },
-      { text: "carrega… o peso da própria mochila.", classes: "font-serif italic font-light opacity-90" },
-      { text: "E, ainda assim,", classes: "font-sans font-medium tracking-tight mt-4" },
-      { text: "escolher seguir em frente...", classes: "font-sans font-bold tracking-tighter" },
-      { text: "para se reconectar consigo mesmo.", classes: "font-serif italic font-light opacity-90" }
+    if (!containerRef.current) return;
+    
+    // As frases a serem animadas
+    const phrases = [
+      phrase1Ref.current, 
+      phrase2Ref.current, 
+      phrase3Ref.current, 
+      phrase4Ref.current, 
+      phrase5Ref.current
     ];
 
-    let htmlContent = '';
-    linesData.forEach((line) => {
-      const words = line.text.split(' ');
-      words.forEach(w => {
-        if (!w.trim()) return;
-        htmlContent += `<span class="inline-block pb-1 pr-[0.1em] ${line.classes}" style="color: hsl(220, 10%, 85%)">${w}</span> `;
-      });
-      htmlContent += '<br/>';
-    });
+    if (phrases.some(p => !p)) return;
 
-    textRef.current.innerHTML = htmlContent;
-
-    const words = textRef.current.querySelectorAll('span');
-
-    const anim = gsap.to(words, {
-      color: 'hsl(220, 30%, 15%)',
-      stagger: 0.15,
-      ease: 'none',
+    // Timeline para a fixação (Pinning) da seção inteira
+    const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top 75%',
-        end: 'bottom 45%',
-        scrub: 1,
-      },
+        trigger: containerRef.current,
+        start: "top top",       // Ao tocar o topo
+        end: "+=400%",          // O scroll dura 4 vezes o tamanho da tela
+        scrub: 1,               // Animação atrelada ao scroll (suave = 1)
+        pin: true,              // Prende o scroll
+        anticipatePin: 1,
+      }
     });
 
-    return () => { 
-      anim.scrollTrigger?.kill();
-      anim.kill(); 
+    // Sequência de entrada e saída
+    phrases.forEach((phrase, i) => {
+      // Entra do fundo para o meio
+      tl.fromTo(phrase, 
+        { opacity: 0, y: 50 }, 
+        { opacity: 1, y: 0, duration: 2, ease: "power2.out" }
+      );
+      
+      // Pequena Pausa de leitura
+      tl.to({}, { duration: 1.5 });
+      
+      // Sai subindo (exceto a última frase que pode desvanecer na liberação do pin)
+      if (i < phrases.length - 1) {
+        tl.fromTo(phrase, 
+          { opacity: 1, y: 0 },
+          { opacity: 0, y: -50, duration: 2, ease: "power2.in" }
+        );
+      } else {
+        // Para a última frase, suaviza o sumiço enquanto libera a tela
+        tl.to(phrase, { opacity: 0, y: -50, duration: 2, ease: "power2.in" });
+      }
+    });
+
+    return () => {
+      tl.scrollTrigger?.kill();
+      tl.kill();
     };
   }, []);
 
-  // GSAP Text Reveal Effect - Block 03
+  // --- GSAP Text Reveal Effect - Block 03 ---
   useEffect(() => {
     if (!textRef3.current || !sectionRef3.current) return;
 
@@ -121,12 +142,16 @@ const Home = () => {
       {/* Block 01: Hero Abertura */}
       <HeroSection />
 
-      {/* Block 02: Conexão (Vídeo Vertical e Texto) */}
-      <section id="conexao" ref={sectionRef} className="py-24 md:py-32 px-6 lg:px-12 bg-white w-full overflow-hidden">
-        <div className="max-w-[1200px] mx-auto flex flex-col lg:flex-row items-center justify-center gap-10 md:gap-16">
+      {/* Block 02: Conexão (Vídeo Fixo e Texto Pinned) */}
+      <section 
+        id="conexao" 
+        ref={containerRef} 
+        className="bg-white w-full h-[100vh] flex items-center justify-center overflow-hidden px-4 md:px-6 lg:px-12 relative"
+      >
+        <div className="max-w-[1200px] w-full mx-auto flex flex-col lg:flex-row items-center justify-center gap-10 md:gap-20 h-full">
           
           {/* Left Vertical Video */}
-          <div className="relative w-full max-w-[320px] md:max-w-[450px] aspect-[9/16] rounded-[2rem] overflow-hidden shadow-2xl shadow-black/10 group cursor-pointer shrink-0">
+          <div className="relative w-full max-w-[280px] md:max-w-[360px] lg:max-w-[400px] h-[60vh] md:h-[80vh] lg:h-[90vh] rounded-[2rem] overflow-hidden shadow-2xl shadow-black/10 group cursor-pointer shrink-0" onClick={() => setIsMuted(!isMuted)}>
             <video 
               src="/video/caminhada.mp4" 
               autoPlay 
@@ -152,14 +177,39 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Right Text com RevealGSAP */}
-          <div className="flex text-left pl-0 max-w-[650px]">
-            <p 
-              ref={textRef} 
-              className="text-[2rem] md:text-[3rem] lg:text-[3.5rem] leading-[1.1] text-left"
-            >
-              {/* GSAP preenche as spans misturadas aqui */}
-            </p>
+          {/* Right Text - Empilhados via absolutismo para revelar em sequência */}
+          <div className="relative flex-1 w-full max-w-[550px] min-h-[150px] md:min-h-[200px]">
+            
+            <div ref={phrase1Ref} className="absolute inset-0 flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
+               <span className="text-3xl md:text-5xl lg:text-[3rem] font-light text-gray-600 text-center lg:text-left leading-tight">
+                  É sobre olhar para o que se carrega...
+               </span>
+            </div>
+            
+            <div ref={phrase2Ref} className="absolute inset-0 flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
+               <span className="text-3xl md:text-5xl lg:text-[3rem] font-light text-gray-600 text-center lg:text-left leading-tight">
+                  o peso da própria mochila.
+               </span>
+            </div>
+            
+            <div ref={phrase3Ref} className="absolute inset-0 flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
+               <span className="text-3xl md:text-5xl lg:text-[3rem] font-light text-gray-600 text-center lg:text-left leading-tight">
+                  E, ainda assim,
+               </span>
+            </div>
+            
+            <div ref={phrase4Ref} className="absolute inset-0 flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
+               <span className="text-3xl md:text-5xl lg:text-[3rem] font-light text-gray-600 text-center lg:text-left leading-tight">
+                  escolher seguir em frente...
+               </span>
+            </div>
+            
+            <div ref={phrase5Ref} className="absolute inset-0 flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
+               <span className="text-3xl md:text-5xl lg:text-[3rem] font-light text-gray-600 text-center lg:text-left leading-tight">
+                  para se reconectar consigo mesmo.
+               </span>
+            </div>
+
           </div>
 
         </div>
@@ -167,10 +217,10 @@ const Home = () => {
 
       {/* Block 03: Memórias - Text Title and Zoom Parallax */}
       <div className="bg-background">
-        <section ref={sectionRef3} className="py-24 md:py-48 px-6 lg:px-12 w-full flex items-center justify-center">
+        <section ref={sectionRef3} className="py-12 md:py-20 px-6 lg:px-12 w-full flex items-center justify-center">
           <p 
             ref={textRef3} 
-            className="font-sans text-3xl md:text-5xl lg:text-5xl leading-[1.3] font-light max-w-4xl text-center tracking-tight"
+            className="font-sans text-2xl md:text-4xl lg:text-4xl leading-[1.3] font-light max-w-4xl text-center tracking-tight"
           >
             {/* Text Reveal Block 3 */}
           </p>
@@ -182,83 +232,49 @@ const Home = () => {
       </div>
 
       {/* Block 04: Proposta de Valor */}
-      <section className="py-32 px-6 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2 
-            {...fadeIn}
-            className="text-3xl md:text-4xl font-light text-center mb-24"
-          >
-            E se pudéssemos caminhar juntos?
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            <ValueItem 
-              icon={<Footprints className="w-8 h-8" />}
-              title="Uma jornada real"
-              text="Sem máscaras. Da infância à África… à Santiago de Compostela… aos lugares onde poucos chegam."
-            />
-            <ValueItem 
-              icon={<Backpack className="w-8 h-8" />}
-              title="O que carregamos"
-              text="O que evitamos. O que ainda não entendemos. Mas seguimos."
-            />
-            <ValueItem 
-              icon={<Compass className="w-8 h-8" />}
-              title="Sem fórmulas"
-              text="Sem atalhos. Só o passo seguinte."
-            />
-            <ValueItem 
-              icon={<Heart className="w-8 h-8" />}
-              title="Companhia"
-              text="Você não está sozinho. Caminhar junto, torna a estrada mais leve."
-            />
-          </div>
-        </div>
-      </section>
+      <ValuePropositionSection />
 
-      {/* Block 05: Livro */}
-      <section className="py-32 px-6 bg-gray-50">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <motion.div {...fadeIn} className="order-2 lg:order-1 space-y-8">
-            <div className="space-y-2 text-xl md:text-2xl font-light text-gray-600">
-              <p>A quem busca mais sentido.</p>
-              <p>A quem deseja mais clareza.</p>
-              <p>A quem tem coragem de se ouvir.</p>
-              <p>A quem, enfim, se escolhe.</p>
-            </div>
-            <div className="pt-8 border-t border-gray-200">
-              <p className="text-2xl md:text-3xl font-medium">Este livro não é uma resposta.</p>
-              <p className="text-2xl md:text-3xl font-light italic">É um caminho.</p>
-            </div>
-            <h3 className="text-4xl md:text-5xl font-serif tracking-tight pt-4">
-              O Caminho depois da pressa.
-            </h3>
-          </motion.div>
-          <motion.div 
-            {...fadeIn}
-            transition={{ delay: 0.2 }}
-            className="order-1 lg:order-2 relative"
-          >
-            <div className="aspect-[3/4] bg-white p-8 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
-              <img 
-                src="/image/capa-do-livro.webp" 
-                alt="Capa do Livro" 
-                className="w-full h-full object-contain"
-                referrerPolicy="no-referrer"
-              />
-            </div>
-            <div className="absolute -bottom-8 -left-8 w-48 h-48 z-[-1] bg-gray-200 rounded-full blur-3xl opacity-50" />
-          </motion.div>
-        </div>
-      </section>
+      {/* Block 05: E-book (Tablet Fixo + Textos Scrubbed) */}
+      <EbookSection />
 
-      {/* Block 06: Final */}
-      <section className="py-48 px-6 bg-white flex items-center justify-center text-center">
+      {/* Block 06: Final (Animado) */}
+      <section className="py-48 px-6 bg-white flex items-center justify-center text-center overflow-hidden">
         <motion.h2 
-          {...fadeIn}
-          className="text-4xl md:text-6xl font-light tracking-tighter"
+          className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight flex flex-wrap justify-center gap-x-2 md:gap-x-3"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } }
+          }}
         >
-          Nunca pronto, <br className="md:hidden" />
-          <span className="font-medium italic">mas sempre suficiente.</span>
+          {/* Animação palavra por palavra para um efeito mais suave que letra-por-letra, ou mistura */}
+          {["Nunca", "pronto,"].map((word, i) => (
+            <motion.span 
+              key={i} 
+              className="inline-block"
+              variants={{
+                hidden: { opacity: 0, y: 30, filter: 'blur(5px)' },
+                visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.8, ease: "easeOut" } }
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
+          <br className="hidden md:block w-full" /> {/* Force break if needed or let flow */}
+          {["mas", "sempre", "suficiente."].map((word, i) => (
+            <motion.span 
+              key={i + 2} 
+              className="inline-block font-medium italic text-black"
+              variants={{
+                hidden: { opacity: 0, y: 30, filter: 'blur(5px)' },
+                visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.8, ease: "easeOut" } }
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
         </motion.h2>
       </section>
 
@@ -268,24 +284,5 @@ const Home = () => {
     </div>
   );
 };
-
-const ValueItem = ({ icon, title, text }: { icon: React.ReactNode, title: string, text: string }) => (
-  <motion.div 
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    className="flex flex-col items-center text-center space-y-6"
-  >
-    <div className="p-4 rounded-full bg-gray-50 text-gray-400">
-      {icon}
-    </div>
-    <div className="space-y-3">
-      <h3 className="text-lg font-medium tracking-tight uppercase text-gray-400 text-[10px] tracking-[0.2em]">{title}</h3>
-      <p className="text-sm text-gray-500 leading-relaxed font-light">
-        {text}
-      </p>
-    </div>
-  </motion.div>
-);
 
 export default Home;

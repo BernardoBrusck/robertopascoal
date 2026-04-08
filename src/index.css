@@ -185,7 +185,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.25);
   border: none;
   padding: 18px;
   margin: -18px;
@@ -200,8 +200,7 @@
 }
 
 .slider-dot.active {
-  background: #ffffff;
-  background-clip: content-box;
+  background-color: #ffffff;
   transform: scale(1.4);
 }
 
@@ -221,7 +220,7 @@
 }
 
 .slider-dot:hover {
-  background: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 @media (max-width: 768px) {

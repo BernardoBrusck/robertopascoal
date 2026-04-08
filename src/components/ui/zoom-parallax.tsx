@@ -18,7 +18,7 @@ interface ZoomParallaxProps {
 }
 
 const desktopPositions = [
-  'w-[25vw] aspect-[16/10]', // 0: Center (original size)
+  'w-[28vw] h-[32vh]', // 0: Center (to cover full screen when scaled by 4)
   'absolute -top-[36vh] left-[10vw] w-[12vw] aspect-[4/5]', // 1: Top Right
   'absolute -top-[22vh] -left-[28vw] w-[14vw] aspect-[4/5]', // 2: Top Left
   'absolute top-[10vh] left-[25vw] w-[13vw] aspect-[4/5]', // 3: Right

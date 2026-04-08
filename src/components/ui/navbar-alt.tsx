@@ -4,23 +4,40 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { useLocation, Link } from "react-router-dom";
+import { Menu, X, Instagram, Linkedin } from "lucide-react";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 
 const navItems = [
-  { label: "Caminho", href: "/home" },
-  { label: "Livro", href: "/livro" },
+  { label: "O Caminho", href: "/home" },
   { label: "Sobre mim", href: "/sobre-mim" },
+  { label: "E-book", href: "/e-book" },
   { label: "Palestras", href: "/palestras" },
+  { label: "Blog", href: "/blog" },
+  { label: "Galeria", href: "/galeria" },
+  { label: "Contatos", href: "/palestras#orcamento" },
 ];
 
 const NavbarAlt = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
+  const [hoverShow, setHoverShow] = useState(false);
   const location = useLocation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  // Show on mouse near top of screen
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (e.clientY < 60) {
+        setHoverShow(true);
+      } else if (e.clientY > 120) {
+        setHoverShow(false);
+      }
+    };
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -35,9 +52,7 @@ const NavbarAlt = () => {
 
         if (currentY <= 50) {
           setVisible(true);
-        } else if (currentY < lastScrollY) {
-          setVisible(true);
-        } else if (currentY > lastScrollY + 5) {
+        } else {
           setVisible(false);
         }
 
@@ -50,10 +65,12 @@ const NavbarAlt = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const textColor = scrolled ? "text-foreground" : "text-white";
-  const mutedColor = scrolled ? "text-foreground/70" : "text-white/70";
-  const borderColor = scrolled ? "border-foreground" : "border-white";
-  const hoverBg = scrolled ? "hover:bg-foreground hover:text-background" : "hover:bg-white hover:text-black";
+  const isGaleriaPage = location.pathname.startsWith("/galeria");
+
+  const textColor = scrolled ? "text-foreground" : (isGaleriaPage ? "text-foreground" : "text-white");
+  const mutedColor = scrolled ? "text-foreground/70" : (isGaleriaPage ? "text-foreground/70" : "text-white/70");
+  const borderColor = scrolled ? "border-foreground" : (isGaleriaPage ? "border-foreground" : "border-white");
+  const hoverBg = scrolled ? "hover:bg-foreground hover:text-background" : (isGaleriaPage ? "hover:bg-foreground hover:text-background" : "hover:bg-white hover:text-black");
 
   return (
     <>
@@ -61,13 +78,13 @@ const NavbarAlt = () => {
         className="fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ease-out"
         style={{
           padding: scrolled ? "8px 16px" : "0",
-          transform: (visible || isOpen) ? "translateY(0)" : "translateY(-100%)",
+          transform: (visible || hoverShow || isOpen) ? "translateY(0)" : "translateY(-100%)",
         }}
       >
         <header
           className="mx-auto transition-all duration-500 ease-out"
           style={{
-            maxWidth: scrolled ? "1100px" : "100%",
+            maxWidth: scrolled ? "1350px" : "100%",
             backgroundColor: scrolled ? "rgba(255, 255, 255, 0.9)" : "transparent",
             backdropFilter: scrolled ? "blur(20px)" : "none",
             WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
@@ -99,14 +116,26 @@ const NavbarAlt = () => {
                 ))}
               </nav>
 
-              {/* Desktop CTA */}
-              <div className="hidden md:block">
-                <Link
-                  to="/#contato"
-                  className={`inline-flex items-center justify-center px-6 py-2.5 rounded-sm text-xs uppercase tracking-[0.2em] font-medium border bg-transparent transition-all duration-300 ${textColor} ${borderColor} ${hoverBg}`}
+              {/* Desktop CTA (Social Icons) */}
+              <div className="hidden md:flex items-center gap-4">
+                <a
+                  href="https://www.instagram.com/roberto_pascoal/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-2 transition-transform duration-300 ${textColor} hover:scale-110`}
+                  aria-label="Instagram Roberto Pascoal"
                 >
-                  Contato
-                </Link>
+                  <Instagram size={20} strokeWidth={1.5} />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/roberto-pascoal/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-2 transition-transform duration-300 ${textColor} hover:scale-110`}
+                  aria-label="LinkedIn Roberto Pascoal"
+                >
+                  <Linkedin size={20} strokeWidth={1.5} />
+                </a>
               </div>
 
               {/* Mobile Menu Button */}
@@ -146,22 +175,17 @@ const NavbarAlt = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.08 }}
                   >
-                    <Link
-                      to={item.href}
-                      onClick={() => setIsOpen(false)}
+                    <a
+                      href={item.href}
+                      onClick={(e) => {
+                        setIsOpen(false);
+                      }}
                       className="text-2xl font-bold uppercase tracking-[0.15em] text-foreground"
                     >
                       {item.label}
-                    </Link>
+                    </a>
                   </motion.div>
                 ))}
-                <Link
-                  to="/#contato"
-                  onClick={() => setIsOpen(false)}
-                  className="mt-4 inline-flex items-center justify-center px-10 py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium border border-foreground text-foreground"
-                >
-                  Contato
-                </Link>
               </nav>
             </motion.div>
           )}

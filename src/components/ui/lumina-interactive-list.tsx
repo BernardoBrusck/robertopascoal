@@ -92,7 +92,7 @@ function UnifiedSlider() {
           animate="visible" 
           variants={{
             hidden: {},
-            visible: { transition: { staggerChildren: 2.2, delayChildren: 0.8 } }
+            visible: { transition: { staggerChildren: 0.5, delayChildren: 0.8 } }
           }}
           className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
         >
@@ -105,7 +105,7 @@ function UnifiedSlider() {
                   hidden: { y: "120%", opacity: 0 },
                   visible: { y: "0%", opacity: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
                 }}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] tracking-tighter py-2 px-1 leading-tight"
+                className="text-[2.8rem] tracking-[2px] py-2 px-1 leading-tight"
               >
                 Não é sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">pronto...</span>
               </motion.div>
@@ -118,9 +118,9 @@ function UnifiedSlider() {
                   hidden: { y: "120%", opacity: 0 },
                   visible: { y: "0%", opacity: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
                 }}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] tracking-tighter py-2 px-1 leading-tight"
+                className="text-[2.8rem] tracking-[2px] py-2 px-1 leading-tight"
               >
-                ...nem sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">completo?</span>
+                ...nem sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">completo.</span>
               </motion.div>
             </div>
 

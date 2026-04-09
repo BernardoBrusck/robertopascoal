@@ -110,21 +110,21 @@ export const ValuePropositionSection = () => {
     );
   }
 
-  // VERSÃO DESKTOP — Título sticky no topo, cards rolam horizontalmente
+  // VERSÃO DESKTOP — GSAP com Scroll Horizontal
   return (
-    <section ref={sectionRef} className="w-full bg-white relative overflow-hidden">
+    <section ref={sectionRef} className="h-screen w-full bg-white relative overflow-hidden flex flex-col justify-center">
 
-      {/* Título fixo no topo — fora do container que se move */}
-      <div className="sticky top-0 z-20 bg-white pt-14 pb-6 px-[6vw] xl:px-[10vw] pointer-events-none">
+      {/* Título centralizado na tela na horizontal */}
+      <div className="w-full text-center z-20 mb-16 px-6">
         <h2 className="text-4xl lg:text-5xl font-light leading-[1.2] tracking-tighter">
           E se pudéssemos<br />caminhar juntos?
         </h2>
-        <div className="w-16 h-px bg-gray-300 mt-6" />
+        <div className="w-16 h-px bg-gray-300 mx-auto mt-6" />
       </div>
 
       {/* Container dos cards — movido no eixo X pelo GSAP */}
-      <div className="h-screen w-full flex items-center overflow-hidden">
-        <div ref={containerRef} className="flex flex-row items-center h-full w-max px-[6vw] xl:px-[10vw]">
+      <div className="w-full overflow-hidden">
+        <div ref={containerRef} className="flex flex-row items-start w-max px-[6vw] xl:px-[10vw]">
 
           {/* 4 Cards */}
           <div className="flex gap-20 xl:gap-32 pb-4">

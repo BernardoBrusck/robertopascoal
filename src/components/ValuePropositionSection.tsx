@@ -63,19 +63,17 @@ export const ValuePropositionSection = () => {
     const sectionEl = sectionRef.current;
     const container = containerRef.current;
 
-    // Distância a rolar: Tudo que sobra fora da janela.
+    // Distância a rolar: tudo que sobra fora da janela
     const distance = container.scrollWidth - window.innerWidth;
-    
-    // Anima o wrapper horizontalmente na proporção do scroll vertical
+
     const scrollTween = gsap.to(container, {
       x: -distance,
       ease: 'none',
       scrollTrigger: {
         trigger: sectionEl,
-        start: 'center center',
+        start: 'top top',
         pin: true,
         scrub: 1,
-        // Mantém preso por bastante tempo de leitura baseado na largura e texto
         end: () => `+=${distance + 400}`,
         invalidateOnRefresh: true,
       },
@@ -112,32 +110,37 @@ export const ValuePropositionSection = () => {
     );
   }
 
-  // VERSÃO DESKTOP (Horizontal Pinning GSAP Effect)
+  // VERSÃO DESKTOP — Título sticky no topo, cards rolam horizontalmente
   return (
-    <section ref={sectionRef} className="h-screen w-full bg-white relative overflow-hidden flex items-center">
-      <div ref={containerRef} className="flex flex-row items-center h-full w-max px-[6vw] xl:px-[10vw]">
-        
-        {/* Title Block Pivot */}
-        <div className="w-[60vw] max-w-[500px] shrink-0 mr-24 xl:mr-32 flex flex-col justify-center">
-          <h2 className="text-4xl lg:text-5xl font-light leading-[1.2] tracking-tighter">
-            E se pudéssemos<br />caminhar juntos?
-          </h2>
-          <div className="w-16 h-px bg-gray-300 mt-10" />
-        </div>
+    <section ref={sectionRef} className="w-full bg-white relative overflow-hidden">
 
-        {/* 4 Cards Animados no eixo X */}
-        <div className="flex gap-20 xl:gap-32 pb-4">
-          {items.map((item, i) => (
-            <div key={i} className="w-[320px] md:w-[400px] xl:w-[450px] shrink-0">
-              <ValueItem icon={item.icon} title={item.title} text={item.text} />
-            </div>
-          ))}
-        </div>
-
-        {/* Alívio (Margin) do final do scroll */}
-        <div className="w-[10vw] shrink-0" />
-
+      {/* Título fixo no topo — fora do container que se move */}
+      <div className="sticky top-0 z-20 bg-white pt-14 pb-6 px-[6vw] xl:px-[10vw] pointer-events-none">
+        <h2 className="text-4xl lg:text-5xl font-light leading-[1.2] tracking-tighter">
+          E se pudéssemos<br />caminhar juntos?
+        </h2>
+        <div className="w-16 h-px bg-gray-300 mt-6" />
       </div>
+
+      {/* Container dos cards — movido no eixo X pelo GSAP */}
+      <div className="h-screen w-full flex items-center overflow-hidden">
+        <div ref={containerRef} className="flex flex-row items-center h-full w-max px-[6vw] xl:px-[10vw]">
+
+          {/* 4 Cards */}
+          <div className="flex gap-20 xl:gap-32 pb-4">
+            {items.map((item, i) => (
+              <div key={i} className="w-[320px] md:w-[400px] xl:w-[450px] shrink-0">
+                <ValueItem icon={item.icon} title={item.title} text={item.text} />
+              </div>
+            ))}
+          </div>
+
+          {/* Alívio do final do scroll */}
+          <div className="w-[10vw] shrink-0" />
+
+        </div>
+      </div>
+
     </section>
   );
 };

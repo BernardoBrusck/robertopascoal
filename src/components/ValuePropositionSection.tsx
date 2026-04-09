@@ -28,7 +28,7 @@ const items = [
   {
     icon: <Compass className="w-12 h-12 md:w-16 md:h-16 stroke-[1]" />,
     title: "SEM FÓRMULAS PRONTAS",
-    text: "Sem atalhos. Sem fórmulas prontas.\nSem culpa do passado, nem ansiedade pelo futuro.\nApenas presença… para o próximo passo."
+    text: "Sem atalhos. Sem fórmulas prontas.\nSem culpa do passado, nem ansiedade pelo futuro. Apenas presença… para o próximo passo."
   },
   {
     icon: <Heart className="w-12 h-12 md:w-16 md:h-16 stroke-[1]" />,

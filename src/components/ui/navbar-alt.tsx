@@ -8,7 +8,7 @@ import { Menu, X, Instagram, Linkedin } from "lucide-react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 
 const navItems = [
-  { label: "O Caminho", href: "/home" },
+  { label: "O Caminho", href: "/" },
   { label: "Sobre mim", href: "/sobre-mim" },
   { label: "E-book", href: "/e-book" },
   { label: "Palestras", href: "/palestras" },
@@ -65,7 +65,10 @@ const NavbarAlt = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isLightPage = location.pathname.startsWith("/galeria") || location.pathname.startsWith("/sobre-mim");
+  const isLightPage = 
+    location.pathname.startsWith("/galeria") || 
+    location.pathname.startsWith("/sobre-mim") || 
+    location.pathname.startsWith("/blog");
 
   const textColor = scrolled ? "text-foreground" : (isLightPage ? "text-foreground" : "text-white");
   const mutedColor = scrolled ? "text-foreground/70" : (isLightPage ? "text-foreground/70" : "text-white/70");

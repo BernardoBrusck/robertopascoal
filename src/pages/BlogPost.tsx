@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Navbar } from "@/components/ui/navbar";
+import { NavbarAlt } from "@/components/ui/navbar-alt";
 import BlockRenderer from "@/components/blog/BlockRenderer";
 import ShareButtons from "@/components/blog/ShareButtons";
 import SeoHead from "@/components/SeoHead";
@@ -79,7 +79,7 @@ const BlogPost = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
-        <Navbar />
+        <NavbarAlt />
         <div className="pt-28 flex justify-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-foreground" />
         </div>
@@ -90,7 +90,7 @@ const BlogPost = () => {
   if (!post) {
     return (
       <div className="min-h-screen bg-background">
-        <Navbar />
+        <NavbarAlt />
         <SeoHead title="Artigo não encontrado — Roberto Pascoal" description="O artigo que você procura não foi encontrado." />
         <div className="pt-28 px-6 text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">Artigo não encontrado</h1>
@@ -109,7 +109,7 @@ const BlogPost = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+      <NavbarAlt />
       <SeoHead
         title={`${post.seo_title || post.title} — Roberto Pascoal`}
         description={post.meta_description || post.excerpt || `Leia "${post.title}" no blog de Roberto Pascoal.`}

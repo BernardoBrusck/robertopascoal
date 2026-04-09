@@ -37,15 +37,7 @@ const AdminFallback = () => (
 );
 
 const HomeWithLoading = () => {
-  const [loading, setLoading] = useState(true);
-  const handleComplete = useCallback(() => setLoading(false), []);
-
-  return (
-    <>
-      {loading && <LoadingScreen onComplete={handleComplete} />}
-      <Index />
-    </>
-  );
+  return <Home />;
 };
 
 const App = () => {

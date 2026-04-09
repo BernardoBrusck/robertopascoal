@@ -201,7 +201,7 @@ const Home = () => {
       <EbookSection />
 
       {/* Block 06: Final (Animado) */}
-      <section className="py-48 px-6 bg-white flex items-center justify-center text-center overflow-hidden">
+      <section className="py-48 px-6 bg-white flex flex-col items-center justify-center text-center overflow-hidden gap-12">
         <motion.h2 
           className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight flex flex-wrap justify-center gap-x-2 md:gap-x-3"
           initial="hidden"
@@ -239,6 +239,20 @@ const Home = () => {
             </motion.span>
           ))}
         </motion.h2>
+
+        <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true, margin: "-100px" }}
+           transition={{ delay: 0.6, duration: 0.8 }}
+        >
+           <a 
+             href="/sobre-mim" 
+             className="inline-block px-10 py-4 bg-white text-black border border-black uppercase tracking-[0.2em] text-sm font-semibold hover:bg-black hover:text-white transition-colors duration-500 rounded-[2px]"
+           >
+             Me conheça melhor
+           </a>
+        </motion.div>
       </section>
 
       <footer className="py-12 px-6 border-t border-gray-100 text-center text-xs uppercase tracking-[0.2em] text-gray-400">

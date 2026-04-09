@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Search } from "lucide-react";
-import { Navbar } from "@/components/ui/navbar";
+import { NavbarAlt } from "@/components/ui/navbar-alt";
 import SeoHead from "@/components/SeoHead";
 import BlogCard from "@/components/blog/BlogCard";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -216,7 +216,7 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+      <NavbarAlt />
       <SeoHead
         title="Blog — Roberto Pascoal"
         description="Artigos sobre educação, impacto social e transformação por Roberto Pascoal, fundador do Projeto Omunga."

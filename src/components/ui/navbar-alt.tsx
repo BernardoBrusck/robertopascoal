@@ -65,12 +65,12 @@ const NavbarAlt = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isGaleriaPage = location.pathname.startsWith("/galeria");
+  const isLightPage = location.pathname.startsWith("/galeria") || location.pathname.startsWith("/sobre-mim");
 
-  const textColor = scrolled ? "text-foreground" : (isGaleriaPage ? "text-foreground" : "text-white");
-  const mutedColor = scrolled ? "text-foreground/70" : (isGaleriaPage ? "text-foreground/70" : "text-white/70");
-  const borderColor = scrolled ? "border-foreground" : (isGaleriaPage ? "border-foreground" : "border-white");
-  const hoverBg = scrolled ? "hover:bg-foreground hover:text-background" : (isGaleriaPage ? "hover:bg-foreground hover:text-background" : "hover:bg-white hover:text-black");
+  const textColor = scrolled ? "text-foreground" : (isLightPage ? "text-foreground" : "text-white");
+  const mutedColor = scrolled ? "text-foreground/70" : (isLightPage ? "text-foreground/70" : "text-white/70");
+  const borderColor = scrolled ? "border-foreground" : (isLightPage ? "border-foreground" : "border-white");
+  const hoverBg = scrolled ? "hover:bg-foreground hover:text-background" : (isLightPage ? "hover:bg-foreground hover:text-background" : "hover:bg-white hover:text-black");
 
   return (
     <>

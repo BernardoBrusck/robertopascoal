@@ -28,9 +28,6 @@ const Home = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const phrase1Ref = useRef<HTMLDivElement>(null);
   const phrase2Ref = useRef<HTMLDivElement>(null);
-  const phrase3Ref = useRef<HTMLDivElement>(null);
-  const phrase4Ref = useRef<HTMLDivElement>(null);
-  const phrase5Ref = useRef<HTMLDivElement>(null);
 
   // Refs for Block 03
   const sectionRef3 = useRef<HTMLDivElement>(null);
@@ -40,51 +37,33 @@ const Home = () => {
   useEffect(() => {
     if (!containerRef.current) return;
     
-    // As frases a serem animadas
-    const phrases = [
-      phrase1Ref.current, 
-      phrase2Ref.current, 
-      phrase3Ref.current, 
-      phrase4Ref.current, 
-      phrase5Ref.current
-    ];
-
-    if (phrases.some(p => !p)) return;
-
-    // Timeline para a fixação (Pinning) da seção inteira
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top top",       // Ao tocar o topo
-        end: "+=400%",          // O scroll dura 4 vezes o tamanho da tela
-        scrub: 1,               // Animação atrelada ao scroll (suave = 1)
-        pin: true,              // Prende o scroll
+        start: "top top",
+        end: "+=200%",
+        scrub: 1,
+        pin: true,
         anticipatePin: 1,
       }
     });
 
-    // Sequência de entrada e saída
-    phrases.forEach((phrase, i) => {
-      // Entra do fundo para o meio
-      tl.fromTo(phrase, 
-        { opacity: 0, y: 50 }, 
-        { opacity: 1, y: 0, duration: 2, ease: "power2.out" }
-      );
-      
-      // Pequena Pausa de leitura
-      tl.to({}, { duration: 1.5 });
-      
-      // Sai subindo (exceto a última frase que pode desvanecer na liberação do pin)
-      if (i < phrases.length - 1) {
-        tl.fromTo(phrase, 
-          { opacity: 1, y: 0 },
-          { opacity: 0, y: -50, duration: 2, ease: "power2.in" }
-        );
-      } else {
-        // Para a última frase, suaviza o sumiço enquanto libera a tela
-        tl.to(phrase, { opacity: 0, y: -50, duration: 2, ease: "power2.in" });
-      }
-    });
+    // Entra a primeira frase
+    tl.fromTo(phrase1Ref.current, 
+      { opacity: 0, y: 50 }, 
+      { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
+    );
+    // Tempo de leitura
+    tl.to({}, { duration: 0.5 });
+    
+    // Entra a segunda frase (a primeira continua na tela)
+    tl.fromTo(phrase2Ref.current, 
+      { opacity: 0, y: 50 }, 
+      { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
+    );
+    
+    // Tempo final para ler as duas juntas
+    tl.to({}, { duration: 1 });
 
     return () => {
       tl.scrollTrigger?.kill();
@@ -178,38 +157,22 @@ const Home = () => {
           </div>
 
           {/* Right Text - Empilhados via absolutismo para revelar em sequência */}
-          <div className="relative flex-1 w-full max-w-[550px] min-h-[150px] md:min-h-[200px]">
+          <div className="relative flex-1 w-full max-w-[550px] min-h-[150px] md:min-h-[200px] flex flex-col justify-center gap-10">
             
-            <div ref={phrase1Ref} className="absolute inset-0 flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
+            <div ref={phrase1Ref} className="flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
                <span className="text-3xl md:text-5xl lg:text-[3rem] font-light text-gray-600 text-center lg:text-left leading-tight">
-                  É sobre olhar para o que se carrega...
+                  É sobre olhar para o que se carrega…<br className="md:hidden" />
+                  o peso da própria mochila…
                </span>
             </div>
             
-            <div ref={phrase2Ref} className="absolute inset-0 flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
+            <div ref={phrase2Ref} className="flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
                <span className="text-3xl md:text-5xl lg:text-[3rem] font-light text-gray-600 text-center lg:text-left leading-tight">
-                  o peso da própria mochila.
+                  e, ainda assim,<br />
+                  escolher seguir em frente.
                </span>
             </div>
             
-            <div ref={phrase3Ref} className="absolute inset-0 flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
-               <span className="text-3xl md:text-5xl lg:text-[3rem] font-light text-gray-600 text-center lg:text-left leading-tight">
-                  E, ainda assim,
-               </span>
-            </div>
-            
-            <div ref={phrase4Ref} className="absolute inset-0 flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
-               <span className="text-3xl md:text-5xl lg:text-[3rem] font-light text-gray-600 text-center lg:text-left leading-tight">
-                  escolher seguir em frente...
-               </span>
-            </div>
-            
-            <div ref={phrase5Ref} className="absolute inset-0 flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
-               <span className="text-3xl md:text-5xl lg:text-[3rem] font-light text-gray-600 text-center lg:text-left leading-tight">
-                  para se reconectar consigo mesmo.
-               </span>
-            </div>
-
           </div>
 
         </div>

@@ -92,7 +92,7 @@ function UnifiedSlider() {
           animate="visible" 
           variants={{
             hidden: {},
-            visible: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } }
+            visible: { transition: { staggerChildren: 2.2, delayChildren: 0.8 } }
           }}
           className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
         >
@@ -107,7 +107,7 @@ function UnifiedSlider() {
                 }}
                 className="text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] tracking-tighter py-2 px-1 leading-tight"
               >
-                Não é sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">pronto</span>
+                Não é sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">pronto...</span>
               </motion.div>
             </div>
             
@@ -120,7 +120,7 @@ function UnifiedSlider() {
                 }}
                 className="text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] tracking-tighter py-2 px-1 leading-tight"
               >
-                Nem sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">completo</span>
+                ...nem sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">completo?</span>
               </motion.div>
             </div>
 

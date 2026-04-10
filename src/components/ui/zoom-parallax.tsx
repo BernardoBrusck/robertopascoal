@@ -46,13 +46,14 @@ function MobileZoomGallery({ images }: ZoomParallaxProps) {
             key={index}
             className={`relative overflow-hidden ${mobileLayouts[index % mobileLayouts.length]}`}
           >
-            <LazyImage
+            <img
               src={src}
               alt={alt || ''}
               width={width || 800}
               height={height || 600}
               className={isPolaroid ? "h-full w-full object-cover bg-white p-2 pb-6 shadow-xl" : "h-full w-full object-cover rounded-sm"}
-              rootMargin="300px"
+              decoding="async"
+              fetchPriority={index === 0 ? "high" : "auto"}
             />
           </div>
         ))}
@@ -90,27 +91,28 @@ function DesktopZoomParallax({ images }: ZoomParallaxProps) {
               className="absolute left-0 top-0 flex h-full w-full items-center justify-center"
             >
               <div className={`relative flex items-center justify-center ${desktopPositions[index] || desktopPositions[0]}`}>
-                {isPolaroid ? (
-                   <div className="bg-white p-[5%] pb-[20%] shadow-[0_20px_40px_-5px_rgba(0,0,0,0.4)] w-full h-full flex flex-col rounded-[2px] transform rotate-1 hover:rotate-0 transition-transform duration-500">
+                 {isPolaroid ? (
+                   <div className="bg-white p-[5%] pb-[20%] shadow-[0_10px_20px_rgba(0,0,0,0.2)] w-full h-full flex flex-col rounded-[2px] transform rotate-1 hover:rotate-0 transition-transform duration-500">
                      <div className="w-full flex-grow relative overflow-hidden bg-gray-100">
-                       <LazyImage
+                       <img
                          src={src}
                          alt={alt || ''}
                          width={width || 800}
                          height={height || 600}
                          className="absolute inset-0 w-full h-full object-cover rounded-[1px]"
-                         rootMargin="400px"
+                         decoding="async"
                        />
                      </div>
                    </div>
                 ) : (
-                  <LazyImage
+                  <img
                     src={src}
                     alt={alt || ''}
                     width={width || 800}
                     height={height || 600}
-                    className="h-full w-full rounded-[4px] object-cover shadow-[0_20px_40px_-5px_rgba(0,0,0,0.3)]"
-                    rootMargin="400px"
+                    className="h-full w-full rounded-[4px] object-cover shadow-[0_10px_20px_rgba(0,0,0,0.2)]"
+                    decoding="async"
+                    fetchPriority={index === 0 ? "high" : "auto"}
                   />
                 )}
               </div>

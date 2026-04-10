@@ -23,7 +23,7 @@ const zoomParallaxImages = [
 
 const Home = () => {
   const [isMuted, setIsMuted] = useState(true);
-  
+
   // Refs for Block 02 (Cinematic Video Expand)
   const block2SectionRef = useRef<HTMLDivElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
@@ -39,7 +39,7 @@ const Home = () => {
   // --- GSAP Cinematic Expand Effect - Block 02 ---
   useEffect(() => {
     if (!block2SectionRef.current || !videoWrapperRef.current) return;
-    
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: block2SectionRef.current,
@@ -51,36 +51,29 @@ const Home = () => {
       }
     });
 
-    // 1. Expand the video to full screen
-    tl.to(videoWrapperRef.current, {
-      width: "100%",
-      height: "100%",
-      borderRadius: "0px",
-      duration: 2,
-      ease: "power2.inOut"
-    });
+    // Animação de zoom expansivo EXCLUSIVA para mobile
+    if (window.innerWidth < 768) {
+      tl.fromTo(videoWrapperRef.current, 
+        { clipPath: "inset(25vh 10vw round 2rem)" },
+        { clipPath: "inset(0vh 0vw round 0rem)", duration: 2, ease: "power2.inOut" }
+      );
+    }
 
-    // 2. Dim the video slightly so white text is readable
-    tl.to(overlayRef.current, {
-      opacity: 0.4,
-      duration: 0.5
-    }, "-=0.5");
-
-    // 3. Bring in Phrase 1
-    tl.fromTo(phrase1Ref.current, 
-      { opacity: 0, y: 40 }, 
+    // 1. Bring in Phrase 1
+    tl.fromTo(phrase1Ref.current,
+      { opacity: 0, y: 40 },
       { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
     );
-    
+
     // Read time for phrase 1
     tl.to({}, { duration: 0.5 });
-    
+
     // 4. Bring in Phrase 2
-    tl.fromTo(phrase2Ref.current, 
-      { opacity: 0, y: 40 }, 
+    tl.fromTo(phrase2Ref.current,
+      { opacity: 0, y: 40 },
       { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
     );
-    
+
     // Read time for both phrases
     tl.to({}, { duration: 1 });
 
@@ -102,14 +95,14 @@ const Home = () => {
       .map(token => {
         if (token === '<br/>') return token;
         if (!token.trim()) return token;
-        return `<span class="inline-block pr-[0.1em]" style="color: hsl(220, 10%, 85%)">${token}</span>`;
+        return `<span class="inline-block pr-[0.1em] opacity-20" style="color: hsl(220, 30%, 15%); will-change: opacity">${token}</span>`;
       })
       .join('');
 
     const words = textRef3.current.querySelectorAll('span');
 
     const anim = gsap.to(words, {
-      color: 'hsl(220, 30%, 15%)',
+      opacity: 1,
       stagger: 0.15,
       ease: 'none',
       scrollTrigger: {
@@ -120,9 +113,9 @@ const Home = () => {
       },
     });
 
-    return () => { 
+    return () => {
       anim.scrollTrigger?.kill();
-      anim.kill(); 
+      anim.kill();
     };
   }, []);
 
@@ -141,32 +134,37 @@ const Home = () => {
       <HeroSection />
 
       {/* Block 02: Conexão (Vídeo Cinematográfico Pinned) */}
-      <section 
-        id="conexao" 
-        ref={block2SectionRef} 
-        className="bg-zinc-100 w-full h-[100vh] flex items-center justify-center relative overflow-hidden"
+      <section
+        id="conexao"
+        ref={block2SectionRef}
+        className="bg-white w-full h-[100vh] flex items-center justify-center relative overflow-hidden"
       >
         {/* Fixed Container that acts as the screen bounds while pinned */}
         <div className="absolute inset-0 flex items-center justify-center w-full h-full overflow-hidden">
-          
-          {/* Video Wrapper that expands */}
-          <div 
-            ref={videoWrapperRef} 
-            className="relative w-[90%] md:w-[70%] lg:w-[800px] h-[50vh] md:h-[60vh] rounded-[2rem] overflow-hidden shadow-2xl flex items-center justify-center cursor-pointer group"
+
+          {/* ======== CONFIGURAÇÃO DA CAIXA MOLDURA FIXA DO VÍDEO ======== */}
+          {/* Para alterar as medidas dessa janela, modifique as classes:
+              - Desktop modifique os com prefixo (md:): 'md:w-[75%]' , 'md:h-[75vh]', 'md:rounded-[2rem]'
+              No celular (mobile) forçamos tela cheia ('absolute inset-0 w-full h-full') para que a animação GSAP de expansão aconteça na GPU.
+          */}
+          <div
+            ref={videoWrapperRef}
+            className="absolute md:relative inset-0 md:inset-auto w-full md:w-[75%] h-full md:h-[75vh] rounded-none md:rounded-[2rem] border-[0px] overflow-hidden flex items-center justify-center cursor-pointer group"
+            style={{ willChange: window.innerWidth < 768 ? "clip-path" : "auto" }}
             onClick={() => setIsMuted(!isMuted)}
           >
-            <video 
+            <video
               ref={videoRef}
-              src="/video/caminhada.mp4" 
-              autoPlay 
-              loop 
-              muted={isMuted} 
+              src="/video/caminhada.mp4"
+              autoPlay
+              loop
+              muted={isMuted}
               playsInline
               className="absolute inset-0 w-full h-full object-cover"
             />
-            
-            {/* Darkening Overlay for text readability (starts at 0, animates to 0.4 via GSAP) */}
-            <div ref={overlayRef} className="absolute inset-0 bg-black opacity-0 pointer-events-none" />
+
+            {/* Máscara escura fixa para legibilidade do texto */}
+            <div ref={overlayRef} className="absolute inset-0 bg-black/40 pointer-events-none" />
 
             {/* Ícone de Som - Canto inferior direito */}
             <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
@@ -182,30 +180,30 @@ const Home = () => {
 
           {/* Texts overlaying everything, centered, absolute position */}
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none gap-6">
-             {/* Phrase 1 Wrapper */}
-             <div ref={phrase1Ref} className="opacity-0 flex items-center justify-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] px-4 mx-auto max-w-4xl">
-               <span className="text-2xl md:text-3xl lg:text-4xl font-light text-white text-center leading-[1.3] tracking-tight">
-                  É sobre olhar para o que se carrega…<br className="hidden md:block"/>
-                  o peso da própria mochila…
-               </span>
-             </div>
-             
-             {/* Phrase 2 Wrapper */}
-             <div ref={phrase2Ref} className="opacity-0 flex items-center justify-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] px-4 mx-auto max-w-4xl">
-               <span className="text-2xl md:text-3xl lg:text-4xl font-light text-white text-center leading-[1.3] tracking-tight">
-                  e, ainda assim,<br className="md:hidden"/> escolher seguir em frente.
-               </span>
-             </div>
+            {/* Phrase 1 Wrapper */}
+            <div ref={phrase1Ref} className="opacity-0 flex items-center justify-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] px-4 mx-auto max-w-4xl">
+              <span className="text-2xl md:text-3xl lg:text-4xl font-light text-white text-center leading-[1.3] tracking-tight">
+                É sobre olhar para o que se carrega…<br className="hidden md:block" />
+                o peso da própria mochila…
+              </span>
+            </div>
+
+            {/* Phrase 2 Wrapper */}
+            <div ref={phrase2Ref} className="opacity-0 flex items-center justify-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] px-4 mx-auto max-w-4xl">
+              <span className="text-2xl md:text-3xl lg:text-4xl font-light text-white text-center leading-[1.3] tracking-tight">
+                e, ainda assim,<br className="md:hidden" /> escolher seguir em frente.
+              </span>
+            </div>
           </div>
 
         </div>
       </section>
 
       {/* Block 03: Memórias - Text Title and Zoom Parallax */}
-      <div className="bg-background">
-        <section ref={sectionRef3} className="py-12 md:py-20 px-6 lg:px-12 w-full flex items-center justify-center">
-          <p 
-            ref={textRef3} 
+      <div className="bg-background relative">
+        <section ref={sectionRef3} className="py-12 md:py-20 px-6 lg:px-12 w-full flex items-center justify-center relative">
+          <p
+            ref={textRef3}
             className="font-sans text-2xl md:text-4xl lg:text-4xl leading-[1.3] font-light max-w-4xl text-center tracking-tight"
           >
             {/* Text Reveal Block 3 */}
@@ -224,8 +222,8 @@ const Home = () => {
       <EbookSection />
 
       {/* Block 06: Final (Animado) */}
-      <section className="py-48 px-6 bg-white flex flex-col items-center justify-center text-center overflow-hidden gap-12">
-        <motion.h2 
+      <section className="py-48 px-6 bg-white flex flex-col items-center justify-center text-center overflow-hidden gap-12 relative">
+        <motion.h2
           className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight flex flex-wrap justify-center gap-x-2 md:gap-x-3"
           initial="hidden"
           whileInView="visible"
@@ -237,8 +235,8 @@ const Home = () => {
         >
           {/* Animação palavra por palavra para um efeito mais suave que letra-por-letra, ou mistura */}
           {["Nunca", "pronto,"].map((word, i) => (
-            <motion.span 
-              key={i} 
+            <motion.span
+              key={i}
               className="inline-block"
               variants={{
                 hidden: { opacity: 0, y: 30, filter: 'blur(5px)' },
@@ -250,8 +248,8 @@ const Home = () => {
           ))}
           <br className="hidden md:block w-full" /> {/* Force break if needed or let flow */}
           {["mas", "sempre", "suficiente."].map((word, i) => (
-            <motion.span 
-              key={i + 2} 
+            <motion.span
+              key={i + 2}
               className="inline-block font-medium italic text-black"
               variants={{
                 hidden: { opacity: 0, y: 30, filter: 'blur(5px)' },
@@ -264,17 +262,17 @@ const Home = () => {
         </motion.h2>
 
         <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true, margin: "-100px" }}
-           transition={{ delay: 0.6, duration: 0.8 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ delay: 0.6, duration: 0.8 }}
         >
-           <a 
-             href="/sobre-mim" 
-             className="inline-block px-10 py-4 bg-white text-black border border-black uppercase tracking-[0.2em] text-sm font-semibold hover:bg-black hover:text-white transition-colors duration-500 rounded-[2px]"
-           >
-             Me conheça melhor
-           </a>
+          <a
+            href="/sobre-mim"
+            className="inline-block px-10 py-4 bg-white text-black border border-black uppercase tracking-[0.2em] text-sm font-semibold hover:bg-black hover:text-white transition-colors duration-500 rounded-[2px]"
+          >
+            Me conheça melhor
+          </a>
         </motion.div>
       </section>
 

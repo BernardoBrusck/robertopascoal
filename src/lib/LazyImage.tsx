@@ -34,6 +34,8 @@ const LazyImage = ({ src, rootMargin = '200px', className, alt, ...props }: Lazy
       alt={alt || ''}
       className={`${className || ''} transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
       onLoad={() => setLoaded(true)}
+      decoding="async"
+      loading="lazy"
       {...props}
     />
   );

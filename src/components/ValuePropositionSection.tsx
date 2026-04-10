@@ -130,7 +130,7 @@ export const ValuePropositionSection = () => {
 
       {/* Container dos cards — movido no eixo X pelo GSAP */}
       <div className="w-full overflow-hidden">
-        <div ref={containerRef} className="flex flex-row items-start w-max px-[6vw] xl:px-[10vw]">
+        <div ref={containerRef} className="flex flex-row items-start w-max px-[6vw] xl:px-[10vw]" style={{ willChange: "transform" }}>
 
           {/* 4 Cards */}
           <div className="flex gap-20 xl:gap-32 pb-4">

@@ -164,7 +164,7 @@ const Home = () => {
             />
 
             {/* Máscara escura fixa para legibilidade do texto */}
-            <div ref={overlayRef} className="absolute inset-0 bg-black/40 pointer-events-none" />
+            <div ref={overlayRef} className="absolute inset-0 bg-black/10 pointer-events-none" />
 
             {/* Ícone de Som - Canto inferior direito */}
             <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
@@ -181,16 +181,22 @@ const Home = () => {
           {/* Texts overlaying everything, centered, absolute position */}
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none gap-6">
             {/* Phrase 1 Wrapper */}
-            <div ref={phrase1Ref} className="opacity-0 flex items-center justify-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] px-4 mx-auto max-w-4xl">
-              <span className="text-2xl md:text-3xl lg:text-4xl font-light text-white text-center leading-[1.3] tracking-tight">
+            <div ref={phrase1Ref} className="opacity-0 flex items-center justify-center px-4 mx-auto max-w-4xl">
+              <span 
+                className="text-2xl md:text-3xl lg:text-4xl font-light text-white text-center leading-[1.3] tracking-tight"
+                style={{ textShadow: "0px 2px 4px rgba(0,0,0,0.8), 0px 4px 16px rgba(0,0,0,0.8), 0px 8px 32px rgba(0,0,0,0.9)" }}
+              >
                 É sobre olhar para o que se carrega…<br className="hidden md:block" />
                 o peso da própria mochila…
               </span>
             </div>
 
             {/* Phrase 2 Wrapper */}
-            <div ref={phrase2Ref} className="opacity-0 flex items-center justify-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] px-4 mx-auto max-w-4xl">
-              <span className="text-2xl md:text-3xl lg:text-4xl font-light text-white text-center leading-[1.3] tracking-tight">
+            <div ref={phrase2Ref} className="opacity-0 flex items-center justify-center px-4 mx-auto max-w-4xl">
+              <span 
+                className="text-2xl md:text-3xl lg:text-4xl font-light text-white text-center leading-[1.3] tracking-tight"
+                style={{ textShadow: "0px 2px 4px rgba(0,0,0,0.8), 0px 4px 16px rgba(0,0,0,0.8), 0px 8px 32px rgba(0,0,0,0.9)" }}
+              >
                 e, ainda assim,<br className="md:hidden" /> escolher seguir em frente.
               </span>
             </div>

@@ -120,7 +120,7 @@ function UnifiedSlider() {
                   hidden: { y: "120%", opacity: 0 },
                   visible: { y: "0%", opacity: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
                 }}
-                className="text-[2.2rem] tracking-[2px] py-2 px-3 leading-none margin-to"
+                className="text-[2.2rem] tracking-[2px] py-2 px-3 leading-none margin-to -mt-[15px]"
               >
                 ...nem sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">completo.</span>
               </motion.div>

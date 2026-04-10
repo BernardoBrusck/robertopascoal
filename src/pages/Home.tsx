@@ -222,7 +222,7 @@ const Home = () => {
       <EbookSection />
 
       {/* Block 06: Final (Animado) */}
-      <section className="py-48 px-6 bg-white flex flex-col items-center justify-center text-center overflow-hidden gap-12 relative">
+      <section className="py-24 px-6 bg-white flex flex-col items-center justify-center text-center overflow-hidden gap-12 relative">
         <motion.h2
           className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight flex flex-wrap justify-center gap-x-2 md:gap-x-3"
           initial="hidden"

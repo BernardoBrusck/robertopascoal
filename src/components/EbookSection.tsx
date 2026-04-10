@@ -60,7 +60,7 @@ const TabletMockup = () => {
       href="https://hotmart.com/pt-br/marketplace/produtos/o-caminho-depois-da-pressa/E102970771D"
       target="_blank"
       rel="noopener noreferrer"
-      className="relative w-full max-w-[380px] md:max-w-[440px] lg:max-w-[480px] mx-auto shrink-0 block"
+      className="relative w-full max-w-[280px] md:max-w-[360px] lg:max-w-[400px] xl:max-w-[480px] mx-auto shrink-0 block"
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -104,10 +104,10 @@ const TabletMockup = () => {
 
       {/* Sombra projetada — move sutilmente com o tilt */}
       <div
-        className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-[75%] h-10 rounded-full"
+        className="absolute -z-10 bottom-2 left-1/2 -translate-x-1/2 w-[70%] h-12 rounded-full"
         style={{
-          background: 'rgba(0,0,0,0.15)',
-          filter: 'blur(16px)',
+          background: 'rgba(0,0,0,0.06)',
+          filter: 'blur(20px)',
           transform: hovering ? `translateX(${tilt.rotY * 0.6}px) scaleX(1.05)` : 'none',
           transition: 'transform 0.3s ease-out',
         }}
@@ -122,7 +122,7 @@ const MobileEbook = () => (
   <section className="py-24 px-6 bg-gray-50 overflow-hidden">
     <div className="max-w-lg mx-auto space-y-16">
       <TabletMockup />
-      <div className="space-y-6 text-center flex flex-col items-center">
+      <div className="space-y-3 md:space-y-4 text-center flex flex-col items-center">
         {[...phase1Phrases, ...phase2Phrases].map((phrase, i) => (
           <motion.p
             key={i}
@@ -133,7 +133,7 @@ const MobileEbook = () => (
             {i === 4 ? (
               <>
                 <span className="font-medium text-black block">Este e-book não é uma resposta.</span>
-                <span className="italic block mt-2">É um caminho.</span>
+                <span className="italic block mt-1">É um caminho.</span>
               </>
             ) : (
               phrase
@@ -212,7 +212,7 @@ const DesktopEbook = () => {
         <div className="relative flex-1 w-full max-w-[500px] min-h-[300px] flex items-center">
           
           {/* Phase 1 */}
-          <div className="absolute inset-0 flex flex-col justify-center gap-8 pointer-events-none">
+          <div className="absolute inset-0 flex flex-col justify-center gap-3 pointer-events-none">
             {phase1Phrases.map((phrase, i) => (
               <div
                 key={i}
@@ -227,7 +227,7 @@ const DesktopEbook = () => {
           </div>
 
           {/* Phase 2 */}
-          <div className="absolute inset-0 flex flex-col justify-center gap-8">
+          <div className="absolute inset-0 flex flex-col justify-center gap-3">
             <div ref={(el) => { phase2Refs.current[0] = el; }} className="opacity-0 pointer-events-none">
                 <span className="text-2xl md:text-4xl lg:text-4xl font-light text-gray-600 text-left leading-[1.3] tracking-tight">
                   {phase2Phrases[0]}
@@ -237,7 +237,7 @@ const DesktopEbook = () => {
             <div ref={(el) => { phase2Refs.current[1] = el; }} className="opacity-0 pointer-events-none">
                  <span className="text-2xl md:text-4xl lg:text-4xl leading-[1.3] tracking-tight text-left block">
                   <span className="font-medium text-black block">Este e-book não é uma resposta.</span>
-                  <span className="font-light italic text-gray-600 block mt-3">É um caminho.</span>
+                  <span className="font-light italic text-gray-600 block mt-1">É um caminho.</span>
                 </span>
             </div>
 

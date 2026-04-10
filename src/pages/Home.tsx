@@ -41,7 +41,7 @@ const Home = () => {
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
-        end: "+=200%",
+        end: "+=120%",
         scrub: 1,
         pin: true,
         anticipatePin: 1,
@@ -160,14 +160,14 @@ const Home = () => {
           <div className="relative flex-1 w-full max-w-[550px] min-h-[150px] md:min-h-[200px] flex flex-col justify-center gap-10">
             
             <div ref={phrase1Ref} className="flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
-               <span className="text-3xl md:text-5xl lg:text-[3rem] font-light text-gray-600 text-center lg:text-left leading-tight">
+               <span className="text-2xl md:text-4xl lg:text-4xl font-light text-gray-600 text-center lg:text-left leading-[1.3] tracking-tight">
                   É sobre olhar para o que se carrega…<br className="md:hidden" />
                   o peso da própria mochila…
                </span>
             </div>
             
             <div ref={phrase2Ref} className="flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
-               <span className="text-3xl md:text-5xl lg:text-[3rem] font-light text-gray-600 text-center lg:text-left leading-tight">
+               <span className="text-2xl md:text-4xl lg:text-4xl font-light text-gray-600 text-center lg:text-left leading-[1.3] tracking-tight">
                   e, ainda assim,<br />
                   escolher seguir em frente.
                </span>

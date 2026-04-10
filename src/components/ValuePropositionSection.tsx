@@ -94,7 +94,7 @@ export const ValuePropositionSection = () => {
         <div className="max-w-6xl mx-auto">
           <motion.h2 
             {...fadeIn}
-            className="text-3xl md:text-4xl font-light text-center mb-16 px-4 leading-tight"
+            className="text-2xl md:text-4xl lg:text-4xl leading-[1.3] font-light tracking-tight text-center mb-16 px-4"
           >
             E se pudéssemos caminhar juntos?
           </motion.h2>
@@ -115,12 +115,18 @@ export const ValuePropositionSection = () => {
     <section ref={sectionRef} className="h-screen w-full bg-white relative overflow-hidden flex flex-col justify-center">
 
       {/* Título centralizado na tela na horizontal */}
-      <div className="w-full text-center z-20 mb-16 px-6">
-        <h2 className="text-4xl lg:text-5xl font-light leading-[1.2] tracking-tighter">
+      <motion.div 
+        className="w-full text-center z-20 mb-16 px-6"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+      >
+        <h2 className="text-2xl md:text-4xl lg:text-4xl leading-[1.3] font-light tracking-tight">
           E se pudéssemos<br />caminhar juntos?
         </h2>
         <div className="w-16 h-px bg-gray-300 mx-auto mt-6" />
-      </div>
+      </motion.div>
 
       {/* Container dos cards — movido no eixo X pelo GSAP */}
       <div className="w-full overflow-hidden">
@@ -129,9 +135,16 @@ export const ValuePropositionSection = () => {
           {/* 4 Cards */}
           <div className="flex gap-20 xl:gap-32 pb-4">
             {items.map((item, i) => (
-              <div key={i} className="w-[320px] md:w-[400px] xl:w-[450px] shrink-0">
+              <motion.div 
+                key={i} 
+                className="w-[320px] md:w-[400px] xl:w-[450px] shrink-0"
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.6, delay: i < 2 ? i * 0.15 : 0 }}
+              >
                 <ValueItem icon={item.icon} title={item.title} text={item.text} />
-              </div>
+              </motion.div>
             ))}
           </div>
 

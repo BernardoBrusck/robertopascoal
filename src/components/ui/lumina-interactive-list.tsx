@@ -73,7 +73,7 @@ function UnifiedSlider() {
           />
         ))}
       </div>
-      <div className="absolute inset-0 bg-black/60 z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-black/30 z-10 pointer-events-none" />
       <div className="slider-overlay z-20">
         <div id="slidesNav" className="slider-dots-nav">
           {slides.map((_, i) => (
@@ -96,7 +96,10 @@ function UnifiedSlider() {
           }}
           className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
         >
-          <div className="text-center font-sans font-light text-white flex flex-col gap-0 drop-shadow-md">
+          <div 
+            className="text-center font-sans font-light text-white flex flex-col gap-0"
+            style={{ textShadow: '0px 2px 10px rgba(0,0,0,0.8), 0px 4px 24px rgba(0,0,0,0.6)' }}
+          >
             
             {/* Line 1 */}
             <div className="overflow-hidden">
@@ -120,7 +123,7 @@ function UnifiedSlider() {
                 }}
                 className="text-[2.2rem] tracking-[2px] py-2 px-3 leading-none margin-to"
               >
-                ...nem sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">Completo.</span>
+                ...nem sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">completo.</span>
               </motion.div>
             </div>
 

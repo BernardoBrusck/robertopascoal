@@ -164,7 +164,7 @@ const DesktopEbook = () => {
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: '+=400%',
+        end: '+=250%',
         scrub: 1,
         pin: true,
         anticipatePin: 1,
@@ -219,7 +219,7 @@ const DesktopEbook = () => {
                 ref={(el) => { phase1Refs.current[i] = el; }}
                 className="opacity-0"
               >
-                <span className="text-2xl md:text-4xl lg:text-[2.8rem] font-light text-gray-600 text-left leading-tight">
+                <span className="text-2xl md:text-4xl lg:text-4xl font-light text-gray-600 text-left leading-[1.3] tracking-tight">
                   {phrase}
                 </span>
               </div>
@@ -229,13 +229,13 @@ const DesktopEbook = () => {
           {/* Phase 2 */}
           <div className="absolute inset-0 flex flex-col justify-center gap-8">
             <div ref={(el) => { phase2Refs.current[0] = el; }} className="opacity-0 pointer-events-none">
-                <span className="text-2xl md:text-4xl lg:text-[2.8rem] font-light text-gray-600 text-left leading-tight">
+                <span className="text-2xl md:text-4xl lg:text-4xl font-light text-gray-600 text-left leading-[1.3] tracking-tight">
                   {phase2Phrases[0]}
                 </span>
             </div>
             
             <div ref={(el) => { phase2Refs.current[1] = el; }} className="opacity-0 pointer-events-none">
-                 <span className="text-2xl md:text-4xl lg:text-[2.8rem] leading-[1.3] text-left block">
+                 <span className="text-2xl md:text-4xl lg:text-4xl leading-[1.3] tracking-tight text-left block">
                   <span className="font-medium text-black block">Este e-book não é uma resposta.</span>
                   <span className="font-light italic text-gray-600 block mt-3">É um caminho.</span>
                 </span>

@@ -17,6 +17,7 @@ import SobreMim from "./pages/SobreMim";
 import Palestras from "./pages/Palestras";
 import Galeria from "./pages/Galeria";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
+import { SmoothScroll } from "./components/SmoothScroll";
 
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
@@ -45,6 +46,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <TooltipProvider>
+          <SmoothScroll>
           <Toaster />
           <Sonner />
           <BrowserRouter>
@@ -85,6 +87,7 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
+          </SmoothScroll>
         </TooltipProvider>
       </AuthProvider>
     </QueryClientProvider>

@@ -24,8 +24,11 @@ const zoomParallaxImages = [
 const Home = () => {
   const [isMuted, setIsMuted] = useState(true);
   
-  // Refs for Block 02 Pinning
-  const containerRef = useRef<HTMLDivElement>(null);
+  // Refs for Block 02 (Cinematic Video Expand)
+  const block2SectionRef = useRef<HTMLDivElement>(null);
+  const videoWrapperRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const phrase1Ref = useRef<HTMLDivElement>(null);
   const phrase2Ref = useRef<HTMLDivElement>(null);
 
@@ -33,36 +36,52 @@ const Home = () => {
   const sectionRef3 = useRef<HTMLDivElement>(null);
   const textRef3 = useRef<HTMLParagraphElement>(null);
 
-  // --- GSAP Pinned Scroll Reveal Effect - Block 02 ---
+  // --- GSAP Cinematic Expand Effect - Block 02 ---
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!block2SectionRef.current || !videoWrapperRef.current) return;
     
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: containerRef.current,
+        trigger: block2SectionRef.current,
         start: "top top",
-        end: "+=120%",
+        end: "+=120%", // Reduced scroll area to pass the section faster
         scrub: 1,
         pin: true,
         anticipatePin: 1,
       }
     });
 
-    // Entra a primeira frase
+    // 1. Expand the video to full screen
+    tl.to(videoWrapperRef.current, {
+      width: "100%",
+      height: "100%",
+      borderRadius: "0px",
+      duration: 2,
+      ease: "power2.inOut"
+    });
+
+    // 2. Dim the video slightly so white text is readable
+    tl.to(overlayRef.current, {
+      opacity: 0.4,
+      duration: 0.5
+    }, "-=0.5");
+
+    // 3. Bring in Phrase 1
     tl.fromTo(phrase1Ref.current, 
-      { opacity: 0, y: 50 }, 
+      { opacity: 0, y: 40 }, 
       { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
     );
-    // Tempo de leitura
+    
+    // Read time for phrase 1
     tl.to({}, { duration: 0.5 });
     
-    // Entra a segunda frase (a primeira continua na tela)
+    // 4. Bring in Phrase 2
     tl.fromTo(phrase2Ref.current, 
-      { opacity: 0, y: 50 }, 
+      { opacity: 0, y: 40 }, 
       { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
     );
     
-    // Tempo final para ler as duas juntas
+    // Read time for both phrases
     tl.to({}, { duration: 1 });
 
     return () => {
@@ -121,58 +140,62 @@ const Home = () => {
       {/* Block 01: Hero Abertura */}
       <HeroSection />
 
-      {/* Block 02: Conexão (Vídeo Fixo e Texto Pinned) */}
+      {/* Block 02: Conexão (Vídeo Cinematográfico Pinned) */}
       <section 
         id="conexao" 
-        ref={containerRef} 
-        className="bg-white w-full h-[100vh] flex items-center justify-center overflow-hidden px-4 md:px-6 lg:px-12 relative"
+        ref={block2SectionRef} 
+        className="bg-zinc-100 w-full h-[100vh] flex items-center justify-center relative overflow-hidden"
       >
-        <div className="max-w-[1200px] w-full mx-auto flex flex-col lg:flex-row items-center justify-center gap-10 md:gap-20 h-full">
+        {/* Fixed Container that acts as the screen bounds while pinned */}
+        <div className="absolute inset-0 flex items-center justify-center w-full h-full overflow-hidden">
           
-          {/* Left Vertical Video */}
-          <div className="relative w-full max-w-[280px] md:max-w-[360px] lg:max-w-[400px] h-[60vh] md:h-[80vh] lg:h-[90vh] rounded-[2rem] overflow-hidden shadow-2xl shadow-black/10 group cursor-pointer shrink-0" onClick={() => setIsMuted(!isMuted)}>
+          {/* Video Wrapper that expands */}
+          <div 
+            ref={videoWrapperRef} 
+            className="relative w-[90%] md:w-[70%] lg:w-[800px] h-[50vh] md:h-[60vh] rounded-[2rem] overflow-hidden shadow-2xl flex items-center justify-center cursor-pointer group"
+            onClick={() => setIsMuted(!isMuted)}
+          >
             <video 
+              ref={videoRef}
               src="/video/caminhada.mp4" 
               autoPlay 
               loop 
               muted={isMuted} 
               playsInline
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              className="absolute inset-0 w-full h-full object-cover"
             />
             
-            {/* Overlay Interativo de Som */}
-            <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center backdrop-blur-[2px]">
-              {isMuted ? (
-                <>
-                  <VolumeX className="w-12 h-12 text-white mb-4 drop-shadow-md border border-white p-2 rounded-full backdrop-blur-md" />
-                  <span className="text-white font-medium text-[10px] tracking-widest uppercase py-1 px-3 rounded-full bg-black/40">Ativar Som</span>
-                </>
-              ) : (
-                <>
-                  <Volume2 className="w-12 h-12 text-white mb-4 drop-shadow-md border border-white p-2 rounded-full backdrop-blur-md" />
-                  <span className="text-white font-medium text-[10px] tracking-widest uppercase py-1 px-3 rounded-full bg-black/40">Desativar Som</span>
-                </>
-              )}
+            {/* Darkening Overlay for text readability (starts at 0, animates to 0.4 via GSAP) */}
+            <div ref={overlayRef} className="absolute inset-0 bg-black opacity-0 pointer-events-none" />
+
+            {/* Ícone de Som - Canto inferior direito */}
+            <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+              <div className="flex bg-black/30 backdrop-blur-md border border-white/20 p-3 rounded-full shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+                {isMuted ? (
+                  <VolumeX className="w-6 h-6 text-white drop-shadow-md" />
+                ) : (
+                  <Volume2 className="w-6 h-6 text-white drop-shadow-md" />
+                )}
+              </div>
             </div>
           </div>
 
-          {/* Right Text - Empilhados via absolutismo para revelar em sequência */}
-          <div className="relative flex-1 w-full max-w-[550px] min-h-[150px] md:min-h-[200px] flex flex-col justify-center gap-10">
-            
-            <div ref={phrase1Ref} className="flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
-               <span className="text-2xl md:text-4xl lg:text-4xl font-light text-gray-600 text-center lg:text-left leading-[1.3] tracking-tight">
-                  É sobre olhar para o que se carrega…<br className="md:hidden" />
+          {/* Texts overlaying everything, centered, absolute position */}
+          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none gap-6">
+             {/* Phrase 1 Wrapper */}
+             <div ref={phrase1Ref} className="opacity-0 flex items-center justify-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] px-4 mx-auto max-w-4xl">
+               <span className="text-2xl md:text-3xl lg:text-4xl font-light text-white text-center leading-[1.3] tracking-tight">
+                  É sobre olhar para o que se carrega…<br className="hidden md:block"/>
                   o peso da própria mochila…
                </span>
-            </div>
-            
-            <div ref={phrase2Ref} className="flex items-center xl:justify-start justify-center opacity-0 pointer-events-none">
-               <span className="text-2xl md:text-4xl lg:text-4xl font-light text-gray-600 text-center lg:text-left leading-[1.3] tracking-tight">
-                  e, ainda assim,<br />
-                  escolher seguir em frente.
+             </div>
+             
+             {/* Phrase 2 Wrapper */}
+             <div ref={phrase2Ref} className="opacity-0 flex items-center justify-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] px-4 mx-auto max-w-4xl">
+               <span className="text-2xl md:text-3xl lg:text-4xl font-light text-white text-center leading-[1.3] tracking-tight">
+                  e, ainda assim,<br className="md:hidden"/> escolher seguir em frente.
                </span>
-            </div>
-            
+             </div>
           </div>
 
         </div>

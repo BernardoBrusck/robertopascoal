@@ -164,7 +164,7 @@ const DesktopEbook = () => {
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: '+=250%',
+        end: '+=150%',
         scrub: 1,
         pin: true,
         anticipatePin: 1,

@@ -97,8 +97,7 @@ function UnifiedSlider() {
           className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
         >
           <div 
-            className="text-center font-sans font-light text-white flex flex-col gap-0"
-            style={{ textShadow: '0px 2px 10px rgba(0,0,0,0.8), 0px 4px 24px rgba(0,0,0,0.6)' }}
+            className="text-center font-sans font-light text-white flex flex-col gap-0 drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]"
           >
             
             {/* Line 1 */}

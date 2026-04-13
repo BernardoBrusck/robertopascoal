@@ -63,7 +63,7 @@ const ParallaxSlide = ({
         transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
       >
         <p
-          className="font-light text-white uppercase"
+          className="font-normal text-white uppercase"
           style={{
             fontSize: 'clamp(1rem, 2.8vw, 2.2rem)',
             letterSpacing: '0.35em',

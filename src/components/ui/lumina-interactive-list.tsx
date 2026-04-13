@@ -73,7 +73,7 @@ function UnifiedSlider() {
           />
         ))}
       </div>
-      <div className="absolute inset-0 bg-black/30 z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-black/15 z-10 pointer-events-none" />
       <div className="slider-overlay z-20">
         <div id="slidesNav" className="slider-dots-nav">
           {slides.map((_, i) => (
@@ -97,7 +97,7 @@ function UnifiedSlider() {
           className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
         >
           <div 
-            className="text-center font-sans font-light text-white flex flex-col gap-0 drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]"
+            className="text-center font-sans font-light text-white flex flex-col gap-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] drop-shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
           >
             
             {/* Line 1 */}

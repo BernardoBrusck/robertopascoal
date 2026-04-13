@@ -94,7 +94,7 @@ export const ValuePropositionSection = () => {
         <div className="max-w-6xl mx-auto">
           <motion.h2 
             {...fadeIn}
-            className="text-2xl md:text-4xl lg:text-4xl leading-[1.3] font-light tracking-tight text-center mb-16 px-4"
+            className="text-2xl md:text-4xl lg:text-4xl leading-none font-light tracking-[0.5px] text-center mb-16 px-4"
           >
             E se pudéssemos caminhar juntos?
           </motion.h2>
@@ -122,7 +122,7 @@ export const ValuePropositionSection = () => {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className="text-2xl md:text-4xl lg:text-4xl leading-[1.3] font-light tracking-tight">
+        <h2 className="text-2xl md:text-4xl lg:text-4xl leading-none font-light tracking-[0.5px]">
           E se pudéssemos<br />caminhar juntos?
         </h2>
         <div className="w-16 h-px bg-gray-300 mx-auto mt-6" />

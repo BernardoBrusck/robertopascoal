@@ -3,11 +3,11 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { motion } from 'framer-motion';
 
 const slides = [
-  { title: "Roberto Pascoal", description: "Escritor. Palestrante. Fundador da Omunga.", media: "/hero/Pagina 01 - Confirmada 01.jpg", mobilePosition: "center center" },
-  { title: "Não é sobre se sentir pronto", description: "É sobre ser suficiente para continuar caminhando.", media: "/hero/Página 01 - Confirmada 02.png", mobilePosition: "center center" },
-  { title: "O Caminho", description: "Sentido, propósito e a jornada que nos transforma.", media: "/hero/Página 01 - Confirmada 03.jpg", mobilePosition: "center center" },
-  { title: "A Jornada", description: "Da Amazônia ao Sertão, da África ao Monte Roraima.", media: "/hero/Página 01 - Confirmada 04.png", mobilePosition: "center center" },
-  { title: "Multiculturalidade", description: "Quando todas as culturas coexistem, a humanidade se revela.", media: "/hero/01 - África 06 por Max Schwoelk.JPG", mobilePosition: "center center" },
+  { title: "Roberto Pascoal", description: "Escritor. Palestrante. Fundador da Omunga.", media: "/hero/hero-01.jpg", mobilePosition: "center center" },
+  { title: "Não é sobre se sentir pronto", description: "É sobre ser suficiente para continuar caminhando.", media: "/hero/hero-02.jpg", mobilePosition: "center center" },
+  { title: "O Caminho", description: "Sentido, propósito e a jornada que nos transforma.", media: "/hero/hero-03.jpg", mobilePosition: "center center" },
+  { title: "A Jornada", description: "Da Amazônia ao Sertão, da África ao Monte Roraima.", media: "/hero/hero-04.jpg", mobilePosition: "center center" },
+  { title: "Multiculturalidade", description: "Quando todas as culturas coexistem, a humanidade se revela.", media: "/hero/hero-05.jpg", mobilePosition: "center center" },
 ];
 
 /* ═══════════════════════════════════════════════════════
@@ -109,7 +109,7 @@ function UnifiedSlider() {
                 }}
                 className="text-[2.2rem] tracking-[2px] py-2 px-1 leading-none"
               >
-                Não é sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">pronto...</span>
+                Não é sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">pronto.</span>
               </motion.div>
             </div>
             
@@ -122,7 +122,7 @@ function UnifiedSlider() {
                 }}
                 className="text-[2.2rem] tracking-[2px] py-2 px-3 leading-none margin-to -mt-[15px]"
               >
-                ...nem sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">completo.</span>
+                Nem sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">completo.</span>
               </motion.div>
             </div>
 

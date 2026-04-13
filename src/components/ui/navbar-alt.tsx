@@ -4,7 +4,13 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Instagram, Linkedin } from "lucide-react";
+import { Menu, X, Instagram, Linkedin, Mail } from "lucide-react";
+
+const FacebookIcon = ({ size = 20 }: { size?: number }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
 import { useLocation, Link, useNavigate } from "react-router-dom";
 
 const navItems = [
@@ -120,7 +126,7 @@ const NavbarAlt = () => {
               </nav>
 
               {/* Desktop CTA (Social Icons) */}
-              <div className="hidden md:flex items-center gap-4">
+              <div className="hidden md:flex items-center gap-1">
                 <a
                   href="https://www.instagram.com/roberto_pascoal/"
                   target="_blank"
@@ -138,6 +144,22 @@ const NavbarAlt = () => {
                   aria-label="LinkedIn Roberto Pascoal"
                 >
                   <Linkedin size={20} strokeWidth={1.5} />
+                </a>
+                <a
+                  href="https://www.facebook.com/roberto.pascoal.9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-2 transition-transform duration-300 ${textColor} hover:scale-110`}
+                  aria-label="Facebook Roberto Pascoal"
+                >
+                  <FacebookIcon size={20} />
+                </a>
+                <a
+                  href="mailto:atendimento@dazprodutora.com.br"
+                  className={`p-2 transition-transform duration-300 ${textColor} hover:scale-110`}
+                  aria-label="E-mail Roberto Pascoal"
+                >
+                  <Mail size={20} strokeWidth={1.5} />
                 </a>
               </div>
 

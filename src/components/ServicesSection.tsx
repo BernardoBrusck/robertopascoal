@@ -107,7 +107,7 @@ function HoverModal({ modal, projects: items }: { modal: { active: boolean; inde
         className="fixed top-0 left-0 z-[3] pointer-events-none overflow-hidden rounded-md"
         style={{ width: 300, height: 200, willChange: 'transform' }}
       >
-        <div className="w-full h-full absolute transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" style={{ transform: `translateY(${index * -100}%)` }}>
+        <div className="w-full h-full absolute transition-transform duration-500 [transition-timing-function:cubic-bezier(0.76,0,0.24,1)]" style={{ transform: `translateY(${index * -100}%)` }}>
           {items.map((project) => (
             <div key={project.title} className="w-full h-full">
               <img src={project.hoverImage} alt={project.title} className="w-full h-full object-cover" width={300} height={200} loading="lazy" />

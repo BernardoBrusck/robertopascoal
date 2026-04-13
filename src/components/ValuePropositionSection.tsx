@@ -17,23 +17,23 @@ const fadeIn = {
 const items = [
   {
     icon: <Footprints className="w-12 h-12 md:w-16 md:h-16 stroke-[1]" />,
-    title: "NUMA JORNADA REAL",
+    title: "UMA JORNADA REAL",
     text: "Sem máscaras. Da infância à África… à Santiago de Compostela… aos lugares onde poucos chegam."
   },
   {
     icon: <Backpack className="w-12 h-12 md:w-16 md:h-16 stroke-[1]" />,
     title: "COM NOSSAS MOCHILAS",
-    text: "O que carregamos. O peso disso.\nE o que evitamos deixar para trás…\npara que a jornada se torne mais leve."
+    text: "O que carregamos? Qual é o peso disso? \nE o que evitamos deixar para trás… para que a jornada seja mais leve."
   },
   {
     icon: <Compass className="w-12 h-12 md:w-16 md:h-16 stroke-[1]" />,
     title: "SEM FÓRMULAS PRONTAS",
-    text: "Sem atalhos. Sem fórmulas prontas.\nSem culpa do passado, nem ansiedade pelo futuro. Apenas presença… para o próximo passo."
+    text: "Sem atalhos, culpa ou ansiedade.\nApenas presença… para o próximo passo."
   },
   {
     icon: <Heart className="w-12 h-12 md:w-16 md:h-16 stroke-[1]" />,
-    title: "COMPANHIA",
-    text: "Você não está sozinho.\nCaminhar junto torna a jornada mais leve.\nE eu estarei lá com você."
+    title: "EM COMPANHIA",
+    text: "Você não está sozinho. \nCaminhar junto, torna a jornada mais leve."
   }
 ];
 

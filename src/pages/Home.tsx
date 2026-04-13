@@ -2,27 +2,36 @@ import React, { useState, useRef, useEffect } from 'react';
 import { NavbarAlt } from "@/components/ui/navbar-alt";
 import HeroSection from "@/components/HeroSection";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, Volume2, VolumeX } from "lucide-react";
+import { ArrowDown, Volume2, VolumeX, Instagram, Linkedin, Mail } from "lucide-react";
+import { useIsMobile } from '@/hooks/use-mobile';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ZoomParallax } from "@/components/ui/zoom-parallax";
 import { ValuePropositionSection } from "@/components/ValuePropositionSection";
 import { EbookSection } from "@/components/EbookSection";
+import { ParallaxManifesto } from "@/components/ParallaxManifesto";
+
+const FacebookIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
 
 gsap.registerPlugin(ScrollTrigger);
 
 const zoomParallaxImages = [
   { src: '/image/roberto-pascoal-criancas-sala.webp', alt: 'Roberto com Crianças na Sala', width: 1200, height: 800 }, // Center
   { src: '/image/roberto-crianca.webp', alt: 'Roberto Criança', width: 800, height: 1200, isPolaroid: true },
-  { src: '/image/Eu-e-minha-irmã.webp', alt: 'Eu e minha irmã', width: 1200, height: 800, isPolaroid: true },
-  { src: '/image/Foto-05-Beto-Pag-11.webp', alt: 'Beto infância', width: 1200, height: 800, isPolaroid: true },
-  { src: '/image/Foto-10-Mãe-e-Beto-Pg-14.webp', alt: 'Mãe e Beto', width: 800, height: 1200, isPolaroid: true },
+  { src: '/image/eu-e-minha-irma-opt.webp', alt: 'Eu e minha irmã', width: 1200, height: 800, isPolaroid: true },
+  { src: '/image/foto-05-beto-opt.webp', alt: 'Beto infância', width: 1200, height: 800, isPolaroid: true },
+  { src: '/image/foto-10-mae-beto-opt.webp', alt: 'Mãe e Beto', width: 800, height: 1200, isPolaroid: true },
   { src: '/image/infancia-upscale.webp', alt: 'Roberto criança sala de aula', width: 800, height: 1200, isPolaroid: true },
   { src: '/image/roberto-infancia-crianca.webp', alt: 'Roberto infância pote', width: 800, height: 600, isPolaroid: true },
 ];
 
 const Home = () => {
   const [isMuted, setIsMuted] = useState(true);
+  const isMobile = useIsMobile();
 
   // Refs for Block 02 (Cinematic Video Expand)
   const block2SectionRef = useRef<HTMLDivElement>(null);
@@ -52,7 +61,7 @@ const Home = () => {
     });
 
     // Animação de zoom expansivo EXCLUSIVA para mobile
-    if (window.innerWidth < 768) {
+    if (isMobile) {
       tl.fromTo(videoWrapperRef.current, 
         { clipPath: "inset(25vh 10vw round 2rem)" },
         { clipPath: "inset(0vh 0vw round 0rem)", duration: 2, ease: "power2.inOut" }
@@ -150,7 +159,7 @@ const Home = () => {
           <div
             ref={videoWrapperRef}
             className="absolute md:relative inset-0 md:inset-auto w-full md:w-[75%] h-full md:h-[75vh] rounded-none md:rounded-[2rem] border-[0px] overflow-hidden flex items-center justify-center cursor-pointer group"
-            style={{ willChange: window.innerWidth < 768 ? "clip-path" : "auto" }}
+            style={{ willChange: isMobile ? "clip-path" : "auto" }}
             onClick={() => setIsMuted(!isMuted)}
           >
             <video
@@ -207,10 +216,10 @@ const Home = () => {
 
       {/* Block 03: Memórias - Text Title and Zoom Parallax */}
       <div className="bg-background relative">
-        <section ref={sectionRef3} className="py-12 md:py-20 px-6 lg:px-12 w-full flex items-center justify-center relative">
+        <section ref={sectionRef3} className="pb-12 md:pb-20 px-6 lg:px-12 w-full flex items-center justify-center relative">
           <p
             ref={textRef3}
-            className="font-sans text-2xl md:text-4xl lg:text-4xl leading-[1.3] font-light max-w-4xl text-center tracking-tight"
+            className="font-sans text-2xl md:text-4xl lg:text-4xl leading-none font-light max-w-4xl text-center tracking-[0.5px]"
           >
             {/* Text Reveal Block 3 */}
           </p>
@@ -224,13 +233,16 @@ const Home = () => {
       {/* Block 04: Proposta de Valor */}
       <ValuePropositionSection />
 
+      {/* Block 04.5: Parallax Manifesto (Sentido, Autoconhecimento, etc.) */}
+      <ParallaxManifesto />
+
       {/* Block 05: E-book (Tablet Fixo + Textos Scrubbed) */}
       <EbookSection />
 
       {/* Block 06: Final (Animado) */}
-      <section className="py-24 px-6 bg-white flex flex-col items-center justify-center text-center overflow-hidden gap-12 relative">
+      <section className="py-16 px-6 bg-white flex flex-col items-center justify-center text-center overflow-hidden gap-8 relative">
         <motion.h2
-          className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight flex flex-wrap justify-center gap-x-2 md:gap-x-3"
+          className="text-3xl md:text-4xl lg:text-5xl font-light tracking-[2px] leading-none flex flex-wrap justify-center gap-x-2 md:gap-x-3"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -239,7 +251,6 @@ const Home = () => {
             visible: { transition: { staggerChildren: 0.1 } }
           }}
         >
-          {/* Animação palavra por palavra para um efeito mais suave que letra-por-letra, ou mistura */}
           {["Nunca", "pronto,"].map((word, i) => (
             <motion.span
               key={i}
@@ -252,7 +263,7 @@ const Home = () => {
               {word}
             </motion.span>
           ))}
-          <br className="hidden md:block w-full" /> {/* Force break if needed or let flow */}
+          <br className="hidden md:block w-full" />
           {["mas", "sempre", "suficiente."].map((word, i) => (
             <motion.span
               key={i + 2}
@@ -282,8 +293,24 @@ const Home = () => {
         </motion.div>
       </section>
 
-      <footer className="py-12 px-6 border-t border-gray-100 text-center text-xs uppercase tracking-[0.2em] text-gray-400">
-        © {new Date().getFullYear()} Roberto Pascoal — O Caminho
+      <footer className="py-6 px-6 border-t border-gray-100 flex flex-col items-center gap-3">
+        <div className="flex items-center gap-3">
+          <a href="https://www.instagram.com/roberto_pascoal/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-2.5 text-gray-400 hover:text-black transition-colors hover:scale-110 duration-200">
+            <Instagram size={18} strokeWidth={1.5} />
+          </a>
+          <a href="https://www.linkedin.com/in/roberto-pascoal/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-2.5 text-gray-400 hover:text-black transition-colors hover:scale-110 duration-200">
+            <Linkedin size={18} strokeWidth={1.5} />
+          </a>
+          <a href="https://www.facebook.com/roberto.pascoal.9" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="p-2.5 text-gray-400 hover:text-black transition-colors hover:scale-110 duration-200">
+            <FacebookIcon className="w-[18px] h-[18px]" />
+          </a>
+          <a href="mailto:atendimento@dazprodutora.com.br" aria-label="E-mail" className="p-2.5 text-gray-400 hover:text-black transition-colors hover:scale-110 duration-200">
+            <Mail size={18} strokeWidth={1.5} />
+          </a>
+        </div>
+        <p className="text-xs uppercase tracking-[0.2em] text-gray-400">
+          © {new Date().getFullYear()} Roberto Pascoal — O Caminho
+        </p>
       </footer>
     </div>
   );

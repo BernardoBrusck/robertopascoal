@@ -53,7 +53,7 @@ function MobileZoomGallery({ images }: ZoomParallaxProps) {
               height={height || 600}
               className={isPolaroid ? "h-full w-full object-cover bg-white p-2 pb-6 shadow-xl" : "h-full w-full object-cover rounded-sm"}
               decoding="async"
-              fetchPriority={index === 0 ? "high" : "auto"}
+              loading={index === 0 ? "eager" : "lazy"}
             />
           </div>
         ))}
@@ -112,7 +112,7 @@ function DesktopZoomParallax({ images }: ZoomParallaxProps) {
                     height={height || 600}
                     className="h-full w-full rounded-[4px] object-cover shadow-[0_10px_20px_rgba(0,0,0,0.2)]"
                     decoding="async"
-                    fetchPriority={index === 0 ? "high" : "auto"}
+                    loading={index === 0 ? "eager" : "lazy"}
                   />
                 )}
               </div>

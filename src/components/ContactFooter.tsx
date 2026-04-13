@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Check, Copy, Mail, MapPin, Instagram, Linkedin, MessageCircle } from 'lucide-react';
+
+const FacebookIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
 import { Button, type ButtonProps } from '@/components/ui/button';
 
 const CONTACT = {
@@ -11,9 +17,10 @@ const CONTACT = {
 };
 
 const SOCIALS = [
-  { icon: Instagram, href: 'https://www.instagram.com/roberto_pascoal/', label: 'Instagram Roberto' },
-  { icon: Instagram, href: 'https://www.instagram.com/omunga_oficial/', label: 'Instagram Omunga' },
-  { icon: Linkedin, href: 'https://www.linkedin.com/company/omunga/', label: 'LinkedIn Omunga' },
+  { iconType: 'instagram', href: 'https://www.instagram.com/roberto_pascoal/', label: 'Instagram' },
+  { iconType: 'linkedin', href: 'https://www.linkedin.com/in/roberto-pascoal/', label: 'LinkedIn' },
+  { iconType: 'facebook', href: 'https://www.facebook.com/roberto.pascoal.9', label: 'Facebook' },
+  { iconType: 'email', href: 'mailto:atendimento@dazprodutora.com.br', label: 'E-mail' },
 ];
 
 function CopyButton({ text, className, ...props }: ButtonProps & { text: string }) {
@@ -72,13 +79,23 @@ const ContactFooter = () => {
           </ContactBlock>
         </div>
         <div className="border-t border-border" />
-        <div className="pt-12 flex flex-col md:flex-row md:items-center md:justify-between gap-12">
-          <div>
+        <div className="pt-12 flex flex-col items-center gap-8">
+          <div className="flex flex-col items-center gap-4">
             <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-muted-foreground opacity-60">Encontre online</span>
-            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 mt-6">
+            <div className="flex items-center gap-3 mt-2">
               {SOCIALS.map((link) => (
-                <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 text-sm text-foreground hover:text-muted-foreground transition-colors p-3 border border-border/10 rounded-sm min-h-[44px] hover:bg-muted/30">
-                  <link.icon className="h-4 w-4 opacity-70" />
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target={link.iconType === 'email' ? undefined : '_blank'}
+                  rel={link.iconType === 'email' ? undefined : 'noopener noreferrer'}
+                  aria-label={link.label}
+                  className="flex items-center gap-2.5 text-sm text-foreground hover:text-muted-foreground transition-colors px-4 py-2.5 border border-border/20 rounded-full hover:bg-muted/30 min-h-[44px]"
+                >
+                  {link.iconType === 'instagram' && <Instagram className="h-4 w-4 opacity-70" />}
+                  {link.iconType === 'linkedin' && <Linkedin className="h-4 w-4 opacity-70" />}
+                  {link.iconType === 'facebook' && <FacebookIcon className="h-4 w-4 opacity-70" />}
+                  {link.iconType === 'email' && <Mail className="h-4 w-4 opacity-70" />}
                   <span className="font-light tracking-tight">{link.label}</span>
                 </a>
               ))}

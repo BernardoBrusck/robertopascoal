@@ -14,7 +14,7 @@ const phase1Phrases = [
 
 const phase2Phrases = [
   "A quem, enfim, se escolhe.",
-  "Este e-book não é uma resposta.\nÉ um caminho.",
+  "Este livro não é uma resposta.\nÉ um caminho.",
 ];
 
 const fadeIn = {
@@ -73,7 +73,7 @@ const TabletMockup = () => {
       {/* Corpo do tablet */}
       <div
         ref={bodyRef}
-        className="relative bg-[#1a1a1a] rounded-[2rem] md:rounded-[2.5rem] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.4)]"
+        className="relative bg-[#1a1a1a] rounded-[2rem] md:rounded-[2.5rem]"
         style={{ padding: '14px 12px 14px 12px' }}
       >
         {/* Câmera frontal — margem superior de 20px */}
@@ -102,16 +102,7 @@ const TabletMockup = () => {
         </div>
       </div>
 
-      {/* Sombra projetada — move sutilmente com o tilt */}
-      <div
-        className="absolute -z-10 bottom-2 left-1/2 -translate-x-1/2 w-[70%] h-12 rounded-full"
-        style={{
-          background: 'rgba(0,0,0,0.06)',
-          filter: 'blur(20px)',
-          transform: hovering ? `translateX(${tilt.rotY * 0.6}px) scaleX(1.05)` : 'none',
-          transition: 'transform 0.3s ease-out',
-        }}
-      />
+
     </a>
   );
 };
@@ -132,7 +123,7 @@ const MobileEbook = () => (
           >
             {i === 4 ? (
               <>
-                <span className="font-medium text-black block">Este e-book não é uma resposta.</span>
+                <span className="font-medium text-black block">Este livro não é uma resposta.</span>
                 <span className="italic block mt-1">É um caminho.</span>
               </>
             ) : (
@@ -236,7 +227,7 @@ const DesktopEbook = () => {
             
             <div ref={(el) => { phase2Refs.current[1] = el; }} className="opacity-0 pointer-events-none">
                  <span className="text-2xl md:text-4xl lg:text-4xl leading-[1.3] tracking-tight text-left block">
-                  <span className="font-medium text-black block">Este e-book não é uma resposta.</span>
+                  <span className="font-medium text-black block">Este livro não é uma resposta.</span>
                   <span className="font-light italic text-gray-600 block mt-1">É um caminho.</span>
                 </span>
             </div>

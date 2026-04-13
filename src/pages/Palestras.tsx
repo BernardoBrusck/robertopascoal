@@ -75,7 +75,7 @@ const Palestras = () => {
           </motion.div>
           <motion.div {...fadeIn} className="space-y-8 text-lg text-gray-600 leading-relaxed">
             <p>
-              A partir de experiências reais liderando projetos em alguns dos territórios mais remotos da África e do Brasil como no sertão do Piauí, Amazônia, Ilha do Marajó e Monte Roraima, Roberto conduz uma reflexão profunda e prática sobre:
+              A partir de experiências reais liderando projetos em alguns dos territórios mais remotos da África e do Brasil, Roberto conduz uma reflexão profunda e prática sobre:
             </p>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-black font-medium">
               {[

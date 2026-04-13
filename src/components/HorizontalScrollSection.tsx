@@ -47,7 +47,7 @@ const PanelFormacao = () => (
       <h2 className="h-panel-title whitespace-pre-line text-foreground">{'O poder\nda palavra'}</h2>
       <p className="h-panel-text text-muted-foreground mb-8">Escritor e comunicador por natureza. Encontrou nos livros e nas palestras a ferramenta para amplificar sua voz e levar sua mensagem a milhares de pessoas.</p>
       <div className="flex gap-4">
-        <Photo src="/image/roberto-pascoal-retrato-1.webp" alt="Formação 1" className="w-[160px] h-[120px] rounded anim-photo-sm" width={160} height={120} />
+        <Photo src="/image/retrato-1-opt.webp" alt="Formação 1" className="w-[160px] h-[120px] rounded anim-photo-sm" width={160} height={120} />
         <Photo src="/image/foto-roberto-05.webp" alt="Formação 2" className="w-[160px] h-[120px] rounded anim-photo-sm" width={160} height={120} />
       </div>
     </div>

@@ -16,22 +16,22 @@ const fadeIn = {
 
 const items = [
   {
-    icon: <Footprints className="w-12 h-12 md:w-16 md:h-16 stroke-[1]" />,
+    icon: <Footprints className="w-8 h-8 md:w-12 md:h-12 stroke-[1]" />,
     title: "UMA JORNADA REAL",
     text: "Sem máscaras. Da infância à África… à Santiago de Compostela… aos lugares onde poucos chegam."
   },
   {
-    icon: <Backpack className="w-12 h-12 md:w-16 md:h-16 stroke-[1]" />,
+    icon: <Backpack className="w-8 h-8 md:w-12 md:h-12 stroke-[1]" />,
     title: "COM NOSSAS MOCHILAS",
     text: "O que carregamos? Qual é o peso disso? \nE o que evitamos deixar para trás… para que a jornada seja mais leve."
   },
   {
-    icon: <Compass className="w-12 h-12 md:w-16 md:h-16 stroke-[1]" />,
+    icon: <Compass className="w-8 h-8 md:w-12 md:h-12 stroke-[1]" />,
     title: "SEM FÓRMULAS PRONTAS",
     text: "Sem atalhos, culpa ou ansiedade.\nApenas presença… para o próximo passo."
   },
   {
-    icon: <Heart className="w-12 h-12 md:w-16 md:h-16 stroke-[1]" />,
+    icon: <Heart className="w-8 h-8 md:w-12 md:h-12 stroke-[1]" />,
     title: "EM COMPANHIA",
     text: "Você não está sozinho. \nCaminhar junto, torna a jornada mais leve."
   }
@@ -90,18 +90,31 @@ export const ValuePropositionSection = () => {
   // VERSÃO MOBILE (Empilhado vertical tradicional s/ overflow-x complexo)
   if (isMobile) {
     return (
-      <section className="py-24 px-6 bg-white overflow-hidden">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2 
+      <section className="py-20 px-5 bg-white overflow-hidden">
+        <div className="max-w-lg mx-auto">
+          <motion.h2
             {...fadeIn}
-            className="text-2xl md:text-4xl lg:text-4xl leading-none font-light tracking-[0.5px] text-center mb-16 px-4"
+            className="text-2xl leading-snug font-light tracking-[0.5px] text-center mb-14 px-2"
           >
             E se pudéssemos caminhar juntos?
           </motion.h2>
-          <div className="flex flex-col gap-12">
+          <div className="flex flex-col divide-y divide-gray-100">
             {items.map((item, i) => (
-              <motion.div key={i} {...fadeIn} transition={{ delay: i * 0.1 }}>
-                <ValueItem icon={item.icon} title={item.title} text={item.text} />
+              <motion.div
+                key={i}
+                {...fadeIn}
+                transition={{ delay: i * 0.08 }}
+                className="flex items-start gap-5 py-8"
+              >
+                <div className="text-black shrink-0 mt-1">
+                  {item.icon}
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-semibold uppercase text-black text-xs tracking-[0.12em]">{item.title}</h3>
+                  <p className="text-base text-gray-600 leading-relaxed font-light whitespace-pre-line">
+                    {item.text}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -109,6 +122,7 @@ export const ValuePropositionSection = () => {
       </section>
     );
   }
+
 
   // VERSÃO DESKTOP — GSAP com Scroll Horizontal
   return (

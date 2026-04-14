@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Alternating pattern: false, true, false, true, false
 // (sem fixed, com fixed, sem fixed, com fixed, sem fixed)
@@ -43,14 +44,18 @@ const ParallaxSlide = ({
   slide: (typeof slides)[0];
   index: number;
 }) => {
+  const isMobile = useIsMobile();
+  // background-attachment: fixed is broken on iOS Safari — disable on mobile
+  const attachment = (!isMobile && slide.fixed) ? 'fixed' : 'scroll';
+
   return (
     <div
-      className="relative w-full h-[100vh] flex items-center justify-center overflow-hidden"
+      className="relative w-full manifesto-slide flex items-center justify-center overflow-hidden"
       style={{
         backgroundImage: `url(${slide.image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundAttachment: slide.fixed ? 'fixed' : 'scroll',
+        backgroundAttachment: attachment,
         backgroundRepeat: 'no-repeat',
       }}
     >

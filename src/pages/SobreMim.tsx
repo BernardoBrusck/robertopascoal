@@ -571,7 +571,7 @@ const ClosingSection = () => {
         >
           <a
             href="/palestras"
-            className="inline-block border border-black/40 text-black px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.25em] hover:bg-black hover:text-white transition-all duration-300 text-center w-full sm:w-auto"
+            className="inline-block border border-black/40 bg-white text-black px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.25em] hover:bg-black hover:text-white transition-all duration-300 text-center w-full sm:w-auto"
           >
             Conheça minha jornada
           </a>

@@ -96,7 +96,7 @@ const Home = () => {
   useEffect(() => {
     if (!textRef3.current || !sectionRef3.current) return;
 
-    const content = `E talvez…\nseja exatamente nessa parte do caminho\nque a gente se encontra.`;
+    const content = `E talvez…\nseja exatamente nessa parte do caminho\nque a gente se encontra com a gente mesmo.`;
     
     textRef3.current.innerHTML = content
       .replace(/\n/g, '<br/>')
@@ -216,10 +216,10 @@ const Home = () => {
 
       {/* Block 03: Memórias - Text Title and Zoom Parallax */}
       <div className="bg-background relative">
-        <section ref={sectionRef3} className="pb-12 md:pb-20 px-6 lg:px-12 w-full flex items-center justify-center relative">
+        <section ref={sectionRef3} className="py-16 md:pb-20 px-6 lg:px-12 w-full flex items-center justify-center relative">
           <p
             ref={textRef3}
-            className="font-sans text-2xl md:text-4xl lg:text-4xl leading-none font-light max-w-4xl text-center tracking-[0.5px]"
+            className="font-sans text-xl md:text-4xl lg:text-4xl leading-snug md:leading-none font-light max-w-4xl text-center tracking-[0.5px]"
           >
             {/* Text Reveal Block 3 */}
           </p>
@@ -240,9 +240,9 @@ const Home = () => {
       <EbookSection />
 
       {/* Block 06: Final (Animado) */}
-      <section className="py-16 px-6 bg-white flex flex-col items-center justify-center text-center overflow-hidden gap-8 relative">
+      <section className="py-20 md:py-16 px-5 md:px-6 bg-white flex flex-col items-center justify-center text-center overflow-hidden gap-8 relative">
         <motion.h2
-          className="text-3xl md:text-4xl lg:text-5xl font-light tracking-[2px] leading-none flex flex-wrap justify-center gap-x-2 md:gap-x-3"
+          className="text-3xl md:text-4xl lg:text-5xl font-light tracking-[2px] leading-snug md:leading-none flex flex-wrap justify-center gap-x-2 md:gap-x-3"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -263,7 +263,7 @@ const Home = () => {
               {word}
             </motion.span>
           ))}
-          <br className="hidden md:block w-full" />
+          <span className="w-full hidden md:block" />
           {["mas", "sempre", "suficiente."].map((word, i) => (
             <motion.span
               key={i + 2}

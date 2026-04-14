@@ -85,6 +85,17 @@ function UnifiedSlider() {
             />
           ))}
         </div>
+        {/* Mobile dots — horizontal, bottom center */}
+        <div id="slidesNavMobile" className="slider-dots-nav-mobile">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              className={`slider-dot-mobile${i === current ? ' active' : ''}`}
+              onClick={() => handleDotClick(i)}
+              aria-label={`Ir para slide ${i + 1}: ${slides[i].title}`}
+            />
+          ))}
+        </div>
         
         {/* Animated Central Text */}
         <motion.div 
@@ -97,7 +108,7 @@ function UnifiedSlider() {
           className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
         >
           <div 
-            className="text-center font-sans font-light text-white flex flex-col gap-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] drop-shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+            className="text-center font-sans font-light text-white flex flex-col gap-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] drop-shadow-[0_8px_32px_rgba(0,0,0,0.6)] px-5"
           >
             
             {/* Line 1 */}
@@ -107,7 +118,7 @@ function UnifiedSlider() {
                   hidden: { y: "120%", opacity: 0 },
                   visible: { y: "0%", opacity: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
                 }}
-                className="text-[2.2rem] tracking-[2px] py-2 px-1 leading-none"
+                className="hero-line-text tracking-[1px] md:tracking-[2px] py-2 px-1 leading-tight md:leading-none"
               >
                 Não é sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">pronto.</span>
               </motion.div>
@@ -120,7 +131,7 @@ function UnifiedSlider() {
                   hidden: { y: "120%", opacity: 0 },
                   visible: { y: "0%", opacity: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
                 }}
-                className="text-[2.2rem] tracking-[2px] py-2 px-3 leading-none margin-to -mt-[15px]"
+                className="hero-line-text tracking-[1px] md:tracking-[2px] py-2 px-3 leading-tight md:leading-none md:-mt-[15px]"
               >
                 Nem sobre se sentir <span className="font-serif italic font-medium ml-1 text-white">completo.</span>
               </motion.div>

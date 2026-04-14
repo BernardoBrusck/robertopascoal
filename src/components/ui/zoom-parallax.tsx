@@ -39,8 +39,8 @@ const mobileLayouts = [
 
 function MobileZoomGallery({ images }: ZoomParallaxProps) {
   return (
-    <div className="relative w-full bg-background px-4 py-8">
-      <div className="mx-auto grid max-w-3xl grid-cols-2 gap-4">
+    <div className="relative w-full bg-background px-4 py-10 pb-16">
+      <div className="mx-auto grid max-w-3xl grid-cols-2 gap-3">
         {images.map(({ src, alt, width, height, isPolaroid }, index) => (
           <div
             key={index}
@@ -51,7 +51,9 @@ function MobileZoomGallery({ images }: ZoomParallaxProps) {
               alt={alt || ''}
               width={width || 800}
               height={height || 600}
-              className={isPolaroid ? "h-full w-full object-cover bg-white p-2 pb-6 shadow-xl" : "h-full w-full object-cover rounded-sm"}
+              className={isPolaroid
+                ? "h-full w-full object-cover bg-white p-2 pb-6 shadow-xl"
+                : "h-full w-full object-cover rounded-sm shadow-md"}
               decoding="async"
               loading={index === 0 ? "eager" : "lazy"}
             />
@@ -127,7 +129,8 @@ function DesktopZoomParallax({ images }: ZoomParallaxProps) {
 export function ZoomParallax({ images }: ZoomParallaxProps) {
   const isMobile = useIsMobile();
 
-  if (isMobile) return null;
+  if (isMobile === undefined) return null;
+  if (isMobile) return <MobileZoomGallery images={images} />;
 
   return <DesktopZoomParallax images={images} />;
 }

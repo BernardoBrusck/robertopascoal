@@ -14,7 +14,7 @@ const phase1Phrases = [
 
 const phase2Phrases = [
   "A quem, enfim, se escolhe.",
-  "Este livro não é uma resposta.\nÉ um caminho.",
+  "Este E-book não é uma resposta.\nÉ um caminho.",
 ];
 
 const fadeIn = {
@@ -110,20 +110,38 @@ const TabletMockup = () => {
 
 /* ── Versão Mobile (empilhada, sem pin) ── */
 const MobileEbook = () => (
-  <section className="py-24 px-6 bg-gray-50 overflow-hidden">
-    <div className="max-w-lg mx-auto space-y-16">
+  <section className="pt-20 pb-24 px-6 bg-gray-50 overflow-hidden">
+    <div className="max-w-lg mx-auto">
+      {/* Título editorial acima do livro */}
+      <motion.div
+        {...fadeIn}
+        className="text-center mb-10"
+      >
+        <p className="text-xs uppercase tracking-[0.25em] text-gray-400 mb-3">E-book</p>
+        <h2 className="text-2xl font-light text-black leading-snug tracking-[0.5px]">
+          O Caminho<br />
+          <span className="italic font-medium">depois da pressa</span>
+        </h2>
+      </motion.div>
+
+      {/* Tablet mockup */}
       <TabletMockup />
-      <div className="space-y-3 md:space-y-4 text-center flex flex-col items-center">
+
+      {/* Divisor */}
+      <div className="w-12 h-px bg-gray-300 mx-auto my-10" />
+
+      {/* Frases */}
+      <div className="space-y-5 text-center flex flex-col items-center">
         {[...phase1Phrases, ...phase2Phrases].map((phrase, i) => (
           <motion.p
             key={i}
             {...fadeIn}
-            transition={{ delay: i * 0.1 }}
-            className="text-xl md:text-2xl font-light text-gray-600 leading-relaxed whitespace-pre-line"
+            transition={{ delay: i * 0.08 }}
+            className="text-lg font-light text-gray-600 leading-relaxed whitespace-pre-line"
           >
             {i === 4 ? (
               <>
-                <span className="font-medium text-black block">Este livro não é uma resposta.</span>
+                <span className="font-medium text-black block">Este E-book não é uma resposta.</span>
                 <span className="italic block mt-1">É um caminho.</span>
               </>
             ) : (
@@ -131,15 +149,29 @@ const MobileEbook = () => (
             )}
           </motion.p>
         ))}
-        <motion.div {...fadeIn} transition={{ delay: 0.6 }} className="pt-8">
-           <a href="/e-book" className="inline-block bg-black text-white px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] rounded-sm hover:bg-gray-800 transition-colors">
-              Conheça mais
-           </a>
+
+        {/* CTAs */}
+        <motion.div {...fadeIn} transition={{ delay: 0.5 }} className="pt-8 flex flex-col gap-3 w-full">
+          <a
+            href="https://hotmart.com/pt-br/marketplace/produtos/o-caminho-depois-da-pressa/E102970771D"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full bg-black text-white px-8 py-5 text-sm font-semibold uppercase tracking-[0.2em] rounded-sm hover:bg-gray-800 active:scale-[0.98] transition-all duration-200 text-center shadow-lg"
+          >
+            Comprar o Livro
+          </a>
+          <a
+            href="/e-book"
+            className="w-full border border-gray-300 text-gray-500 px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] rounded-sm hover:bg-gray-100 active:scale-[0.98] transition-all duration-200 text-center"
+          >
+            Conheça mais
+          </a>
         </motion.div>
       </div>
     </div>
   </section>
 );
+
 
 /* ── Versão Desktop (GSAP Pinned Scrub) ── */
 const DesktopEbook = () => {
@@ -227,13 +259,24 @@ const DesktopEbook = () => {
             
             <div ref={(el) => { phase2Refs.current[1] = el; }} className="opacity-0 pointer-events-none">
                  <span className="text-2xl md:text-4xl lg:text-4xl leading-[1.3] tracking-tight text-left block">
-                  <span className="font-medium text-black block">Este livro não é uma resposta.</span>
+                  <span className="font-medium text-black block">Este E-book não é uma resposta.</span>
                   <span className="font-light italic text-gray-600 block mt-1">É um caminho.</span>
                 </span>
             </div>
 
-            <div ref={(el) => { phase2Refs.current[2] = el; }} className="opacity-0 mt-4">
-                <a href="/e-book" className="inline-block bg-black text-white px-8 py-5 text-sm font-semibold uppercase tracking-[0.2em] rounded-sm hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+            <div ref={(el) => { phase2Refs.current[2] = el; }} className="opacity-0 mt-8 flex flex-col sm:flex-row gap-4">
+                <a 
+                  href="https://hotmart.com/pt-br/marketplace/produtos/o-caminho-depois-da-pressa/E102970771D" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-block bg-black text-white px-10 py-5 text-sm font-semibold uppercase tracking-[0.2em] rounded-sm hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
+                >
+                    Comprar o E-book
+                </a>
+                <a 
+                  href="/e-book" 
+                  className="inline-block border border-gray-300 text-gray-500 px-8 py-5 text-sm font-semibold uppercase tracking-[0.2em] rounded-sm hover:bg-gray-50 transition-all duration-300"
+                >
                     Conheça mais
                 </a>
             </div>

@@ -20,7 +20,7 @@ export const AboutSection = () => {
         <div className="w-full lg:w-5/12 aspect-[4/5] relative overflow-hidden rounded-[4px] shadow-2xl">
           <motion.img 
             style={{ y: y1 }}
-            src="/image/roberto-pascoal-retrato-2.webp" 
+            src="/image/roberto-pascoal-retrato-3.webp" 
             alt="Roberto Pascoal" 
             className="absolute inset-0 w-full h-[130%] object-cover object-center -top-[15%]"
           />

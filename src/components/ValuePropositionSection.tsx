@@ -27,7 +27,7 @@ const items = [
 
 export const ValuePropositionSection = () => {
   return (
-    <section className="relative pt-8 pb-16 md:pt-12 md:pb-24 px-6 lg:px-12 bg-white text-black overflow-hidden font-sans">
+    <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 px-6 lg:px-12 bg-white text-black overflow-hidden font-sans">
       
       {/* Subtle Dot Texture Pattern */}
       <div className="absolute inset-0 z-0 opacity-40 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#d1d5db 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
@@ -39,15 +39,15 @@ export const ValuePropositionSection = () => {
 
       <div className="max-w-7xl mx-auto flex flex-col relative z-10 w-full justify-center">
         
-        {/* Left Aligned Title */}
+        {/* Centered Title */}
         <motion.div 
-          className="w-full mb-16 lg:mb-20"
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          className="w-full mb-10 lg:mb-12 flex flex-col items-center text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h2 className="text-3xl md:text-5xl font-light tracking-[0.5px] leading-tight text-gray-900">
+          <h2 className="text-2xl md:text-4xl font-light tracking-[0.5px] leading-tight text-gray-900">
             E se pudéssemos caminhar juntos?
           </h2>
           <div className="w-16 h-px bg-black mt-8" />

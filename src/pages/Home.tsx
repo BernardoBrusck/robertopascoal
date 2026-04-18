@@ -235,11 +235,11 @@ const Home = () => {
       {/* Block 03.5: Sobre Mim */}
       <AboutSection />
 
-      {/* Block 04: Proposta de Valor */}
-      <ValuePropositionSection />
-
       {/* Block 04.5: Parallax Manifesto (Sentido, Autoconhecimento, etc.) */}
       <ParallaxManifesto />
+
+      {/* Block 04: Proposta de Valor */}
+      <ValuePropositionSection />
 
       {/* Block 05: E-book (Tablet Fixo + Textos Scrubbed) */}
       <EbookSection />

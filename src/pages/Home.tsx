@@ -6,7 +6,8 @@ import { ArrowDown, Volume2, VolumeX, Instagram, Linkedin, Mail } from "lucide-r
 import { useIsMobile } from '@/hooks/use-mobile';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ZoomParallax } from "@/components/ui/zoom-parallax";
+import { ZoomParallax } from '@/components/ui/zoom-parallax';
+import { AboutSection } from '@/components/AboutSection';
 import { ValuePropositionSection } from "@/components/ValuePropositionSection";
 import { EbookSection } from "@/components/EbookSection";
 import { ParallaxManifesto } from "@/components/ParallaxManifesto";
@@ -20,17 +21,30 @@ const FacebookIcon = ({ className }: { className?: string }) => (
 gsap.registerPlugin(ScrollTrigger);
 
 const zoomParallaxImages = [
-  { src: '/image/roberto-pascoal-criancas-sala.webp', alt: 'Roberto com Crianças na Sala', width: 1200, height: 800 }, // Center
+  // 0: Centro — imagem principal
+  { src: '/image/foto-05-beto-opt.webp', alt: 'Beto infância', width: 1200, height: 800 },
+
+  // 1–6: Primeiro anel de polaroides (originais)
   { src: '/image/roberto-crianca.webp', alt: 'Roberto Criança', width: 800, height: 1200, isPolaroid: true },
-  { src: '/image/eu-e-minha-irma-opt.webp', alt: 'Eu e minha irmã', width: 1200, height: 800, isPolaroid: true },
-  { src: '/image/foto-05-beto-opt.webp', alt: 'Beto infância', width: 1200, height: 800, isPolaroid: true },
+  { src: '/image/eu-e-minha-irma-opt.webp', alt: 'Eu e minha irmã', width: 1200, height: 800, isPolaroid: true, zIndex: 50 },
+  { src: '/infancia/infancia_02_6kurik6k.webp', alt: 'Boa Vontade', width: 800, height: 1000, isPolaroid: true, zIndex: 10 },
   { src: '/image/foto-10-mae-beto-opt.webp', alt: 'Mãe e Beto', width: 800, height: 1200, isPolaroid: true },
   { src: '/image/infancia-upscale.webp', alt: 'Roberto criança sala de aula', width: 800, height: 1200, isPolaroid: true },
   { src: '/image/roberto-infancia-crianca.webp', alt: 'Roberto infância pote', width: 800, height: 600, isPolaroid: true },
+
+  // 7–12: Segundo anel (novas imagens /infancia — preenche os espaços brancos)
+  { src: '/infancia/infancia_01_100pxh10.webp', alt: 'Infância Roberto', width: 800, height: 1000, isPolaroid: true },
+  { src: '/infancia/infancia_03_7wp27m7w.webp', alt: 'Infância memória', width: 800, height: 1000, isPolaroid: true },
+  { src: '/infancia/infancia_05_cuwnp7cu.webp', alt: 'Infância família', width: 800, height: 1000, isPolaroid: true },
+  { src: '/infancia/infancia_07_lzpitqlz.webp', alt: 'Infância recordação', width: 800, height: 1000, isPolaroid: true },
+  { src: '/infancia/infancia_08_p7cwiop7.webp', alt: 'Infância criança', width: 800, height: 1000, isPolaroid: true },
+  { src: '/infancia/infancia_10_s8ogq5s8.webp', alt: 'Infância retrato', width: 800, height: 1000, isPolaroid: true },
+  { src: '/infancia/infancia_06_k5ysvwk5.webp', alt: 'Infância nova', width: 800, height: 1000, isPolaroid: true },
+  { src: '/infancia/infancia_04_bmdj8qbm.webp', alt: 'Infância memória 4', width: 800, height: 1000, isPolaroid: true, objectPosition: 'left' },
+  { src: '/infancia/infancia_09_qjhp5bqj.webp', alt: 'Infância memória 9', width: 800, height: 1000, isPolaroid: true },
 ];
 
 const Home = () => {
-  const [isMuted, setIsMuted] = useState(true);
   const isMobile = useIsMobile();
 
   // Refs for Block 02 (Cinematic Video Expand)
@@ -158,33 +172,21 @@ const Home = () => {
           */}
           <div
             ref={videoWrapperRef}
-            className="absolute md:relative inset-0 md:inset-auto w-full md:w-[75%] h-full md:h-[75vh] rounded-none md:rounded-[2rem] border-[0px] overflow-hidden flex items-center justify-center cursor-pointer group"
+            className="absolute md:relative inset-0 md:inset-auto w-full md:w-[75%] h-full md:h-[75vh] rounded-none md:rounded-[2rem] border-[0px] overflow-hidden flex items-center justify-center"
             style={{ willChange: isMobile ? "clip-path" : "auto" }}
-            onClick={() => setIsMuted(!isMuted)}
           >
             <video
               ref={videoRef}
-              src="/video/caminhada.mp4"
+              src="/video/Drone monte Roraima.mp4"
               autoPlay
               loop
-              muted={isMuted}
+              muted
               playsInline
               className="absolute inset-0 w-full h-full object-cover"
             />
 
             {/* Máscara escura fixa para legibilidade do texto */}
             <div ref={overlayRef} className="absolute inset-0 bg-black/10 pointer-events-none" />
-
-            {/* Ícone de Som - Canto inferior direito */}
-            <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-              <div className="flex bg-black/30 backdrop-blur-md border border-white/20 p-3 rounded-full shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-                {isMuted ? (
-                  <VolumeX className="w-6 h-6 text-white drop-shadow-md" />
-                ) : (
-                  <Volume2 className="w-6 h-6 text-white drop-shadow-md" />
-                )}
-              </div>
-            </div>
           </div>
 
           {/* Texts overlaying everything, centered, absolute position */}
@@ -229,6 +231,9 @@ const Home = () => {
           <ZoomParallax images={zoomParallaxImages} />
         </section>
       </div>
+
+      {/* Block 03.5: Sobre Mim */}
+      <AboutSection />
 
       {/* Block 04: Proposta de Valor */}
       <ValuePropositionSection />

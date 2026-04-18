@@ -19,6 +19,8 @@ import Galeria from "./pages/Galeria";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 import { SmoothScroll } from "./components/SmoothScroll";
 
+import { PageTransition } from "./components/PageTransition";
+
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const Posts = lazy(() => import("./pages/admin/Posts"));
@@ -50,42 +52,44 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<HomeWithLoading />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/e-book" element={<Livro />} /> 
-              <Route path="/sobre-mim" element={<SobreMim />} />
-              <Route path="/palestras" element={<Palestras />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/galeria" element={<Galeria />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/blog/preview/:id" element={
-                <ProtectedRoute>
-                  <Suspense fallback={<AdminFallback />}><BlogPreview /></Suspense>
-                </ProtectedRoute>
-              } />
-              <Route path="/admin/login" element={<Login />} />
-              <Route
-                path="/admin"
-                element={
+            <PageTransition>
+              <Routes>
+                <Route path="/" element={<HomeWithLoading />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/e-book" element={<Livro />} /> 
+                <Route path="/sobre-mim" element={<SobreMim />} />
+                <Route path="/palestras" element={<Palestras />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/galeria" element={<Galeria />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
+                <Route path="/blog/preview/:id" element={
                   <ProtectedRoute>
-                    <Suspense fallback={<AdminFallback />}>
-                      <AdminLayout />
-                    </Suspense>
+                    <Suspense fallback={<AdminFallback />}><BlogPreview /></Suspense>
                   </ProtectedRoute>
-                }
-              >
-                <Route index element={<Suspense fallback={<AdminFallback />}><Dashboard /></Suspense>} />
-                <Route path="posts" element={<Suspense fallback={<AdminFallback />}><Posts /></Suspense>} />
-                <Route path="posts/new" element={<Suspense fallback={<AdminFallback />}><PostEditor /></Suspense>} />
-                <Route path="posts/:id/edit" element={<Suspense fallback={<AdminFallback />}><PostEditor /></Suspense>} />
-                <Route path="categories" element={<Suspense fallback={<AdminFallback />}><Categories /></Suspense>} />
-                <Route path="tags" element={<Suspense fallback={<AdminFallback />}><Tags /></Suspense>} />
-                <Route path="media" element={<Suspense fallback={<AdminFallback />}><Media /></Suspense>} />
-                <Route path="leads" element={<Suspense fallback={<AdminFallback />}><Leads /></Suspense>} />
-              </Route>
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+                } />
+                <Route path="/admin/login" element={<Login />} />
+                <Route
+                  path="/admin"
+                  element={
+                    <ProtectedRoute>
+                      <Suspense fallback={<AdminFallback />}>
+                        <AdminLayout />
+                      </Suspense>
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route index element={<Suspense fallback={<AdminFallback />}><Dashboard /></Suspense>} />
+                  <Route path="posts" element={<Suspense fallback={<AdminFallback />}><Posts /></Suspense>} />
+                  <Route path="posts/new" element={<Suspense fallback={<AdminFallback />}><PostEditor /></Suspense>} />
+                  <Route path="posts/:id/edit" element={<Suspense fallback={<AdminFallback />}><PostEditor /></Suspense>} />
+                  <Route path="categories" element={<Suspense fallback={<AdminFallback />}><Categories /></Suspense>} />
+                  <Route path="tags" element={<Suspense fallback={<AdminFallback />}><Tags /></Suspense>} />
+                  <Route path="media" element={<Suspense fallback={<AdminFallback />}><Media /></Suspense>} />
+                  <Route path="leads" element={<Suspense fallback={<AdminFallback />}><Leads /></Suspense>} />
+                </Route>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </PageTransition>
           </BrowserRouter>
           </SmoothScroll>
         </TooltipProvider>

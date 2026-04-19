@@ -54,9 +54,15 @@ const NavbarAlt = () => {
       ticking = true;
       requestAnimationFrame(() => {
         const currentY = window.scrollY;
-        setScrolled(currentY > 50);
+        
+        // Na EbookV3, a primeira sessão é pinada em +=150%, totalizando 150vh de distância.
+        // O Header sumirá apenas quando a tela for despinada e o último texto subir até o topo (aprox 2.0 vh)
+        const hideThreshold = location.pathname === '/e-book3' ? window.innerHeight * 2.0 : 50;
+        const blurThreshold = location.pathname === '/e-book3' ? window.innerHeight * 2.0 : 50;
 
-        if (currentY <= 50) {
+        setScrolled(currentY > blurThreshold);
+
+        if (currentY <= hideThreshold) {
           setVisible(true);
         } else {
           setVisible(false);
@@ -74,6 +80,8 @@ const NavbarAlt = () => {
   const isLightPage = 
     location.pathname.startsWith("/galeria") || 
     location.pathname.startsWith("/sobre-mim") || 
+    location.pathname.startsWith("/e-book2") || 
+    location.pathname.startsWith("/e-book3") ||
     location.pathname.startsWith("/blog");
 
   const textColor = scrolled ? "text-foreground" : (isLightPage ? "text-foreground" : "text-white");

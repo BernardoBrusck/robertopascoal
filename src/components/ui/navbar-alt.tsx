@@ -15,12 +15,12 @@ import { useLocation, Link, useNavigate } from "react-router-dom";
 
 const navItems = [
   { label: "O Caminho", href: "/" },
-  { label: "Sobre mim", href: "/sobre-mim" },
   { label: "E-book", href: "/e-book" },
   { label: "Palestras", href: "/palestras" },
+  { label: "Sobre mim", href: "/sobre-mim" },
   { label: "Blog", href: "/blog" },
   { label: "Galeria", href: "/galeria" },
-  { label: "Contatos", href: "/palestras#orcamento" },
+  { label: "Contato", href: "/#contato" },
 ];
 
 const NavbarAlt = () => {
@@ -57,8 +57,8 @@ const NavbarAlt = () => {
         
         // Na EbookV3, a primeira sessão é pinada em +=150%, totalizando 150vh de distância.
         // O Header sumirá apenas quando a tela for despinada e o último texto subir até o topo (aprox 2.0 vh)
-        const hideThreshold = location.pathname === '/e-book3' ? window.innerHeight * 2.0 : 50;
-        const blurThreshold = location.pathname === '/e-book3' ? window.innerHeight * 2.0 : 50;
+        const hideThreshold = location.pathname === '/e-book' ? window.innerHeight * 2.0 : 50;
+        const blurThreshold = location.pathname === '/e-book' ? window.innerHeight * 2.0 : 50;
 
         setScrolled(currentY > blurThreshold);
 
@@ -80,8 +80,7 @@ const NavbarAlt = () => {
   const isLightPage = 
     location.pathname.startsWith("/galeria") || 
     location.pathname.startsWith("/sobre-mim") || 
-    location.pathname.startsWith("/e-book2") || 
-    location.pathname.startsWith("/e-book3") ||
+    location.pathname.startsWith("/e-book") ||
     location.pathname.startsWith("/blog");
 
   const textColor = scrolled ? "text-foreground" : (isLightPage ? "text-foreground" : "text-white");

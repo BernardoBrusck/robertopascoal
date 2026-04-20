@@ -8,11 +8,13 @@ import { Menu, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const navItems = [
-  { label: "História", href: "#historia" },
-  { label: "Serviços", href: "#servicos" },
-  { label: "E-book", href: "#livro" },
-  { label: "Palestras", href: "#palestras" },
+  { label: "O Caminho", href: "/" },
+  { label: "E-book", href: "/e-book" },
+  { label: "Palestras", href: "/palestras" },
+  { label: "Sobre mim", href: "/sobre-mim" },
   { label: "Blog", href: "/blog" },
+  { label: "Galeria", href: "/galeria" },
+  { label: "Contato", href: "#contato" },
 ];
 
 
@@ -265,16 +267,7 @@ const Navbar = () => {
                 ))}
               </nav>
 
-              {/* Desktop CTA */}
-              <div className="hidden md:block">
-                <a
-                  href="#contato"
-                  onClick={(e) => handleAnchorClick(e, "#contato")}
-                  className={`inline-flex items-center justify-center px-6 py-2.5 rounded-sm text-xs uppercase tracking-[0.2em] font-medium border bg-transparent transition-all duration-300 ${textColor} ${borderColor} ${hoverBg}`}
-                >
-                  Contato
-                </a>
-              </div>
+              {/* Desktop Menu - No CTA Button Need Since It is in Links */}
 
               {/* Mobile Menu Button */}
               <button
@@ -327,26 +320,7 @@ const Navbar = () => {
                     </a>
                   </motion.div>
                 ))}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: navItems.length * 0.08,
-                    duration: 0.4,
-                  }}
-                  className="mt-4"
-                >
-                  <a
-                    href="#contato"
-                    onClick={(e) => {
-                      handleAnchorClick(e, "#contato");
-                      setIsOpen(false);
-                    }}
-                    className="inline-flex items-center justify-center px-10 py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium border border-foreground text-foreground bg-transparent transition-all duration-300 hover:bg-foreground hover:text-background"
-                  >
-                    Contato
-                  </a>
-                </motion.div>
+                {/* Contato rendered inside the map naturally now */}
               </nav>
             </motion.div>
           )}

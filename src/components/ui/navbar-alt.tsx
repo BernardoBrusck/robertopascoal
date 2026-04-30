@@ -80,7 +80,7 @@ const NavbarAlt = () => {
   const isLightPage = 
     location.pathname.startsWith("/galeria") || 
     location.pathname.startsWith("/sobre-mim") || 
-    location.pathname.startsWith("/e-book") ||
+    (location.pathname.startsWith("/e-book") && !location.pathname.startsWith("/e-book2")) ||
     location.pathname.startsWith("/blog");
 
   const textColor = scrolled ? "text-foreground" : (isLightPage ? "text-foreground" : "text-white");

@@ -14,20 +14,20 @@ export const AboutSection = () => {
 
   return (
     <section ref={containerRef} className="py-16 md:py-24 px-6 lg:px-12 bg-white relative overflow-hidden flex items-center justify-center">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-14 relative z-10 w-full">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20 relative z-10 w-full">
         
         {/* Photo Container with Parallax Effect */}
-        <div className="w-full lg:w-[58%] aspect-[16/10] relative overflow-hidden rounded-xl shadow-2xl">
+        <div className="w-full md:w-[70%] lg:w-[40%] aspect-[4/5] relative overflow-hidden rounded-xl shadow-2xl mx-auto shrink-0">
           <motion.img 
             style={{ y: y1 }}
-            src="/image/roberto-pascoal-caminhada-brasil.webp" 
+            src="/image/Roberto-rio.webp" 
             alt="Roberto Pascoal" 
             className="absolute inset-0 w-full h-[130%] object-cover object-center -top-[15%]"
           />
         </div>
         
         {/* Text Presentation Box */}
-        <div className="w-full lg:w-[42%] flex flex-col justify-center space-y-10">
+        <div className="w-full lg:flex-1 flex flex-col justify-center space-y-10">
           <motion.h2 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}

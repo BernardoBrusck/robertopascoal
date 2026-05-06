@@ -74,13 +74,7 @@ const Home = () => {
       }
     });
 
-    // Animação de zoom expansivo EXCLUSIVA para mobile
-    if (isMobile) {
-      tl.fromTo(videoWrapperRef.current, 
-        { clipPath: "inset(25vh 10vw round 2rem)" },
-        { clipPath: "inset(0vh 0vw round 0rem)", duration: 2, ease: "power2.inOut" }
-      );
-    }
+    // Removida animação de zoom, agora é tela cheia o tempo todo.
 
     // 1. Bring in Phrase 1
     tl.fromTo(phrase1Ref.current,
@@ -165,15 +159,9 @@ const Home = () => {
         {/* Fixed Container that acts as the screen bounds while pinned */}
         <div className="absolute inset-0 flex items-center justify-center w-full h-full overflow-hidden">
 
-          {/* ======== CONFIGURAÇÃO DA CAIXA MOLDURA FIXA DO VÍDEO ======== */}
-          {/* Para alterar as medidas dessa janela, modifique as classes:
-              - Desktop modifique os com prefixo (md:): 'md:w-[75%]' , 'md:h-[75vh]', 'md:rounded-[2rem]'
-              No celular (mobile) forçamos tela cheia ('absolute inset-0 w-full h-full') para que a animação GSAP de expansão aconteça na GPU.
-          */}
           <div
             ref={videoWrapperRef}
-            className="absolute md:relative inset-0 md:inset-auto w-full md:w-[75%] h-full md:h-[75vh] rounded-none md:rounded-[2rem] border-[0px] overflow-hidden flex items-center justify-center"
-            style={{ willChange: isMobile ? "clip-path" : "auto" }}
+            className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center bg-black"
           >
             <video
               ref={videoRef}
@@ -186,30 +174,30 @@ const Home = () => {
             />
 
             {/* Máscara escura fixa para legibilidade do texto */}
-            <div ref={overlayRef} className="absolute inset-0 bg-black/10 pointer-events-none" />
+            <div ref={overlayRef} className="absolute inset-0 bg-black/55 pointer-events-none" />
           </div>
 
           {/* Texts overlaying everything, centered, absolute position */}
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none gap-0">
             {/* Phrase 1 Wrapper */}
-            <div ref={phrase1Ref} className="opacity-0 flex items-center justify-center px-4 mx-auto max-w-4xl">
-              <span 
-                className="text-2xl md:text-3xl lg:text-4xl font-light text-white text-center leading-none tracking-[0.5px]"
-                style={{ textShadow: "0px 2px 4px rgba(0,0,0,0.8), 0px 4px 16px rgba(0,0,0,0.8), 0px 8px 32px rgba(0,0,0,0.9)" }}
+            <div ref={phrase1Ref} className="opacity-0 w-full flex items-center justify-center px-8 text-center pointer-events-none">
+              <div 
+                className="font-light text-white leading-[1.2] tracking-wide text-2xl md:text-4xl lg:text-[2.75rem] max-w-4xl pb-3"
+                style={{ textShadow: "0px 2px 4px rgba(0,0,0,0.8), 0px 4px 16px rgba(0,0,0,0.8)" }}
               >
                 É sobre olhar para o que se carrega…<br className="hidden md:block" />
                 o peso da própria mochila…
-              </span>
+              </div>
             </div>
 
             {/* Phrase 2 Wrapper */}
-            <div ref={phrase2Ref} className="opacity-0 flex items-center justify-center px-4 mx-auto max-w-4xl">
-              <span 
-                className="text-2xl md:text-3xl lg:text-4xl font-light text-white text-center leading-none tracking-[0.5px]"
-                style={{ textShadow: "0px 2px 4px rgba(0,0,0,0.8), 0px 4px 16px rgba(0,0,0,0.8), 0px 8px 32px rgba(0,0,0,0.9)" }}
+            <div ref={phrase2Ref} className="opacity-0 w-full flex items-center justify-center px-8 text-center pointer-events-none">
+              <div 
+                className="font-light text-white leading-[1.2] tracking-wide text-2xl md:text-4xl lg:text-[2.75rem] max-w-4xl"
+                style={{ textShadow: "0px 2px 4px rgba(0,0,0,0.8), 0px 4px 16px rgba(0,0,0,0.8)" }}
               >
-                e, ainda assim,<br className="md:hidden" /> escolher seguir em frente.
-              </span>
+                e, ainda assim,<br className="md:hidden" />  escolher <br className="hidden md:block" />seguir em frente.
+              </div>
             </div>
           </div>
 
@@ -218,7 +206,7 @@ const Home = () => {
 
       {/* Block 03: Memórias - Text Title and Zoom Parallax */}
       <div className="bg-background relative">
-        <section ref={sectionRef3} className="py-16 md:pb-20 px-6 lg:px-12 w-full flex items-center justify-center relative">
+        <section ref={sectionRef3} className="pt-16 pb-4 md:pb-20 px-6 lg:px-12 w-full flex items-center justify-center relative">
           <p
             ref={textRef3}
             className="font-sans text-xl md:text-4xl lg:text-4xl leading-snug md:leading-none font-light max-w-4xl text-center tracking-[0.5px]"

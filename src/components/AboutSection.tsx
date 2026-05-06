@@ -13,7 +13,7 @@ export const AboutSection = () => {
   const y1 = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
   return (
-    <section ref={containerRef} className="py-16 md:py-24 px-6 lg:px-12 bg-white relative overflow-hidden flex items-center justify-center">
+    <section ref={containerRef} className="pt-8 pb-16 md:py-24 px-6 lg:px-12 bg-white relative overflow-hidden flex items-center justify-center">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20 relative z-10 w-full">
         
         {/* Photo Container with Parallax Effect */}
@@ -27,7 +27,7 @@ export const AboutSection = () => {
         </div>
         
         {/* Text Presentation Box */}
-        <div className="w-full lg:flex-1 flex flex-col justify-center space-y-10">
+        <div className="w-full lg:flex-1 flex flex-col justify-center space-y-6 md:space-y-10">
           <motion.h2 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -43,7 +43,7 @@ export const AboutSection = () => {
             whileInView={{ opacity: 1, scaleX: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px bg-black origin-left" 
+            className="hidden md:block w-16 h-px bg-black origin-left" 
           />
 
           <motion.p 
@@ -51,7 +51,7 @@ export const AboutSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xl md:text-2xl font-light text-gray-700 leading-relaxed max-w-xl"
+            className="text-2xl md:text-2xl font-light tracking-[0.5px] md:tracking-normal leading-[1.25] md:leading-relaxed text-black md:text-gray-700 max-w-xl"
           >
             Alguém inacabado, que acredita que a vida acontece no meio do caminho.
           </motion.p>

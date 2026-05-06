@@ -13,7 +13,6 @@ import BlogPost from "./pages/BlogPost";
 import Login from "./pages/admin/Login";
 import Home from "./pages/Home";
 import Livro from "./pages/Livro";
-import Ebook2 from "./pages/Ebook2";
 import SobreMim from "./pages/SobreMim";
 import Palestras from "./pages/Palestras";
 import Galeria from "./pages/Galeria";
@@ -58,7 +57,6 @@ const App = () => {
                 <Route path="/" element={<HomeWithLoading />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/e-book" element={<Livro />} /> 
-                <Route path="/e-book2" element={<Ebook2 />} />
                 <Route path="/sobre-mim" element={<SobreMim />} />
                 <Route path="/palestras" element={<Palestras />} />
                 <Route path="/blog" element={<Blog />} />

@@ -54,11 +54,11 @@ export const ValuePropositionSection = () => {
         </motion.div>
 
         {/* 4-Column Clean Layout */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-16">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-12 md:gap-y-16">
           {items.map((item, i) => (
             <motion.div 
               key={i} 
-              className="flex flex-col text-left group"
+              className="flex flex-col items-center text-center md:items-start md:text-left group"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}

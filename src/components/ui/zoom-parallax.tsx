@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform, useMotionValue, useAnimationFrame } from 'framer-motion';
+import { useRef, useState } from 'react';
 import LazyImage from '@/lib/LazyImage';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -61,27 +61,82 @@ const mobileLayouts = [
 ];
 
 function MobileZoomGallery({ images }: ZoomParallaxProps) {
+  const x = useMotionValue(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const marqueeRef = useRef<HTMLDivElement>(null);
+
+  useAnimationFrame((t, delta) => {
+    if (isDragging) return;
+    
+    // Velocidade do scroll no mobile
+    const moveBy = -0.8; 
+    const currentX = x.get();
+    let newX = currentX + moveBy;
+
+    if (marqueeRef.current) {
+      const halfWidth = marqueeRef.current.offsetWidth / 2;
+      if (newX <= -halfWidth) {
+        newX = 0;
+      } else if (newX > 0) {
+        newX = -halfWidth;
+      }
+    }
+    
+    x.set(newX);
+  });
+
+  const duplicatedImages = [...images, ...images];
+
   return (
-    <div className="relative w-full bg-background px-4 py-10 pb-16">
-      <div className="mx-auto grid max-w-3xl grid-cols-2 gap-3">
-        {images.map(({ src, alt, width, height, isPolaroid }, index) => (
-          <div
-            key={index}
-            className={`relative overflow-hidden ${mobileLayouts[index % mobileLayouts.length]}`}
-          >
-            <img
-              src={src}
-              alt={alt || ''}
-              width={width || 800}
-              height={height || 600}
-              className={isPolaroid
-                ? "h-full w-full object-cover bg-white p-2 pb-6 shadow-xl"
-                : "h-full w-full object-cover rounded-sm shadow-md"}
-              decoding="async"
-              loading={index === 0 ? "eager" : "lazy"}
-            />
-          </div>
-        ))}
+    <div className="relative w-full bg-background pt-4 pb-4 overflow-hidden flex flex-col items-center">
+      <div className="w-full relative flex overflow-x-hidden">
+        {/* Fade laterais */}
+        <div className="absolute inset-y-0 left-0 w-8 md:w-16 bg-gradient-to-r from-background to-transparent z-40 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-8 md:w-16 bg-gradient-to-l from-background to-transparent z-40 pointer-events-none" />
+        
+        <motion.div 
+          ref={marqueeRef}
+          className="flex gap-6 whitespace-nowrap min-w-max px-4 pb-8 cursor-grab active:cursor-grabbing" 
+          style={{ x, willChange: "transform" }}
+          drag="x"
+          onDragStart={() => setIsDragging(true)}
+          onDragEnd={() => {
+            setIsDragging(false);
+            if (marqueeRef.current) {
+              const halfWidth = marqueeRef.current.offsetWidth / 2;
+              let currentX = x.get();
+              if (currentX <= -halfWidth) x.set(currentX + halfWidth);
+              if (currentX > 0) x.set(currentX - halfWidth);
+            }
+          }}
+        >
+          {duplicatedImages.map(({ src, alt, width, height, objectPosition }, index) => {
+            const rotateClass = index % 2 === 0 ? "rotate-[-2deg]" : "rotate-[2deg]";
+            
+            return (
+              <div
+                key={index}
+                className="relative flex-none w-[65vw] sm:w-[45vw] pt-4 pointer-events-none select-none"
+              >
+                {/* Todas as fotos forçadas a serem polaroides no mobile */}
+                <div className={`bg-white p-[4%] pb-[18%] shadow-[0_10px_25px_rgba(0,0,0,0.15)] w-full flex flex-col rounded-[2px] transition-transform ${rotateClass}`}>
+                  <div className="w-full aspect-[4/5] relative overflow-hidden bg-gray-100">
+                    <img
+                      src={src}
+                      alt={alt || ''}
+                      width={width || 800}
+                      height={height || 600}
+                      className="absolute inset-0 w-full h-full object-cover rounded-[1px]"
+                      style={{ objectPosition: objectPosition || 'center' }}
+                      decoding="async"
+                      loading={index < 4 ? "eager" : "lazy"}
+                    />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </motion.div>
       </div>
     </div>
   );

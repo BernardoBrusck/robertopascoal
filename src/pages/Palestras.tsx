@@ -144,14 +144,29 @@ export default function Palestras() {
               <p>Se responsabilizam</p>
               <p>Se apropriam de prática com mais clareza e direção</p>
             </div>
+          </motion.div>
+        </div>
+      </section>
 
-            <div className="pt-12">
-              <p className="text-xl md:text-2xl font-light leading-relaxed text-gray-800">
-                Porque não se trata de fazer mais. <br />
-                Se trata de fazer com sentido. <br />
-                <span className="font-medium text-black">Consequentemente, fazer melhor.</span>
-              </p>
-            </div>
+      {/* Block 04b: Provocação com Imagem */}
+      <section className="relative py-24 md:py-32 px-6 lg:px-12 bg-black flex justify-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 flex items-center justify-center bg-black">
+          <img
+            src="/image/foto-roberto-09.webp"
+            alt="Roberto Pascoal"
+            className="w-[90%] h-full object-cover object-[center_30%]"
+          />
+          <div className="absolute inset-0 bg-black/80" /> {/* Escurecer a imagem para leitura */}
+        </div>
+
+        <div className="relative z-10 max-w-4xl w-full flex flex-col items-center text-center">
+          <motion.div {...fadeIn}>
+            <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed text-gray-200">
+              Porque não se trata de fazer mais. <br />
+              Se trata de fazer com sentido. <br />
+              <span className="font-medium text-white">Consequentemente, fazer melhor.</span>
+            </p>
           </motion.div>
         </div>
       </section>
@@ -209,19 +224,19 @@ export default function Palestras() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
             {[
               {
-                text: "Uma palestra que mexe com a alma e nos faz repensar nossa liderança de forma prática. É como se ele falasse diretamente com as dores e angústias que guardamos no corporativo.",
-                author: "Diretora Executiva",
-                company: "Multinacional de Tecnologia"
+                text: "O trabalho realizado pelo Pascoal/Omunga impacta positiva, sustentável e significativamente as comunidades atendidas. Emprega o empreendedorismo social de forma séria, responsiva, ética e empática, fazendo a diferença ao transformar o ambiente. Suas palestras aproximam o movimento global do empreendedorismo social da audiência, levando-a a uma nova esfera de conscientização sobre o tema e motivando a sociedade civil para atuar como agente de mudança.",
+                author: "Luciane Schwalbe",
+                company: "Consultora em Negócios/Professora Pós-Graduação UNISINOS"
               },
               {
-                text: "Roberto traz uma verdade que raramente vemos. Essencial para times de alta performance que esqueceram o porquê fazem o que fazem.",
-                author: "Gerente de RH",
-                company: "Grande Varejista"
+                text: "Você pode viver um propósito e ser protagonista em qualquer lugar, seja empreendendo ou atuando em uma grande empresa. A palestra de Roberto Pascoal nos fez refletir sobre isso: o verdadeiro sentido de nossas ações e responsabilidades.",
+                author: "Fernanda Vanolli Schulte",
+                company: "Sustentabilidade - Tigre Tubos e Conexões"
               },
               {
-                text: "Impactante, real e transformador. O conteúdo fica com a gente muito depois da palestra acabar. Os feedbacks da equipe foram os melhores do ano.",
-                author: "Organizador",
-                company: "Fórum de Liderança"
+                text: "A palestra de Roberto Pascoal proporcionou a reflexão sobre outros caminhos para empreender, além dos tradicionais. Potencializando uma vida com propósito, significância e protagonismo para gerar oportunidades e qualidade de vida para quem precisa.",
+                author: "Simone Brandão",
+                company: "Coord. do Curso de Moda - SENAI/SC - Região Norte"
               }
             ].map((dep, i) => (
               <motion.div

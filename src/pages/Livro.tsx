@@ -193,11 +193,10 @@ const BlockAutor = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xl md:text-3xl lg:text-[2.25rem] font-light tracking-[0.5px] leading-[1.7] text-black"
+            className="text-xl md:text-3xl lg:text-[2.25rem] font-light tracking-[0.5px] leading-[1.8] text-black"
           >
             Prazer, eu sou Roberto Pascoal.<br />
-            Ainda não cheguei lá.<br />
-            Mas continuo indo.<br />
+            Ainda não cheguei lá. Mas continuo indo.<br />
             Consciente da minha incompletude,<br /> mas com coragem e determinação para seguir.
           </motion.h2>
           
@@ -214,7 +213,7 @@ const BlockAutor = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xl md:text-3xl lg:text-[2rem] font-light text-gray-700 leading-[1.7] max-w-xl"
+            className="text-xl md:text-3xl lg:text-[2rem] font-light text-gray-700 leading-[1.8] max-w-xl"
           >
             Este e-book não é uma cura rápida.<br />
             É uma jornada.<br />
@@ -509,7 +508,7 @@ const InteractiveTabletMockup = () => {
   };
 
   return (
-    <a href="https://hotmart.com/pt-br/marketplace/produtos/o-caminho-depois-da-pressa/E102970771D" target="_blank" rel="noopener noreferrer"
+    <a href="https://pay.hotmart.com/E102970771D?sck=HOTMART_PRODUCT_PAGE&off=41vcno9v&hotfeature=32" target="_blank" rel="noopener noreferrer"
       className="relative w-full max-w-[280px] md:max-w-[360px] lg:max-w-[420px] mx-auto shrink-0 block mb-12 md:mb-0"
       onMouseMove={handleMouseMove} onMouseEnter={() => setHovering(true)} onMouseLeave={() => { setHovering(false); setTilt({ rotX: 0, rotY: 0 }); setGlare({ x: 30, y: 20 }); }}
       style={{ transform: `perspective(900px) rotateX(${tilt.rotX}deg) rotateY(${tilt.rotY}deg) scale3d(${hovering ? 1.03 : 1}, ${hovering ? 1.03 : 1}, 1)`, transition: hovering ? 'transform 0.12s ease-out' : 'transform 0.5s ease-out', transformStyle: 'preserve-3d' }}
@@ -559,7 +558,7 @@ const BlockVenda = () => {
                 transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
                 className="pb-3"
               >
-                <span className="block text-3xl md:text-4xl lg:text-[2.75rem] font-light text-black leading-[1.2]">
+                <span className="block text-3xl md:text-4xl lg:text-[2.75rem] font-light text-black leading-[1.8]">
                   própria <span className="font-medium italic">mochila</span>,
                 </span>
               </motion.div>
@@ -570,7 +569,7 @@ const BlockVenda = () => {
                 transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
                 className="pb-3"
               >
-                <span className="block text-3xl md:text-4xl lg:text-[2.75rem] font-light text-black leading-[1.2]">
+                <span className="block text-3xl md:text-4xl lg:text-[2.75rem] font-light text-black leading-[1.8]">
                   dar <span className="font-medium italic">sentido</span> ao que pesa e
                 </span>
               </motion.div>
@@ -581,7 +580,7 @@ const BlockVenda = () => {
                 transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
                 className="pb-3"
               >
-                <span className="block text-3xl md:text-4xl lg:text-[2.75rem] font-light text-black leading-[1.2]">
+                <span className="block text-3xl md:text-4xl lg:text-[2.75rem] font-light text-black leading-[1.8]">
                   continuar o <span className="font-medium italic">caminho</span>
                 </span>
               </motion.div>
@@ -592,7 +591,7 @@ const BlockVenda = () => {
                 transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
                 className="pb-3"
               >
-                <span className="block text-3xl md:text-4xl lg:text-[2.75rem] font-light text-black leading-[1.2]">
+                <span className="block text-3xl md:text-4xl lg:text-[2.75rem] font-light text-black leading-[1.8]">
                   com mais <span className="font-medium italic">presença.</span>
                 </span>
               </motion.div>
@@ -605,7 +604,7 @@ const BlockVenda = () => {
             className="pt-8"
           >
             <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-6">
-              <a href="https://hotmart.com/pt-br/marketplace/produtos/o-caminho-depois-da-pressa/E102970771D" target="_blank" rel="noopener noreferrer"
+              <a href="https://pay.hotmart.com/E102970771D?sck=HOTMART_PRODUCT_PAGE&off=41vcno9v&hotfeature=32" target="_blank" rel="noopener noreferrer"
                  className="inline-flex flex-col md:flex-row items-center justify-center bg-[#F04E23] text-white px-12 py-5 uppercase text-xs md:text-sm tracking-[0.2em] md:tracking-[0.25em] font-bold hover:bg-[#d6431e] hover:scale-[1.02] hover:shadow-2xl hover:shadow-[#F04E23]/30 transition-all duration-300 rounded-[8px] gap-3">
                 <Flame className="w-5 h-5 text-white" strokeWidth={2} fill="currentColor" />
                 Venha caminhar comigo!

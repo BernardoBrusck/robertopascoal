@@ -57,7 +57,7 @@ const TabletMockup = () => {
 
   return (
     <a
-      href="https://hotmart.com/pt-br/marketplace/produtos/o-caminho-depois-da-pressa/E102970771D"
+      href="https://pay.hotmart.com/E102970771D?sck=HOTMART_PRODUCT_PAGE&off=41vcno9v&hotfeature=32"
       target="_blank"
       rel="noopener noreferrer"
       className="relative w-full max-w-[300px] md:max-w-[360px] lg:max-w-[400px] xl:max-w-[480px] mx-auto shrink-0 block"
@@ -153,7 +153,7 @@ const MobileEbook = () => (
         {/* CTAs */}
         <motion.div {...fadeIn} transition={{ delay: 0.5 }} className="pt-8 flex flex-col gap-3 w-full">
           <a
-            href="https://hotmart.com/pt-br/marketplace/produtos/o-caminho-depois-da-pressa/E102970771D"
+            href="https://pay.hotmart.com/E102970771D?sck=HOTMART_PRODUCT_PAGE&off=41vcno9v&hotfeature=32"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full bg-black text-white px-6 py-5 text-xs md:text-sm font-semibold uppercase tracking-[0.2em] rounded-[2px] hover:bg-gray-800 active:scale-[0.98] transition-all duration-200 text-center shadow-lg"

@@ -204,7 +204,7 @@ const BlockAutor = () => {
                 transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 + (i * 0.1) }}
                 className="pb-3"
               >
-                <span className="block text-xl md:text-3xl lg:text-[2.25rem] font-light tracking-[0.5px] text-black leading-[1.8]">
+                <span className="block text-xl md:text-3xl lg:text-[2.25rem] font-light tracking-[0.5px] text-black leading-[2.8]">
                   {text}
                 </span>
               </motion.div>
@@ -216,10 +216,10 @@ const BlockAutor = () => {
             whileInView={{ opacity: 1, scaleX: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px bg-black origin-left mb-6" 
+            className="w-16 h-px bg-black origin-left mb-5" 
           />
 
-          <div className="space-y-1">
+          <div className="flex flex-col gap-0">
             {[
               "Este e-book não é uma cura rápida.",
               "É uma jornada.",
@@ -232,9 +232,8 @@ const BlockAutor = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 + (i * 0.1) }}
-                className="pb-3"
               >
-                <span className="block text-xl md:text-3xl lg:text-[2rem] font-light text-gray-700 leading-[1.8] max-w-xl">
+                <span className="block text-xl md:text-3xl lg:text-[2rem] font-light text-gray-700 leading-[1.3] max-w-xl">
                   {text}
                 </span>
               </motion.div>

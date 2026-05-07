@@ -69,9 +69,9 @@ export const AboutSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 + (i * 0.1) }}
-                className="pb-3"
+                className="pb-2"
               >
-                <span className="block text-2xl md:text-2xl font-light tracking-[0.5px] md:tracking-normal text-black md:text-gray-700 leading-[1.8] max-w-xl">
+                <span className="block text-2xl md:text-2xl font-light tracking-[0.5px] md:tracking-normal text-black md:text-gray-700 leading-[1.6] max-w-xl">
                   {text}
                 </span>
               </motion.div>

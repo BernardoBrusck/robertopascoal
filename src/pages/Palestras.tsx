@@ -149,15 +149,15 @@ export default function Palestras() {
       </section>
 
       {/* Block 04b: Provocação com Imagem */}
-      <section className="relative py-24 md:py-32 px-6 lg:px-12 bg-black flex justify-center overflow-hidden">
+      <section className="relative py-24 md:py-32 px-6 lg:px-12 flex justify-center overflow-hidden">
         {/* Background Image */}
-        <div className="absolute inset-0 z-0 flex items-center justify-center bg-black">
+        <div className="absolute inset-0 z-0">
           <img
-            src="/image/foto-roberto-09.webp"
+            src="/image/foto-roberto-09-expanded.webp"
             alt="Roberto Pascoal"
-            className="w-[90%] h-full object-cover object-[center_30%]"
+            className="w-full h-full object-cover object-[center_39%]"
           />
-          <div className="absolute inset-0 bg-black/80" /> {/* Escurecer a imagem para leitura */}
+          <div className="absolute inset-0 bg-black/50" /> {/* Escurecer a imagem para leitura */}
         </div>
 
         <div className="relative z-10 max-w-4xl w-full flex flex-col items-center text-center">

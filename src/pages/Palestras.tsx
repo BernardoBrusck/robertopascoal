@@ -99,23 +99,28 @@ export default function Palestras() {
       </section>
 
       {/* Block 03: Parallax + Frase */}
-      <section className="relative h-[60vh] md:h-[80vh] w-full overflow-hidden flex items-center justify-center bg-[#f8f8f8]">
+      <section className="relative h-[70vh] md:h-[90vh] w-full overflow-hidden flex items-center justify-center bg-black">
         <motion.div style={{ y: yParallax }} className="absolute inset-0 z-0">
           <img
-            src="/image/roberto-pascoal-retrato-2.webp"
+            src="/image/foto-roberto-04.webp"
             alt="Roberto Palestrando"
-            className="w-full h-[130%] -top-[15%] relative object-cover grayscale opacity-20"
+            className="w-full h-[120%] top-[-10%] relative object-cover object-top"
             referrerPolicy="no-referrer"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none" />
+        
+        {/* Overlay escuro na imagem inteira para garantir contraste com o texto */}
+        <div className="absolute inset-0 bg-black/50 pointer-events-none" />
+        
+        {/* Fade escuro apenas na borda inferior */}
+        <div className="absolute bottom-0 inset-x-0 h-32 md:h-56 bg-gradient-to-t from-black to-transparent pointer-events-none" />
 
         <motion.div {...fadeIn} className="relative z-10 text-center px-6 max-w-4xl">
-          <h2 className="text-4xl md:text-6xl lg:text-[4.5rem] font-light tracking-tight leading-[1.1] text-black">
+          <h2 className="text-4xl md:text-6xl lg:text-[4.5rem] font-light tracking-[0.2em] leading-[1.1] text-white">
             Autoconhecimento <br />
-            <span className="italic font-medium">é estratégia</span> <br />
-            <span className="text-lg md:text-2xl uppercase tracking-[0.2em] md:tracking-[0.3em] text-gray-500 font-normal block mt-10">
-              para significância, execução e resultados.
+            <span className="tracking-[0.2em]">é estratégia</span> <br />
+            <span className="text-lg md:text-2xl uppercase tracking-[0.2em] md:tracking-[0.3em] text-gray-300 font-normal block mt-10">
+              para significância, performance e resultados.
             </span>
           </h2>
         </motion.div>

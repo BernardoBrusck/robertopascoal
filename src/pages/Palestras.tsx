@@ -52,7 +52,7 @@ export default function Palestras() {
           {...fadeIn}
           className="relative z-10 text-center px-6 w-full flex flex-col items-center"
         >
-          <h1 className="text-3xl md:text-5xl lg:text-[3.5rem] font-light tracking-[0.2em] max-w-5xl mx-auto text-white drop-shadow-lg">
+          <h1 className="text-3xl md:text-5xl lg:text-[3rem] font-light tracking-[0.2em] max-w-5xl mx-auto text-white drop-shadow-lg">
             <span className="block mb-2 md:mb-4">SENTIDO, PRESENÇA</span>
             <span className="block">& EXECUÇÃO.</span>
           </h1>

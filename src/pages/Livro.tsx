@@ -187,38 +187,59 @@ const BlockAutor = () => {
         </div>
         
         {/* Text Presentation Box */}
-        <div className="w-full lg:flex-1 flex flex-col justify-center space-y-10">
-          <motion.h2 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xl md:text-3xl lg:text-[2.25rem] font-light tracking-[0.5px] leading-[1.8] text-black"
-          >
-            Prazer, eu sou Roberto Pascoal.<br />
-            Ainda não cheguei lá. Mas continuo indo.<br />
-            Consciente da minha incompletude,<br /> mas com coragem e determinação para seguir.
-          </motion.h2>
+        <div className="w-full lg:flex-1 flex flex-col justify-center space-y-6 md:space-y-10">
+          <div className="space-y-1 mb-6">
+            {[
+              "Prazer, eu sou Roberto Pascoal.",
+              "Ainda não cheguei lá. Mas continuo indo.",
+              "Consciente da minha incompletude,",
+              "mas com coragem e determinação para",
+              "seguir."
+            ].map((text, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 + (i * 0.1) }}
+                className="pb-3"
+              >
+                <span className="block text-xl md:text-3xl lg:text-[2.25rem] font-light tracking-[0.5px] text-black leading-[1.8]">
+                  {text}
+                </span>
+              </motion.div>
+            ))}
+          </div>
           
           <motion.div 
             initial={{ opacity: 0, scaleX: 0 }}
             whileInView={{ opacity: 1, scaleX: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px bg-black origin-left" 
+            className="w-16 h-px bg-black origin-left mb-6" 
           />
 
-          <motion.p 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xl md:text-3xl lg:text-[2rem] font-light text-gray-700 leading-[1.8] max-w-xl"
-          >
-            Este e-book não é uma cura rápida.<br />
-            É uma jornada.<br />
-            E você é meu convidado para caminhar comigo por essas páginas.
-          </motion.p>
+          <div className="space-y-1">
+            {[
+              "Este e-book não é uma cura rápida.",
+              "É uma jornada.",
+              "E você é meu convidado para caminhar",
+              "comigo por essas páginas."
+            ].map((text, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 + (i * 0.1) }}
+                className="pb-3"
+              >
+                <span className="block text-xl md:text-3xl lg:text-[2rem] font-light text-gray-700 leading-[1.8] max-w-xl">
+                  {text}
+                </span>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
       </div>

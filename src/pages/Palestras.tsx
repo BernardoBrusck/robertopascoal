@@ -133,22 +133,23 @@ export default function Palestras() {
 
           <motion.div {...fadeIn} className="space-y-12">
             <h3 className="text-xs uppercase tracking-[0.4em] text-gray-400 font-semibold">
-              Mais do que inspirar. Provocar movimento.
+              Mais do que inspirar. Provocar um movimento consciente.
             </h3>
             <p className="text-2xl md:text-4xl font-light leading-[1.6] text-black max-w-3xl">
-              Com histórias reais, imagens impactantes e uma narrativa envolvente, a palestra gera um efeito claro:
+              Com histórias reais, imagens impactantes e uma narrativa envolvente, a palestra resulta nos seguintes resultados:
             </p>
 
             <div className="flex flex-col gap-4 text-xl md:text-3xl font-light italic text-gray-600">
               <p>As pessoas se reconhecem</p>
               <p>Se responsabilizam</p>
-              <p>E voltam para a prática com mais clareza e direção</p>
+              <p>Se apropriam de prática com mais clareza e direção</p>
             </div>
 
             <div className="pt-12">
               <p className="text-xl md:text-2xl font-light leading-relaxed text-gray-800">
                 Porque não se trata de fazer mais. <br />
-                <span className="font-medium text-black">Se trata de fazer melhor e com sentido.</span>
+                Se trata de fazer com sentido. <br />
+                <span className="font-medium text-black">Consequentemente, fazer melhor.</span>
               </p>
             </div>
           </motion.div>

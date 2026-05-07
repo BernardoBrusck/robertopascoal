@@ -60,7 +60,7 @@ export default function Palestras() {
       </section>
 
       {/* Block 02: Texto Palestra 01 */}
-      <section className="py-24 md:py-36 px-6 lg:px-12 bg-white flex justify-center">
+      <section className="py-16 md:py-24 px-6 lg:px-12 bg-white flex justify-center">
         <div className="max-w-5xl w-full flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
           <motion.div {...fadeIn} className="flex-1 space-y-8">
             <h2 className="text-3xl md:text-[2.75rem] lg:text-5xl font-light tracking-tight text-black">
@@ -127,10 +127,8 @@ export default function Palestras() {
       </section>
 
       {/* Block 04: Texto Palestra 02 */}
-      <section className="py-24 md:py-36 px-6 lg:px-12 bg-white flex justify-center">
+      <section className="py-16 md:py-24 px-6 lg:px-12 bg-white flex justify-center">
         <div className="max-w-4xl w-full flex flex-col items-center text-center space-y-16">
-          <motion.div {...fadeIn} className="w-px h-16 bg-gray-300" />
-
           <motion.div {...fadeIn} className="space-y-12">
             <h3 className="text-xs uppercase tracking-[0.4em] text-gray-400 font-semibold">
               Mais do que inspirar. Provocar um movimento consciente.
@@ -172,7 +170,7 @@ export default function Palestras() {
       </section>
 
       {/* Block 06: Para quem é & Temas */}
-      <section className="py-24 md:py-36 px-6 lg:px-12 bg-gray-50 border-t border-b border-gray-100 flex justify-center">
+      <section className="py-16 md:py-24 px-6 lg:px-12 bg-white flex justify-center">
         <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32">
 
           <motion.div {...fadeIn} className="space-y-12">
@@ -214,7 +212,7 @@ export default function Palestras() {
       </section>
 
       {/* Block 05: Depoimentos (Refined) */}
-      <section className="py-24 md:py-36 px-6 lg:px-12 bg-white flex justify-center">
+      <section className="py-16 md:py-24 px-6 lg:px-12 bg-white flex justify-center">
         <div className="max-w-7xl w-full space-y-20">
           <motion.div {...fadeIn} className="flex flex-col items-center text-center space-y-4">
             <span className="text-xs uppercase tracking-[0.3em] text-gray-400 font-semibold">Experiência</span>
@@ -224,36 +222,119 @@ export default function Palestras() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
             {[
               {
-                text: "O trabalho realizado pelo Pascoal/Omunga impacta positiva, sustentável e significativamente as comunidades atendidas. Emprega o empreendedorismo social de forma séria, responsiva, ética e empática, fazendo a diferença ao transformar o ambiente. Suas palestras aproximam o movimento global do empreendedorismo social da audiência, levando-a a uma nova esfera de conscientização sobre o tema e motivando a sociedade civil para atuar como agente de mudança.",
+                text: "O trabalho realizado pelo Pascoal impacta positiva e sustentavelmente as comunidades. Ele emprega o empreendedorismo social de forma séria e empática, fazendo a diferença. Suas palestras aproximam a audiência dessa essencial e profunda conscientização.",
                 author: "Luciane Schwalbe",
-                company: "Consultora em Negócios/Professora Pós-Graduação UNISINOS"
+                company: "Consultora/Professora UNISINOS",
+                image: "/image/Luciane.webp"
               },
               {
-                text: "Você pode viver um propósito e ser protagonista em qualquer lugar, seja empreendendo ou atuando em uma grande empresa. A palestra de Roberto Pascoal nos fez refletir sobre isso: o verdadeiro sentido de nossas ações e responsabilidades.",
+                text: "Você pode viver um propósito e ser protagonista em qualquer lugar, seja empreendendo ou atuando em uma grande empresa. A palestra de Roberto Pascoal nos fez refletir intensamente sobre isso: o verdadeiro sentido de nossas ações e as nossas responsabilidades.",
                 author: "Fernanda Vanolli Schulte",
-                company: "Sustentabilidade - Tigre Tubos e Conexões"
+                company: "Sustentabilidade - Tigre",
+                image: "/image/Fernanda.webp"
               },
               {
-                text: "A palestra de Roberto Pascoal proporcionou a reflexão sobre outros caminhos para empreender, além dos tradicionais. Potencializando uma vida com propósito, significância e protagonismo para gerar oportunidades e qualidade de vida para quem precisa.",
+                text: "A palestra de Roberto Pascoal proporcionou a reflexão sobre outros caminhos para empreender, além dos tradicionais. Potencializando uma vida com mais propósito, significância e protagonismo para gerar oportunidades e qualidade de vida para quem mais precisa.",
                 author: "Simone Brandão",
-                company: "Coord. do Curso de Moda - SENAI/SC - Região Norte"
+                company: "Coord. Moda SENAI/SC",
+                image: "/image/Simone.webp"
               }
             ].map((dep, i) => (
               <motion.div
                 key={i}
                 {...fadeIn}
                 transition={{ delay: i * 0.15 }}
-                className="flex flex-col justify-between space-y-8"
+                className="flex flex-col h-full space-y-8"
               >
                 <div className="text-4xl text-gray-300 font-serif leading-none h-6">"</div>
-                <p className="text-xl italic text-gray-700 font-light leading-[1.8]">{dep.text}</p>
-                <div className="pt-6 border-t border-gray-100">
-                  <p className="font-medium text-black">{dep.author}</p>
-                  <p className="text-xs uppercase tracking-[0.15em] text-gray-500 mt-2">{dep.company}</p>
+                <p className="text-lg md:text-xl italic text-gray-700 font-light leading-[1.8] flex-grow">
+                  {dep.text}
+                </p>
+                <div className="pt-6 border-t border-gray-100 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
+                    {dep.image ? (
+                      <img src={dep.image} alt={dep.author} className="w-full h-full object-cover" />
+                    ) : null}
+                  </div>
+                  <div>
+                    <p className="font-medium text-black">{dep.author}</p>
+                    <p className="text-[10px] md:text-xs uppercase tracking-[0.1em] text-gray-500 mt-1">{dep.company}</p>
+                  </div>
                 </div>
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Block 06: Logos Carousel */}
+      <section className="py-8 md:py-12 bg-white relative flex flex-col justify-center overflow-hidden">
+        <div className="absolute inset-y-0 left-0 w-24 md:w-48 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-24 md:w-48 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        
+        <motion.div {...fadeIn} className="text-center mb-20 relative z-20">
+          <h2 className="text-3xl md:text-5xl font-light tracking-tight">Palestras <span className="italic font-medium">realizadas</span></h2>
+        </motion.div>
+        
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 40s linear infinite;
+          }
+        `}</style>
+
+        <div className="animate-marquee items-center gap-16 md:gap-24 px-8 md:px-12">
+          {[
+            { file: "anage-select.3fef92eb.svg", link: "https://www.anageimoveis.com.br/" },
+            { file: "fiesc-senai-1.webp", link: "https://fiesc.com.br/pt-br/" },
+            { file: "img_92821242827122_ciepe__BANNER_site1.webp", link: "https://unidavi.edu.br/ciepe" },
+            { file: "logo-sebrae.webp", link: "https://digital.sebraesp.com.br/" },
+            { file: "TEDx-Logo.webp", link: "https://tedxblumenau.com.br/" },
+            { file: "tigre-logo-2.webp", link: "https://www.tigre.com.br/" },
+            { file: "Univali.webp", link: "https://www.univali.br/" },
+            { file: "anage-select.3fef92eb.svg", link: "https://www.anageimoveis.com.br/" },
+            { file: "fiesc-senai-1.webp", link: "https://fiesc.com.br/pt-br/" },
+            { file: "img_92821242827122_ciepe__BANNER_site1.webp", link: "https://unidavi.edu.br/ciepe" },
+            { file: "logo-sebrae.webp", link: "https://digital.sebraesp.com.br/" },
+            { file: "TEDx-Logo.webp", link: "https://tedxblumenau.com.br/" },
+            { file: "tigre-logo-2.webp", link: "https://www.tigre.com.br/" },
+            { file: "Univali.webp", link: "https://www.univali.br/" },
+            { file: "anage-select.3fef92eb.svg", link: "https://www.anageimoveis.com.br/" },
+            { file: "fiesc-senai-1.webp", link: "https://fiesc.com.br/pt-br/" },
+            { file: "img_92821242827122_ciepe__BANNER_site1.webp", link: "https://unidavi.edu.br/ciepe" },
+            { file: "logo-sebrae.webp", link: "https://digital.sebraesp.com.br/" },
+            { file: "TEDx-Logo.webp", link: "https://tedxblumenau.com.br/" },
+            { file: "tigre-logo-2.webp", link: "https://www.tigre.com.br/" },
+            { file: "Univali.webp", link: "https://www.univali.br/" },
+            { file: "anage-select.3fef92eb.svg", link: "https://www.anageimoveis.com.br/" },
+            { file: "fiesc-senai-1.webp", link: "https://fiesc.com.br/pt-br/" },
+            { file: "img_92821242827122_ciepe__BANNER_site1.webp", link: "https://unidavi.edu.br/ciepe" },
+            { file: "logo-sebrae.webp", link: "https://digital.sebraesp.com.br/" },
+            { file: "TEDx-Logo.webp", link: "https://tedxblumenau.com.br/" },
+            { file: "tigre-logo-2.webp", link: "https://www.tigre.com.br/" },
+            { file: "Univali.webp", link: "https://www.univali.br/" }
+          ].map((logo, i) => (
+            <a 
+              key={i} 
+              href={logo.link} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group block"
+              draggable="false"
+            >
+              <img 
+                src={`/logos/${logo.file}`} 
+                alt="Logo Instituição" 
+                className="h-10 md:h-12 object-contain opacity-100 grayscale-0 group-hover:grayscale group-hover:opacity-50 transition-all duration-700"
+                draggable="false"
+              />
+            </a>
+          ))}
         </div>
       </section>
 
@@ -306,21 +387,20 @@ export default function Palestras() {
       </section>
 
       {/* Block 10: Provocação Final */}
-      <section className="py-32 md:py-48 px-6 bg-white text-center flex flex-col items-center justify-center">
+      <section className="py-20 md:py-32 px-6 bg-white text-center flex flex-col items-center justify-center">
         <motion.div {...fadeIn} className="max-w-4xl space-y-16">
           <h2 className="text-3xl md:text-5xl font-light leading-[1.4] tracking-tight">
             Se você busca uma palestra que não apenas inspire, <br className="hidden md:block" />
             <span className="italic font-medium text-gray-500">mas gere reflexão, alinhamento e ação…</span>
           </h2>
-          <div className="pt-4 flex flex-col items-center">
-            <div className="w-[1px] h-20 bg-black mb-12" />
+          <div className="pt-8 flex flex-col items-center">
             <p className="text-5xl md:text-7xl lg:text-[6rem] font-light tracking-tighter">Vamos conversar.</p>
           </div>
         </motion.div>
       </section>
 
       {/* Block 12: Formulário */}
-      <section id="orcamento" className="py-24 md:py-36 px-6 lg:px-12 bg-gray-50 border-t border-gray-100 flex justify-center">
+      <section id="orcamento" className="py-16 md:py-24 px-6 lg:px-12 bg-white flex justify-center">
         <div className="max-w-3xl w-full">
           <motion.div {...fadeIn} className="mb-16 space-y-4">
             <h2 className="text-3xl md:text-5xl font-light tracking-tight">Solicitar <span className="italic font-medium">Orçamento</span></h2>

@@ -147,7 +147,7 @@ export default function Palestras() {
       </section>
 
       {/* Block 04b: Provocação com Imagem */}
-      <section className="relative py-24 md:py-32 px-6 lg:px-12 flex justify-center overflow-hidden">
+      <section className="relative h-[70vh] md:h-[90vh] w-full px-6 lg:px-12 flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
@@ -183,7 +183,7 @@ export default function Palestras() {
                 "Eventos que querem ir além do conteúdo e gerar transformação."
               ].map((item, i) => (
                 <div key={i} className="flex gap-4 items-start border-b border-gray-200 pb-6">
-                  <div className="text-xs font-semibold mt-1">0{i + 1}</div>
+                  <div className="text-2xl md:text-4xl font-light text-black/30 mt-[-4px] md:mt-[-8px]">0{i + 1}</div>
                   <p className="text-lg md:text-xl font-light text-gray-700 leading-relaxed">{item}</p>
                 </div>
               ))}
@@ -339,7 +339,7 @@ export default function Palestras() {
       </section>
 
       {/* Block 11: Vídeos */}
-      <section className="py-16 md:py-24 px-6 lg:px-12 bg-white flex justify-center text-black">
+      <section className="pt-16 md:pt-24 pb-4 md:pb-8 px-6 lg:px-12 bg-white flex justify-center text-black">
         <div className="max-w-6xl w-full flex flex-col items-center">
           <motion.div {...fadeIn} className="mb-12 md:mb-16 text-center">
             <h2 className="text-3xl md:text-5xl font-light tracking-tight text-black">
@@ -378,6 +378,103 @@ export default function Palestras() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Block 11b: Notícias Carousel */}
+      <section className="pt-4 md:pt-8 pb-8 md:pb-12 bg-white relative flex flex-col justify-center overflow-hidden">
+        <motion.div {...fadeIn} className="text-center mb-6 relative z-20">
+          <span className="text-xs uppercase tracking-[0.3em] text-gray-400 font-semibold">Na mídia</span>
+        </motion.div>
+
+        <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        
+        <style>{`
+          .animate-marquee-noticias {
+            display: flex;
+            width: max-content;
+            animation: marquee 20s linear infinite;
+          }
+          .animate-marquee-noticias:hover {
+            animation-play-state: paused;
+          }
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+          .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        `}</style>
+        
+        {/* Usamos overflow-x-auto nativo para permitir arrastar no mobile, e no desktop ele pausa com hover */}
+        <div className="relative w-full overflow-x-auto flex z-0 hide-scrollbar cursor-grab active:cursor-grabbing">
+          <div className="animate-marquee-noticias flex gap-4 md:gap-8 items-center px-4 md:px-8">
+            {[
+              { file: "Captura de tela 2026-05-07 211432.png", link: "https://www.metropoles.com/brasil/projeto-roraima-povos-indigenas" },
+              { file: "Captura de tela 2026-05-07 211621.png", link: "https://g1.globo.com/sc/santa-catarina/videos-jornal-do-almoco-joinville/video/ong-omunga-vai-retomar-alfabetizacao-de-criancas-e-adolescentes-em-atalaia-do-norte-11378591.ghtml" },
+              { file: "Captura de tela 2026-05-07 212135.png", link: "https://www.gov.br/cultura/pt-br/assuntos/noticias/projeto-viabilizado-pela-lei-rouanet-estimula-leitura-e-preservacao-dos-saberes-originarios-no-extremo-norte-do-pais" },
+              { file: "Captura de tela 2026-05-07 212210.png", link: "https://www.estadao.com.br/viagem/viagens-plasticas/disparates-do-sertao/?srsltid=AfmBOooNkR1f6ZLy8TonQa6mxALORYPUxSRoxAZsZUa0aYzOL0ruJPJk" },
+              { file: "Captura de tela 2026-05-07 212552.png", link: "https://revistapegn.globo.com/Negocio-social/noticia/2019/02/ele-criou-um-negocio-social-que-constroi-bibliotecas-em-areas-de-vulnerabilidade.html" },
+              { file: "Captura de tela 2026-05-07 212633.png", link: "https://tedxblumenau.com.br/speakers/roberto-pascoal-2/" },
+              { file: "Captura de tela 2026-05-07 212901.png", link: "https://globoplay.globo.com/v/8176263/" },
+              { file: "Captura de tela 2026-05-07 214747.png", link: "https://www.nsctotal.com.br/colunistas/rejane-gambin/fazendo-do-mundo-um-lugar-melhor" },
+              // Duplicate for infinite scroll
+              { file: "Captura de tela 2026-05-07 211432.png", link: "https://www.metropoles.com/brasil/projeto-roraima-povos-indigenas" },
+              { file: "Captura de tela 2026-05-07 211621.png", link: "https://g1.globo.com/sc/santa-catarina/videos-jornal-do-almoco-joinville/video/ong-omunga-vai-retomar-alfabetizacao-de-criancas-e-adolescentes-em-atalaia-do-norte-11378591.ghtml" },
+              { file: "Captura de tela 2026-05-07 212135.png", link: "https://www.gov.br/cultura/pt-br/assuntos/noticias/projeto-viabilizado-pela-lei-rouanet-estimula-leitura-e-preservacao-dos-saberes-originarios-no-extremo-norte-do-pais" },
+              { file: "Captura de tela 2026-05-07 212210.png", link: "https://www.estadao.com.br/viagem/viagens-plasticas/disparates-do-sertao/?srsltid=AfmBOooNkR1f6ZLy8TonQa6mxALORYPUxSRoxAZsZUa0aYzOL0ruJPJk" },
+              { file: "Captura de tela 2026-05-07 212552.png", link: "https://revistapegn.globo.com/Negocio-social/noticia/2019/02/ele-criou-um-negocio-social-que-constroi-bibliotecas-em-areas-de-vulnerabilidade.html" },
+              { file: "Captura de tela 2026-05-07 212633.png", link: "https://tedxblumenau.com.br/speakers/roberto-pascoal-2/" },
+              { file: "Captura de tela 2026-05-07 212901.png", link: "https://globoplay.globo.com/v/8176263/" },
+              { file: "Captura de tela 2026-05-07 214747.png", link: "https://www.nsctotal.com.br/colunistas/rejane-gambin/fazendo-do-mundo-um-lugar-melhor" }
+            ].map((noticia, i) => (
+              <a 
+                key={i} 
+                href={noticia.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block flex-shrink-0"
+                draggable="false"
+              >
+                <img 
+                  src={`/jornal-midia/${noticia.file}`} 
+                  alt="Notícia" 
+                  className="h-64 md:h-80 lg:h-96 w-auto object-cover border border-gray-200 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
+                  draggable="false"
+                />
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Block 11c: Logos Jornais Estáticos */}
+      <section className="pb-16 md:pb-24 px-6 lg:px-12 bg-white flex justify-center">
+        <div className="max-w-5xl w-full flex flex-wrap justify-center items-center gap-10 md:gap-16">
+          {[
+            { file: "Jovem_Pan_logo.svg", link: "https://jovempan.com.br/" },
+            { file: "Logotipo_G1.png", link: "https://g1.globo.com/sc/santa-catarina/videos-jornal-do-almoco-joinville/video/ong-omunga-vai-retomar-alfabetizacao-de-criancas-e-adolescentes-em-atalaia-do-norte-11378591.ghtml" },
+            { file: "NSC-Laranja-solido.png", link: "https://www.nsctotal.com.br/colunistas/rejane-gambin/fazendo-do-mundo-um-lugar-melhor" },
+            { file: "Rictv.webp", link: "https://ric.com.br/" },
+            { file: "TV_Globo_logo_(April_2025).png", link: "https://globoplay.globo.com/v/8176263/" },
+            { file: "CBN_logo.svg", link: "https://cbn.globoradio.globo.com/" }
+          ].map((logo, i) => (
+            <a 
+              key={i} 
+              href={logo.link} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center justify-center transition-transform duration-300 hover:scale-105"
+            >
+              <img 
+                src={`/jornal-midia/logo-jornal/${logo.file}`} 
+                alt="Jornal Logo" 
+                className="h-8 md:h-12 w-auto object-contain"
+              />
+            </a>
+          ))}
         </div>
       </section>
 

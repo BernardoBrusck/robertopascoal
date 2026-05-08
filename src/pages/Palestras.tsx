@@ -339,36 +339,17 @@ export default function Palestras() {
       </section>
 
       {/* Block 11: Vídeos */}
-      <section className="py-24 md:py-32 px-6 lg:px-12 bg-[#0a0a0a] flex justify-center text-white">
-        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          <motion.div {...fadeIn} className="space-y-8">
-            <h2 className="text-3xl md:text-5xl font-light tracking-tight leading-[1.2]">
-              Assista e sinta <br /> <span className="italic font-medium text-gray-400">a provocação.</span>
+      <section className="py-16 md:py-24 px-6 lg:px-12 bg-white flex justify-center text-black">
+        <div className="max-w-6xl w-full flex flex-col items-center">
+          <motion.div {...fadeIn} className="mb-12 md:mb-16 text-center">
+            <h2 className="text-3xl md:text-5xl font-light tracking-tight text-black">
+              Respira fundo e <span className="italic font-medium">aperte o play!</span>
             </h2>
-            <p className="text-lg md:text-xl font-light text-gray-400 leading-[1.8] max-w-lg">
-              Recortes de momentos em que a plateia se conecta não com o palestrante, mas com suas próprias jornadas.
-            </p>
           </motion.div>
 
-          <div className="space-y-12">
-            <motion.div {...fadeIn} transition={{ delay: 0.1 }} className="space-y-4">
-              <div className="relative aspect-video bg-black shadow-2xl border border-white/10">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/paB2pg9pB98"
-                  title="TEDx Roberto Pascoal"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="absolute inset-0"
-                />
-              </div>
-              <p className="text-xs uppercase tracking-[0.3em] text-gray-500 font-medium ml-2">TEDx</p>
-            </motion.div>
-
-            <motion.div {...fadeIn} transition={{ delay: 0.2 }} className="space-y-4">
-              <div className="relative aspect-video bg-black shadow-2xl border border-white/10">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            <motion.div {...fadeIn} transition={{ delay: 0.1 }}>
+              <div className="relative aspect-video bg-gray-100 shadow-xl overflow-hidden">
                 <iframe
                   width="100%"
                   height="100%"
@@ -380,7 +361,21 @@ export default function Palestras() {
                   className="absolute inset-0"
                 />
               </div>
-              <p className="text-xs uppercase tracking-[0.3em] text-gray-500 font-medium ml-2">Caldeirão do Huck</p>
+            </motion.div>
+
+            <motion.div {...fadeIn} transition={{ delay: 0.2 }}>
+              <div className="relative aspect-video bg-gray-100 shadow-xl overflow-hidden">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/paB2pg9pB98"
+                  title="TEDx Roberto Pascoal"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="absolute inset-0"
+                />
+              </div>
             </motion.div>
           </div>
         </div>

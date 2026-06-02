@@ -89,7 +89,7 @@ export default function Palestras() {
 
       {/* Block 02: Texto Palestra 01 */}
       <section className="py-12 md:py-16 px-6 lg:px-12 bg-white flex justify-center">
-        <div className="max-w-5xl w-full flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+        <div className="max-w-5xl w-full flex flex-col lg:flex-row gap-16 lg:gap-24 items-start lg:items-center">
           <motion.div {...fadeIn} className="flex-1 space-y-8">
             <h2 className="text-3xl md:text-[2.75rem] lg:text-5xl font-light tracking-tight text-black">
               <span className="block leading-[1.2]">Palestras de</span>

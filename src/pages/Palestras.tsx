@@ -402,12 +402,16 @@ export default function Palestras() {
       {/* Block 10: Provocação Final */}
       <section className="pt-12 md:pt-16 pb-4 md:pb-6 px-6 bg-white text-center flex flex-col items-center justify-center">
         <motion.div {...fadeIn} className="max-w-4xl space-y-8">
-          <h2 className="text-3xl md:text-5xl font-light tracking-tight" style={{ lineHeight: '1.7' }}>
-            Se você busca uma palestra <br className="hidden md:block" /> que não apenas inspire, <br className="hidden md:block" />
-            <span className="italic font-medium text-gray-500">mas gere reflexão,<br></br> alinhamento e ação…</span>
-          </h2>
+          <div className="flex flex-col gap-6 items-center">
+            <p className="text-2xl md:text-4xl font-light text-black max-w-3xl" style={{ lineHeight: '1.8' }}>
+              Se você busca uma palestra <br className="hidden md:block" /> que não apenas inspire,
+            </p>
+            <p className="text-xl md:text-3xl font-light italic text-gray-600 max-w-3xl" style={{ lineHeight: '1.8' }}>
+              mas gere reflexão,<br></br> alinhamento e ação…
+            </p>
+          </div>
           <div className="pt-4 flex flex-col items-center">
-            <p className="text-5xl md:text-7xl lg:text-[6rem] font-light tracking-tighter">Vamos conversar.</p>
+            <p className="text-3xl md:text-5xl font-light tracking-tight text-black">Vamos <span className="italic font-medium">conversar.</span></p>
           </div>
         </motion.div>
       </section>

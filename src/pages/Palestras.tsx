@@ -162,11 +162,11 @@ export default function Palestras() {
         <div className="max-w-4xl w-full flex flex-col items-center text-center space-y-16">
           <motion.div {...fadeIn} className="space-y-12">
         
-            <p className="text-2xl md:text-4xl font-light leading-[1.9] text-black max-w-3xl">
+            <p className="text-2xl md:text-4xl font-light text-black max-w-3xl" style={{ lineHeight: '1.8' }}>
               Com histórias reais, imagens impactantes e uma narrativa envolvente, a palestra resulta nos seguintes resultados:
             </p>
 
-            <div className="flex flex-col gap-1 text-xl md:text-3xl font-light italic text-gray-600">
+            <div className="flex flex-col gap-4 text-xl md:text-3xl font-light italic text-gray-600 leading-[1.8]">
               <p>As pessoas se reconhecem</p>
               <p>Se responsabilizam</p>
               <p>Se apropriam de prática com mais clareza e direção</p>
@@ -189,7 +189,7 @@ export default function Palestras() {
 
         <div className="relative z-10 max-w-4xl w-full flex flex-col items-center text-center">
           <motion.div {...fadeIn}>
-            <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-loose text-gray-200">
+            <p className="text-2xl md:text-3xl lg:text-4xl font-light text-gray-200" style={{ lineHeight: '1.9' }}>
               Porque não se trata de fazer mais. <br />
               Se trata de fazer com mais significancia. <br />
               <span className="font-medium text-white">Consequentemente, fazer melhor.</span>
@@ -402,7 +402,7 @@ export default function Palestras() {
       {/* Block 10: Provocação Final */}
       <section className="pt-12 md:pt-16 pb-4 md:pb-6 px-6 bg-white text-center flex flex-col items-center justify-center">
         <motion.div {...fadeIn} className="max-w-4xl space-y-8">
-          <h2 className="text-3xl md:text-5xl font-light leading-[1.4] tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-light tracking-tight" style={{ lineHeight: '1.7' }}>
             Se você busca uma palestra <br className="hidden md:block" /> que não apenas inspire, <br className="hidden md:block" />
             <span className="italic font-medium text-gray-500">mas gere reflexão,<br></br> alinhamento e ação…</span>
           </h2>

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { NavbarAlt } from "@/components/ui/navbar-alt";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useLocation } from "react-router-dom";
-import { CheckCircle2, MapPin, Calendar, Users, Clock, Building2, User, Mail, Phone, MessageSquare, ArrowRight, Paperclip, Trash2, UploadCloud, FileText, Check, Loader2 } from "lucide-react";
+import { CheckCircle2, MapPin, Calendar, Users, Clock, Building2, User, Mail, Phone, MessageSquare, ArrowRight, Paperclip, Trash2, UploadCloud, FileText, Check, Loader2, Play } from "lucide-react";
 
 export default function Palestras() {
   const parallaxRef = useRef<HTMLDivElement>(null);
@@ -20,6 +20,7 @@ export default function Palestras() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [activeVideos, setActiveVideos] = useState<Record<string, boolean>>({});
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -69,11 +70,11 @@ export default function Palestras() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover opacity-95"
+            className="w-full h-full object-cover opacity-90"
           />
           {/* Fades escuros apenas no vídeo (topo e base) */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50 pointer-events-none" />
-          <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/30 pointer-events-none" />
+          <div className="absolute inset-0 bg-black/5 pointer-events-none" />
         </div>
         <motion.div
           {...fadeIn}
@@ -87,7 +88,7 @@ export default function Palestras() {
       </section>
 
       {/* Block 02: Texto Palestra 01 */}
-      <section className="py-16 md:py-24 px-6 lg:px-12 bg-white flex justify-center">
+      <section className="py-12 md:py-16 px-6 lg:px-12 bg-white flex justify-center">
         <div className="max-w-5xl w-full flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
           <motion.div {...fadeIn} className="flex-1 space-y-8">
             <h2 className="text-3xl md:text-[2.75rem] lg:text-5xl font-light tracking-tight text-black">
@@ -141,31 +142,29 @@ export default function Palestras() {
         <div className="absolute inset-0 bg-black/50 pointer-events-none" />
         
         {/* Fade escuro apenas na borda inferior */}
-        <div className="absolute bottom-0 inset-x-0 h-32 md:h-56 bg-gradient-to-t from-black to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 inset-x-0 h-32 md:h-56 bg-gradient-to-t from-black to-transparent     pointer-events-none" />
 
         <motion.div {...fadeIn} className="relative z-10 text-center px-6 max-w-4xl">
           <h2 className="text-4xl md:text-6xl lg:text-[4.5rem] font-light tracking-[0.2em] leading-[1.1] text-white">
             Autoconhecimento <br />
             <span className="tracking-[0.2em]">é estratégia</span> <br />
             <span className="text-lg md:text-2xl uppercase tracking-[0.2em] md:tracking-[0.3em] text-gray-300 font-normal block mt-10">
-              para significância, performance e resultados.
+              para mais sentido, performance e resultados.
             </span>
           </h2>
         </motion.div>
       </section>
 
       {/* Block 04: Texto Palestra 02 */}
-      <section className="py-16 md:py-24 px-6 lg:px-12 bg-white flex justify-center">
+      <section className="py-12 md:py-16 px-6 lg:px-12 bg-white flex justify-center">
         <div className="max-w-4xl w-full flex flex-col items-center text-center space-y-16">
           <motion.div {...fadeIn} className="space-y-12">
-            <h3 className="text-xs uppercase tracking-[0.4em] text-gray-400 font-semibold">
-              Mais do que inspirar. Provocar um movimento consciente.
-            </h3>
-            <p className="text-2xl md:text-4xl font-light leading-[1.6] text-black max-w-3xl">
+        
+            <p className="text-2xl md:text-4xl font-light leading-[1.9] text-black max-w-3xl">
               Com histórias reais, imagens impactantes e uma narrativa envolvente, a palestra resulta nos seguintes resultados:
             </p>
 
-            <div className="flex flex-col gap-4 text-xl md:text-3xl font-light italic text-gray-600">
+            <div className="flex flex-col gap-1 text-xl md:text-3xl font-light italic text-gray-600">
               <p>As pessoas se reconhecem</p>
               <p>Se responsabilizam</p>
               <p>Se apropriam de prática com mais clareza e direção</p>
@@ -188,22 +187,22 @@ export default function Palestras() {
 
         <div className="relative z-10 max-w-4xl w-full flex flex-col items-center text-center">
           <motion.div {...fadeIn}>
-            <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed text-gray-200">
+            <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-loose text-gray-200">
               Porque não se trata de fazer mais. <br />
-              Se trata de fazer com sentido. <br />
+              Se trata de fazer com mais significancia. <br />
               <span className="font-medium text-white">Consequentemente, fazer melhor.</span>
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Block 06: Para quem é & Temas */}
-      <section className="py-16 md:py-24 px-6 lg:px-12 bg-white flex justify-center">
-        <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32">
+      {/* Block 06: Para quem é */}
+      <section className="pt-12 md:pt-16 pb-6 md:pb-8 px-6 lg:px-12 bg-white flex justify-center">
+        <div className="max-w-3xl w-full">
 
           <motion.div {...fadeIn} className="space-y-12">
-            <h2 className="text-3xl md:text-4xl font-light tracking-tight">Para quem é essa palestra</h2>
-            <div className="space-y-8">
+            <h2 className="text-3xl md:text-4xl font-light tracking-tight text-center">Para quem é essa palestra</h2>
+            <div className="space-y-8 max-w-xl mx-auto">
               {[
                 "Empresas que desejam fortalecer cultura e propósito.",
                 "Lideranças que buscam mais consciência e responsabilidade.",
@@ -218,31 +217,13 @@ export default function Palestras() {
             </div>
           </motion.div>
 
-          <motion.div {...fadeIn} transition={{ delay: 0.2 }} className="space-y-12">
-            <h2 className="text-3xl md:text-4xl font-light tracking-tight">Temas abordados</h2>
-            <div className="flex flex-wrap gap-3">
-              {[
-                "Autoconhecimento", "Autorresponsabilidade", "Foco com Alma",
-                "Motivação com sentido", "Vendas com propósito",
-                "Superação e resiliência", "Resultados sustentáveis"
-              ].map((tema, i) => (
-                <span
-                  key={i}
-                  className="px-5 py-3 border border-gray-300 text-sm tracking-wider text-gray-700 font-medium hover:bg-black hover:text-white hover:border-black transition-colors duration-300"
-                >
-                  {tema}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-
         </div>
       </section>
 
       {/* Block 05: Depoimentos (Refined) */}
-      <section className="py-16 md:py-24 px-6 lg:px-12 bg-white flex justify-center">
-        <div className="max-w-7xl w-full space-y-20">
-          <motion.div {...fadeIn} className="flex flex-col items-center text-center space-y-4">
+      <section className="pt-6 md:pt-8 pb-12 md:pb-16 px-6 lg:px-12 bg-white flex justify-center">
+        <div className="max-w-7xl w-full space-y-10">
+          <motion.div {...fadeIn} className="flex flex-col items-center text-center space-y-2">
             <span className="text-xs uppercase tracking-[0.3em] text-gray-400 font-semibold">Experiência</span>
             <h2 className="text-3xl md:text-5xl font-light tracking-tight">O que dizem <span className="italic font-medium">quem já viveu</span></h2>
           </motion.div>
@@ -367,7 +348,7 @@ export default function Palestras() {
       </section>
 
       {/* Block 11: Vídeos */}
-      <section className="pt-16 md:pt-24 pb-4 md:pb-8 px-6 lg:px-12 bg-white flex justify-center text-black">
+      <section className="pt-12 md:pt-16 pb-4 md:pb-6 px-6 lg:px-12 bg-white flex justify-center text-black">
         <div className="max-w-6xl w-full flex flex-col items-center">
           <motion.div {...fadeIn} className="mb-12 md:mb-16 text-center">
             <h2 className="text-3xl md:text-5xl font-light tracking-tight text-black">
@@ -376,45 +357,62 @@ export default function Palestras() {
           </motion.div>
 
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-            <motion.div {...fadeIn} transition={{ delay: 0.1 }}>
-              <div className="relative aspect-video bg-gray-100 shadow-xl overflow-hidden">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/QaNPAbncsVw"
-                  title="Caldeirão Roberto Pascoal"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="absolute inset-0"
-                />
-              </div>
-            </motion.div>
-
-            <motion.div {...fadeIn} transition={{ delay: 0.2 }}>
-              <div className="relative aspect-video bg-gray-100 shadow-xl overflow-hidden">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/paB2pg9pB98"
-                  title="TEDx Roberto Pascoal"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="absolute inset-0"
-                />
-              </div>
-            </motion.div>
+            {[
+              { id: "QaNPAbncsVw", title: "Caldeirão Roberto Pascoal", delay: 0.1 },
+              { id: "paB2pg9pB98", title: "TEDx Roberto Pascoal", delay: 0.2 }
+            ].map((video) => (
+              <motion.div key={video.id} {...fadeIn} transition={{ delay: video.delay }} className="group">
+                <div className="relative aspect-video bg-gray-100 shadow-xl overflow-hidden rounded-xl border border-gray-100">
+                  {activeVideos[video.id] ? (
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src={`https://www.youtube.com/embed/${video.id}?autoplay=1`}
+                      title={video.title}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="absolute inset-0 w-full h-full"
+                    />
+                  ) : (
+                    <button
+                      onClick={() => setActiveVideos((prev) => ({ ...prev, [video.id]: true }))}
+                      className="absolute inset-0 w-full h-full flex items-center justify-center cursor-pointer"
+                    >
+                      <img
+                        src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
+                        alt={video.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-black/35 group-hover:bg-black/45 transition-colors duration-300 flex items-center justify-center" />
+                      <div className="absolute z-10 w-16 h-16 rounded-full bg-white/90 text-black flex items-center justify-center shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:bg-white">
+                        <Play className="w-6 h-6 fill-black ml-1 text-black" />
+                      </div>
+                    </button>
+                  )}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
+      {/* Block 10: Provocação Final */}
+      <section className="pt-12 md:pt-16 pb-4 md:pb-6 px-6 bg-white text-center flex flex-col items-center justify-center">
+        <motion.div {...fadeIn} className="max-w-4xl space-y-8">
+          <h2 className="text-3xl md:text-5xl font-light leading-[1.4] tracking-tight">
+            Se você busca uma palestra <br className="hidden md:block" /> que não apenas inspire, <br className="hidden md:block" />
+            <span className="italic font-medium text-gray-500">mas gere reflexão,<br></br> alinhamento e ação…</span>
+          </h2>
+          <div className="pt-4 flex flex-col items-center">
+            <p className="text-5xl md:text-7xl lg:text-[6rem] font-light tracking-tighter">Vamos conversar.</p>
+          </div>
+        </motion.div>
+      </section>
+
       {/* Block 11b: Notícias Carousel */}
       <section className="pt-4 md:pt-8 pb-8 md:pb-12 bg-white relative flex flex-col justify-center overflow-hidden">
-        <motion.div {...fadeIn} className="text-center mb-6 relative z-20">
-          <span className="text-xs uppercase tracking-[0.3em] text-gray-400 font-semibold">Na mídia</span>
-        </motion.div>
-
+  
         <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
         
@@ -436,14 +434,12 @@ export default function Palestras() {
           }
         `}</style>
         
-        {/* Usamos overflow-x-auto nativo para permitir arrastar no mobile, e no desktop ele pausa com hover */}
-        <div className="relative w-full overflow-x-auto flex z-0 hide-scrollbar cursor-grab active:cursor-grabbing">
+        <div className="relative w-full overflow-hidden flex z-0 hide-scrollbar">
           <div className="animate-marquee-noticias flex gap-4 md:gap-8 items-center px-4 md:px-8">
             {[
               { file: "Captura de tela 2026-05-07 211432.png", link: "https://www.metropoles.com/brasil/projeto-roraima-povos-indigenas" },
               { file: "Captura de tela 2026-05-07 211621.png", link: "https://g1.globo.com/sc/santa-catarina/videos-jornal-do-almoco-joinville/video/ong-omunga-vai-retomar-alfabetizacao-de-criancas-e-adolescentes-em-atalaia-do-norte-11378591.ghtml" },
               { file: "Captura de tela 2026-05-07 212135.png", link: "https://www.gov.br/cultura/pt-br/assuntos/noticias/projeto-viabilizado-pela-lei-rouanet-estimula-leitura-e-preservacao-dos-saberes-originarios-no-extremo-norte-do-pais" },
-              { file: "Captura de tela 2026-05-07 212210.png", link: "https://www.estadao.com.br/viagem/viagens-plasticas/disparates-do-sertao/?srsltid=AfmBOooNkR1f6ZLy8TonQa6mxALORYPUxSRoxAZsZUa0aYzOL0ruJPJk" },
               { file: "Captura de tela 2026-05-07 212552.png", link: "https://revistapegn.globo.com/Negocio-social/noticia/2019/02/ele-criou-um-negocio-social-que-constroi-bibliotecas-em-areas-de-vulnerabilidade.html" },
               { file: "Captura de tela 2026-05-07 212633.png", link: "https://tedxblumenau.com.br/speakers/roberto-pascoal-2/" },
               { file: "Captura de tela 2026-05-07 212901.png", link: "https://globoplay.globo.com/v/8176263/" },
@@ -452,7 +448,6 @@ export default function Palestras() {
               { file: "Captura de tela 2026-05-07 211432.png", link: "https://www.metropoles.com/brasil/projeto-roraima-povos-indigenas" },
               { file: "Captura de tela 2026-05-07 211621.png", link: "https://g1.globo.com/sc/santa-catarina/videos-jornal-do-almoco-joinville/video/ong-omunga-vai-retomar-alfabetizacao-de-criancas-e-adolescentes-em-atalaia-do-norte-11378591.ghtml" },
               { file: "Captura de tela 2026-05-07 212135.png", link: "https://www.gov.br/cultura/pt-br/assuntos/noticias/projeto-viabilizado-pela-lei-rouanet-estimula-leitura-e-preservacao-dos-saberes-originarios-no-extremo-norte-do-pais" },
-              { file: "Captura de tela 2026-05-07 212210.png", link: "https://www.estadao.com.br/viagem/viagens-plasticas/disparates-do-sertao/?srsltid=AfmBOooNkR1f6ZLy8TonQa6mxALORYPUxSRoxAZsZUa0aYzOL0ruJPJk" },
               { file: "Captura de tela 2026-05-07 212552.png", link: "https://revistapegn.globo.com/Negocio-social/noticia/2019/02/ele-criou-um-negocio-social-que-constroi-bibliotecas-em-areas-de-vulnerabilidade.html" },
               { file: "Captura de tela 2026-05-07 212633.png", link: "https://tedxblumenau.com.br/speakers/roberto-pascoal-2/" },
               { file: "Captura de tela 2026-05-07 212901.png", link: "https://globoplay.globo.com/v/8176263/" },
@@ -469,7 +464,7 @@ export default function Palestras() {
                 <img 
                   src={`/jornal-midia/${noticia.file}`} 
                   alt="Notícia" 
-                  className="h-64 md:h-80 lg:h-96 w-auto object-cover border border-gray-200 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
+                  className="h-48 md:h-56 lg:h-64 w-auto object-cover border border-gray-200 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
                   draggable="false"
                 />
               </a>
@@ -479,7 +474,7 @@ export default function Palestras() {
       </section>
 
       {/* Block 11c: Logos Jornais Estáticos */}
-      <section className="pb-16 md:pb-24 px-6 lg:px-12 bg-white flex justify-center">
+      <section className="pb-8 md:pb-10 px-6 lg:px-12 bg-white flex justify-center">
         <div className="max-w-5xl w-full flex flex-wrap justify-center items-center gap-10 md:gap-16">
           {[
             { file: "Jovem_Pan_logo.svg", link: "https://jovempan.com.br/" },
@@ -506,37 +501,22 @@ export default function Palestras() {
         </div>
       </section>
 
-      {/* Block 10: Provocação Final */}
-      <section className="py-20 md:py-32 px-6 bg-white text-center flex flex-col items-center justify-center">
-        <motion.div {...fadeIn} className="max-w-4xl space-y-16">
-          <h2 className="text-3xl md:text-5xl font-light leading-[1.4] tracking-tight">
-            Se você busca uma palestra que não apenas inspire, <br className="hidden md:block" />
-            <span className="italic font-medium text-gray-500">mas gere reflexão, alinhamento e ação…</span>
-          </h2>
-          <div className="pt-8 flex flex-col items-center">
-            <p className="text-5xl md:text-7xl lg:text-[6rem] font-light tracking-tighter">Vamos conversar.</p>
-          </div>
-        </motion.div>
-      </section>
-
       {/* Block 12: Formulário */}
-      <section id="orcamento" className="py-24 px-6 bg-neutral-50 flex justify-center border-t border-neutral-100">
+      <section id="orcamento" className="pt-4 md:pt-6 pb-12 md:pb-16 px-6 lg:px-12 bg-white flex justify-center">
         <div className="max-w-3xl w-full">
           {submitSuccess ? (
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-white p-12 md:p-16 rounded-3xl text-center space-y-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-neutral-100"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-white text-neutral-900 p-10 md:p-12 rounded-2xl text-center space-y-6 max-w-xl mx-auto shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-150/60"
             >
-              <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto text-green-600">
-                <Check className="w-10 h-10" />
+              <div className="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center mx-auto text-neutral-900">
+                <Check className="w-8 h-8 text-neutral-900" />
               </div>
-              <div className="space-y-3">
-                <h3 className="text-3xl font-medium tracking-tight text-neutral-900">Mensagem Enviada!</h3>
-                <p className="text-neutral-500 font-light leading-relaxed text-lg max-w-md mx-auto">
-                  Obrigado pelo contato, <span className="font-medium text-neutral-900">{formData.nome || 'amigo(a)'}</span>. Seu e-mail foi direcionado para nossa equipe e retornaremos em breve para <span className="font-medium text-neutral-900">{formData.email}</span>.
-                </p>
-              </div>
+              <h3 className="text-3xl font-light tracking-tight text-neutral-900">Mensagem Enviada!</h3>
+              <p className="text-neutral-500 font-light leading-relaxed text-sm md:text-base max-w-md mx-auto">
+                Sua solicitação de orçamento foi enviada com sucesso para <span className="text-neutral-900 font-normal">roberto@robertopascoal.com</span>. Retornaremos o contato o mais breve possível.
+              </p>
               <div className="pt-4">
                 <button
                   onClick={() => {
@@ -548,46 +528,51 @@ export default function Palestras() {
                       mensagem: ''
                     });
                   }}
-                  className="px-8 py-4 bg-neutral-900 text-white text-sm font-medium hover:bg-neutral-800 transition-colors rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 duration-300"
+                  className="px-8 py-4 bg-neutral-950 text-white text-xs uppercase tracking-wider font-semibold hover:bg-neutral-900 transition-all rounded-xl shadow-md"
                 >
-                  Enviar nova mensagem
+                  Enviar outra mensagem
                 </button>
               </div>
             </motion.div>
           ) : (
-            <div className="space-y-12">
+            <div className="space-y-8">
               <motion.div {...fadeIn} className="space-y-4 text-center">
-                <span className="text-sm font-bold tracking-[0.2em] uppercase text-neutral-400">Contato</span>
-                <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900">Vamos conversar?</h2>
-                <p className="text-neutral-500 font-light text-lg max-w-lg mx-auto leading-relaxed">
-                  Preencha os dados abaixo e entraremos em contato para entender como podemos colaborar no seu próximo evento.
+                <h2 className="text-3xl md:text-5xl font-light tracking-tight text-black">Solicitar <span className="italic font-medium">Orçamento</span></h2>
+                <p className="text-neutral-500 font-light text-base md:text-lg max-w-xl mx-auto leading-[1.6]">
+                  Preencha os campos abaixo para enviar sua mensagem e solicitar uma proposta personalizada para o seu evento.
                 </p>
               </motion.div>
 
-              <motion.form onSubmit={handleSubmit} {...fadeIn} className="bg-white p-8 md:p-12 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-neutral-100 space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <motion.form 
+                onSubmit={handleSubmit} 
+                {...fadeIn} 
+                className="max-w-3xl mx-auto space-y-6 text-black bg-white p-6 md:p-10 rounded-2xl border border-gray-150/60 shadow-[0_8px_30px_rgb(0,0,0,0.03)]"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label htmlFor="nome" className="text-sm font-medium text-neutral-700 ml-1">Nome completo</label>
+                    <label className="text-sm font-semibold text-neutral-800">
+                      Nome completo
+                    </label>
                     <input
                       type="text"
-                      id="nome"
                       name="nome"
                       value={formData.nome}
                       onChange={handleInputChange}
-                      className="w-full bg-neutral-50 border border-neutral-200 focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 px-5 py-4 rounded-xl text-neutral-900 placeholder-neutral-400 focus:outline-none transition-all duration-300"
+                      className="w-full bg-gray-50/50 border border-gray-200/80 focus:border-neutral-500 focus:bg-white focus:ring-1 focus:ring-neutral-500/25 px-4 py-3.5 rounded-xl text-neutral-900 placeholder-neutral-400 focus:outline-none text-sm transition-all"
                       placeholder="Como gostaria de ser chamado?"
                       required
                     />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-neutral-700 ml-1">E-mail</label>
+                    <label className="text-sm font-semibold text-neutral-800">
+                      E-mail
+                    </label>
                     <input
                       type="email"
-                      id="email"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full bg-neutral-50 border border-neutral-200 focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 px-5 py-4 rounded-xl text-neutral-900 placeholder-neutral-400 focus:outline-none transition-all duration-300"
+                      className="w-full bg-gray-50/50 border border-gray-200/80 focus:border-neutral-500 focus:bg-white focus:ring-1 focus:ring-neutral-500/25 px-4 py-3.5 rounded-xl text-neutral-900 placeholder-neutral-400 focus:outline-none text-sm transition-all"
                       placeholder="seu-email@empresa.com.br"
                       required
                     />
@@ -595,47 +580,50 @@ export default function Palestras() {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="assunto" className="text-sm font-medium text-neutral-700 ml-1">Assunto</label>
+                  <label className="text-sm font-semibold text-neutral-800">
+                    Assunto
+                  </label>
                   <input
                     type="text"
-                    id="assunto"
                     name="assunto"
                     value={formData.assunto}
                     onChange={handleInputChange}
-                    className="w-full bg-neutral-50 border border-neutral-200 focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 px-5 py-4 rounded-xl text-neutral-900 placeholder-neutral-400 focus:outline-none transition-all duration-300"
+                    className="w-full bg-gray-50/50 border border-gray-200/80 focus:border-neutral-500 focus:bg-white focus:ring-1 focus:ring-neutral-500/25 px-4 py-3.5 rounded-xl text-neutral-900 placeholder-neutral-400 focus:outline-none text-sm transition-all"
                     placeholder="Ex: Orçamento para Palestra de Liderança"
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="mensagem" className="text-sm font-medium text-neutral-700 ml-1">Mensagem</label>
+                  <label className="text-sm font-semibold text-neutral-800">
+                    Mensagem
+                  </label>
                   <textarea
-                    id="mensagem"
                     name="mensagem"
                     value={formData.mensagem}
                     onChange={handleInputChange}
+                    className="w-full bg-gray-50/50 border border-gray-200/80 focus:border-neutral-500 focus:bg-white focus:ring-1 focus:ring-neutral-500/25 px-4 py-3.5 rounded-xl text-neutral-900 placeholder-neutral-400 focus:outline-none text-sm min-h-[160px] resize-y leading-relaxed transition-all"
                     placeholder="Detalhe o formato do evento, público estimado, datas prováveis e os objetivos que deseja alcançar..."
-                    className="w-full bg-neutral-50 border border-neutral-200 focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 px-5 py-4 rounded-xl text-neutral-900 placeholder-neutral-400 focus:outline-none transition-all duration-300 resize-y min-h-[160px]"
                     required
                   />
                 </div>
 
-                <div className="pt-4 flex justify-center">
+                {/* Submission Button */}
+                <div className="pt-4">
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-5 bg-neutral-900 text-white hover:bg-neutral-800 disabled:bg-neutral-300 disabled:text-neutral-500 disabled:cursor-not-allowed transition-all duration-300 rounded-xl font-medium text-base flex items-center justify-center gap-3 group shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                    className="w-full py-4 bg-neutral-950 text-white hover:bg-neutral-900 disabled:bg-neutral-200 disabled:text-neutral-500 disabled:cursor-not-allowed transition-all rounded-xl font-semibold text-sm flex items-center justify-center gap-2 group shadow-md"
                   >
                     {isSubmitting ? (
                       <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        Enviando...
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Enviando Mensagem...
                       </>
                     ) : (
                       <>
                         Enviar Mensagem
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
                       </>
                     )}
                   </button>
@@ -656,36 +644,3 @@ export default function Palestras() {
     </div>
   );
 }
-
-const FormField = ({
-  label,
-  type = "text",
-  name,
-  value,
-  onChange,
-  required = false,
-  placeholder = ""
-}: {
-  label: string;
-  type?: string;
-  name: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
-  placeholder?: string;
-}) => (
-  <div className="space-y-2">
-    <label className="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-semibold ml-1">
-      {label} {required && <span className="text-red-500">*</span>}
-    </label>
-    <input
-      type={type}
-      name={name}
-      value={value}
-      onChange={onChange}
-      required={required}
-      placeholder={placeholder}
-      className="w-full bg-white border border-gray-200 px-5 py-4 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-black font-light text-sm"
-    />
-  </div>
-);

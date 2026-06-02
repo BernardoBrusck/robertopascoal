@@ -1,12 +1,39 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { NavbarAlt } from "@/components/ui/navbar-alt";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useLocation } from "react-router-dom";
-import { CheckCircle2, MapPin, Calendar, Users, Clock, Building2, User, Mail, Phone, MessageSquare, ArrowRight } from "lucide-react";
+import { CheckCircle2, MapPin, Calendar, Users, Clock, Building2, User, Mail, Phone, MessageSquare, ArrowRight, Paperclip, Trash2, UploadCloud, FileText, Check, Loader2 } from "lucide-react";
 
 export default function Palestras() {
-  const { scrollYProgress } = useScroll();
-  const yParallax = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const parallaxRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: parallaxRef,
+    offset: ["start end", "end start"]
+  });
+  const yParallax = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
+  const [formData, setFormData] = useState({
+    nome: '',
+    email: '',
+    assunto: '',
+    mensagem: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate sending email
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setIsSubmitting(false);
+    setSubmitSuccess(true);
+  };
 
   const fadeIn = {
     initial: { opacity: 0, y: 40 },
@@ -42,11 +69,11 @@ export default function Palestras() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover opacity-75"
+            className="w-full h-full object-cover opacity-95"
           />
           {/* Fades escuros apenas no vídeo (topo e base) */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black pointer-events-none" />
-          <div className="absolute inset-0 bg-black/30 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50 pointer-events-none" />
+          <div className="absolute inset-0 bg-black/10 pointer-events-none" />
         </div>
         <motion.div
           {...fadeIn}
@@ -76,7 +103,7 @@ export default function Palestras() {
 
           <motion.div {...fadeIn} transition={{ delay: 0.2 }} className="flex-1 space-y-8 text-lg md:text-xl text-gray-700 font-light leading-[1.8]">
             <p>
-              A partir de experiências reais liderando projetos em alguns dos territórios mais remotos da África e do Brasil, Pascoal conduz uma reflexão profunda e prática sobre:
+              A partir de experiências reais vividas desde o Caminho de Santiago de Compostela até a África, passando por algumas das regiões mais distantes do Brasil, como o Sertão, Amazônia e o Monte Roraima, Pascoal conduz uma reflexão profunda e prática sobre:
             </p>
             <ul className="space-y-4 text-black font-normal text-base md:text-lg">
               {[
@@ -99,15 +126,16 @@ export default function Palestras() {
       </section>
 
       {/* Block 03: Parallax + Frase */}
-      <section className="relative h-[70vh] md:h-[90vh] w-full overflow-hidden flex items-center justify-center bg-black">
-        <motion.div style={{ y: yParallax }} className="absolute inset-0 z-0">
-          <img
+      <section ref={parallaxRef} className="relative h-[70vh] md:h-[90vh] w-full overflow-hidden flex items-center justify-center bg-black">
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <motion.img
+            style={{ y: yParallax, scale: 1.15 }}
             src="/image/foto-roberto-04.webp"
             alt="Roberto Palestrando"
-            className="w-full h-[120%] top-[-10%] relative object-cover object-top"
+            className="absolute inset-0 w-full h-full object-cover object-top will-change-transform transform-gpu"
             referrerPolicy="no-referrer"
           />
-        </motion.div>
+        </div>
         
         {/* Overlay escuro na imagem inteira para garantir contraste com o texto */}
         <div className="absolute inset-0 bg-black/50 pointer-events-none" />
@@ -492,51 +520,129 @@ export default function Palestras() {
       </section>
 
       {/* Block 12: Formulário */}
-      <section id="orcamento" className="py-16 md:py-24 px-6 lg:px-12 bg-white flex justify-center">
+      <section id="orcamento" className="py-24 px-6 bg-neutral-50 flex justify-center border-t border-neutral-100">
         <div className="max-w-3xl w-full">
-          <motion.div {...fadeIn} className="mb-16 space-y-4">
-            <h2 className="text-3xl md:text-5xl font-light tracking-tight">Solicitar <span className="italic font-medium">Orçamento</span></h2>
-            <p className="text-gray-500 font-light text-lg md:text-xl leading-[1.6]">
-              Quanto mais detalhes, mais assertivo será nosso retorno. Capriche na descrição da sua oportunidade.
-            </p>
-          </motion.div>
-
-          <motion.form {...fadeIn} className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <FormField label="Nome da Empresa" />
-              <FormField label="Agência (Se aplicar)" />
-              <FormField label="Nome do contato" />
-              <FormField label="E-mail" type="email" />
-              <FormField label="Telefone" type="tel" />
-              <FormField label="Cidade do Evento" />
-              <div className="grid grid-cols-2 gap-4">
-                <FormField label="Estado" />
-                <FormField label="Data" type="date" />
+          {submitSuccess ? (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-white p-12 md:p-16 rounded-3xl text-center space-y-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-neutral-100"
+            >
+              <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto text-green-600">
+                <Check className="w-10 h-10" />
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <FormField label="Hora" type="time" />
-                <FormField label="Público Est." />
+              <div className="space-y-3">
+                <h3 className="text-3xl font-medium tracking-tight text-neutral-900">Mensagem Enviada!</h3>
+                <p className="text-neutral-500 font-light leading-relaxed text-lg max-w-md mx-auto">
+                  Obrigado pelo contato, <span className="font-medium text-neutral-900">{formData.nome || 'amigo(a)'}</span>. Seu e-mail foi direcionado para nossa equipe e retornaremos em breve para <span className="font-medium text-neutral-900">{formData.email}</span>.
+                </p>
               </div>
-            </div>
-            <FormField label="Outros palestrantes (se aplicar)" />
+              <div className="pt-4">
+                <button
+                  onClick={() => {
+                    setSubmitSuccess(false);
+                    setFormData({
+                      nome: '',
+                      email: '',
+                      assunto: '',
+                      mensagem: ''
+                    });
+                  }}
+                  className="px-8 py-4 bg-neutral-900 text-white text-sm font-medium hover:bg-neutral-800 transition-colors rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 duration-300"
+                >
+                  Enviar nova mensagem
+                </button>
+              </div>
+            </motion.div>
+          ) : (
+            <div className="space-y-12">
+              <motion.div {...fadeIn} className="space-y-4 text-center">
+                <span className="text-sm font-bold tracking-[0.2em] uppercase text-neutral-400">Contato</span>
+                <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900">Vamos conversar?</h2>
+                <p className="text-neutral-500 font-light text-lg max-w-lg mx-auto leading-relaxed">
+                  Preencha os dados abaixo e entraremos em contato para entender como podemos colaborar no seu próximo evento.
+                </p>
+              </motion.div>
 
-            <div className="space-y-3 pt-4">
-              <label className="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-semibold ml-1">
-                Descrição da Oportunidade
-              </label>
-              <textarea
-                className="w-full bg-white border border-gray-200 p-5 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all min-h-[160px] text-black font-light resize-y"
-                placeholder="Conte-nos mais sobre o seu evento, objetivos e o que espera da palestra..."
-              />
-            </div>
+              <motion.form onSubmit={handleSubmit} {...fadeIn} className="bg-white p-8 md:p-12 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-neutral-100 space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-2">
+                    <label htmlFor="nome" className="text-sm font-medium text-neutral-700 ml-1">Nome completo</label>
+                    <input
+                      type="text"
+                      id="nome"
+                      name="nome"
+                      value={formData.nome}
+                      onChange={handleInputChange}
+                      className="w-full bg-neutral-50 border border-neutral-200 focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 px-5 py-4 rounded-xl text-neutral-900 placeholder-neutral-400 focus:outline-none transition-all duration-300"
+                      placeholder="Como gostaria de ser chamado?"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="text-sm font-medium text-neutral-700 ml-1">E-mail</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="w-full bg-neutral-50 border border-neutral-200 focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 px-5 py-4 rounded-xl text-neutral-900 placeholder-neutral-400 focus:outline-none transition-all duration-300"
+                      placeholder="seu-email@empresa.com.br"
+                      required
+                    />
+                  </div>
+                </div>
 
-            <div className="pt-8">
-              <button className="w-full md:w-auto px-12 py-5 bg-black text-white text-xs uppercase tracking-[0.3em] font-semibold hover:bg-gray-800 transition-all flex items-center justify-center gap-4 group">
-                Enviar Solicitação
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
-              </button>
+                <div className="space-y-2">
+                  <label htmlFor="assunto" className="text-sm font-medium text-neutral-700 ml-1">Assunto</label>
+                  <input
+                    type="text"
+                    id="assunto"
+                    name="assunto"
+                    value={formData.assunto}
+                    onChange={handleInputChange}
+                    className="w-full bg-neutral-50 border border-neutral-200 focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 px-5 py-4 rounded-xl text-neutral-900 placeholder-neutral-400 focus:outline-none transition-all duration-300"
+                    placeholder="Ex: Orçamento para Palestra de Liderança"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="mensagem" className="text-sm font-medium text-neutral-700 ml-1">Mensagem</label>
+                  <textarea
+                    id="mensagem"
+                    name="mensagem"
+                    value={formData.mensagem}
+                    onChange={handleInputChange}
+                    placeholder="Detalhe o formato do evento, público estimado, datas prováveis e os objetivos que deseja alcançar..."
+                    className="w-full bg-neutral-50 border border-neutral-200 focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 px-5 py-4 rounded-xl text-neutral-900 placeholder-neutral-400 focus:outline-none transition-all duration-300 resize-y min-h-[160px]"
+                    required
+                  />
+                </div>
+
+                <div className="pt-4 flex justify-center">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-5 bg-neutral-900 text-white hover:bg-neutral-800 disabled:bg-neutral-300 disabled:text-neutral-500 disabled:cursor-not-allowed transition-all duration-300 rounded-xl font-medium text-base flex items-center justify-center gap-3 group shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Enviando...
+                      </>
+                    ) : (
+                      <>
+                        Enviar Mensagem
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
+                      </>
+                    )}
+                  </button>
+                </div>
+              </motion.form>
             </div>
-          </motion.form>
+          )}
         </div>
       </section>
 
@@ -551,14 +657,35 @@ export default function Palestras() {
   );
 }
 
-const FormField = ({ label, type = "text" }: { label: string, type?: string }) => (
-  <div className="space-y-3">
+const FormField = ({
+  label,
+  type = "text",
+  name,
+  value,
+  onChange,
+  required = false,
+  placeholder = ""
+}: {
+  label: string;
+  type?: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+  placeholder?: string;
+}) => (
+  <div className="space-y-2">
     <label className="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-semibold ml-1">
-      {label}
+      {label} {required && <span className="text-red-500">*</span>}
     </label>
     <input
       type={type}
-      className="w-full bg-white border border-gray-200 px-5 py-4 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-black font-light"
+      name={name}
+      value={value}
+      onChange={onChange}
+      required={required}
+      placeholder={placeholder}
+      className="w-full bg-white border border-gray-200 px-5 py-4 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-black font-light text-sm"
     />
   </div>
 );

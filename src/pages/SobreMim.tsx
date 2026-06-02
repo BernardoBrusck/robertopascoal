@@ -669,7 +669,7 @@ const SobreMim = () => {
             style={{ y: heroImgY, scale: 1.12 }}
             src="/image/gemini-5.webp"
             alt="Roberto Pascoal"
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover object-center will-change-transform transform-gpu"
             referrerPolicy="no-referrer"
           />
         </motion.div>
@@ -699,7 +699,7 @@ const SobreMim = () => {
             src="/image/retrato-1-opt.webp"
             alt="Roberto Pascoal"
             style={{ y: quoteImgY, scale: 1.15 }}
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-center will-change-transform transform-gpu"
             referrerPolicy="no-referrer"
           />
         </div>

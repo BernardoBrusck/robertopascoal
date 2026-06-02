@@ -22,7 +22,7 @@ export const AboutSection = () => {
             style={{ y: y1 }}
             src="/image/Roberto-rio.webp" 
             alt="Roberto Pascoal" 
-            className="absolute inset-0 w-full h-[130%] object-cover object-center -top-[15%]"
+            className="absolute inset-0 w-full h-[130%] object-cover object-center -top-[15%] will-change-transform transform-gpu"
           />
         </div>
         

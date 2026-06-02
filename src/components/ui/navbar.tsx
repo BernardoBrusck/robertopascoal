@@ -13,8 +13,6 @@ const navItems = [
   { label: "Palestras", href: "/palestras" },
   { label: "Sobre mim", href: "/sobre-mim" },
   { label: "Blog", href: "/blog" },
-  { label: "Galeria", href: "/galeria" },
-  { label: "Contato", href: "#contato" },
 ];
 
 

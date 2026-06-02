@@ -15,7 +15,6 @@ import Home from "./pages/Home";
 import Livro from "./pages/Livro";
 import SobreMim from "./pages/SobreMim";
 import Palestras from "./pages/Palestras";
-import Galeria from "./pages/Galeria";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 import { SmoothScroll } from "./components/SmoothScroll";
 
@@ -60,7 +59,6 @@ const App = () => {
                 <Route path="/sobre-mim" element={<SobreMim />} />
                 <Route path="/palestras" element={<Palestras />} />
                 <Route path="/blog" element={<Blog />} />
-                <Route path="/galeria" element={<Galeria />} />
                 <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/blog/preview/:id" element={
                   <ProtectedRoute>

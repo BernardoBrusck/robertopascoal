@@ -82,7 +82,7 @@ export default function Palestras() {
         >
           <h1 className="text-3xl md:text-5xl lg:text-[3rem] font-light tracking-[0.2em] max-w-5xl mx-auto text-white drop-shadow-lg">
             <span className="block mb-2 md:mb-4">SENTIDO, PRESENÇA</span>
-            <span className="block">& EXECUÇÃO.</span>
+            <span className="block">& EXECUÇÃO</span>
           </h1>
         </motion.div>
       </section>
@@ -145,13 +145,15 @@ export default function Palestras() {
         <div className="absolute bottom-0 inset-x-0 h-32 md:h-56 bg-gradient-to-t from-black to-transparent     pointer-events-none" />
 
         <motion.div {...fadeIn} className="relative z-10 text-center px-6 max-w-4xl mx-auto flex flex-col items-center justify-center">
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-light tracking-[0.2em] leading-[1.8] text-white">
-            AUTOCONHECIMENTO <br />
-            <span className="tracking-[0.2em]">É ESTRATÉGIA</span> <br />
-            <span className="text-sm md:text-base uppercase tracking-[0.2em] md:tracking-[0.3em] text-gray-300 font-normal block mt-8">
+          <div className="flex flex-col items-center gap-12">
+            <h2 className="flex flex-col items-center gap-8 text-white text-2xl md:text-4xl lg:text-5xl font-light tracking-[0.2em]">
+              <span>AUTOCONHECIMENTO</span>
+              <span>É ESTRATÉGIA</span>
+            </h2>
+            <p className="text-sm md:text-base uppercase tracking-[0.2em] md:tracking-[0.3em] text-gray-300 font-normal">
               para mais sentido, performance e resultados.
-            </span>
-          </h2>
+            </p>
+          </div>
         </motion.div>
       </section>
 

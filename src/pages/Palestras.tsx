@@ -144,11 +144,11 @@ export default function Palestras() {
         {/* Fade escuro apenas na borda inferior */}
         <div className="absolute bottom-0 inset-x-0 h-32 md:h-56 bg-gradient-to-t from-black to-transparent     pointer-events-none" />
 
-        <motion.div {...fadeIn} className="relative z-10 text-center px-6 max-w-4xl">
-          <h2 className="text-4xl md:text-6xl lg:text-[4.5rem] font-light tracking-[0.2em] leading-[1.1] text-white">
-            Autoconhecimento <br />
-            <span className="tracking-[0.2em]">é estratégia</span> <br />
-            <span className="text-lg md:text-2xl uppercase tracking-[0.2em] md:tracking-[0.3em] text-gray-300 font-normal block mt-10">
+        <motion.div {...fadeIn} className="relative z-10 text-center px-6 max-w-4xl mx-auto flex flex-col items-center justify-center">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-light tracking-[0.2em] leading-[1.8] text-white">
+            AUTOCONHECIMENTO <br />
+            <span className="tracking-[0.2em]">É ESTRATÉGIA</span> <br />
+            <span className="text-sm md:text-base uppercase tracking-[0.2em] md:tracking-[0.3em] text-gray-300 font-normal block mt-8">
               para mais sentido, performance e resultados.
             </span>
           </h2>

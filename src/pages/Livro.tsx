@@ -116,21 +116,21 @@ const BlockConselho = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section ref={containerRef} className="relative bg-gray-50 w-full flex flex-col justify-center py-40 md:py-56 border-b border-gray-100 overflow-hidden">
+    <section ref={containerRef} className="relative bg-gray-50 w-full flex flex-col justify-center pt-16 pb-8 md:py-48 border-b border-gray-100 overflow-hidden">
       
       <PolaroidsBackground containerRef={containerRef} />
       
       {/* Container natural scroll */}
-      <div className="relative z-20 flex flex-col items-center justify-center gap-32 md:gap-48 px-6 lg:px-12 w-full pointer-events-none">
+      <div className="relative z-20 flex flex-col items-center justify-center gap-8 md:gap-32 px-6 lg:px-12 w-full pointer-events-none">
         
         <motion.p
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="font-sans text-xl md:text-3xl leading-[1.6] font-light max-w-2xl text-center text-black pointer-events-auto"
+          className="font-sans text-xl md:text-2xl lg:text-3xl leading-snug md:leading-[1.6] font-light max-w-2xl text-center text-black pointer-events-auto"
         >
-          Talvez o que te cansa não seja o caminho…<br />
+          Talvez o que te cansa não seja o caminho… <br className="hidden md:block" />
           mas a pressa e o peso do que você insiste em <span className="font-semibold italic">carregar</span>.
         </motion.p>
 
@@ -139,9 +139,9 @@ const BlockConselho = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="font-sans text-xl md:text-3xl leading-[1.6] font-light max-w-2xl text-center text-black pointer-events-auto"
+          className="font-sans text-xl md:text-2xl lg:text-3xl leading-snug md:leading-[1.6] font-light max-w-2xl text-center text-black pointer-events-auto"
         >
-          Talvez você tenha <span className="font-semibold italic">dúvidas, dívidas e medos.</span><br />
+          Talvez você tenha <span className="font-semibold italic">dúvidas, dívidas e medos.</span> <br className="hidden md:block" />
           E, mesmo assim… precise seguir em frente.
         </motion.p>
 
@@ -150,9 +150,9 @@ const BlockConselho = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="font-sans text-2xl md:text-4xl leading-[1.6] font-light max-w-2xl text-center text-black pointer-events-auto"
+          className="font-sans text-xl md:text-2xl lg:text-3xl leading-snug md:leading-[1.6] font-light max-w-2xl text-center text-black pointer-events-auto"
         >
-          Nunca pronto ou pronta.<br />
+          Nunca pronto ou pronta. <br className="hidden md:block" />
           <span className="font-medium italic">Mas sempre suficiente.</span>
         </motion.p>
         
@@ -173,7 +173,7 @@ const BlockAutor = () => {
   const y1 = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
   return (
-    <section ref={containerRef} className="pt-16 md:pt-24 pb-12 px-6 lg:px-12 bg-white relative overflow-hidden flex items-center justify-center">
+    <section ref={containerRef} className="pt-4 md:pt-24 pb-12 px-6 lg:px-12 bg-white relative overflow-hidden flex items-center justify-center">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20 relative z-10 w-full">
         
         {/* Photo Container with Parallax Effect */}
@@ -187,58 +187,45 @@ const BlockAutor = () => {
         </div>
         
         {/* Text Presentation Box */}
-        <div className="w-full lg:flex-1 flex flex-col justify-center space-y-6 md:space-y-10">
-          <div className="space-y-1 mb-6">
-            {[
-              "Prazer, eu sou Roberto Pascoal.",
-              "Ainda não cheguei lá. Mas continuo indo.",
-              "Consciente da minha incompletude,",
-              "mas com coragem e determinação para",
-              "seguir."
-            ].map((text, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 + (i * 0.1) }}
-                className="pb-3"
-              >
-                <span className="block text-xl md:text-3xl lg:text-[2.25rem] font-light tracking-[0.5px] text-black leading-[2.8]">
-                  {text}
-                </span>
-              </motion.div>
-            ))}
-          </div>
+        <div className="w-full lg:flex-1 flex flex-col justify-center items-center lg:items-start text-center lg:text-left space-y-6 md:space-y-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8 }}
+            className="mb-2"
+          >
+            <p className="text-xl md:text-3xl lg:text-[2.25rem] font-light tracking-[0.5px] text-black leading-snug md:leading-[1.4]">
+              Prazer, eu sou Roberto Pascoal. <br className="hidden md:block" />
+              Ainda não cheguei lá. Mas continuo indo. <br className="hidden md:block" />
+              Consciente da minha incompletude, <br className="hidden md:block" />
+              mas com coragem e determinação para <br className="hidden md:block" />
+              seguir.
+            </p>
+          </motion.div>
           
           <motion.div 
             initial={{ opacity: 0, scaleX: 0 }}
             whileInView={{ opacity: 1, scaleX: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px bg-black origin-left mb-5" 
+            className="w-16 h-px bg-black origin-center lg:origin-left mx-auto lg:mx-0 mb-5" 
           />
 
-          <div className="flex flex-col gap-0">
-            {[
-              "Este e-book não é uma cura rápida.",
-              "É uma jornada.",
-              "E você é meu convidado para caminhar",
-              "comigo por essas páginas."
-            ].map((text, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 + (i * 0.1) }}
-              >
-                <span className="block text-xl md:text-3xl lg:text-[2rem] font-light text-gray-700 leading-[1.3] max-w-xl">
-                  {text}
-                </span>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="w-full flex justify-center lg:justify-start"
+          >
+            <p className="text-xl md:text-3xl lg:text-[2rem] font-light text-gray-700 leading-snug md:leading-[1.3] max-w-xl">
+              Este e-book não é uma cura rápida. <br className="hidden md:block" />
+              É uma jornada. <br className="hidden md:block" />
+              E você é meu convidado para caminhar <br className="hidden md:block" />
+              comigo por essas páginas.
+            </p>
+          </motion.div>
         </div>
 
       </div>
@@ -329,7 +316,7 @@ const BlockEbookConteudo = () => {
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
         
         {/* Left Column: Texts */}
-        <div className="w-full lg:w-[45%] flex flex-col space-y-10 z-20">
+        <div className="w-full lg:w-[45%] flex flex-col items-center lg:items-start text-center lg:text-left space-y-10 z-20">
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -337,30 +324,24 @@ const BlockEbookConteudo = () => {
             transition={{ duration: 0.8 }}
             className="text-2xl md:text-4xl lg:text-[2.5rem] font-light text-black tracking-tight leading-tight"
           >
-            O que você encontrará<br/>
-            neste e-book: <span className="font-medium italic">Uma jornada.</span>
+            O que você encontrará<br className="hidden md:block" /> neste e-book: <span className="font-medium italic">Uma jornada.</span>
           </motion.h2>
 
-          <div className="flex flex-col space-y-6 text-base md:text-xl lg:text-[1.35rem] font-light text-gray-700 leading-[1.6]">
+          <div className="flex flex-col items-center lg:items-start space-y-6 text-xl md:text-2xl lg:text-[1.75rem] font-light text-gray-700 leading-relaxed">
             <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-10%" }} transition={{ duration: 0.6, delay: 0.1 }}>
-              Da infância sensível<br/>
-              à vida corporativa marcada pela autoafirmação.
+              Da infância sensível <br className="hidden md:block" /> à vida corporativa marcada pela autoafirmação.
             </motion.p>
             
             <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-10%" }} transition={{ duration: 0.6, delay: 0.2 }}>
-              Que passa por peregrinações, aventuras<br/>
-              e vivências em regiões vulneráveis da África e do Brasil profundo.
+              Que passa por peregrinações, aventuras <br className="hidden md:block" /> e vivências em regiões vulneráveis da África e do Brasil profundo.
             </motion.p>
 
             <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-10%" }} transition={{ duration: 0.6, delay: 0.3 }}>
-              Um encontro que se torna espelho,<br/>
-              onde quedas e quebras fortalecem e criam mais sentido.
+              Um encontro que se torna espelho, <br className="hidden md:block" /> onde quedas e quebras fortalecem e criam mais sentido.
             </motion.p>
 
-            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-10%" }} transition={{ duration: 0.6, delay: 0.4 }} className="font-medium text-black italic">
-              E a certeza de que o melhor caminho<br/>
-              é continuar caminhando…<br/>
-              mesmo quando tudo volta a ser testado.
+            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-10%" }} transition={{ duration: 0.6, delay: 0.4 }} className="font-medium text-black italic text-center lg:text-left text-xl md:text-2xl lg:text-[1.75rem] leading-relaxed">
+              E a certeza de que o melhor caminho <br className="hidden md:block" /> é continuar caminhando… <br className="hidden md:block" /> mesmo quando tudo volta a ser testado.
             </motion.p>
           </div>
         </div>
@@ -377,13 +358,13 @@ const BlockEbookConteudo = () => {
 
 // ─── DEPOIMENTOS ────────────────────────────────────────────────────────────
 const WhatsAppBubble = ({ text, time, isSender }: { text: string; time: string; isSender: boolean }) => (
-  <div className={`flex mb-4 w-full flex-col ${isSender ? "items-end" : "items-start"}`}>
-    <div className={`${isSender ? "bg-[#E7FFDB] rounded-xl rounded-tr-sm" : "bg-white rounded-xl rounded-tl-sm"} px-3 py-2 max-w-[85%] relative shadow-[0_1px_1px_rgba(0,0,0,0.1)]`}>
-      <p className="text-[14px] leading-[1.3] font-normal mb-1 pb-3 whitespace-pre-wrap text-left text-[#111B21]">{text}</p>
+  <div className={`flex mb-2 md:mb-2.5 w-full flex-col ${isSender ? "items-end" : "items-start"}`}>
+    <div className={`${isSender ? "bg-[#E7FFDB] rounded-xl rounded-tr-sm" : "bg-white rounded-xl rounded-tl-sm"} px-2 py-1 md:px-2.5 md:py-1.5 max-w-[85%] relative shadow-[0_1px_1px_rgba(0,0,0,0.1)]`}>
+      <p className="text-[10.5px] md:text-[11.5px] lg:text-[12.5px] leading-[1.3] font-normal mb-1 pb-2.5 whitespace-pre-wrap text-left text-[#111B21]">{text}</p>
       <div className="w-full flex justify-end items-center absolute bottom-1 right-2 gap-1">
-        <span className="text-[#667781] text-[10px] tabular-nums">{time}</span>
+        <span className="text-[#667781] text-[7.5px] md:text-[9px] tabular-nums">{time}</span>
         {isSender && (
-          <svg viewBox="0 0 16 15" width="16" height="15" className="fill-[#53bdeb]"><path d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z" /></svg>
+          <svg viewBox="0 0 16 15" width="10" height="9" className="fill-[#53bdeb] md:w-3.5 md:h-3.5"><path d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z" /></svg>
         )}
       </div>
     </div>
@@ -431,7 +412,7 @@ const BlockDepoimentos = () => {
     
     // Velocidade do scroll (pixels por frame)
     // -1.0 é uma velocidade média agradável
-    const moveBy = -1.2; 
+    const moveBy = -1.8; 
     const currentX = x.get();
     let newX = currentX + moveBy;
 
@@ -451,8 +432,8 @@ const BlockDepoimentos = () => {
   return (
     <section className="bg-white pt-4 md:pt-8 pb-12 md:pb-16 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto flex flex-col items-center">
-        <span className="text-xs uppercase tracking-widest text-[#25D366] font-semibold mb-6 flex items-center gap-2"><MessageCircle className="w-4 h-4" /> Experiência dos Leitores</span>
-        <h2 className="text-3xl md:text-5xl font-light text-black tracking-tight mb-20 text-center leading-tight">
+        <span className="text-xs uppercase tracking-widest text-[#25D366] font-semibold mb-4 md:mb-6 flex items-center gap-2"><MessageCircle className="w-4 h-4" /> Experiência dos Leitores</span>
+        <h2 className="text-3xl md:text-5xl font-light text-black tracking-tight mb-10 md:mb-20 text-center leading-tight">
           O que estão comentando<br /><span className="font-medium italic">no WhatsApp?</span>
         </h2>
         <div className="w-full relative flex overflow-x-hidden">
@@ -477,26 +458,26 @@ const BlockDepoimentos = () => {
             }}
           >
             {[...chats, ...chats].map((chat, idx) => (
-              <div key={idx} style={{ padding: '9px' }} className="w-[300px] h-[620px] md:w-[330px] md:h-[650px] shrink-0 bg-[#111] rounded-[3rem] shadow-2xl relative border border-[#222] flex flex-col pointer-events-none select-none">
+              <div key={idx} style={{ padding: '8px' }} className="w-[260px] h-[520px] md:w-[300px] md:h-[600px] shrink-0 bg-[#111] rounded-[2.5rem] md:rounded-[3rem] shadow-2xl relative border border-[#222] flex flex-col pointer-events-none select-none">
                 <div className="absolute top-[14px] left-1/2 -translate-x-1/2 w-[28%] h-[20px] bg-[#111] rounded-[1rem] z-20 flex items-center justify-end pr-3">
                   <div className="w-2 h-2 rounded-full bg-[#222] ring-1 ring-[#333]" />
                 </div>
-                <div className="flex-1 flex flex-col rounded-[2.4rem] overflow-hidden relative">
+                <div className="flex-1 flex flex-col rounded-[2rem] md:rounded-[2.4rem] overflow-hidden relative">
                   <div className="flex-1 overflow-hidden relative bg-[#efeae2]">
                     <div className="absolute inset-0 opacity-[0.25] pointer-events-none" style={{ backgroundImage: 'url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png")', backgroundSize: 'cover' }} />
-                    <div className="absolute inset-0 flex flex-col justify-end px-3 py-2 z-10">
+                    <div className="absolute inset-0 flex flex-col justify-end px-3 pb-3 pt-10 md:pt-12 z-10">
                       {chat.msgs.map((msg, j) => (
                         <WhatsAppBubble key={j} text={msg.text} time={msg.time} isSender={msg.from === "r"} />
                       ))}
                     </div>
                   </div>
-                  <div className="bg-[#f0f2f5] px-3 pb-3 pt-2 flex items-center gap-2 relative z-20">
-                    <div className="flex-1 bg-white rounded-full px-4 py-2 flex items-center gap-2 min-w-0 shadow-sm">
-                      <span className="text-[#8696a0] text-[12px] flex-1">Mensagem</span>
-                      <svg viewBox="0 0 24 24" className="w-4 h-4 text-[#54656f] shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32"/></svg>
+                  <div className="bg-[#f0f2f5] px-2 py-1.5 md:px-3 md:pb-3 md:pt-2 flex items-center gap-1.5 md:gap-2 relative z-20">
+                    <div className="flex-1 bg-white rounded-full px-3 py-1.5 md:px-4 md:py-2 flex items-center gap-1.5 md:gap-2 min-w-0 shadow-sm">
+                      <span className="text-[#8696a0] text-[9.5px] md:text-[11px] flex-1">Mensagem</span>
+                      <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#54656f] shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32"/></svg>
                     </div>
-                    <div className="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center shrink-0 shadow-md">
-                      <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="currentColor"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+                    <div className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-[#25D366] flex items-center justify-center shrink-0 shadow-md">
+                      <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 md:w-5 md:h-5 text-white" fill="currentColor"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
                     </div>
                   </div>
                 </div>
@@ -529,7 +510,7 @@ const InteractiveTabletMockup = () => {
 
   return (
     <a href="https://pay.hotmart.com/E102970771D?sck=HOTMART_PRODUCT_PAGE&off=41vcno9v&hotfeature=32" target="_blank" rel="noopener noreferrer"
-      className="relative w-full max-w-[280px] md:max-w-[360px] lg:max-w-[420px] mx-auto shrink-0 block mb-12 md:mb-0"
+      className="relative w-full max-w-[280px] md:max-w-[360px] lg:max-w-[420px] mx-auto shrink-0 block mb-2 md:mb-0"
       onMouseMove={handleMouseMove} onMouseEnter={() => setHovering(true)} onMouseLeave={() => { setHovering(false); setTilt({ rotX: 0, rotY: 0 }); setGlare({ x: 30, y: 20 }); }}
       style={{ transform: `perspective(900px) rotateX(${tilt.rotX}deg) rotateY(${tilt.rotY}deg) scale3d(${hovering ? 1.03 : 1}, ${hovering ? 1.03 : 1}, 1)`, transition: hovering ? 'transform 0.12s ease-out' : 'transform 0.5s ease-out', transformStyle: 'preserve-3d' }}
     >
@@ -547,7 +528,7 @@ const InteractiveTabletMockup = () => {
 const BlockVenda = () => {
   return (
     <section className="bg-white pt-12 md:pt-16 pb-20 md:pb-24 w-full px-6 lg:px-12 flex items-center justify-center overflow-hidden">
-      <div className="max-w-[1200px] mx-auto w-full flex flex-col md:flex-row items-center justify-center gap-16 lg:gap-24 h-full">
+      <div className="max-w-[1200px] mx-auto w-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 lg:gap-24 h-full">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -558,103 +539,66 @@ const BlockVenda = () => {
           <InteractiveTabletMockup />
         </motion.div>
         
-        <div className="flex-1 space-y-6 text-center md:text-left flex flex-col justify-center">
-          <div className="space-y-1 mb-6">
-              <motion.div 
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-                className="pb-3"
-              >
-                <span className="block text-3xl md:text-4xl lg:text-[2.75rem] font-light text-black leading-[1.2]">
-                  Um convite para observar a
-                </span>
-              </motion.div>
-              <motion.div 
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-                className="pb-3"
-              >
-                <span className="block text-3xl md:text-4xl lg:text-[2.75rem] font-light text-black leading-[1.8]">
-                  própria <span className="font-medium italic">mochila</span>,
-                </span>
-              </motion.div>
-              <motion.div 
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
-                className="pb-3"
-              >
-                <span className="block text-3xl md:text-4xl lg:text-[2.75rem] font-light text-black leading-[1.8]">
-                  dar <span className="font-medium italic">sentido</span> ao que pesa e
-                </span>
-              </motion.div>
-              <motion.div 
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
-                className="pb-3"
-              >
-                <span className="block text-3xl md:text-4xl lg:text-[2.75rem] font-light text-black leading-[1.8]">
-                  continuar o <span className="font-medium italic">caminho</span>
-                </span>
-              </motion.div>
-              <motion.div 
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
-                className="pb-3"
-              >
-                <span className="block text-3xl md:text-4xl lg:text-[2.75rem] font-light text-black leading-[1.8]">
-                  com mais <span className="font-medium italic">presença.</span>
-                </span>
-              </motion.div>
-          </div>
+        <div className="flex-1 space-y-6 text-center md:text-left flex flex-col items-center md:items-start justify-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8 }}
+            className="mb-2"
+          >
+            <p className="text-xl md:text-2xl lg:text-[2.25rem] font-light text-black max-w-xl" style={{ lineHeight: '1.4' }}>
+              Um convite para observar a <br className="hidden md:block" />
+              própria <span className="font-medium italic">mochila</span>, <br className="hidden md:block" />
+              dar <span className="font-medium italic">sentido</span> ao que pesa e <br className="hidden md:block" />
+              continuar o <span className="font-medium italic">caminho</span> <br className="hidden md:block" />
+              com mais <span className="font-medium italic">presença.</span>
+            </p>
+          </motion.div>
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.7 }}
-            className="pt-8"
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+            className="pt-2 flex flex-col items-center md:items-start w-full gap-6"
           >
-            <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-6">
-              <a href="https://pay.hotmart.com/E102970771D?sck=HOTMART_PRODUCT_PAGE&off=41vcno9v&hotfeature=32" target="_blank" rel="noopener noreferrer"
-                 className="inline-flex flex-col md:flex-row items-center justify-center bg-[#F04E23] text-white px-12 py-5 uppercase text-xs md:text-sm tracking-[0.2em] md:tracking-[0.25em] font-bold hover:bg-[#d6431e] hover:scale-[1.02] hover:shadow-2xl hover:shadow-[#F04E23]/30 transition-all duration-300 rounded-[8px] gap-3">
-                <Flame className="w-5 h-5 text-white" strokeWidth={2} fill="currentColor" />
-                Venha caminhar comigo!
-              </a>
-              <div className="text-3xl md:text-4xl lg:text-[2.5rem] text-[#F04E23]">
-                R$ 29,90
+            <div className="flex flex-col items-center md:items-start gap-1.5 w-full">
+              <span className="text-[#F04E23] font-semibold text-[10px] tracking-[0.2em] uppercase">Por apenas</span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl md:text-5xl lg:text-[3rem] text-[#F04E23] font-bold tracking-tight">R$ 29,90</span>
+                <span className="text-sm text-gray-500 font-medium">à vista</span>
               </div>
             </div>
-            <div className="mt-8 flex flex-col md:flex-row items-center justify-center md:justify-start gap-8">
-               <div className="flex items-center gap-3">
-                   <Lock className="w-6 h-6 text-gray-400" strokeWidth={1.5} />
+
+            <a href="https://pay.hotmart.com/E102970771D?sck=HOTMART_PRODUCT_PAGE&off=41vcno9v&hotfeature=32" target="_blank" rel="noopener noreferrer"
+               className="inline-flex flex-row items-center justify-center bg-[#F04E23] text-white px-8 py-4 md:px-12 md:py-5 uppercase text-xs md:text-sm tracking-[0.2em] md:tracking-[0.25em] font-bold hover:bg-[#d6431e] hover:scale-[1.02] hover:shadow-2xl hover:shadow-[#F04E23]/30 transition-all duration-300 rounded-[8px] gap-2.5 w-full max-w-xs md:max-w-md text-center">
+              <Flame className="w-5 h-5 text-white" strokeWidth={2} fill="currentColor" />
+              Venha caminhar comigo!
+            </a>
+
+            <div className="w-full flex flex-col md:flex-row items-stretch justify-center md:justify-start gap-3 mt-4">
+               {/* Badge 1 */}
+               <div className="flex items-center gap-3.5 bg-gray-50/70 border border-gray-100 rounded-xl p-3.5 w-full max-w-xs mx-auto md:mx-0 md:w-auto md:flex-1">
+                   <Lock className="w-5 h-5 text-gray-400 shrink-0" strokeWidth={1.5} />
                    <div className="flex flex-col text-left">
-                       <span className="text-[10px] uppercase tracking-widest text-[#F04E23] font-semibold">Pagamento</span>
-                       <span className="text-sm font-semibold text-black">100% Seguro</span>
+                       <span className="text-[9px] uppercase tracking-wider text-[#F04E23] font-semibold">Pagamento</span>
+                       <span className="text-xs font-semibold text-black">100% Seguro</span>
                    </div>
                </div>
-               <div className="w-px h-8 bg-gray-300 hidden md:block" />
-               <div className="flex items-center gap-3">
-                   <ShieldCheck className="w-6 h-6 text-gray-400" strokeWidth={1.5} />
+               {/* Badge 2 */}
+               <div className="flex items-center gap-3.5 bg-gray-50/70 border border-gray-100 rounded-xl p-3.5 w-full max-w-xs mx-auto md:mx-0 md:w-auto md:flex-1">
+                   <ShieldCheck className="w-5 h-5 text-gray-400 shrink-0" strokeWidth={1.5} />
                    <div className="flex flex-col text-left">
-                       <span className="text-[10px] uppercase tracking-widest text-[#F04E23] font-semibold">Garantia SSL</span>
-                       <span className="text-sm font-semibold text-black">7 Dias Incondicional</span>
+                       <span className="text-[9px] uppercase tracking-wider text-[#F04E23] font-semibold">Garantia SSL</span>
+                       <span className="text-xs font-semibold text-black">7 Dias Incondicional</span>
                    </div>
                </div>
-               <div className="w-px h-8 bg-gray-300 hidden md:block" />
-               <div className="flex items-center gap-3">
-                   <Star className="w-6 h-6 text-yellow-500" strokeWidth={1.5} fill="currentColor" />
+               {/* Badge 3 */}
+               <div className="flex items-center gap-3.5 bg-gray-50/70 border border-gray-100 rounded-xl p-3.5 w-full max-w-xs mx-auto md:mx-0 md:w-auto md:flex-1">
+                   <Star className="w-5 h-5 text-yellow-500 shrink-0" strokeWidth={1.5} fill="currentColor" />
                    <div className="flex flex-col text-left">
-                       <span className="text-[10px] uppercase tracking-widest text-[#F04E23] font-semibold">Avaliação Premium</span>
-                       <span className="text-sm font-semibold text-black">Nota 5 Estrelas</span>
+                       <span className="text-[9px] uppercase tracking-wider text-[#F04E23] font-semibold">Avaliação Premium</span>
+                       <span className="text-xs font-semibold text-black">Nota 5 Estrelas</span>
                    </div>
                </div>
             </div>
@@ -723,9 +667,9 @@ const BlockFAQ = () => {
 
   return (
     <section ref={containerRef} className="bg-white pt-8 md:pt-12 pb-24 md:pb-32 px-6 lg:px-12 relative">
-      <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-16 items-start">
-        <div ref={titleBoxRef} className="w-full md:w-1/3">
-          <h2 className="text-3xl md:text-5xl font-light text-black tracking-tight mb-4 leading-[1.1]">Perguntas<br /><span className="font-medium italic">Frequentes</span></h2>
+      <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-8 md:gap-16 items-start">
+        <div ref={titleBoxRef} className="w-full md:w-1/3 text-center md:text-left">
+          <h2 className="text-3xl md:text-5xl font-light text-black tracking-tight mb-4 leading-[1.1]">Perguntas<br className="hidden md:block" /> <span className="font-medium italic">Frequentes</span></h2>
           <p className="text-gray-500 font-light text-lg">Para que você inicie essa leitura com total tranquilidade.</p>
         </div>
         <div ref={listRef} className="w-full md:w-2/3 space-y-0">

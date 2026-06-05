@@ -26,9 +26,20 @@ const NavbarAlt = () => {
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
   const [hoverShow, setHoverShow] = useState(false);
+  const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
   const location = useLocation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  // Track window size for responsive fixed header
+  useEffect(() => {
+    const checkSize = () => {
+      setIsMobileOrTablet(window.innerWidth < 1024);
+    };
+    checkSize();
+    window.addEventListener("resize", checkSize, { passive: true });
+    return () => window.removeEventListener("resize", checkSize);
+  }, []);
 
   // Show on mouse near top of screen
   useEffect(() => {
@@ -59,7 +70,7 @@ const NavbarAlt = () => {
 
         setScrolled(currentY > blurThreshold);
 
-        if (currentY <= hideThreshold) {
+        if (currentY <= hideThreshold || window.innerWidth < 1024) {
           setVisible(true);
         } else {
           setVisible(false);
@@ -90,7 +101,7 @@ const NavbarAlt = () => {
         className="fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ease-out"
         style={{
           padding: scrolled ? "8px 16px" : "0",
-          transform: (visible || hoverShow || isOpen) ? "translateY(0)" : "translateY(-100%)",
+          transform: (visible || hoverShow || isOpen || isMobileOrTablet) ? "translateY(0)" : "translateY(-100%)",
         }}
       >
         <header

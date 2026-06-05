@@ -89,9 +89,9 @@ export default function Palestras() {
 
       {/* Block 02: Texto Palestra 01 */}
       <section className="py-12 md:py-16 px-6 lg:px-12 bg-white flex justify-center">
-        <div className="max-w-5xl w-full flex flex-col lg:flex-row gap-16 lg:gap-24 items-start lg:items-center">
-          <motion.div {...fadeIn} className="flex-1 space-y-8">
-            <h2 className="text-3xl md:text-[2.75rem] lg:text-5xl font-light tracking-tight text-black">
+        <div className="max-w-5xl w-full flex flex-col lg:flex-row gap-16 lg:gap-24 items-center lg:items-center">
+          <motion.div {...fadeIn} className="flex-1 space-y-8 w-full">
+            <h2 className="text-3xl md:text-[2.75rem] lg:text-5xl font-light tracking-tight text-black text-center lg:text-left">
               <span className="block leading-[1.2]">Palestras de</span>
               <span className="block font-medium italic leading-[1.2] mb-2 md:mb-1">alto impacto</span>
               <span className="block italic leading-[1.2]">
@@ -102,11 +102,11 @@ export default function Palestras() {
             </h2>
           </motion.div>
 
-          <motion.div {...fadeIn} transition={{ delay: 0.2 }} className="flex-1 space-y-8 text-lg md:text-xl text-gray-700 font-light leading-[1.8]">
+          <motion.div {...fadeIn} transition={{ delay: 0.2 }} className="flex-1 space-y-8 text-lg md:text-xl text-gray-700 font-light leading-[1.8] text-center lg:text-left flex flex-col items-center lg:items-start w-full">
             <p>
               A partir de experiências reais vividas desde o Caminho de Santiago de Compostela até a África, passando por algumas das regiões mais distantes do Brasil, como o Sertão, Amazônia e o Monte Roraima, Pascoal conduz uma reflexão profunda e prática sobre:
             </p>
-            <ul className="space-y-4 text-black font-normal text-base md:text-lg">
+            <ul className="space-y-4 text-black font-normal text-lg md:text-xl flex flex-col items-center lg:items-start w-full">
               {[
                 "Autoconhecimento como estratégia",
                 "Autorresponsabilidade como base de liderança",
@@ -114,11 +114,11 @@ export default function Palestras() {
                 "Propósito aplicado ao dia a dia",
                 "Resiliência e tomada de decisão em cenários desafiadores"
               ].map((item, i) => (
-                <li key={i} className="flex items-start gap-4">
-                  <div className="w-6 h-6 shrink-0 flex items-center justify-center mt-1">
+                <li key={i} className="flex flex-col lg:flex-row items-center lg:items-start gap-2 lg:gap-4">
+                  <div className="w-6 h-6 shrink-0 hidden lg:flex items-center justify-center mt-1">
                     <div className="w-1.5 h-1.5 bg-black rounded-full" />
                   </div>
-                  <span className="leading-snug">{item}</span>
+                  <span className="leading-snug text-center lg:text-left">{item}</span>
                 </li>
               ))}
             </ul>
@@ -133,7 +133,7 @@ export default function Palestras() {
             style={{ y: yParallax, scale: 1.15 }}
             src="/image/foto-roberto-04.webp"
             alt="Roberto Palestrando"
-            className="absolute inset-0 w-full h-full object-cover object-top will-change-transform transform-gpu"
+            className="absolute inset-0 w-full h-full object-cover object-[35%_top] md:object-top will-change-transform transform-gpu"
             referrerPolicy="no-referrer"
           />
         </div>
@@ -145,8 +145,8 @@ export default function Palestras() {
         <div className="absolute bottom-0 inset-x-0 h-32 md:h-56 bg-gradient-to-t from-black to-transparent     pointer-events-none" />
 
         <motion.div {...fadeIn} className="relative z-10 text-center px-6 max-w-4xl mx-auto flex flex-col items-center justify-center">
-          <div className="flex flex-col items-center gap-12">
-            <h2 className="flex flex-col items-center gap-8 text-white text-2xl md:text-4xl lg:text-5xl font-light tracking-[0.2em]">
+          <div className="flex flex-col items-center gap-6 md:gap-12">
+            <h2 className="flex flex-col items-center gap-3 md:gap-8 text-white text-2xl md:text-4xl lg:text-5xl font-light tracking-[0.2em]">
               <span>AUTOCONHECIMENTO</span>
               <span>É ESTRATÉGIA</span>
             </h2>
@@ -160,13 +160,13 @@ export default function Palestras() {
       {/* Block 04: Texto Palestra 02 */}
       <section className="py-12 md:py-16 px-6 lg:px-12 bg-white flex justify-center">
         <div className="max-w-4xl w-full flex flex-col items-center text-center space-y-16">
-          <motion.div {...fadeIn} className="space-y-12">
+          <motion.div {...fadeIn} className="space-y-6 md:space-y-12">
         
             <p className="text-2xl md:text-4xl font-light text-black max-w-3xl" style={{ lineHeight: '1.8' }}>
               Com histórias reais, imagens impactantes e uma narrativa envolvente, a palestra resulta nos seguintes resultados:
             </p>
 
-            <div className="flex flex-col gap-4 text-xl md:text-3xl font-light italic text-gray-600 leading-[1.8]">
+            <div className="flex flex-col gap-2 md:gap-4 text-2xl md:text-4xl font-light italic text-gray-600 leading-[1.4] md:leading-[1.8]">
               <p>As pessoas se reconhecem</p>
               <p>Se responsabilizam</p>
               <p>Se apropriam de prática com mais clareza e direção</p>
@@ -192,7 +192,7 @@ export default function Palestras() {
             <p className="text-2xl md:text-3xl lg:text-4xl font-light text-gray-200" style={{ lineHeight: '1.9' }}>
               Porque não se trata de fazer mais. <br />
               Se trata de fazer com mais significancia. <br />
-              <span className="font-medium text-white">Consequentemente, fazer melhor.</span>
+              <span className="font-medium text-white">Consequentemente,<br className="block md:hidden" /> fazer melhor.</span>
             </p>
           </motion.div>
         </div>
@@ -212,7 +212,7 @@ export default function Palestras() {
                 "Eventos que querem ir além do conteúdo e gerar transformação."
               ].map((item, i) => (
                 <div key={i} className="flex gap-4 items-start border-b border-gray-200 pb-6">
-                  <div className="text-2xl md:text-4xl font-light text-black/30 mt-[-4px] md:mt-[-8px]">0{i + 1}</div>
+                  <div className="text-4xl md:text-5xl font-light text-black/30 mt-[-4px] md:mt-[-8px]">0{i + 1}</div>
                   <p className="text-lg md:text-xl font-light text-gray-700 leading-relaxed">{item}</p>
                 </div>
               ))}
@@ -257,7 +257,6 @@ export default function Palestras() {
                 transition={{ delay: i * 0.15 }}
                 className="flex flex-col h-full space-y-8"
               >
-                <div className="text-4xl text-gray-300 font-serif leading-none h-6">"</div>
                 <p className="text-lg md:text-xl italic text-gray-700 font-light leading-[1.8] flex-grow">
                   {dep.text}
                 </p>
@@ -419,14 +418,19 @@ export default function Palestras() {
       {/* Block 11b: Notícias Carousel */}
       <section className="pt-4 md:pt-8 pb-8 md:pb-12 bg-white relative flex flex-col justify-center overflow-hidden">
   
-        <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        <div className="hidden md:block absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+        <div className="hidden md:block absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
         
         <style>{`
           .animate-marquee-noticias {
             display: flex;
             width: max-content;
             animation: marquee 20s linear infinite;
+          }
+          @media (max-width: 768px) {
+            .animate-marquee-noticias {
+              animation: marquee 8s linear infinite;
+            }
           }
           .animate-marquee-noticias:hover {
             animation-play-state: paused;
@@ -481,7 +485,7 @@ export default function Palestras() {
 
       {/* Block 11c: Logos Jornais Estáticos */}
       <section className="pb-8 md:pb-10 px-6 lg:px-12 bg-white flex justify-center">
-        <div className="max-w-5xl w-full flex flex-wrap justify-center items-center gap-10 md:gap-16">
+        <div className="max-w-5xl w-full flex flex-nowrap justify-center items-center gap-3 sm:gap-6 md:gap-16">
           {[
             { file: "Jovem_Pan_logo.svg", link: "https://jovempan.com.br/" },
             { file: "Logotipo_G1.png", link: "https://g1.globo.com/sc/santa-catarina/videos-jornal-do-almoco-joinville/video/ong-omunga-vai-retomar-alfabetizacao-de-criancas-e-adolescentes-em-atalaia-do-norte-11378591.ghtml" },
@@ -495,12 +499,12 @@ export default function Palestras() {
               href={logo.link} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center justify-center transition-transform duration-300 hover:scale-105"
+              className="group flex items-center justify-center transition-transform duration-300 hover:scale-105 shrink-0"
             >
               <img 
                 src={`/jornal-midia/logo-jornal/${logo.file}`} 
                 alt="Jornal Logo" 
-                className="h-8 md:h-12 w-auto object-contain"
+                className="h-6 sm:h-8 md:h-12 w-auto object-contain grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
               />
             </a>
           ))}

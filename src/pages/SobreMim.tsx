@@ -68,6 +68,19 @@ const OriginsSection = () => {
   useEffect(() => {
     if (!containerRef.current) return;
 
+    // Only run pinned scroll animation on desktop (lg: >= 1024px)
+    const isDesktop = window.innerWidth >= 1024;
+    if (!isDesktop) {
+      // Ensure elements are visible on mobile/tablet
+      gsap.set([phrase1Ref.current, phrase2Ref.current, phrase3Ref.current, imgContainerRef.current], {
+        opacity: 1,
+        y: 0,
+        clipPath: 'inset(0% 0 0 0)',
+        scale: 1
+      });
+      return;
+    }
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -113,27 +126,27 @@ const OriginsSection = () => {
   return (
     <section
       ref={containerRef}
-      className="bg-white w-full h-[100vh] flex items-center justify-center overflow-hidden px-4 md:px-6 lg:px-12"
+      className="bg-white w-full lg:h-[100vh] flex items-center justify-center overflow-visible lg:overflow-hidden pt-0 pb-12 lg:py-0 px-6 lg:px-12"
     >
-      <div className="max-w-[1200px] w-full mx-auto flex flex-col lg:flex-row items-center justify-center gap-10 md:gap-20 h-full">
+      <div className="max-w-[1200px] w-full mx-auto flex flex-col lg:flex-row items-center justify-center gap-10 md:gap-20 h-full py-6">
 
         {/* Esquerda: Textos em fases — textos originais */}
-        <div className="relative flex-1 w-full max-w-[550px] min-h-[200px] flex flex-col justify-center gap-8">
+        <div className="relative flex-1 w-full max-w-[550px] flex flex-col justify-center gap-6 lg:gap-8 items-center lg:items-start text-center lg:text-left">
 
-          <div ref={phrase1Ref} className="opacity-0">
-            <span className="text-xl md:text-2xl font-light text-gray-600 text-left leading-[1.4] tracking-tight block">
+          <div ref={phrase1Ref} className="opacity-100 lg:opacity-0 w-full">
+            <span className="text-xl md:text-2xl font-light text-gray-600 text-center lg:text-left leading-[1.4] tracking-tight block">
               Lá atrás, depois de viver na correria, em busca de boas posições corporativas e de me formar em Publicidade e Propaganda, eu senti que faltava algo.
             </span>
           </div>
 
-          <div ref={phrase2Ref} className="opacity-0">
-            <span className="text-2xl md:text-3xl lg:text-4xl font-light text-black text-left leading-tight tracking-tight block">
+          <div ref={phrase2Ref} className="opacity-100 lg:opacity-0 w-full">
+            <span className="text-2xl md:text-3xl lg:text-4xl font-light text-black text-center lg:text-left leading-tight tracking-tight block">
               Faltava sentido.
             </span>
           </div>
 
-          <div ref={phrase3Ref} className="opacity-0">
-            <span className="text-xl md:text-2xl font-light text-gray-600 text-left leading-[1.4] tracking-tight block">
+          <div ref={phrase3Ref} className="opacity-100 lg:opacity-0 w-full">
+            <span className="text-xl md:text-2xl font-light text-gray-600 text-center lg:text-left leading-[1.4] tracking-tight block">
               Então, aos 27 anos, parti para uma jornada mundo afora. Fiz o Caminho de Santiago de Compostela, em 2007. Morei em países africanos por quatro anos. E, depois, vivi um mochilão de um ano pelas regiões mais distantes e vulneráveis do Brasil.
             </span>
           </div>
@@ -143,7 +156,7 @@ const OriginsSection = () => {
         {/* Direita: Foto vertical */}
         <div
           ref={imgContainerRef}
-          className="relative w-full max-w-[280px] md:max-w-[320px] lg:max-w-[350px] h-[55vh] md:h-[70vh] lg:h-[80vh] rounded-[2rem] overflow-hidden shadow-2xl shadow-black/10 shrink-0"
+          className="relative w-full max-w-[340px] md:max-w-[320px] lg:max-w-[350px] aspect-[4/5] lg:h-[80vh] rounded-[2rem] overflow-hidden shadow-2xl shadow-black/10 shrink-0"
         >
           <img
             src="/image/retrato-3-opt.webp"
@@ -168,6 +181,19 @@ const OmungaSection = () => {
 
   useEffect(() => {
     if (!containerRef.current) return;
+
+    // Only run pinned scroll animation on desktop (lg: >= 1024px)
+    const isDesktop = window.innerWidth >= 1024;
+    if (!isDesktop) {
+      // Ensure elements are visible on mobile/tablet
+      gsap.set([phrase1Ref.current, phrase2Ref.current, phrase3Ref.current, imgContainerRef.current], {
+        opacity: 1,
+        y: 0,
+        clipPath: 'inset(0% 0 0 0)',
+        scale: 1
+      });
+      return;
+    }
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -214,14 +240,14 @@ const OmungaSection = () => {
   return (
     <section
       ref={containerRef}
-      className="bg-white w-full h-[100vh] flex items-center justify-center overflow-hidden px-4 md:px-6 lg:px-12"
+      className="bg-white w-full lg:h-[100vh] flex items-center justify-center overflow-visible lg:overflow-hidden pt-4 pb-12 lg:py-0 px-6 lg:px-12"
     >
-      <div className="max-w-[1400px] w-full mx-auto flex flex-col lg:flex-row items-center justify-center gap-12 md:gap-16 h-full">
+      <div className="max-w-[1400px] w-full mx-auto flex flex-col-reverse lg:flex-row items-center justify-center gap-10 lg:gap-16 h-full py-6">
 
         {/* Esquerda: Imagem retangular horizontal */}
         <div
           ref={imgContainerRef}
-          className="relative w-full max-w-[420px] lg:max-w-[500px] aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-2xl shadow-black/10 shrink-0"
+          className="relative w-full max-w-[420px] lg:max-w-[500px] aspect-[16/9] lg:aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-2xl shadow-black/10 shrink-0"
         >
           <img
             src="/image/roberto-pascoal-leitura-indigena.webp"
@@ -232,22 +258,22 @@ const OmungaSection = () => {
         </div>
 
         {/* Direita: Textos em fases */}
-        <div className="relative flex-1 w-full max-w-[620px] min-h-[200px] flex flex-col justify-center gap-8">
+        <div className="relative flex-1 w-full max-w-[620px] flex flex-col justify-center gap-6 lg:gap-8 items-center lg:items-start text-center lg:text-left">
 
-          <div ref={phrase1Ref} className="opacity-0">
-            <span className="text-xl md:text-2xl font-light text-gray-600 text-left leading-[1.4] tracking-tight block">
+          <div ref={phrase1Ref} className="opacity-100 lg:opacity-0 w-full">
+            <span className="text-xl md:text-2xl font-light text-gray-600 text-center lg:text-left leading-[1.4] tracking-tight block">
               Me tornei empreendedor social. Fundei a OMUNGA, Grife Social e Instituto, um empreendimento social que incentiva a cultura da leitura, amplia a visão de mundo e desenvolve potencialidades humanas.
             </span>
           </div>
 
-          <div ref={phrase2Ref} className="opacity-0">
-            <span className="text-xl md:text-2xl font-light text-gray-600 text-left leading-[1.4] tracking-tight block">
+          <div ref={phrase2Ref} className="opacity-100 lg:opacity-0 w-full">
+            <span className="text-xl md:text-2xl font-light text-gray-600 text-center lg:text-left leading-[1.4] tracking-tight block">
               Distribuímos livros, criamos espaços literários, realizamos ações de desenvolvimento de professores no seu próprio território e contribuímos para a valorização e perpetuação de memórias. Sempre, unicamente, para atender crianças e professores das regiões mais distantes e isoladas do Brasil.
             </span>
           </div>
 
-          <div ref={phrase3Ref} className="opacity-0">
-            <span className="text-2xl md:text-3xl lg:text-4xl font-light text-black text-left leading-tight tracking-tight block">
+          <div ref={phrase3Ref} className="opacity-100 lg:opacity-0 w-full">
+            <span className="text-2xl md:text-3xl lg:text-4xl font-light text-black text-center lg:text-left leading-tight tracking-tight block">
               E, eu me preenchi.<br /><span className="font-medium">Me encontrei.</span>
             </span>
           </div>
@@ -473,7 +499,7 @@ const TodaySection = () => {
 
             <div ref={p5Ref} className={phraseClass}>
               <span className={bigText} style={textShadowStyle}>
-                Sou empreendedor social, palestrante e um escritor em construção. Vivo entre expedições, Florianópolis, com seus pores do sol e um certo “beach office”, e Joinville, no escritório da OMUNGA, reencontrando pessoas que amo.
+                Sou empreendedor social, palestrante e um autor em construção. Vivo entre expedições, Florianópolis, com seus pores do sol e um certo “beach office”, e Joinville, no escritório da OMUNGA, reencontrando pessoas que amo.
               </span>
             </div>
 
@@ -500,28 +526,11 @@ const ClosingSection = () => {
       ref={sectionRef}
       className="relative bg-white py-20 md:py-24 flex flex-col justify-center overflow-hidden"
     >
-      {/* Watermark tipográfico — 'HOJE' com maior contraste e legibilidade */}
-      <span
-        aria-hidden="true"
-        className="absolute inset-0 flex items-center justify-center select-none pointer-events-none"
-        style={{
-          fontSize: 'clamp(8rem, 25vw, 25rem)',
-          fontWeight: 800,
-          color: 'rgba(0,0,0,0.03)', // Fundo cinza super leve preenchendo a letra
-          WebkitTextStroke: '2px rgba(0,0,0,0.06)', // Bordas mais densas e visíveis
-          letterSpacing: '-0.04em',
-          lineHeight: 1,
-          userSelect: 'none',
-        }}
-      >
-        HOJE
-      </span>
-
       {/* Conteúdo principal - ajustado para redução de altura */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-8 md:px-14 lg:px-20">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-8 md:px-14 lg:px-20 flex flex-col items-center justify-center text-center">
 
         {/* Frases — curtain wipe da esquerda, sem rolar */}
-        <div className="space-y-3 mb-8">
+        <div className="space-y-3 mb-8 text-center w-full">
           {phrases.map((phrase, i) => (
             <div key={i} className="overflow-hidden">
               <motion.span
@@ -532,7 +541,7 @@ const ClosingSection = () => {
                   delay: 0.3 + i * 0.18,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="block text-xl md:text-2xl font-light text-black/70 leading-snug"
+                className="block text-2xl md:text-3xl font-light text-black/70 leading-snug"
               >
                 {phrase}
               </motion.span>
@@ -541,12 +550,12 @@ const ClosingSection = () => {
         </div>
 
         {/* Clímax: E sigo caminhando */}
-        <div className="overflow-hidden mb-6 md:mb-8">
+        <div className="overflow-hidden mb-6 md:mb-8 text-center w-full py-2">
           <motion.span
             initial={{ clipPath: 'inset(-20% 100% -20% 0)' }}
             animate={isInView ? { clipPath: 'inset(-20% 0% -20% 0)' } : {}}
             transition={{ duration: 1.1, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="block text-2xl md:text-3xl lg:text-4xl font-medium text-black leading-tight tracking-tight text-balance"
+            className="block text-3xl md:text-4xl lg:text-5xl font-medium text-black leading-tight tracking-tight text-balance"
           >
             E sigo caminhando.
           </motion.span>
@@ -557,7 +566,7 @@ const ClosingSection = () => {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 1.2 }}
-          className="text-base text-black/50 max-w-lg leading-relaxed mb-10 md:mb-12"
+          className="text-lg md:text-xl text-black/50 max-w-lg leading-relaxed mb-10 md:mb-12 text-center mx-auto w-full"
         >
           Com coragem, persistência e resiliência. E, principalmente… com fé na humanidade.
         </motion.p>
@@ -567,7 +576,7 @@ const ClosingSection = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1.4 }}
-          className="flex flex-col sm:flex-row items-center sm:items-start gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full"
         >
           <a
             href="/palestras"
@@ -640,10 +649,17 @@ const SobreMim = () => {
             transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
             className="text-[10px] md:text-sm uppercase text-gray-500 font-medium block"
           >
-            Empreendedor Social &nbsp;&bull;&nbsp; Palestrante &nbsp;&bull;&nbsp; Escritor
+            {/* Desktop version */}
+            <span className="hidden md:inline">
+              Empreendedor Social &nbsp;&bull;&nbsp; Palestrante &nbsp;&bull;&nbsp; Autor
+            </span>
+            {/* Mobile version */}
+            <span className="inline md:hidden">
+              Empreendedor Social <br /> Palestrante &nbsp;&bull;&nbsp; Autor
+            </span>
           </motion.span>
 
-          <h1 className="text-6xl md:text-8xl lg:text-[8.5rem] font-light tracking-tighter text-black leading-none">
+          <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-light tracking-tighter text-black leading-none">
             Roberto <span className="font-serif italic font-medium">Pascoal</span>
           </h1>
 
@@ -676,7 +692,7 @@ const SobreMim = () => {
       </section>
 
       {/* ── KEYWORDS MARQUEE ── */}
-      <section className="py-16 overflow-hidden border-y border-gray-100">
+      <section className="py-6 md:py-16 overflow-hidden border-y border-gray-100">
         <div className="flex whitespace-nowrap">
           <div className="marquee-track flex shrink-0 gap-16 pr-16">
             {marqueeItems.map((word, i) => (
@@ -714,7 +730,7 @@ const SobreMim = () => {
         />
 
         {/* Conteúdo: texto alinhado à direita */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 flex justify-end py-24">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 flex justify-center lg:justify-end py-24">
           <div className="max-w-md lg:max-w-lg">
             <motion.div
               initial={{ clipPath: 'inset(0 100% 0 0)', opacity: 0 }}
@@ -722,7 +738,7 @@ const SobreMim = () => {
               viewport={{ once: true }}
               transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h2 className="text-2xl md:text-3xl lg:text-[2rem] font-sans font-light tracking-tight text-white leading-snug">
+              <h2 className="text-2xl md:text-3xl lg:text-[2rem] font-sans font-light tracking-tight text-white leading-snug text-center lg:text-left">
                 "Tudo o que eu buscava mundo afora… estava mundo adentro. Dentro de mim."
               </h2>
             </motion.div>
@@ -731,7 +747,7 @@ const SobreMim = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.9 }}
-              className="mt-6 text-xs uppercase tracking-[0.3em] text-white/50"
+              className="mt-6 text-xs uppercase tracking-[0.3em] text-white/50 text-center lg:text-left"
             >
               — Roberto Pascoal
             </motion.div>

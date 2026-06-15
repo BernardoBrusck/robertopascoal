@@ -169,7 +169,7 @@ const NavbarAlt = () => {
                   <FacebookIcon size={20} />
                 </a>
                 <a
-                  href="mailto:atendimento@dazprodutora.com.br"
+                  href="mailto:atendimento@dazprodutora.com.br?bcc=roberto.pascoal@omunga.com"
                   className={`p-2 transition-transform duration-300 ${textColor} hover:scale-110`}
                   aria-label="E-mail Roberto Pascoal"
                 >

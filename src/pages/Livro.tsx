@@ -687,7 +687,7 @@ const Footer = () => (
       <a href="https://www.instagram.com/roberto_pascoal/" target="_blank" rel="noopener noreferrer" className="p-2.5 text-gray-400 hover:text-black transition-colors"><Instagram size={18} strokeWidth={1.5} /></a>
       <a href="https://www.linkedin.com/in/roberto-pascoal/" target="_blank" rel="noopener noreferrer" className="p-2.5 text-gray-400 hover:text-black transition-colors"><Linkedin size={18} strokeWidth={1.5} /></a>
       <a href="https://www.facebook.com/roberto.pascoal.9" target="_blank" rel="noopener noreferrer" className="p-2.5 text-gray-400 hover:text-black transition-colors"><FacebookIcon className="w-[18px] h-[18px]" /></a>
-      <a href="mailto:atendimento@dazprodutora.com.br" className="p-2.5 text-gray-400 hover:text-black transition-colors"><Mail size={18} strokeWidth={1.5} /></a>
+      <a href="mailto:atendimento@dazprodutora.com.br?bcc=roberto.pascoal@omunga.com" className="p-2.5 text-gray-400 hover:text-black transition-colors"><Mail size={18} strokeWidth={1.5} /></a>
     </div>
     <p className="text-xs uppercase tracking-[0.2em] text-gray-400">© {new Date().getFullYear()} Roberto Pascoal — E-book</p>
   </footer>

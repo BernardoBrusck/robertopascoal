@@ -20,7 +20,7 @@ const SOCIALS = [
   { iconType: 'instagram', href: 'https://www.instagram.com/roberto_pascoal/', label: 'Instagram' },
   { iconType: 'linkedin', href: 'https://www.linkedin.com/in/roberto-pascoal/', label: 'LinkedIn' },
   { iconType: 'facebook', href: 'https://www.facebook.com/roberto.pascoal.9', label: 'Facebook' },
-  { iconType: 'email', href: 'mailto:atendimento@dazprodutora.com.br', label: 'E-mail' },
+  { iconType: 'email', href: 'mailto:atendimento@dazprodutora.com.br?bcc=roberto.pascoal@omunga.com', label: 'E-mail' },
 ];
 
 function CopyButton({ text, className, ...props }: ButtonProps & { text: string }) {

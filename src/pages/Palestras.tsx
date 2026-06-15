@@ -3,6 +3,7 @@ import { NavbarAlt } from "@/components/ui/navbar-alt";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { CheckCircle2, MapPin, Calendar, Users, Clock, Building2, User, Mail, Phone, MessageSquare, ArrowRight, Paperclip, Trash2, UploadCloud, FileText, Check, Loader2, Play } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function Palestras() {
   const parallaxRef = useRef<HTMLDivElement>(null);
@@ -30,8 +31,35 @@ export default function Palestras() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate sending email
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    try {
+      // 1. Salva a mensagem no banco de dados Supabase (leads) para controle
+      const { error } = await supabase.from('leads').insert({
+        name: formData.nome,
+        email: formData.email,
+        message: `Assunto: ${formData.assunto}\n\nMensagem: ${formData.mensagem}`,
+        source: 'palestra'
+      });
+
+      if (error) throw error;
+    } catch (err) {
+      console.error('Erro ao salvar lead no Supabase:', err);
+    }
+
+    // 2. Encaminha a mensagem via mailto abrindo o cliente de e-mail do usuário
+    const subject = encodeURIComponent(`Orçamento de Palestra: ${formData.assunto}`);
+    const body = encodeURIComponent(
+      `Olá Roberto,\n\n` +
+      `Uma nova solicitação de orçamento de palestra foi preenchida no site:\n\n` +
+      `Nome do cliente: ${formData.nome}\n` +
+      `E-mail do cliente: ${formData.email}\n` +
+      `Assunto: ${formData.assunto}\n\n` +
+      `Mensagem:\n${formData.mensagem}`
+    );
+
+    // Redireciona para o cliente de e-mail do usuário
+    window.location.href = `mailto:roberto.pascoal@omunga.com?subject=${subject}&body=${body}`;
+
     setIsSubmitting(false);
     setSubmitSuccess(true);
   };
@@ -525,7 +553,7 @@ export default function Palestras() {
               </div>
               <h3 className="text-3xl font-light tracking-tight text-neutral-900">Mensagem Enviada!</h3>
               <p className="text-neutral-500 font-light leading-relaxed text-sm md:text-base max-w-md mx-auto">
-                Sua solicitação de orçamento foi enviada com sucesso para <span className="text-neutral-900 font-normal">roberto@robertopascoal.com</span>. Retornaremos o contato o mais breve possível.
+                Sua solicitação de orçamento foi enviada com sucesso para <span className="text-neutral-900 font-normal">roberto.pascoal@omunga.com</span>. Retornaremos o contato o mais breve possível.
               </p>
               <div className="pt-4">
                 <button

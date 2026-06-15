@@ -58,7 +58,7 @@ export default function Palestras() {
     );
 
     // Redireciona para o cliente de e-mail do usuário
-    window.location.href = `mailto:roberto.pascoal@omunga.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:atendimento@dazprodutora.com.br?bcc=roberto.pascoal@omunga.com&subject=${subject}&body=${body}`;
 
     setIsSubmitting(false);
     setSubmitSuccess(true);
@@ -553,7 +553,7 @@ export default function Palestras() {
               </div>
               <h3 className="text-3xl font-light tracking-tight text-neutral-900">Mensagem Enviada!</h3>
               <p className="text-neutral-500 font-light leading-relaxed text-sm md:text-base max-w-md mx-auto">
-                Sua solicitação de orçamento foi enviada com sucesso para <span className="text-neutral-900 font-normal">roberto.pascoal@omunga.com</span>. Retornaremos o contato o mais breve possível.
+                Sua solicitação de orçamento foi enviada com sucesso para <span className="text-neutral-900 font-normal">atendimento@dazprodutora.com.br</span>. Retornaremos o contato o mais breve possível.
               </p>
               <div className="pt-4">
                 <button

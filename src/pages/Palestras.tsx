@@ -58,7 +58,7 @@ export default function Palestras() {
     );
 
     // Redireciona para o cliente de e-mail do usuário
-    window.location.href = `mailto:atendimento@dazprodutora.com.br?bcc=roberto.pascoal@omunga.com&subject=${subject}&body=${body}`;
+    window.location.href = `mailto:atendimento@dazprodutora.com.br?subject=${subject}&body=${body}`;
 
     setIsSubmitting(false);
     setSubmitSuccess(true);

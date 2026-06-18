@@ -33,7 +33,6 @@ export default function Palestras() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    try {
       // 1. Salvar o lead no Supabase
       const { error: dbError } = await supabase
         .from("leads")

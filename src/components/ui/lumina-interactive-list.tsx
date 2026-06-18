@@ -3,8 +3,8 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { motion } from 'framer-motion';
 
 const slides = [
-  { title: "Roberto Pascoal", description: "Escritor. Palestrante. Fundador da Omunga.", media: "/hero/hero-01.jpg", mobilePosition: "center center" },
-  { title: "Não é sobre se sentir pronto", description: "É sobre ser suficiente para continuar caminhando.", media: "/hero/hero-02.jpg", mobilePosition: "center center" },
+  { title: "Roberto Pascoal", description: "Escritor. Palestrante. Fundador da Omunga.", media: "/hero/hero-01.jpg", mobilePosition: "75% center" },
+  { title: "Não é sobre se sentir pronto", description: "É sobre ser suficiente para continuar caminhando.", media: "/hero/hero-02.jpg", mobilePosition: "55% center" },
   { title: "O Caminho", description: "Sentido, propósito e a jornada que nos transforma.", media: "/hero/hero-03.jpg", mobilePosition: "center center" },
   { title: "A Jornada", description: "Da Amazônia ao Sertão, da África ao Monte Roraima.", media: "/hero/hero-04.jpg", mobilePosition: "center center" },
   { title: "Multiculturalidade", description: "Quando todas as culturas coexistem, a humanidade se revela.", media: "/hero/hero-05.jpg", mobilePosition: "center center" },

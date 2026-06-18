@@ -3,6 +3,8 @@ import { NavbarAlt } from "@/components/ui/navbar-alt";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { CheckCircle2, MapPin, Calendar, Users, Clock, Building2, User, Mail, Phone, MessageSquare, ArrowRight, Paperclip, Trash2, UploadCloud, FileText, Check, Loader2, Play } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export default function Palestras() {
   const parallaxRef = useRef<HTMLDivElement>(null);
@@ -30,10 +32,50 @@ export default function Palestras() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate sending email
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsSubmitting(false);
-    setSubmitSuccess(true);
+
+    try {
+      // 1. Salvar o lead no Supabase
+      const { error: dbError } = await supabase
+        .from("leads")
+        .insert({
+          name: formData.nome,
+          email: formData.email,
+          message: `[Assunto: ${formData.assunto}] ${formData.mensagem}`,
+          source: "palestra"
+        });
+
+      if (dbError) {
+        console.error("Erro ao salvar lead no Supabase:", dbError);
+      }
+
+      // 2. Enviar o email via FormSubmit.co
+      const response = await fetch("https://formsubmit.co/ajax/atendimento@dazprodutora.com.br", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          Nome: formData.nome,
+          Email: formData.email,
+          Assunto: formData.assunto,
+          Mensagem: formData.mensagem,
+          _subject: `Roberto Pascoal - Novo contato de Palestras: ${formData.assunto}`
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao enviar o e-mail via FormSubmit");
+      }
+
+      setIsSubmitting(false);
+      setSubmitSuccess(true);
+      toast.success("Mensagem enviada com sucesso!");
+    } catch (error) {
+      console.error("Erro ao enviar formulário:", error);
+      toast.error("Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.");
+      setIsSubmitting(false);
+    }
   };
 
   const fadeIn = {
@@ -525,7 +567,7 @@ export default function Palestras() {
               </div>
               <h3 className="text-3xl font-light tracking-tight text-neutral-900">Mensagem Enviada!</h3>
               <p className="text-neutral-500 font-light leading-relaxed text-sm md:text-base max-w-md mx-auto">
-                Sua solicitação de orçamento foi enviada com sucesso para <span className="text-neutral-900 font-normal">roberto@robertopascoal.com</span>. Retornaremos o contato o mais breve possível.
+                Sua solicitação de orçamento foi enviada com sucesso para <span className="text-neutral-900 font-normal">atendimento@dazprodutora.com.br</span>. Retornaremos o contato o mais breve possível.
               </p>
               <div className="pt-4">
                 <button

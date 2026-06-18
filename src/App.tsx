@@ -19,6 +19,7 @@ import ProtectedRoute from "./components/admin/ProtectedRoute";
 import { SmoothScroll } from "./components/SmoothScroll";
 
 import { PageTransition } from "./components/PageTransition";
+import { ContactModal } from "./components/ContactModal";
 
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
@@ -50,6 +51,7 @@ const App = () => {
           <SmoothScroll>
           <Toaster />
           <Sonner />
+          <ContactModal />
           <BrowserRouter>
             <PageTransition>
               <Routes>

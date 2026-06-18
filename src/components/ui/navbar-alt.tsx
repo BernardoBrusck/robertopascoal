@@ -168,13 +168,16 @@ const NavbarAlt = () => {
                 >
                   <FacebookIcon size={20} />
                 </a>
-                <a
-                  href="mailto:atendimento@dazprodutora.com.br"
-                  className={`p-2 transition-transform duration-300 ${textColor} hover:scale-110`}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.dispatchEvent(new CustomEvent('open-contact-modal'));
+                  }}
+                  className={`p-2 transition-transform duration-300 ${textColor} hover:scale-110 focus:outline-none`}
                   aria-label="E-mail Roberto Pascoal"
                 >
                   <Mail size={20} strokeWidth={1.5} />
-                </a>
+                </button>
               </div>
 
               {/* Mobile Menu Button */}

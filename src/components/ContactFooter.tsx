@@ -65,7 +65,15 @@ const ContactFooter = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 py-12">
           <ContactBlock icon={Mail} label="E-mail">
             <div className="flex items-center gap-2">
-              <a href={`mailto:${CONTACT.email}`} className="text-sm text-foreground hover:underline underline-offset-4 break-all">{CONTACT.email}</a>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.dispatchEvent(new CustomEvent('open-contact-modal'));
+                }}
+                className="text-sm text-foreground hover:underline underline-offset-4 break-all text-left focus:outline-none"
+              >
+                {CONTACT.email}
+              </button>
               <CopyButton text={CONTACT.email} aria-label="Copiar e-mail" />
             </div>
           </ContactBlock>
@@ -83,22 +91,39 @@ const ContactFooter = () => {
           <div className="flex flex-col items-center gap-4">
             <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-muted-foreground opacity-60">Encontre online</span>
             <div className="flex items-center gap-3 mt-2">
-              {SOCIALS.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target={link.iconType === 'email' ? undefined : '_blank'}
-                  rel={link.iconType === 'email' ? undefined : 'noopener noreferrer'}
-                  aria-label={link.label}
-                  className="flex items-center gap-2.5 text-sm text-foreground hover:text-muted-foreground transition-colors px-4 py-2.5 border border-border/20 rounded-full hover:bg-muted/30 min-h-[44px]"
-                >
-                  {link.iconType === 'instagram' && <Instagram className="h-4 w-4 opacity-70" />}
-                  {link.iconType === 'linkedin' && <Linkedin className="h-4 w-4 opacity-70" />}
-                  {link.iconType === 'facebook' && <FacebookIcon className="h-4 w-4 opacity-70" />}
-                  {link.iconType === 'email' && <Mail className="h-4 w-4 opacity-70" />}
-                  <span className="font-light tracking-tight">{link.label}</span>
-                </a>
-              ))}
+              {SOCIALS.map((link) => {
+                if (link.iconType === 'email') {
+                  return (
+                    <button
+                      key={link.label}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.dispatchEvent(new CustomEvent('open-contact-modal'));
+                      }}
+                      aria-label={link.label}
+                      className="flex items-center gap-2.5 text-sm text-foreground hover:text-muted-foreground transition-colors px-4 py-2.5 border border-border/20 rounded-full hover:bg-muted/30 min-h-[44px] focus:outline-none cursor-pointer"
+                    >
+                      <Mail className="h-4 w-4 opacity-70" />
+                      <span className="font-light tracking-tight">{link.label}</span>
+                    </button>
+                  );
+                }
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.label}
+                    className="flex items-center gap-2.5 text-sm text-foreground hover:text-muted-foreground transition-colors px-4 py-2.5 border border-border/20 rounded-full hover:bg-muted/30 min-h-[44px]"
+                  >
+                    {link.iconType === 'instagram' && <Instagram className="h-4 w-4 opacity-70" />}
+                    {link.iconType === 'linkedin' && <Linkedin className="h-4 w-4 opacity-70" />}
+                    {link.iconType === 'facebook' && <FacebookIcon className="h-4 w-4 opacity-70" />}
+                    <span className="font-light tracking-tight">{link.label}</span>
+                  </a>
+                );
+              })}
             </div>
           </div>
           <p className="text-[10px] uppercase tracking-widest text-muted-foreground opacity-50">© {new Date().getFullYear()} Roberto Pascoal. Todos os direitos reservados.</p>

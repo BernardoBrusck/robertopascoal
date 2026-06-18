@@ -297,9 +297,16 @@ const Home = () => {
           <a href="https://www.facebook.com/roberto.pascoal.9" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="p-2.5 text-gray-400 hover:text-black transition-colors hover:scale-110 duration-200">
             <FacebookIcon className="w-[18px] h-[18px]" />
           </a>
-          <a href="mailto:atendimento@dazprodutora.com.br" aria-label="E-mail" className="p-2.5 text-gray-400 hover:text-black transition-colors hover:scale-110 duration-200">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              window.dispatchEvent(new CustomEvent('open-contact-modal'));
+            }}
+            aria-label="E-mail"
+            className="p-2.5 text-gray-400 hover:text-black transition-colors hover:scale-110 duration-200 focus:outline-none"
+          >
             <Mail size={18} strokeWidth={1.5} />
-          </a>
+          </button>
         </div>
         <p className="text-xs uppercase tracking-[0.2em] text-gray-400">
           © {new Date().getFullYear()} Roberto Pascoal — O Caminho
